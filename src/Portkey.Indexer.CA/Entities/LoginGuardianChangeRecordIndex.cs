@@ -4,7 +4,7 @@ using Nest;
 
 namespace Portkey.Indexer.CA.Entities;
 
-public class LoginGuardianAccountChangeRecordIndex : LoginGuardianAccountBase, IIndexBuild
+public class LoginGuardianChangeRecordIndex : LoginGuardianBase, IIndexBuild
 {
     [Keyword] public string ChangeType { get; set; }
 

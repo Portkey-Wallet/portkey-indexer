@@ -21,10 +21,12 @@ public class CAHolderTransactionDto
     /// </summary>
     public string MethodName { get; set; }
       
-    public Portkey.Indexer.CA.Entities.TokenInfo TokenInfo { get; set; }
+    public TokenInfoDto TokenInfo { get; set; }
+    
+    public NFTItemInfoDto NftInfo { get; set; }
 
-    [Name("nftInfo")]
-    public NFTInfo NFTInfo { get; set; }
+    // [Name("nftInfo")]
+    // public NFTInfo NFTInfo { get; set; }
       
     public TransactionStatus Status { get; set; }
 

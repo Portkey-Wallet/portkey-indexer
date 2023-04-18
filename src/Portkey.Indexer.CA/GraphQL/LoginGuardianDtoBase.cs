@@ -2,7 +2,7 @@ using GraphQL;
 
 namespace Portkey.Indexer.CA.GraphQL;
 
-public class LoginGuardianAccountDtoBase
+public class LoginGuardianDtoBase
 {
     public string Id { get; set; }
     public string ChainId { get; set; }
@@ -11,5 +11,5 @@ public class LoginGuardianAccountDtoBase
     [Name("caAddress")]
     public string CAAddress { get; set; }
     public string Manager { get; set; }
-    public GuardianAccountDto LoginGuardianAccount { get; set; }
+    public GuardianDto LoginGuardian { get; set; }
 }

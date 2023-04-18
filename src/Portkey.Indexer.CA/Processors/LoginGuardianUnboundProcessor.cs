@@ -9,12 +9,12 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class LoginGuardianAccountUnboundProcessor : LoginGuardianAccountProcessorBase<LoginGuardianAccountUnbound>
+public class LoginGuardianUnboundProcessor : LoginGuardianProcessorBase<LoginGuardianUnbound>
 {
-    public LoginGuardianAccountUnboundProcessor(ILogger<LoginGuardianAccountUnboundProcessor> logger,
+    public LoginGuardianUnboundProcessor(ILogger<LoginGuardianUnboundProcessor> logger,
         IObjectMapper objectMapper,
-        IAElfIndexerClientEntityRepository<LoginGuardianAccountIndex, LogEventInfo> repository,
-        IAElfIndexerClientEntityRepository<LoginGuardianAccountChangeRecordIndex, LogEventInfo> changeRecordRepository,
+        IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo> repository,
+        IAElfIndexerClientEntityRepository<LoginGuardianChangeRecordIndex, LogEventInfo> changeRecordRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base(logger, objectMapper, repository,
         changeRecordRepository, contractInfoOptions)
     {
@@ -25,12 +25,12 @@ public class LoginGuardianAccountUnboundProcessor : LoginGuardianAccountProcesso
         return ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress;
     }
 
-    protected override async Task HandleEventAsync(LoginGuardianAccountUnbound eventValue, LogEventContext context)
+    protected override async Task HandleEventAsync(LoginGuardianUnbound eventValue, LogEventContext context)
     {
         await AddChangeRecordAsync(eventValue.CaAddress.ToBase58(), eventValue.CaHash.ToHex(),
-            eventValue.Manager.ToBase58(), new Entities.GuardianAccount
+            eventValue.Manager.ToBase58(), new Entities.Guardian
             {
-                Value = eventValue.LoginGuardianAccount
-            }, nameof(LoginGuardianAccountUnbound), context);
+                IdentifierHash = eventValue.LoginGuardianIdentifierHash.ToHex()
+            }, nameof(LoginGuardianUnbound), context);
     }
 }

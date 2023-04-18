@@ -4,7 +4,7 @@ using Nest;
 
 namespace Portkey.Indexer.CA.Entities;
 
-public class LoginGuardianAccountIndex : LoginGuardianAccountBase, IIndexBuild
+public class LoginGuardianIndex : LoginGuardianBase, IIndexBuild
 {
 
 }

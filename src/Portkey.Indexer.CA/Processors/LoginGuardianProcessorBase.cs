@@ -9,16 +9,16 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public abstract class LoginGuardianAccountProcessorBase<TEvent> : AElfLogEventProcessorBase<TEvent,LogEventInfo> where TEvent : IEvent<TEvent>, new()
+public abstract class LoginGuardianProcessorBase<TEvent> : AElfLogEventProcessorBase<TEvent,LogEventInfo> where TEvent : IEvent<TEvent>, new()
 {
-    protected readonly IAElfIndexerClientEntityRepository<LoginGuardianAccountIndex, LogEventInfo> Repository;
-    private readonly IAElfIndexerClientEntityRepository<LoginGuardianAccountChangeRecordIndex, LogEventInfo> ChangeRecordRepository;
+    protected readonly IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo> Repository;
+    private readonly IAElfIndexerClientEntityRepository<LoginGuardianChangeRecordIndex, LogEventInfo> ChangeRecordRepository;
     protected readonly ContractInfoOptions ContractInfoOptions;
     protected readonly IObjectMapper ObjectMapper;
 
-    protected LoginGuardianAccountProcessorBase(ILogger<LoginGuardianAccountProcessorBase<TEvent>> logger,
-        IObjectMapper objectMapper, IAElfIndexerClientEntityRepository<LoginGuardianAccountIndex, LogEventInfo> repository,
-        IAElfIndexerClientEntityRepository<LoginGuardianAccountChangeRecordIndex, LogEventInfo> changeRecordRepository,
+    protected LoginGuardianProcessorBase(ILogger<LoginGuardianProcessorBase<TEvent>> logger,
+        IObjectMapper objectMapper, IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo> repository,
+        IAElfIndexerClientEntityRepository<LoginGuardianChangeRecordIndex, LogEventInfo> changeRecordRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base(logger)
     {
         ObjectMapper = objectMapper;
@@ -27,19 +27,19 @@ public abstract class LoginGuardianAccountProcessorBase<TEvent> : AElfLogEventPr
         ContractInfoOptions = contractInfoOptions.Value;
     }
 
-    protected async Task AddChangeRecordAsync(string caAddress, string caHash, string manager, GuardianAccount loginGuardianAccount, string changeType,LogEventContext context)
+    protected async Task AddChangeRecordAsync(string caAddress, string caHash, string manager, Guardian loginGuardian, string changeType,LogEventContext context)
     {
         var changeRecordId = IdGenerateHelper.GetId(context.ChainId, caAddress,
-            loginGuardianAccount.Value,changeType,context.TransactionId);
+            loginGuardian.IdentifierHash,changeType,context.TransactionId);
         var changeRecordIndex = await ChangeRecordRepository.GetFromBlockStateSetAsync(changeRecordId, context.ChainId);
         if (changeRecordIndex != null) return;
-        changeRecordIndex = new LoginGuardianAccountChangeRecordIndex
+        changeRecordIndex = new LoginGuardianChangeRecordIndex
         {
             Id = changeRecordId,
             CAAddress = caAddress,
             CAHash = caHash,
             Manager = manager,
-            LoginGuardianAccount = loginGuardianAccount,
+            LoginGuardian = loginGuardian,
             ChangeType = changeType
         };
         ObjectMapper.Map(context, changeRecordIndex);

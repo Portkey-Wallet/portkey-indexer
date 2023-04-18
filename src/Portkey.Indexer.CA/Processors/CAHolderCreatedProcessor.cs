@@ -13,13 +13,17 @@ public class CAHolderCreatedProcessor: AElfLogEventProcessorBase<CAHolderCreated
 {
     private readonly IObjectMapper _objectMapper;
     private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _repository;
+    private readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> _caHolderManagerIndexRepository;
     private readonly ContractInfoOptions _contractInfoOptions;
     
     public CAHolderCreatedProcessor(ILogger<CAHolderCreatedProcessor> logger, IObjectMapper objectMapper,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository, IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base(logger)
+        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
+        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base(logger)
     {
         _objectMapper = objectMapper;
         _repository = repository;
+        _caHolderManagerIndexRepository = caHolderManagerIndexRepository;
         _contractInfoOptions = contractInfoOptions.Value;
     }
     
@@ -30,6 +34,34 @@ public class CAHolderCreatedProcessor: AElfLogEventProcessorBase<CAHolderCreated
 
     protected override async Task HandleEventAsync(CAHolderCreated eventValue, LogEventContext context)
     {
+        //check manager is already exist in caHolderManagerIndex
+        var managerIndexId = IdGenerateHelper.GetId(context.ChainId, eventValue.Manager.ToBase58());
+        var caHolderManagerIndex =
+            await _caHolderManagerIndexRepository.GetFromBlockStateSetAsync(managerIndexId, context.ChainId);
+        if (caHolderManagerIndex == null)
+        {
+            caHolderManagerIndex = new CAHolderManagerIndex
+            {
+                Id = managerIndexId,
+                Manager = eventValue.Manager.ToBase58(),
+                CAAddresses = new List<string>()
+                {
+                    eventValue.CaAddress.ToBase58()
+                }
+            };
+        }
+        else
+        {
+            if (!caHolderManagerIndex.CAAddresses.Contains(eventValue.CaAddress.ToBase58()))
+            {
+                caHolderManagerIndex.CAAddresses.Add(eventValue.CaAddress.ToBase58());
+            }
+        }
+        _objectMapper.Map<LogEventContext, CAHolderManagerIndex>(context, caHolderManagerIndex);
+        await _caHolderManagerIndexRepository.AddOrUpdateAsync(caHolderManagerIndex);
+        
+        
+        //check ca address if already exist in caHolderIndex
         var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.CaAddress.ToBase58());
         var caHolderIndex = await _repository.GetFromBlockStateSetAsync(indexId, context.ChainId);
         if (caHolderIndex != null)
@@ -45,12 +77,12 @@ public class CAHolderCreatedProcessor: AElfLogEventProcessorBase<CAHolderCreated
             CAHash = eventValue.CaHash.ToHex(),
             CAAddress = eventValue.CaAddress.ToBase58(),
             Creator = eventValue.Creator.ToBase58(),
-            Managers = new List<ManagerInfo>()
+            ManagerInfos = new List<Entities.ManagerInfo>()
             {
-                new ManagerInfo()
+                new Entities.ManagerInfo()
                 {
-                    Manager = eventValue.Manager.ToBase58(),
-                    DeviceString = eventValue.DeviceString
+                    Address = eventValue.Manager.ToBase58(),
+                    ExtraData = eventValue.ExtraData
                 }
             }
         };

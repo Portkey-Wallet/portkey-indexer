@@ -14,6 +14,7 @@ public class TokenTransferredProcessor : CAHolderTransactionProcessorBase<Transf
 {
     public TokenTransferredProcessor(ILogger<TokenTransferredProcessor> logger,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
         IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> nftInfoIndexRepository,
@@ -21,7 +22,7 @@ public class TokenTransferredProcessor : CAHolderTransactionProcessorBase<Transf
         IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
             caHolderTransactionIndexRepository,
         IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions, IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo> caHolderTransactionAddressIndexRepository) :
-        base(logger, caHolderIndexRepository, caHolderTransactionIndexRepository, tokenInfoIndexRepository,
+        base(logger, caHolderIndexRepository,caHolderManagerIndexRepository, caHolderTransactionIndexRepository, tokenInfoIndexRepository,
             nftInfoIndexRepository,caHolderTransactionAddressIndexRepository,
             contractInfoOptions, caHolderTransactionInfoOptions, objectMapper)
     {
@@ -40,11 +41,13 @@ public class TokenTransferredProcessor : CAHolderTransactionProcessorBase<Transf
             eventValue.From.ToBase58()),context.ChainId);
         var tokenInfoIndex =
             await TokenInfoIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol),context.ChainId);
+        var nftInfoIndex =
+            await NFTInfoIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol),context.ChainId);
         if (from != null)
         {
             await AddCAHolderTransactionAddressAsync(from.CAAddress, eventValue.To.ToBase58(), context.ChainId,
                 context);
-            await CAHolderTransactionIndexRepository.AddOrUpdateAsync(GetCaHolderTransactionIndex(eventValue, tokenInfoIndex,
+            await CAHolderTransactionIndexRepository.AddOrUpdateAsync(GetCaHolderTransactionIndex(eventValue, tokenInfoIndex,nftInfoIndex,
                 context));
         }
 
@@ -54,26 +57,30 @@ public class TokenTransferredProcessor : CAHolderTransactionProcessorBase<Transf
         await AddCAHolderTransactionAddressAsync(to.CAAddress, eventValue.From.ToBase58(), context.ChainId, context);
         if (from != null) return;
         await CAHolderTransactionIndexRepository.AddOrUpdateAsync(GetCaHolderTransactionIndex(eventValue,
-            tokenInfoIndex, context));
+            tokenInfoIndex,nftInfoIndex, context));
     }
     
-    private CAHolderTransactionIndex GetCaHolderTransactionIndex(Transferred transferred, TokenInfoIndex tokenInfoIndex, LogEventContext context)
+    private CAHolderTransactionIndex GetCaHolderTransactionIndex(Transferred transferred, TokenInfoIndex tokenInfoIndex, 
+        NFTInfoIndex nftInfoIndex, LogEventContext context)
     {
         var index = new CAHolderTransactionIndex
         {
             Id = IdGenerateHelper.GetId(context.BlockHash, context.TransactionId),
             Timestamp = context.BlockTime.ToTimestamp().Seconds,
             FromAddress = context.From,
-            TokenInfo = new Entities.TokenInfo
-            {
-                Decimals = tokenInfoIndex.Decimals,
-                Symbol = tokenInfoIndex.Symbol
-            },
+            // TokenInfo = new Entities.TokenInfo
+            // {
+            //     Decimals = tokenInfoIndex.Decimals,
+            //     Symbol = tokenInfoIndex.Symbol
+            // },
+            TokenInfo = tokenInfoIndex,
+            NftInfo = nftInfoIndex,
             TransactionFee = GetTransactionFee(context.ExtraProperties),
             TransferInfo = new TransferInfo
             {
                 Amount = transferred.Amount,
                 FromAddress = transferred.From.ToBase58(),
+                FromCAAddress = transferred.From.ToBase58(),
                 ToAddress = transferred.To.ToBase58(),
                 FromChainId = context.ChainId,
                 ToChainId = context.ChainId

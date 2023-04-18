@@ -3,7 +3,7 @@ using Volo.Abp.Application.Dtos;
 
 namespace Portkey.Indexer.CA.GraphQL;
 
-public class GetLoginGuardianAccountInfoDto : PagedResultRequestDto
+public class GetLoginGuardianInfoDto : PagedResultRequestDto
 {
     public string ChainId { get; set; }
     
@@ -13,5 +13,5 @@ public class GetLoginGuardianAccountInfoDto : PagedResultRequestDto
     [Name("caAddress")]
     public string CAAddress { get; set; }
     
-    public string LoginGuardianAccount { get; set; }
+    public string LoginGuardian { get; set; }
 }

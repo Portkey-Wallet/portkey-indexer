@@ -4,6 +4,7 @@ using System.Linq;
 using AElf.Indexing.Elasticsearch;
 using AElfIndexer;
 using AElfIndexer.Grains;
+// using AElfIndexer.MongoDB;
 using GraphQL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
@@ -31,6 +32,7 @@ namespace Portkey.Indexer.TestDapp;
     typeof(AbpAutoMapperModule),
     typeof(AbpAspNetCoreSerilogModule)
     ,typeof(PortkeyIndexerCAModule)
+    // typeof(AElfIndexerMongoDbModule)
     )]
 public class PortkeyIndexerDappModule : AbpModule
 {

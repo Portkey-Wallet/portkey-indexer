@@ -11,12 +11,12 @@ namespace Portkey.Indexer.CA.Processors;
 
 public class NFTProtocolCreatedProcessor : AElfLogEventProcessorBase<NFTProtocolCreated,LogEventInfo>
 {
-    private readonly IAElfIndexerClientEntityRepository<NFTProtocolInfoIndex, LogEventInfo> _repository;
+    private readonly IAElfIndexerClientEntityRepository<NFTCollectionInfoIndex, LogEventInfo> _repository;
     private readonly ContractInfoOptions _contractInfoOptions;
     private readonly IObjectMapper _objectMapper;
 
     public NFTProtocolCreatedProcessor(ILogger<NFTProtocolCreatedProcessor> logger, IObjectMapper objectMapper,
-        IAElfIndexerClientEntityRepository<NFTProtocolInfoIndex, LogEventInfo> repository,
+        IAElfIndexerClientEntityRepository<NFTCollectionInfoIndex, LogEventInfo> repository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base(logger)
     {
         _objectMapper = objectMapper;
@@ -31,16 +31,16 @@ public class NFTProtocolCreatedProcessor : AElfLogEventProcessorBase<NFTProtocol
 
     protected override async Task HandleEventAsync(NFTProtocolCreated eventValue, LogEventContext context)
     {
-        var id = IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol);
-        var nftProtocolInfoIndex = await _repository.GetFromBlockStateSetAsync(id,context.ChainId);
-        if (nftProtocolInfoIndex != null) return;
-        nftProtocolInfoIndex = _objectMapper.Map<NFTProtocolCreated, NFTProtocolInfoIndex>(eventValue);
-        nftProtocolInfoIndex.Id = IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol);
-        nftProtocolInfoIndex.ImageUrl = 
-            eventValue.Metadata.Value?.TryGetValue("ImageUrl", out var imageUrl)??false ? imageUrl : null;
-        nftProtocolInfoIndex.Creator = eventValue.Creator.ToBase58();
-        nftProtocolInfoIndex.Supply = 0;
-        _objectMapper.Map(context, nftProtocolInfoIndex);
-        await _repository.AddOrUpdateAsync(nftProtocolInfoIndex);
+        // var id = IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol);
+        // var nftProtocolInfoIndex = await _repository.GetFromBlockStateSetAsync(id,context.ChainId);
+        // if (nftProtocolInfoIndex != null) return;
+        // nftProtocolInfoIndex = _objectMapper.Map<NFTProtocolCreated, NFTCollectionInfoIndex>(eventValue);
+        // nftProtocolInfoIndex.Id = IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol);
+        // nftProtocolInfoIndex.ImageUrl = 
+        //     eventValue.Metadata.Value?.TryGetValue("ImageUrl", out var imageUrl)??false ? imageUrl : null;
+        // nftProtocolInfoIndex.Creator = eventValue.Creator.ToBase58();
+        // nftProtocolInfoIndex.Supply = 0;
+        // _objectMapper.Map(context, nftProtocolInfoIndex);
+        // await _repository.AddOrUpdateAsync(nftProtocolInfoIndex);
     }
 }

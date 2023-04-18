@@ -10,10 +10,11 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class ManagerAddedProcessor : CAHolderTransactionProcessorBase<ManagerAdded>
+public class ManagerAddedProcessor : CAHolderTransactionProcessorBase<ManagerInfoAdded>
 {
     public ManagerAddedProcessor(ILogger<ManagerAddedProcessor> logger,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
             caHolderTransactionIndexRepository,
         IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
@@ -22,7 +23,7 @@ public class ManagerAddedProcessor : CAHolderTransactionProcessorBase<ManagerAdd
             caHolderTransactionAddressIndexRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions, IObjectMapper objectMapper) :
-        base(logger, caHolderIndexRepository, caHolderTransactionIndexRepository, tokenInfoIndexRepository,
+        base(logger, caHolderIndexRepository,caHolderManagerIndexRepository, caHolderTransactionIndexRepository, tokenInfoIndexRepository,
             nftInfoIndexRepository, caHolderTransactionAddressIndexRepository, contractInfoOptions,
             caHolderTransactionInfoOptions, objectMapper)
     {
@@ -33,7 +34,7 @@ public class ManagerAddedProcessor : CAHolderTransactionProcessorBase<ManagerAdd
         return ContractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).CAContractAddress;
     }
 
-    protected override async Task HandleEventAsync(ManagerAdded eventValue, LogEventContext context)
+    protected override async Task HandleEventAsync(ManagerInfoAdded eventValue, LogEventContext context)
     {
         if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
         var holder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,

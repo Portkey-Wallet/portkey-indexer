@@ -4,10 +4,11 @@ using Nest;
 
 namespace Portkey.Indexer.CA.Entities;
 
-public class UserNFTInfoIndex: AElfIndexerClientEntity<string>, IIndexBuild
+public class CAHolderNFTCollectionBalanceIndex: AElfIndexerClientEntity<string>,IIndexBuild
 {
-    public NFTItemInfo NftInfo { get; set; }
+    public NFTCollectionInfoIndex NftCollectionInfo { get; set; }
     [Keyword]public string CAAddress { get; set; }
     
     [Keyword] public long Balance { get; set; }
+    [Keyword]public List<long> TokenIds { get; set; }
 }

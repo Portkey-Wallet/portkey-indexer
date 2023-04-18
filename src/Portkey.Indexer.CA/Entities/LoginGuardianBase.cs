@@ -4,7 +4,7 @@ using Nest;
 
 namespace Portkey.Indexer.CA.Entities;
 
-public class LoginGuardianAccountBase : AElfIndexerClientEntity<string>
+public class LoginGuardianBase : AElfIndexerClientEntity<string>
 {
     [Keyword] public override string Id { get; set; }
 
@@ -19,5 +19,5 @@ public class LoginGuardianAccountBase : AElfIndexerClientEntity<string>
     [Keyword]
     public string Manager { get; set; }
 
-    public GuardianAccount LoginGuardianAccount { get; set; }
+    public Guardian LoginGuardian { get; set; }
 }

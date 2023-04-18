@@ -11,8 +11,10 @@ public class CAHolderSearchTokenNFTDto
     
     public long Balance { get; set; }
     
-    public TokenSearchInfoDto TokenInfo { get; set; }
+    public long TokenId { get; set; }
     
-    [Name("nftInfo")]
-    public NFTSearchInfoDto NFTInfo { get; set; }
+    public TokenInfoDto TokenInfo { get; set; }
+    
+    // [Name("nftInfo")]
+    public NFTItemInfoDto NftInfo { get; set; }
 }

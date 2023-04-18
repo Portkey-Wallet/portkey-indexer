@@ -11,5 +11,5 @@ public class CAHolderManagerDto
     public string CAHash { get; set; }
     [Name("caAddress")]
     public string CAAddress { get; set; }
-    public List<ManagerInfo> Managers { get; set; }
+    public List<ManagerInfo> ManagerInfos { get; set; }
 }
