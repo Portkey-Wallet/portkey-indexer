@@ -14,9 +14,11 @@ public class CAHolderTransactionIndex : AElfIndexerClientEntity<string>, IIndexB
     /// </summary>
     [Keyword] public string MethodName { get; set; }
       
-    public TokenInfo TokenInfo { get; set; }
+    public TokenInfoIndex TokenInfo { get; set; }
+    
+    public NFTInfoIndex NftInfo { get; set; }
 
-    public NFTInfo NFTInfo { get; set; }
+    // public NFTInfo NFTInfo { get; set; }
       
     public TransactionStatus Status { get; set; }
 
@@ -30,30 +32,32 @@ public class CAHolderTransactionIndex : AElfIndexerClientEntity<string>, IIndexB
     public Dictionary<string,long> TransactionFee { get; set; }
 }
 
-public class TokenInfo
-{
-    [Keyword]
-    public string Symbol { get; set; }
-    
-    public int Decimals { get; set; }
-}
-
-public class NFTInfo
-{
-    [Keyword]
-    public string Url { get; set; }
-    
-    [Keyword]
-    public string Alias { get; set; }
-    
-    [Name("nftId")]
-    public long NFTId { get; set; }
-}
+// public class TokenInfo
+// {
+//     [Keyword]
+//     public string Symbol { get; set; }
+//     
+//     public int Decimals { get; set; }
+// }
+//
+// public class NFTInfo
+// {
+//     [Keyword]
+//     public string Url { get; set; }
+//     
+//     [Keyword]
+//     public string Alias { get; set; }
+//     
+//     [Name("nftId")]
+//     public long NFTId { get; set; }
+// }
 
 public class TransferInfo
 {
     [Keyword]
     public string FromAddress { get; set; }
+    [Keyword]
+    public string FromCAAddress { get; set; }
     [Keyword]
     public string ToAddress { get; set; }
     public long Amount { get; set; }
@@ -61,6 +65,8 @@ public class TransferInfo
     public string FromChainId { get; set; }
     [Keyword]
     public string ToChainId { get; set; }
+    [Keyword]
+    public string TransferTransactionId { get; set; }
 }
 
 public enum TransactionStatus

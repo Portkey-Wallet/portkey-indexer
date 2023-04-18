@@ -64,7 +64,7 @@ public abstract class CAHolderNFTBalanceProcessorBase<TEvent> : AElfLogEventProc
                 Id = IdGenerateHelper.GetId(context.ChainId, address, symbol),
                 CAAddress = address,
                 Balance = amount,
-                NFTInfo = ObjectMapper.Map<NFTInfoIndex, NFTSearchInfo>(nftInfoIndex)
+                // NFTInfo = ObjectMapper.Map<NFTInfoIndex, NFTSearchInfo>(nftInfoIndex)
             };
         }
         ObjectMapper.Map(context, caHolderSearchTokenNFTIndex);

@@ -10,10 +10,11 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class ManagerSocialRecoveredProcessor : CAHolderTransactionProcessorBase<ManagerSocialRecovered>
+public class ManagerSocialRecoveredProcessor : CAHolderTransactionProcessorBase<ManagerInfoSocialRecovered>
 {
     public ManagerSocialRecoveredProcessor(ILogger<ManagerSocialRecoveredProcessor> logger,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
             caHolderTransactionIndexRepository,
         IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
@@ -21,7 +22,7 @@ public class ManagerSocialRecoveredProcessor : CAHolderTransactionProcessorBase<
         IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo> caHolderTransactionAddressIndexRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions, IObjectMapper objectMapper) :
-        base(logger, caHolderIndexRepository, caHolderTransactionIndexRepository, tokenInfoIndexRepository,
+        base(logger, caHolderIndexRepository,caHolderManagerIndexRepository, caHolderTransactionIndexRepository, tokenInfoIndexRepository,
             nftInfoIndexRepository, caHolderTransactionAddressIndexRepository, contractInfoOptions, caHolderTransactionInfoOptions, objectMapper)
     {
     }
@@ -31,7 +32,7 @@ public class ManagerSocialRecoveredProcessor : CAHolderTransactionProcessorBase<
         return ContractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).CAContractAddress;
     }
 
-    protected override async Task HandleEventAsync(ManagerSocialRecovered eventValue, LogEventContext context)
+    protected override async Task HandleEventAsync(ManagerInfoSocialRecovered eventValue, LogEventContext context)
     {
         if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
         var holder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,

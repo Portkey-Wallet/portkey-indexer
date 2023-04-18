@@ -9,7 +9,9 @@ public class CAHolderTokenBalanceDto
     [Name("caAddress")]
     public string CAAddress { get; set; }
     
-    public Entities.TokenInfo TokenInfo { get; set; }
+    public TokenInfoDto TokenInfo { get; set; }
     
     public long Balance { get; set; }
+    
+    public List<long> TokenIds { get; set; }
 }

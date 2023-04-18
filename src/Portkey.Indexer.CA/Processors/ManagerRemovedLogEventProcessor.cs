@@ -9,13 +9,14 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class ManagerRemovedLogEventProcessor: CAHolderManagerProcessorBase<ManagerRemoved>
+public class ManagerRemovedLogEventProcessor: CAHolderManagerProcessorBase<ManagerInfoRemoved>
 {
     public ManagerRemovedLogEventProcessor(ILogger<ManagerRemovedLogEventProcessor> logger,
         IObjectMapper objectMapper, IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderManagerChangeRecordIndex, LogEventInfo> changeRecordRepository) :
-        base(logger, objectMapper, contractInfoOptions, repository, changeRecordRepository)
+        base(logger, objectMapper, contractInfoOptions, repository,caHolderManagerIndexRepository, changeRecordRepository)
     {
     }
     
@@ -24,8 +25,32 @@ public class ManagerRemovedLogEventProcessor: CAHolderManagerProcessorBase<Manag
         return ContractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).CAContractAddress;
     }
     
-    protected override async Task HandleEventAsync(ManagerRemoved eventValue, LogEventContext context)
+    protected override async Task HandleEventAsync(ManagerInfoRemoved eventValue, LogEventContext context)
     {
+        //check manager is already exist in caHolderManagerIndex
+        var managerIndexId = IdGenerateHelper.GetId(context.ChainId, eventValue.Manager.ToBase58());
+        var caHolderManagerIndex =
+            await CAHolderManagerIndexRepository.GetFromBlockStateSetAsync(managerIndexId, context.ChainId);
+        if (caHolderManagerIndex != null)
+        {
+            if (caHolderManagerIndex.CAAddresses.Contains(eventValue.CaAddress.ToBase58()))
+            {
+                caHolderManagerIndex.CAAddresses.Remove(eventValue.CaAddress.ToBase58());
+                ObjectMapper.Map<LogEventContext, CAHolderManagerIndex>(context, caHolderManagerIndex);
+            }
+
+            if (caHolderManagerIndex.CAAddresses.Count == 0)
+            {
+                await CAHolderManagerIndexRepository.DeleteAsync(caHolderManagerIndex);
+            }
+            else
+            {
+                await CAHolderManagerIndexRepository.AddOrUpdateAsync(caHolderManagerIndex);
+            }
+        }
+        
+        
+        //check ca address if already exist in caHolderIndex
         var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.CaAddress.ToBase58());
         var caHolderIndex = await Repository.GetFromBlockStateSetAsync(indexId,context.ChainId);
         if (caHolderIndex == null)
@@ -33,13 +58,13 @@ public class ManagerRemovedLogEventProcessor: CAHolderManagerProcessorBase<Manag
             return;
         }
         ObjectMapper.Map(context, caHolderIndex);
-        if (caHolderIndex.Managers.Count(m => m.Manager == eventValue.Manager.ToBase58()) > 0)
+        if (caHolderIndex.ManagerInfos.Count(m => m.Address == eventValue.Manager.ToBase58()) > 0)
         {
-            var item=caHolderIndex.Managers.FirstOrDefault(m => m.Manager == eventValue.Manager.ToBase58());
-            caHolderIndex.Managers.Remove(item);
+            var item=caHolderIndex.ManagerInfos.FirstOrDefault(m => m.Address == eventValue.Manager.ToBase58());
+            caHolderIndex.ManagerInfos.Remove(item);
         }
         await Repository.AddOrUpdateAsync(caHolderIndex);
         await AddChangeRecordAsync(eventValue.CaAddress.ToBase58(), eventValue.CaHash.ToHex(),
-            eventValue.Manager.ToBase58(), nameof(ManagerRemoved), context);
+            eventValue.Manager.ToBase58(), nameof(ManagerInfoRemoved), context);
     }
 }

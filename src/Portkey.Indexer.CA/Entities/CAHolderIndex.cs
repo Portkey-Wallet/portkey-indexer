@@ -26,14 +26,14 @@ public class CAHolderIndex : AElfIndexerClientEntity<string>, IIndexBuild
     /// <summary>
     /// CA Holder manager address list
     /// </summary>
-    [Nested(Name = "Managers",Enabled = true,IncludeInParent = true,IncludeInRoot = true)]
-    public List<ManagerInfo> Managers { get; set; }
+    [Nested(Name = "ManagerInfos",Enabled = true,IncludeInParent = true,IncludeInRoot = true)]
+    public List<ManagerInfo> ManagerInfos { get; set; }
 }
 
 public class ManagerInfo
 {
-    [Keyword]public string Manager { get; set; }
+    [Keyword]public string Address { get; set; }
     
-    [Keyword]public string DeviceString { get; set; }
+    [Keyword]public string ExtraData { get; set; }
 }
 

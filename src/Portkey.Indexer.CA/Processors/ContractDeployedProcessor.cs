@@ -12,14 +12,14 @@ namespace Portkey.Indexer.CA.Processors;
 public class ContractDeployedProcessor : AElfLogEventProcessorBase<ContractDeployed,LogEventInfo>
 {
     private readonly IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> _tokenInfoIndexRepository;
-    private readonly IAElfIndexerClientEntityRepository<NFTProtocolInfoIndex, LogEventInfo> _nftProtocolInfoIndexRepository;
+    private readonly IAElfIndexerClientEntityRepository<NFTCollectionInfoIndex, LogEventInfo> _nftProtocolInfoIndexRepository;
     private readonly InitialInfoOptions _initialInfoOptions;
     private readonly ContractInfoOptions _contractInfoOptions;
     private readonly IObjectMapper _objectMapper;
 
     public ContractDeployedProcessor(ILogger<ContractDeployedProcessor> logger,
         IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
-        IAElfIndexerClientEntityRepository<NFTProtocolInfoIndex, LogEventInfo> nftProtocolInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<NFTCollectionInfoIndex, LogEventInfo> nftProtocolInfoIndexRepository,
         IOptionsSnapshot<InitialInfoOptions> initialInfoOptions, IObjectMapper objectMapper,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) :
         base(logger)
@@ -42,7 +42,7 @@ public class ContractDeployedProcessor : AElfLogEventProcessorBase<ContractDeplo
         var nftProtocolInfoList = _initialInfoOptions.NFTProtocolInfoList.Where(n => n.ChainId == context.ChainId).ToList();
         foreach (var nftProtocolInfo in nftProtocolInfoList)
         {
-            var nftProtocolInfoIndex = _objectMapper.Map<NFTProtocolInfo, NFTProtocolInfoIndex>(nftProtocolInfo);
+            var nftProtocolInfoIndex = _objectMapper.Map<NFTProtocolInfo, NFTCollectionInfoIndex>(nftProtocolInfo);
             nftProtocolInfoIndex.Id = IdGenerateHelper.GetId(nftProtocolInfo.ChainId, nftProtocolInfo.Symbol);
             nftProtocolInfoIndex.BlockHash = context.BlockHash;
             nftProtocolInfoIndex.BlockHeight = context.BlockHeight;

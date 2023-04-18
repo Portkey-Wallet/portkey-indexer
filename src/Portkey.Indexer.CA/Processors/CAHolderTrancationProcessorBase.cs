@@ -16,6 +16,7 @@ namespace Portkey.Indexer.CA.Processors;
 public abstract class CAHolderTransactionProcessorBase<TEvent> :AElfLogEventProcessorBase<TEvent,TransactionInfo> where TEvent : IEvent<TEvent>, new()
 {
     protected readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> CAHolderIndexRepository;
+    protected readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> CAHolderManagerIndexRepository;
     protected readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> CAHolderTransactionIndexRepository;
     protected readonly IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> TokenInfoIndexRepository;
     protected readonly IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> NFTInfoIndexRepository;
@@ -27,6 +28,7 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> :AElfLogEventProc
 
     protected CAHolderTransactionProcessorBase(ILogger<CAHolderTransactionProcessorBase<TEvent>> logger,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
             caHolderTransactionIndexRepository,
         IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
@@ -36,6 +38,7 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> :AElfLogEventProc
         IObjectMapper objectMapper) : base(logger)
     {
         CAHolderIndexRepository = caHolderIndexRepository;
+        CAHolderManagerIndexRepository = caHolderManagerIndexRepository;
         CAHolderTransactionIndexRepository = caHolderTransactionIndexRepository;
         NFTInfoIndexRepository = nftInfoIndexRepository;
         TokenInfoIndexRepository = tokenInfoIndexRepository;

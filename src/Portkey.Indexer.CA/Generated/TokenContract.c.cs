@@ -314,6 +314,7 @@ namespace AElf.Contracts.MultiToken {
         FromChainId = FromChainId,
         IssueChainId = IssueChainId,
         ParentChainHeight = ParentChainHeight,
+        TransferTransactionId = TransferTransactionId,
       };
     }
   }

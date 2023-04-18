@@ -1,3 +1,5 @@
+using Portkey.Indexer.CA.Entities;
+
 namespace Portkey.Indexer.CA.GraphQL;
 
 public class TokenInfoDto
@@ -13,6 +15,8 @@ public class TokenInfoDto
     public string PreviousBlockHash { get; set; }
     
     public string Symbol { get; set; }
+    
+    public TokenType Type { get; set; }
     
     /// <summary>
     /// token contract address
@@ -30,4 +34,10 @@ public class TokenInfoDto
     public bool IsBurnable { get; set; }
 
     public int IssueChainId { get; set; }
+    
+    //GraphQL don't support Map struct
+    // public Dictionary<string, string> ExternalInfo { get; set; }
+    // public TokenExternalInfo TokenExternalInfo { get; set; }
+    
+    // public TokenInfoDto RelatedTokenInfo { get; set; }
 }

@@ -15,6 +15,7 @@ public class NFTTransferredProcessor : CAHolderTransactionProcessorBase<Transfer
 
     public NFTTransferredProcessor(ILogger<NFTTransferredProcessor> logger,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
         IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> nftInfoIndexRepository,
@@ -23,7 +24,7 @@ public class NFTTransferredProcessor : CAHolderTransactionProcessorBase<Transfer
             caHolderTransactionIndexRepository,
         IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions, 
         IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo> caHolderTransactionAddressIndexRepository) :
-        base(logger, caHolderIndexRepository, caHolderTransactionIndexRepository, tokenInfoIndexRepository,
+        base(logger, caHolderIndexRepository,caHolderManagerIndexRepository, caHolderTransactionIndexRepository, tokenInfoIndexRepository,
             nftInfoIndexRepository,caHolderTransactionAddressIndexRepository,
             contractInfoOptions, caHolderTransactionInfoOptions, objectMapper)
     {
@@ -68,17 +69,17 @@ public class NFTTransferredProcessor : CAHolderTransactionProcessorBase<Transfer
             Id = IdGenerateHelper.GetId(context.BlockHash, context.TransactionId),
             Timestamp = context.BlockTime.ToTimestamp().Seconds,
             FromAddress = context.From,
-            TokenInfo = new Entities.TokenInfo
-            {
-                Decimals = 0,
-                Symbol = transferred.Symbol
-            },
-            NFTInfo = new Entities.NFTInfo
-            {
-                Alias = nftInfoIndex.Alias,
-                Url = nftInfoIndex.ImageUrl,
-                NFTId = transferred.TokenId
-            },
+            // TokenInfo = new Entities.TokenInfo
+            // {
+            //     Decimals = 0,
+            //     Symbol = transferred.Symbol
+            // },
+            // NFTInfo = new Entities.NFTInfo
+            // {
+            //     Alias = nftInfoIndex.Alias,
+            //     Url = nftInfoIndex.ImageUrl,
+            //     NFTId = transferred.TokenId
+            // },
             TransactionFee = GetTransactionFee(context.ExtraProperties),
             TransferInfo = new TransferInfo
             {

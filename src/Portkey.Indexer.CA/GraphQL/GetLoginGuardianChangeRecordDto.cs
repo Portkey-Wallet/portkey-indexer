@@ -2,7 +2,7 @@ using GraphQL;
 
 namespace Portkey.Indexer.CA.GraphQL;
 
-public class GetLoginGuardianAccountChangeRecordDto
+public class GetLoginGuardianChangeRecordDto
 {
     public string ChainId { get; set; }
 

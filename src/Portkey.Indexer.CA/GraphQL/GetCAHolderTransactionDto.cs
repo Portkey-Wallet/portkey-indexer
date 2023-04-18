@@ -7,6 +7,10 @@ public class GetCAHolderTransactionDto : PagedResultRequestDto
 {
     public string ChainId { get; set; }
     
+    public long StartBlockHeight { get; set; }
+    
+    public long EndBlockHeight { get; set; }
+    
     public string Symbol { get; set; }
     
     [Name("caAddresses")]
@@ -15,6 +19,8 @@ public class GetCAHolderTransactionDto : PagedResultRequestDto
     public string TransactionId { get; set; }
     
     public string BlockHash { get; set; }
+    
+    public string TransferTransactionId { get; set; }
 
     public List<string> MethodNames { get; set; } = new();
 }

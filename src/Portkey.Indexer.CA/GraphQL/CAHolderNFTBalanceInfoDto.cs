@@ -2,7 +2,7 @@ using GraphQL;
 
 namespace Portkey.Indexer.CA.GraphQL;
 
-public class UserNFTInfoDto
+public class CAHolderNFTBalanceInfoDto
 {
     public string Id { get; set; }
     public string ChainId { get; set; }

@@ -13,49 +13,68 @@ public class TestGraphQLAutoMapperProfile:Profile
     public TestGraphQLAutoMapperProfile()
     {
         CreateMap<TokenCreated, TokenInfoIndex>();
+        CreateMap<TokenCreated, NFTCollectionInfoIndex>();
+        CreateMap<TokenCreated, NFTInfoIndex>();
+        
         CreateMap<LogEventContext, TokenInfoIndex>();
+        CreateMap<LogEventContext, NFTCollectionInfoIndex>();
+        CreateMap<LogEventContext, NFTInfoIndex>();
+        CreateMap<LogEventContext, LoginGuardianIndex>();
+        CreateMap<LogEventContext, LoginGuardianChangeRecordIndex>();
+        CreateMap<LogEventContext, CAHolderTransactionIndex>();
+        CreateMap<LogEventContext, CAHolderIndex>();
+        
+        CreateMap<LogEventContext, CAHolderNFTCollectionBalanceIndex>();
+        CreateMap<LogEventContext, CAHolderNFTBalanceIndex>();
+        CreateMap<LogEventContext, CAHolderTokenBalanceIndex>();
+        
+        CreateMap<LogEventContext, CAHolderTransactionAddressIndex>();
+        CreateMap<LogEventContext, CAHolderManagerChangeRecordIndex>();
+        CreateMap<LogEventContext, CAHolderSearchTokenNFTIndex>();
+        CreateMap<LogEventContext, CAHolderManagerIndex>();
+        
         CreateMap<TokenInfo, TokenInfoIndex>();
         CreateMap<TokenInfoIndex, TokenInfoDto>();
-        CreateMap<NFTProtocolCreated, NFTProtocolInfoIndex>();
-        CreateMap<LogEventContext, NFTProtocolInfoIndex>();
-        CreateMap<NFTProtocolInfo, NFTProtocolInfoIndex>();
-        CreateMap<NFTProtocolInfoIndex, NFTProtocolInfoDto>();
+        CreateMap<TokenInfoIndex, TokenSearchInfo>();
+        CreateMap<TokenInfoIndex, TokenSearchInfoDto>();
+        CreateMap<TokenSearchInfo, TokenInfoDto>();
+        
+        CreateMap<NFTProtocolCreated, NFTCollectionInfoIndex>();
+        CreateMap<NFTProtocolInfo, NFTCollectionInfoIndex>();
+        CreateMap<NFTCollectionInfoIndex, NFTProtocolInfoDto>();
+        CreateMap<NFTCollectionInfoIndex, NFTProtocol>();
+        CreateMap<NFTCollectionInfoIndex, NFTCollectionDto>();
         CreateMap<NFTMinted, NFTInfoIndex>();
-        CreateMap<LogEventContext, NFTInfoIndex>();
-        CreateMap<LogEventContext, CAHolderTransactionIndex>();
+        CreateMap<NFTMinted,CAHolderNFTBalanceIndex>();
+        CreateMap<NFTMinted,CAHolderNFTCollectionBalanceIndex>();
+        CreateMap<NFTInfoIndex, NFTItemInfo>();
+        CreateMap<NFTInfoIndex, NFTItemInfoDto>();
+        CreateMap<NFTInfoIndex, NFTSearchInfo>();
+        CreateMap<NFTInfoIndex, CAHolderNFTBalanceIndex>();
+        CreateMap<NFTItemInfo, NFTItemInfoDto>();
+        CreateMap<NFTProtocol, NFTCollectionDto>();
+        CreateMap<NFTSearchInfo, NFTItemInfoDto>();
+
         CreateMap<CAHolderTransactionIndex, CAHolderTransactionDto>().ForMember(c=>c.TransactionFees,opt=>opt.MapFrom<TransactionFeeResolver>());
         CreateMap<CAHolderIndex, CAHolderManagerDto>();
-        CreateMap<LogEventContext, CAHolderIndex>();
-        CreateMap<LoginGuardianAccountIndex, LoginGuardianAccountDto>();
-        CreateMap<LogEventContext, LoginGuardianAccountIndex>();
-        CreateMap<LogEventContext,UserNFTInfoIndex>();
-        CreateMap<LogEventContext,UserNFTProtocolInfoIndex>();
-        CreateMap<NFTMinted,UserNFTInfoIndex>();
-        CreateMap<NFTMinted,UserNFTProtocolInfoIndex>();
-        CreateMap<NFTInfoIndex, NFTItemInfo>();
-        CreateMap<NFTInfoIndex,UserNFTInfoIndex>();
-        CreateMap<NFTProtocolInfoIndex, NFTProtocol>();
-        CreateMap<NFTProtocolInfoIndex,UserNFTProtocolInfoIndex>();
-        CreateMap<UserNFTInfoIndex,UserNFTInfoDto>();
-        CreateMap<UserNFTProtocolInfoIndex,UserNFTProtocolInfoDto>();
-        CreateMap<NFTItemInfo, NFTItemInfoDto>();
-        CreateMap<NFTProtocol, NFTProtocolDto>();
-        CreateMap<LogEventContext, CAHolderTokenBalanceIndex>();
-        CreateMap<LogEventContext, CAHolderTransactionAddressIndex>();
-        CreateMap<LogEventContext, LoginGuardianAccountChangeRecordIndex>();
-        CreateMap<LoginGuardianAccountChangeRecordIndex, LoginGuardianAccountChangeRecordDto>();
-        CreateMap<GuardianAccount, GuardianAccountDto>();
-        CreateMap<Guardian, GuardianDto>();
+
+        CreateMap<CAHolderNFTBalanceIndex,CAHolderNFTBalanceInfoDto>();
+        CreateMap<CAHolderNFTCollectionBalanceIndex,CAHolderNFTCollectionBalanceInfoDto>();
         CreateMap<CAHolderTokenBalanceIndex, CAHolderTokenBalanceDto>();
         CreateMap<CAHolderTransactionAddressIndex, CAHolderTransactionAddressDto>();
-        CreateMap<LogEventContext, CAHolderManagerChangeRecordIndex>();
         CreateMap<CAHolderManagerChangeRecordIndex, CAHolderManagerChangeRecordDto>();
-        CreateMap<LogEventContext, CAHolderSearchTokenNFTIndex>();
-        CreateMap<TokenInfoIndex, TokenSearchInfo>();
-        CreateMap<NFTInfoIndex, NFTSearchInfo>();
         CreateMap<CAHolderSearchTokenNFTIndex, CAHolderSearchTokenNFTDto>();
-        CreateMap<TokenSearchInfo, TokenSearchInfoDto>();
-        CreateMap<NFTSearchInfo, NFTSearchInfoDto>();
+
+        CreateMap<LoginGuardianIndex, LoginGuardianDto>();
+        CreateMap<LoginGuardianChangeRecordIndex, LoginGuardianChangeRecordDto>();
+        CreateMap<Guardian, GuardianDto>();
+        // CreateMap<Guardian, GuardianDto>();
+        
+        // CreateMap<TokenInfoIndex, TokenSearchInfo>();
+        // CreateMap<NFTInfoIndex, NFTSearchInfo>();
+        // CreateMap<TokenSearchInfo, TokenSearchInfoDto>();
+        // CreateMap<NFTSearchInfo, NFTSearchInfoDto>();
+        
     }
     
 }

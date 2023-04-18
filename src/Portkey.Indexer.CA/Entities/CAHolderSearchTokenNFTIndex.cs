@@ -10,18 +10,27 @@ public class CAHolderSearchTokenNFTIndex: AElfIndexerClientEntity<string>, IInde
     
     public long Balance { get; set; }
     
+    public long TokenId { get; set; }
+    
+    // public TokenInfoIndex TokenInfo { get; set; }
+    
     public TokenSearchInfo TokenInfo { get; set; }
     
-    public NFTSearchInfo NFTInfo { get; set; }
+    // public NFTInfoIndex NftInfo { get; set; }
+    
+    public NFTSearchInfo NftInfo { get; set; }
 }
 
 public class TokenSearchInfo
 {
     [Wildcard]public string Symbol { get; set; }
     
+    public TokenType Type { get; set; }
     [Wildcard]public string TokenContractAddress { get; set; }
     
     public int Decimals { get; set; }
+    
+    public long Supply { get; set; }
     
     public long TotalSupply { get; set; }
     
@@ -32,27 +41,46 @@ public class TokenSearchInfo
     public bool IsBurnable { get; set; }
     
     public int IssueChainId { get; set; }
+    
+    // public long TokenId { get; set; }
+    
+    // [Wildcard]public string Alias { get; set; }
+    
+    // public string ImageUrl { get; set; }
+    
+    // public TokenExternalInfo TokenExternalInfo { get; set; }
+
+    // public Dictionary<string, string> ExternalInfoDictionary { get; set; }
+    
+    // public TokenInfoIndex RelatedTokenInfo { get; set; }
 }
 
 public class NFTSearchInfo
 {
-    [Wildcard]public string ProtocolName { get; set; }
+    [Wildcard]public string CollectionSymbol { get; set; }
+    
+    [Wildcard]public string CollectionName { get; set; }
     
     [Wildcard]public string Symbol { get; set; }
     
-    public long TokenId { get; set; }
+    public TokenType Type { get; set; }
+    [Wildcard]public string TokenContractAddress { get; set; }
     
-    [Wildcard]public string NftContractAddress { get; set; }
+    public int Decimals { get; set; }
     
-    [Wildcard]public string Owner { get; set; }
+    public long Supply { get; set; }
     
-    [Wildcard]public string Minter { get; set; }
+    public long TotalSupply { get; set; }
     
-    public long Quantity { get; set; }
+    [Wildcard]public string TokenName { get; set; }
     
-    [Wildcard]public string Alias { get; set; }
+    [Wildcard]public string Issuer { get; set; }
     
-    public string BaseUri { get; set; }
+    public bool IsBurnable { get; set; }
     
-    public string Uri { get; set; }
+    public int IssueChainId { get; set; }
+
+    // [Wildcard]public string Alias { get; set; }
+    
+    public string ImageUrl { get; set; }
 }

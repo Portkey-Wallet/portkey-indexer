@@ -8,8 +8,8 @@ public class CAHolderTokenBalanceIndex : AElfIndexerClientEntity<string>, IIndex
 {
     [Keyword]
     public string CAAddress { get; set; }
-    
-    public TokenInfo TokenInfo { get; set; }
+
+    public TokenInfoIndex TokenInfo { get; set; }
     
     public long Balance { get; set; }
 }

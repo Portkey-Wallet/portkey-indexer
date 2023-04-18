@@ -1,6 +1,7 @@
+
 namespace Portkey.Indexer.CA.GraphQL;
 
-public class NFTItemInfoDto
+public class NFTCollectionDto
 {
     public string Symbol { get; set; }
     
@@ -19,10 +20,6 @@ public class NFTItemInfoDto
     public bool IsBurnable { get; set; }
 
     public int IssueChainId { get; set; }
-    
+  
     public string ImageUrl { get; set; }
-    
-    public string CollectionSymbol { get; set; }
-    
-    public string CollectionName { get; set; }
 }
