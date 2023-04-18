@@ -1,11 +1,15 @@
+using AElf.Types;
 using AElfIndexer.Client;
 using AElfIndexer.Client.Handlers;
 using AElfIndexer.Grains.State.Client;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Nest;
 using Portkey.Contracts.CA;
 using Portkey.Indexer.CA.Entities;
 using Volo.Abp.ObjectMapping;
+using Guardian = Portkey.Indexer.CA.Entities.Guardian;
+using ManagerInfo = Portkey.Indexer.CA.Entities.ManagerInfo;
 
 namespace Portkey.Indexer.CA.Processors;
 
@@ -44,148 +48,189 @@ public class CAHolderSyncedProcessor: AElfLogEventProcessorBase<CAHolderSynced,L
         if (caHolderIndex == null)
         {
             //CaHolder Create
-            var managerList = new List<Entities.ManagerInfo>();
-            if (eventValue.ManagerInfosAdded.ManagerInfosAdded.Count > 0)
+            await CreateCAHolderAysnc(eventValue, context);
+        }
+        else
+        {
+            //Add or Remove manager
+            await AddOrRemoveManager(caHolderIndex, eventValue, context);
+        }
+        
+        //Add LoginGuardians
+        await AddLoginGuardians(eventValue, context);
+        
+        //Unbound LoginGuardians
+        await UnboundLoginGuardians(eventValue, context);
+
+    }
+
+    private async Task CreateCAHolderAysnc(CAHolderSynced eventValue,
+        LogEventContext context)
+    {
+        var managerList = new List<ManagerInfo>();
+        if (eventValue.ManagerInfosAdded.ManagerInfos.Count > 0)
+        {
+            foreach (var item in eventValue.ManagerInfosAdded.ManagerInfos)
             {
-                foreach (var item in eventValue.ManagerInfosAdded.ManagerInfosAdded)
+                //check manager is already exist in caHolderManagerIndex
+                var managerIndexId = IdGenerateHelper.GetId(context.ChainId, item.Address.ToBase58());
+                var caHolderManagerIndex =
+                    await _caHolderManagerIndexRepository.GetFromBlockStateSetAsync(managerIndexId, context.ChainId);
+                if (caHolderManagerIndex == null)
                 {
-                    //check manager is already exist in caHolderManagerIndex
-                    var managerIndexId = IdGenerateHelper.GetId(context.ChainId, item.Address.ToBase58());
-                    var caHolderManagerIndex =
-                        await _caHolderManagerIndexRepository.GetFromBlockStateSetAsync(managerIndexId, context.ChainId);
-                    if (caHolderManagerIndex == null)
+                    caHolderManagerIndex = new CAHolderManagerIndex
                     {
-                        caHolderManagerIndex = new CAHolderManagerIndex
+                        Id = managerIndexId,
+                        Manager = item.Address.ToBase58(),
+                        CAAddresses = new List<string>()
                         {
-                            Id = managerIndexId,
-                            Manager = item.Address.ToBase58(),
-                            CAAddresses = new List<string>()
-                            {
-                                eventValue.CaAddress.ToBase58()
-                            }
-                        };
-                    }
-                    else
-                    {
-                        if (!caHolderManagerIndex.CAAddresses.Contains(eventValue.CaAddress.ToBase58()))
-                        {
-                            caHolderManagerIndex.CAAddresses.Add(eventValue.CaAddress.ToBase58());
+                            eventValue.CaAddress.ToBase58()
                         }
+                    };
+                }
+                else
+                {
+                    if (!caHolderManagerIndex.CAAddresses.Contains(eventValue.CaAddress.ToBase58()))
+                    {
+                        caHolderManagerIndex.CAAddresses.Add(eventValue.CaAddress.ToBase58());
                     }
-                    _objectMapper.Map<LogEventContext, CAHolderManagerIndex>(context, caHolderManagerIndex);
-                    await _caHolderManagerIndexRepository.AddOrUpdateAsync(caHolderManagerIndex);
-                    
-                    //add manager info to manager list
-                    managerList.Add(new Entities.ManagerInfo
+                }
+
+                _objectMapper.Map<LogEventContext, CAHolderManagerIndex>(context, caHolderManagerIndex);
+                await _caHolderManagerIndexRepository.AddOrUpdateAsync(caHolderManagerIndex);
+
+                //add manager info to manager list
+                managerList.Add(new ManagerInfo
+                {
+                    Address = item.Address.ToBase58(),
+                    ExtraData = item.ExtraData
+                });
+            }
+        }
+
+        var caHolderIndex = new CAHolderIndex
+        {
+            Id = IdGenerateHelper.GetId(context.ChainId, eventValue.CaAddress.ToBase58()),
+            CAHash = eventValue.CaHash.ToHex(),
+            CAAddress = eventValue.CaAddress.ToBase58(),
+            Creator = eventValue.Creator.ToBase58(),
+            ManagerInfos = managerList
+        };
+        var originChainId = await GetOriginChainIdAsync(eventValue.CaHash.ToHex());
+        caHolderIndex.OriginChainId = originChainId;
+
+        _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
+        await _caHolderIndexRepository.AddOrUpdateAsync(caHolderIndex);
+    }
+
+    private async Task AddOrRemoveManager(CAHolderIndex caHolderIndex, CAHolderSynced eventValue,
+        LogEventContext context)
+    {
+        //Add manager
+        if (eventValue.ManagerInfosAdded.ManagerInfos.Count > 0)
+        {
+            foreach (var item in eventValue.ManagerInfosAdded.ManagerInfos)
+            {
+                if (caHolderIndex.ManagerInfos.Count(m =>
+                        m.Address == item.Address.ToBase58() && m.ExtraData == item.ExtraData) == 0)
+                {
+                    caHolderIndex.ManagerInfos.Add(new ManagerInfo
                     {
                         Address = item.Address.ToBase58(),
                         ExtraData = item.ExtraData
                     });
                 }
-            }
-            caHolderIndex = new CAHolderIndex
-            {
-                Id = caHolderIndexId,
-                CAHash = eventValue.CaHash.ToHex(),
-                CAAddress = eventValue.CaAddress.ToBase58(),
-                Creator = eventValue.Creator.ToBase58(),
-                ManagerInfos = managerList
-            };
-            _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
-            await _caHolderIndexRepository.AddOrUpdateAsync(caHolderIndex);
-        }
-        else
-        {
-            //Add manager
-            if (eventValue.ManagerInfosAdded.ManagerInfosAdded.Count > 0)
-            {
-                foreach (var item in eventValue.ManagerInfosAdded.ManagerInfosAdded)
+
+                //check manager is already exist in caHolderManagerIndex
+                var managerIndexId = IdGenerateHelper.GetId(context.ChainId, item.Address.ToBase58());
+                var caHolderManagerIndex =
+                    await _caHolderManagerIndexRepository.GetFromBlockStateSetAsync(managerIndexId, context.ChainId);
+                if (caHolderManagerIndex == null)
                 {
-                    if (caHolderIndex.ManagerInfos.Count(m => m.Address == item.Address.ToBase58()) == 0)
+                    caHolderManagerIndex = new CAHolderManagerIndex
                     {
-                        caHolderIndex.ManagerInfos.Add(new Entities.ManagerInfo
+                        Id = managerIndexId,
+                        Manager = item.Address.ToBase58(),
+                        CAAddresses = new List<string>()
                         {
-                            Address = item.Address.ToBase58(),
-                            ExtraData = item.ExtraData
-                        });
+                            eventValue.CaAddress.ToBase58()
+                        }
+                    };
+                }
+                else
+                {
+                    if (!caHolderManagerIndex.CAAddresses.Contains(eventValue.CaAddress.ToBase58()))
+                    {
+                        caHolderManagerIndex.CAAddresses.Add(eventValue.CaAddress.ToBase58());
                     }
-                    
-                    //check manager is already exist in caHolderManagerIndex
-                    var managerIndexId = IdGenerateHelper.GetId(context.ChainId, item.Address.ToBase58());
-                    var caHolderManagerIndex =
-                        await _caHolderManagerIndexRepository.GetFromBlockStateSetAsync(managerIndexId, context.ChainId);
-                    if (caHolderManagerIndex == null)
+                }
+
+                _objectMapper.Map<LogEventContext, CAHolderManagerIndex>(context, caHolderManagerIndex);
+                await _caHolderManagerIndexRepository.AddOrUpdateAsync(caHolderManagerIndex);
+            }
+
+        }
+
+        // TODO When deploy new CA contract, remove this part
+        var managerInfosRemoved = eventValue.ManagerInfosRemoved.ManagerInfosRemoved.Count > 0
+            ? eventValue.ManagerInfosRemoved.ManagerInfosRemoved
+            : eventValue.ManagerInfosRemoved.ManagerInfos;
+
+        //Remove manager
+        if (managerInfosRemoved.Count > 0)
+        {
+            foreach (var item in managerInfosRemoved)
+            {
+                var removeItem = caHolderIndex.ManagerInfos.FirstOrDefault(m =>
+                    m.Address == item.Address.ToBase58() && m.ExtraData == item.ExtraData);
+                if (removeItem != null)
+                {
+                    caHolderIndex.ManagerInfos.Remove(removeItem);
+                }
+
+                //check manager is already exist in caHolderManagerIndex
+                var managerIndexId = IdGenerateHelper.GetId(context.ChainId, item.Address.ToBase58());
+                var caHolderManagerIndex =
+                    await _caHolderManagerIndexRepository.GetFromBlockStateSetAsync(managerIndexId, context.ChainId);
+                if (caHolderManagerIndex != null)
+                {
+                    if (caHolderManagerIndex.CAAddresses.Contains(eventValue.CaAddress.ToBase58()))
                     {
-                        caHolderManagerIndex = new CAHolderManagerIndex
-                        {
-                            Id = managerIndexId,
-                            Manager = item.Address.ToBase58(),
-                            CAAddresses = new List<string>()
-                            {
-                                eventValue.CaAddress.ToBase58()
-                            }
-                        };
+                        caHolderManagerIndex.CAAddresses.Remove(eventValue.CaAddress.ToBase58());
+                        _objectMapper.Map<LogEventContext, CAHolderManagerIndex>(context, caHolderManagerIndex);
+                    }
+
+                    if (caHolderManagerIndex.CAAddresses.Count == 0)
+                    {
+                        await _caHolderManagerIndexRepository.DeleteAsync(caHolderManagerIndex);
                     }
                     else
                     {
-                        if (!caHolderManagerIndex.CAAddresses.Contains(eventValue.CaAddress.ToBase58()))
-                        {
-                            caHolderManagerIndex.CAAddresses.Add(eventValue.CaAddress.ToBase58());
-                        }
-                    }
-                    _objectMapper.Map<LogEventContext, CAHolderManagerIndex>(context, caHolderManagerIndex);
-                    await _caHolderManagerIndexRepository.AddOrUpdateAsync(caHolderManagerIndex);
-                }
-                
-            }
-
-            //Remove manager
-            if (eventValue.ManagerInfosRemoved.ManagerInfosRemoved.Count > 0)
-            {
-                foreach (var item in eventValue.ManagerInfosRemoved.ManagerInfosRemoved)
-                {
-                    if (caHolderIndex.ManagerInfos.Count(m => m.Address == item.Address.ToBase58()) > 0)
-                    {
-                        var removeItem=caHolderIndex.ManagerInfos.FirstOrDefault(m => m.Address == item.Address.ToBase58());
-                        caHolderIndex.ManagerInfos.Remove(removeItem);
-                    }
-                    
-                    //check manager is already exist in caHolderManagerIndex
-                    var managerIndexId = IdGenerateHelper.GetId(context.ChainId, item.Address.ToBase58());
-                    var caHolderManagerIndex =
-                        await _caHolderManagerIndexRepository.GetFromBlockStateSetAsync(managerIndexId, context.ChainId);
-                    if (caHolderManagerIndex != null)
-                    {
-                        if (caHolderManagerIndex.CAAddresses.Contains(eventValue.CaAddress.ToBase58()))
-                        {
-                            caHolderManagerIndex.CAAddresses.Remove(eventValue.CaAddress.ToBase58());
-                            _objectMapper.Map<LogEventContext, CAHolderManagerIndex>(context, caHolderManagerIndex);
-                        }
-
-                        if (caHolderManagerIndex.CAAddresses.Count == 0)
-                        {
-                            await _caHolderManagerIndexRepository.DeleteAsync(caHolderManagerIndex);
-                        }
-                        else
-                        {
-                            await _caHolderManagerIndexRepository.AddOrUpdateAsync(caHolderManagerIndex);
-                        }
+                        await _caHolderManagerIndexRepository.AddOrUpdateAsync(caHolderManagerIndex);
                     }
                 }
-                
-                
             }
-            _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
-            await _caHolderIndexRepository.AddOrUpdateAsync(caHolderIndex);
         }
-        
-        //Add LoginGuardians
-        if (eventValue.LoginGuardiansAdded.LoginGuardiansAdded.Count > 0)
+
+        if (caHolderIndex.OriginChainId.IsNullOrWhiteSpace())
         {
-            foreach (var item in eventValue.LoginGuardiansAdded.LoginGuardiansAdded)
+            var originChainId = await GetOriginChainIdAsync(eventValue.CaHash.ToHex());
+            caHolderIndex.OriginChainId = originChainId;
+        }
+
+        _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
+        await _caHolderIndexRepository.AddOrUpdateAsync(caHolderIndex);
+    }
+
+    private async Task AddLoginGuardians(CAHolderSynced eventValue,
+        LogEventContext context)
+    {
+        if (eventValue.LoginGuardiansAdded.LoginGuardians.Count > 0)
+        {
+            foreach (var item in eventValue.LoginGuardiansAdded.LoginGuardians)
             {
                 var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.CaAddress.ToBase58(),
-                    item, "0000000000000000000000000000000000000000000000000000000000000000");
+                    item, Hash.Empty.ToHex());
                 var loginGuardianIndex = await _loginGuardianRepository.GetFromBlockStateSetAsync(indexId, context.ChainId);
                 if (loginGuardianIndex != null)
                 {
@@ -197,14 +242,15 @@ public class CAHolderSyncedProcessor: AElfLogEventProcessorBase<CAHolderSynced,L
                     CAHash = eventValue.CaHash.ToHex(),
                     CAAddress = eventValue.CaAddress.ToBase58(),
                     // Manager = eventValue.Manager.ToBase58(),
-                    LoginGuardian = new Entities.Guardian
+                    LoginGuardian = new Guardian
                     {
                         // Guardian = new Entities.Guardian
                         // {
                         //     Type = (int)eventValue.LoginGuardian.Guardian.Type,
                         //     Verifier = eventValue.LoginGuardian.Guardian.Verifier.Id.ToHex()
                         // },
-                        IdentifierHash = item.ToHex()
+                        IdentifierHash = item.ToHex(),
+                        IsLoginGuardian = true
                     }
                 };
                 _objectMapper.Map(context, loginGuardianIndex);
@@ -212,13 +258,17 @@ public class CAHolderSyncedProcessor: AElfLogEventProcessorBase<CAHolderSynced,L
             }
             
         }
-        //Unbound LoginGuardians
-        if (eventValue.LoginGuardiansUnbound.LoginGuardiansUnbound.Count > 0)
+    }
+
+    private async Task UnboundLoginGuardians(CAHolderSynced eventValue,
+        LogEventContext context)
+    {
+        if (eventValue.LoginGuardiansUnbound.LoginGuardians.Count > 0)
         {
-            foreach (var item in eventValue.LoginGuardiansUnbound.LoginGuardiansUnbound)
+            foreach (var item in eventValue.LoginGuardiansUnbound.LoginGuardians)
             {
                 var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.CaAddress.ToBase58(),
-                    item, "0000000000000000000000000000000000000000000000000000000000000000");
+                    item, Hash.Empty.ToHex());
                 var loginGuardianIndex = await _loginGuardianRepository.GetAsync(indexId);
                 if (loginGuardianIndex == null)
                 {
@@ -229,7 +279,16 @@ public class CAHolderSyncedProcessor: AElfLogEventProcessorBase<CAHolderSynced,L
                 await _loginGuardianRepository.DeleteAsync(loginGuardianIndex);
             }
         }
-        
     }
-    
+
+    private async Task<string> GetOriginChainIdAsync(string caHash)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderIndex>, QueryContainer>>();
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.CAHash).Value(caHash)));
+        QueryContainer Filter(QueryContainerDescriptor<CAHolderIndex> f) => f.Bool(b => b.Must(mustQuery));
+
+        var result = await _caHolderIndexRepository.GetListAsync(Filter);
+        
+        return result.Item2.FirstOrDefault(t => t != null && !t.OriginChainId.IsNullOrWhiteSpace())?.OriginChainId;
+    }
 }

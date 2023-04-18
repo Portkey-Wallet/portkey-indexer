@@ -15,8 +15,9 @@ public class LoginGuardianUnboundProcessor : LoginGuardianProcessorBase<LoginGua
         IObjectMapper objectMapper,
         IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo> repository,
         IAElfIndexerClientEntityRepository<LoginGuardianChangeRecordIndex, LogEventInfo> changeRecordRepository,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base(logger, objectMapper, repository,
-        changeRecordRepository, contractInfoOptions)
+        changeRecordRepository, caHolderRepository, contractInfoOptions)
     {
     }
 

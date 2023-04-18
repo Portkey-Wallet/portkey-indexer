@@ -12,6 +12,7 @@ namespace Portkey.Indexer.CA.Processors;
 public abstract class LoginGuardianProcessorBase<TEvent> : AElfLogEventProcessorBase<TEvent,LogEventInfo> where TEvent : IEvent<TEvent>, new()
 {
     protected readonly IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo> Repository;
+    protected readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> CaHolderRepository;
     private readonly IAElfIndexerClientEntityRepository<LoginGuardianChangeRecordIndex, LogEventInfo> ChangeRecordRepository;
     protected readonly ContractInfoOptions ContractInfoOptions;
     protected readonly IObjectMapper ObjectMapper;
@@ -19,11 +20,13 @@ public abstract class LoginGuardianProcessorBase<TEvent> : AElfLogEventProcessor
     protected LoginGuardianProcessorBase(ILogger<LoginGuardianProcessorBase<TEvent>> logger,
         IObjectMapper objectMapper, IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo> repository,
         IAElfIndexerClientEntityRepository<LoginGuardianChangeRecordIndex, LogEventInfo> changeRecordRepository,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base(logger)
     {
         ObjectMapper = objectMapper;
         Repository = repository;
         ChangeRecordRepository = changeRecordRepository;
+        CaHolderRepository = caHolderRepository;
         ContractInfoOptions = contractInfoOptions.Value;
     }
 

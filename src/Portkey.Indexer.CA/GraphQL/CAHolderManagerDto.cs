@@ -12,4 +12,5 @@ public class CAHolderManagerDto
     [Name("caAddress")]
     public string CAAddress { get; set; }
     public List<ManagerInfo> ManagerInfos { get; set; }
+    public string OriginChainId { get; set; }
 }

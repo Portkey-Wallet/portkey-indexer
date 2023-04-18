@@ -9,21 +9,22 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class LoginGuardianRemovedProcessor: LoginGuardianProcessorBase<LoginGuardianRemoved>
+public class LoginGuardianRemovedProcessor : LoginGuardianProcessorBase<LoginGuardianRemoved>
 {
     public LoginGuardianRemovedProcessor(ILogger<LoginGuardianRemovedProcessor> logger,
         IObjectMapper objectMapper, IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo> repository,
         IAElfIndexerClientEntityRepository<LoginGuardianChangeRecordIndex, LogEventInfo> changeRecordRepository,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base(logger, objectMapper, repository,
-        changeRecordRepository, contractInfoOptions)
+        changeRecordRepository, caHolderRepository, contractInfoOptions)
     {
     }
-    
+
     public override string GetContractAddress(string chainId)
     {
-        return ContractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).CAContractAddress;
+        return ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress;
     }
-    
+
     protected override async Task HandleEventAsync(LoginGuardianRemoved eventValue, LogEventContext context)
     {
         var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.CaAddress.ToBase58(),
@@ -33,10 +34,29 @@ public class LoginGuardianRemovedProcessor: LoginGuardianProcessorBase<LoginGuar
         {
             return;
         }
-        
+
         ObjectMapper.Map(context, loginGuardianIndex);
         await Repository.DeleteAsync(loginGuardianIndex);
         await AddChangeRecordAsync(loginGuardianIndex.CAAddress, loginGuardianIndex.CAHash,
             loginGuardianIndex.Manager, loginGuardianIndex.LoginGuardian, nameof(LoginGuardianRemoved), context);
+
+        //check ca address if already exist in caHolderIndex
+        var id = IdGenerateHelper.GetId(context.ChainId, eventValue.CaAddress.ToBase58());
+        var caHolderIndex = await CaHolderRepository.GetFromBlockStateSetAsync(id, context.ChainId);
+        if (caHolderIndex == null) return;
+
+        // _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
+
+        var guardian = caHolderIndex.Guardians.FirstOrDefault(g =>
+            g.IdentifierHash == eventValue.LoginGuardian.IdentifierHash.ToHex() &&
+            g.VerifierId == eventValue.LoginGuardian.VerifierId.ToHex() &&
+            g.Type == (int)eventValue.LoginGuardian.Type);
+
+        if (guardian == null || !guardian.IsLoginGuardian) return;
+
+        guardian.IsLoginGuardian = false;
+
+        ObjectMapper.Map(context, caHolderIndex);
+        await CaHolderRepository.AddOrUpdateAsync(caHolderIndex);
     }
 }

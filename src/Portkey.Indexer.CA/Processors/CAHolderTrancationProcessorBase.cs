@@ -105,7 +105,7 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> :AElfLogEventProc
     
     protected async Task AddCAHolderTransactionAddressAsync(string caAddress, string address, string addressChainId, LogEventContext context)
     {
-        var id = IdGenerateHelper.GetId(context.ChainId, caAddress, address);
+        var id = IdGenerateHelper.GetId(context.ChainId, caAddress, address, addressChainId);
         var caHolderTransactionAddressIndex =
             await CAHolderTransactionAddressIndexRepository.GetFromBlockStateSetAsync(id, context.ChainId);
         if (caHolderTransactionAddressIndex == null)

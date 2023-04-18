@@ -8,8 +8,8 @@ public class GetCAHolderTokenBalanceDto : PagedResultRequestDto
 {
     public string ChainId { get; set; }
     
-    [Name("caAddresses")]
-    public List<string> CAAddresses { get; set; }
+    [Name("caAddressInfos")]
+    public List<CAAddressInfo> CAAddressInfos { get; set; }
     
     // public TokenType Type { get; set; }
     
