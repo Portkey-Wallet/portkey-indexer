@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DC6D5F28-CD0F-49C9-BD0D-564A059595BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portkey.Indexer.CA", "src\Portkey.Indexer.CA\Portkey.Indexer.CA.csproj", "{70CD7448-F1CD-4C60-A4F4-9FF25F910AD3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{FFF6C1F0-1595-4D71-9F12-D4CE3696A5CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portkey.Indexer.TestDapp", "test\PortKey.Indexer.TestDapp\Portkey.Indexer.TestDapp.csproj", "{978F2E2F-EDB5-4351-9C6E-6EA18BDF9FD0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{70CD7448-F1CD-4C60-A4F4-9FF25F910AD3} = {DC6D5F28-CD0F-49C9-BD0D-564A059595BD}
+		{978F2E2F-EDB5-4351-9C6E-6EA18BDF9FD0} = {FFF6C1F0-1595-4D71-9F12-D4CE3696A5CE}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{70CD7448-F1CD-4C60-A4F4-9FF25F910AD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70CD7448-F1CD-4C60-A4F4-9FF25F910AD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70CD7448-F1CD-4C60-A4F4-9FF25F910AD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70CD7448-F1CD-4C60-A4F4-9FF25F910AD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{978F2E2F-EDB5-4351-9C6E-6EA18BDF9FD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{978F2E2F-EDB5-4351-9C6E-6EA18BDF9FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{978F2E2F-EDB5-4351-9C6E-6EA18BDF9FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{978F2E2F-EDB5-4351-9C6E-6EA18BDF9FD0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
