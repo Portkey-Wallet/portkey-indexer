@@ -28,6 +28,14 @@ public class CAHolderIndex : AElfIndexerClientEntity<string>, IIndexBuild
     /// </summary>
     [Nested(Name = "ManagerInfos",Enabled = true,IncludeInParent = true,IncludeInRoot = true)]
     public List<ManagerInfo> ManagerInfos { get; set; }
+    
+    [Nested(Name = "Guardians",Enabled = true,IncludeInParent = true,IncludeInRoot = true)]
+    public List<Guardian> Guardians { get; set; }
+    
+    /// <summary>
+    /// ChainId where CAHolder created
+    /// </summary>
+    [Keyword]public string OriginChainId { get; set; }
 }
 
 public class ManagerInfo

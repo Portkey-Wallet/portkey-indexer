@@ -6,22 +6,24 @@ using Microsoft.Extensions.Options;
 using Portkey.Contracts.CA;
 using Portkey.Indexer.CA.Entities;
 using Volo.Abp.ObjectMapping;
+using Guardian = Portkey.Contracts.CA.Guardian;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class LoginGuardianAddedProcessor: LoginGuardianProcessorBase<LoginGuardianAdded>
+public class LoginGuardianAddedProcessor : LoginGuardianProcessorBase<LoginGuardianAdded>
 {
     public LoginGuardianAddedProcessor(ILogger<LoginGuardianAddedProcessor> logger,
         IObjectMapper objectMapper, IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo> repository,
         IAElfIndexerClientEntityRepository<LoginGuardianChangeRecordIndex, LogEventInfo> changeRecordRepository,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base(logger, objectMapper, repository,
-        changeRecordRepository, contractInfoOptions)
+        changeRecordRepository, caHolderRepository, contractInfoOptions)
     {
     }
 
     public override string GetContractAddress(string chainId)
     {
-        return ContractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).CAContractAddress;
+        return ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress;
     }
 
     protected override async Task HandleEventAsync(LoginGuardianAdded eventValue, LogEventContext context)
@@ -33,6 +35,7 @@ public class LoginGuardianAddedProcessor: LoginGuardianProcessorBase<LoginGuardi
         {
             return;
         }
+
         loginGuardianIndex = new LoginGuardianIndex
         {
             Id = indexId,
@@ -57,5 +60,30 @@ public class LoginGuardianAddedProcessor: LoginGuardianProcessorBase<LoginGuardi
         await Repository.AddOrUpdateAsync(loginGuardianIndex);
         await AddChangeRecordAsync(loginGuardianIndex.CAAddress, loginGuardianIndex.CAHash,
             loginGuardianIndex.Manager, loginGuardianIndex.LoginGuardian, nameof(LoginGuardianAdded), context);
+
+        //check ca address if already exist in caHolderIndex
+        var id = IdGenerateHelper.GetId(context.ChainId, eventValue.CaAddress.ToBase58());
+        var caHolderIndex = await CaHolderRepository.GetFromBlockStateSetAsync(id, context.ChainId);
+        if (caHolderIndex == null) return;
+
+        // _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
+
+        var guardian = caHolderIndex.Guardians.FirstOrDefault(g =>
+            g.IdentifierHash == eventValue.LoginGuardian.IdentifierHash.ToHex() &&
+            g.VerifierId == eventValue.LoginGuardian.VerifierId.ToHex() &&
+            g.Type == (int)eventValue.LoginGuardian.Type);
+
+        if (guardian == null)
+        {
+            caHolderIndex.Guardians.Add(ObjectMapper.Map<Guardian, Entities.Guardian>(eventValue.LoginGuardian));
+        }
+        else
+        {
+            if (guardian.IsLoginGuardian) return;
+            guardian.IsLoginGuardian = true;
+        }
+
+        ObjectMapper.Map(context, caHolderIndex);
+        await CaHolderRepository.AddOrUpdateAsync(caHolderIndex);
     }
 }

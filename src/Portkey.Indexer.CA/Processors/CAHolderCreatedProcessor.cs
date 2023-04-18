@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using Portkey.Contracts.CA;
 using Portkey.Indexer.CA.Entities;
 using Volo.Abp.ObjectMapping;
+using Guardian = Portkey.Indexer.CA.Entities.Guardian;
 
 namespace Portkey.Indexer.CA.Processors;
 
@@ -77,14 +78,16 @@ public class CAHolderCreatedProcessor: AElfLogEventProcessorBase<CAHolderCreated
             CAHash = eventValue.CaHash.ToHex(),
             CAAddress = eventValue.CaAddress.ToBase58(),
             Creator = eventValue.Creator.ToBase58(),
-            ManagerInfos = new List<Entities.ManagerInfo>()
+            ManagerInfos = new List<Entities.ManagerInfo>
             {
-                new Entities.ManagerInfo()
+                new ()
                 {
                     Address = eventValue.Manager.ToBase58(),
                     ExtraData = eventValue.ExtraData
                 }
-            }
+            },
+            Guardians = new List<Guardian>(),
+            OriginChainId = context.ChainId
         };
         _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
         await _repository.AddOrUpdateAsync(caHolderIndex);
