@@ -3,7 +3,7 @@
 | BRANCH | AZURE PIPELINES                                              | TESTS                                                        | CODE COVERAGE                                                |
 | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | MASTER | [![Build Status](https://dev.azure.com/Portkey-Finance/Portkey-Finance/_apis/build/status%2FPortkey-Wallet.portkey-indexer?branchName=master)](https://dev.azure.com/Portkey-Finance/Portkey-Finance/_build/latest?definitionId=8&branchName=master) | [![Test Status](https://img.shields.io/azure-devops/tests/Portkey-Finance/Portkey-Finance/8/master)](https://dev.azure.com/Portkey-Finance/Portkey-Finance/_build/latest?definitionId=8&branchName=master) | [![codecov](https://codecov.io/github/Portkey-Wallet/portkey-indexer/branch/master/graph/badge.svg?token=NILLW9BJX9)](https://app.codecov.io/github/Portkey-Wallet/portkey-indexer) |
-| DEV    | [![Build Status](https://dev.azure.com/Portkey-Finance/Portkey-Finance/_apis/build/status%2FPortkey-Wallet.portkey-indexer?branchName=dev)](https://dev.azure.com/Portkey-Finance/Portkey-Finance/_build/latest?definitionId=8&branchName=dev) | [![Test Status](https://img.shields.io/azure-devops/tests/Portkey-Finance/Portkey-Finance/8/dev)](https://dev.azure.com/Portkey-Finance/Portkey-Finance/_build/latest?definitionId=8&branchName=dev) | [![codecov](https://codecov.io/github/Portkey-Wallet/portkey-indexer/branch/dev/graph/badge.svg?token=NILLW9BJX9)](https://app.codecov.io/github/Portkey-Wallet/portkey-indexer) |
+| DEV    | [![Build Status](https://dev.azure.com/Portkey-Finance/Portkey-Finance/_apis/build/status%2FPortkey-Wallet.portkey-indexer?branchName=dev)](https://dev.azure.com/Portkey-Finance/Portkey-Finance/_build/latest?definitionId=8&branchName=dev) | [![Test Status](https://img.shields.io/azure-devops/tests/Portkey-Finance/Portkey-Finance/8/dev)](https://dev.azure.com/Portkey-Finance/Portkey-Finance/_build/latest?definitionId=8&branchName=dev) | [![codecov](https://codecov.io/github/Portkey-Wallet/portkey-indexer/branch/master/graph/badge.svg?token=NILLW9BJX9)](https://app.codecov.io/github/Portkey-Wallet/portkey-indexer) |
 
 Portkey Indexer is an interface plugin project running on the aelf blockchain scanning system, acting as a bridge between blockchain data and Web3 applications. In simple terms, its main functions include:
 
@@ -39,7 +39,7 @@ We welcome contributions to the Portkey Indexer project. If you would like to co
 
 ## License
 
-Portkey Indexer is licensed under [MIT](https://github.com/Portkey-Wallet/portkey-indexer/blob/feature/readme/README.md).
+Portkey Indexer is licensed under [MIT](https://github.com/Portkey-Wallet/portkey-indexer/blob/master/LICENSE).
 
 ## Contact
 
