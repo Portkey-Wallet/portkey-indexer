@@ -80,7 +80,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
         };
 
         //step3: handle event and write result to blockStateSet
-        var guardianAddedProcessor = GetRequiredService<GuardianAddedProcessor>();
+        var guardianAddedProcessor = GetRequiredService<GuardianAddedLogEventProcessor>();
         await guardianAddedProcessor.HandleEventAsync(logEventInfo, logEventContext);
         guardianAddedProcessor.GetContractAddress(chainId);
         
@@ -228,7 +228,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
         };
         
         //step3: handle event and write result to blockStateSet
-        var guardianUpdatedProcessor = GetRequiredService<GuardianUpdatedProcessor>();
+        var guardianUpdatedProcessor = GetRequiredService<GuardianUpdatedLogEventProcessor>();
         await guardianUpdatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
         guardianUpdatedProcessor.GetContractAddress(chainId);
         

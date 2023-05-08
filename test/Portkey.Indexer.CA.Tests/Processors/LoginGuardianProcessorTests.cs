@@ -715,7 +715,7 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         };
 
         //step3: handle event and write result to blockStateSet
-        var guardianAddedProcessor = GetRequiredService<GuardianAddedProcessor>();
+        var guardianAddedProcessor = GetRequiredService<GuardianAddedLogEventProcessor>();
         await guardianAddedProcessor.HandleEventAsync(logEventInfo, logEventContext);
 
         //step4: save blockStateSet into es
