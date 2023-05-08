@@ -98,7 +98,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
     public async Task<(CAHolderCreated, string)> CreateHolder(string email = "test@google.com",
         string caaddress = "AAA", string creator = "BBB", string manager = defaultManager, string chainId = "AELF")
     {
-        var caHolderCreatedProcessor = GetRequiredService<CAHolderCreatedProcessor>();
+        var caHolderCreatedProcessor = GetRequiredService<CAHolderCreatedLogEventProcessor>();
         var blockStateSet = new BlockStateSet<LogEventInfo>
         {
             BlockHash = blockHash,
