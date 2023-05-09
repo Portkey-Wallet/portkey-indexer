@@ -153,7 +153,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
         };
         
         //step3: handle event and write result to blockStateSet
-        var guardianRemovedProcessor = GetRequiredService<GuardianRemovedProcessor>();
+        var guardianRemovedProcessor = GetRequiredService<GuardianRemovedLogEventProcessor>();
         await guardianRemovedProcessor.HandleEventAsync(logEventInfo, logEventContext);
         guardianRemovedProcessor.GetContractAddress(chainId);
 

@@ -337,7 +337,7 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
 
-        var loginGuardianRemovedProcessor = GetRequiredService<LoginGuardianRemovedProcessor>();
+        var loginGuardianRemovedProcessor = GetRequiredService<LoginGuardianRemovedLogEventProcessor>();
 
         //step1: create blockStateSet
         var blockStateSetAdded = new BlockStateSet<LogEventInfo>
@@ -414,7 +414,7 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
 
-        var loginGuardianRemovedProcessor = GetRequiredService<LoginGuardianRemovedProcessor>();
+        var loginGuardianRemovedProcessor = GetRequiredService<LoginGuardianRemovedLogEventProcessor>();
 
         //step1: create blockStateSet
         var blockStateSetAdded = new BlockStateSet<LogEventInfo>
@@ -491,7 +491,7 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
 
-        var loginGuardianUnboundProcessor = GetRequiredService<LoginGuardianUnboundProcessor>();
+        var loginGuardianUnboundProcessor = GetRequiredService<LoginGuardianUnboundLogEventProcessor>();
 
         //step1: create blockStateSet
         var blockStateSetAdded = new BlockStateSet<LogEventInfo>
