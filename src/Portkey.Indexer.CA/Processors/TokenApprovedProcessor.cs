@@ -32,7 +32,7 @@ public class TokenApprovedProcessor : CAHolderTransactionProcessorBase<Approved>
 
     public override string GetContractAddress(string chainId)
     {
-        return ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress;
+        return ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).TokenContractAddress;
     }
 
     protected override async Task HandleEventAsync(Approved eventValue, LogEventContext context)
