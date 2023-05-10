@@ -518,7 +518,8 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
 
-        var loginGuardianUnboundProcessor = GetRequiredService<LoginGuardianUnboundLogEventProcessor>();
+        var loginGuardianUnboundLogEventProcessor = GetRequiredService<LoginGuardianUnboundLogEventProcessor>();
+        var loginGuardianUnboundProcessor = GetRequiredService<LoginGuardianUnboundProcessor>();
 
         //step1: create blockStateSet
         var blockStateSetAdded = new BlockStateSet<LogEventInfo>
@@ -528,8 +529,16 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash
         };
+        var blockStateSet2 = new BlockStateSet<TransactionInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash
+        };
 
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSetAdded, chainId);
+        var blockStateSetKey2 = await InitializeBlockStateSetAsync(blockStateSet2, chainId);
 
         //step2: create logEventInfo
         var loginGuardianUnbound = new LoginGuardianUnbound
@@ -553,7 +562,7 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
             TransactionId = transactionId,
             Params = "{ \"to\": \"ca\", \"symbol\": \"ELF\", \"amount\": \"100000000000\" }",
             To = "CAAddress",
-            MethodName = "AddManagerInfo",
+            MethodName = "UnsetGuardianForLogin",
             ExtraProperties = new Dictionary<string, string>
             {
                 { "TransactionFee", "{\"ELF\":\"30000000\"}" },
@@ -563,11 +572,15 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         };
 
         //step3: handle event and write result to blockStateSet
+        await loginGuardianUnboundLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
+        loginGuardianUnboundLogEventProcessor.GetContractAddress("AELF");
+        
         await loginGuardianUnboundProcessor.HandleEventAsync(logEventInfo, logEventContext);
         loginGuardianUnboundProcessor.GetContractAddress("AELF");
 
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey2);
         await Task.Delay(2000);
 
         //step5: check result
