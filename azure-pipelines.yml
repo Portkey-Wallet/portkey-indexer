@@ -35,10 +35,10 @@ jobs:
     displayName: Build all tasks (Linux)
     timeoutInMinutes: 120
     pool:
-#      vmImage: ubuntu-latest
-      name: Default
-      demands:
-        - Agent.OS -equals Linux
+      vmImage: ubuntu-latest
+#      name: Default
+#      demands:
+#        - Agent.OS -equals Linux
     steps:
       - task: UseDotNet@2
         displayName: 'Install .NET Core SDK'
