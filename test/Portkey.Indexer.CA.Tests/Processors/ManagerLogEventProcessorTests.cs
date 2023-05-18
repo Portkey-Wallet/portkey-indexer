@@ -68,7 +68,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
             PreviousBlockHash = previousBlockHash
         };
 
-        var blockStateSet2 = new BlockStateSet<TransactionInfo>
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -77,7 +77,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         };
 
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
-        var blockStateSetKey2 = await InitializeBlockStateSetAsync(blockStateSet2, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
 
         //step2: create logEventInfo
         var managerInfoAdded = new ManagerInfoAdded
@@ -118,7 +118,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
 
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
-        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey2);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
         //step5: check result
@@ -155,14 +155,14 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         };
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
 
-        var blockStateSet2 = new BlockStateSet<LogEventInfo>
+        var blockStateSetTransaction = new BlockStateSet<LogEventInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
             Confirmed = true,
             PreviousBlockHash = previousBlockHash,
         };
-        var blockStateSetKey2 = await InitializeBlockStateSetAsync(blockStateSet2, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
 
         //step2: create logEventInfo
         var managerInfoAdded = new ManagerInfoAdded
@@ -203,7 +203,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
 
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey2);
+        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
         //step5: check result
@@ -238,14 +238,14 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         };
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
 
-        var blockStateSet2 = new BlockStateSet<LogEventInfo>
+        var blockStateSetTransaction = new BlockStateSet<LogEventInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
             Confirmed = true,
             PreviousBlockHash = previousBlockHash,
         };
-        var blockStateSetKey2 = await InitializeBlockStateSetAsync(blockStateSet2, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
 
         //step2: create logEventInfo
         var managerInfoAdded = new ManagerInfoAdded
@@ -286,7 +286,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
 
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey2);
+        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
         //step5: check result
@@ -319,14 +319,14 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         };
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
 
-        var blockStateSet2 = new BlockStateSet<TransactionInfo>
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
             Confirmed = true,
             PreviousBlockHash = previousBlockHash,
         };
-        var blockStateSetKey2 = await InitializeBlockStateSetAsync(blockStateSet2, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
 
         //step2: create logEventInfo
         var managerInfoRemoved = new ManagerInfoRemoved
@@ -367,7 +367,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
 
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
-        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey2);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
         //step5: check result
@@ -401,14 +401,14 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         };
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
 
-        var blockStateSet2 = new BlockStateSet<TransactionInfo>
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
             Confirmed = true,
             PreviousBlockHash = previousBlockHash,
         };
-        var blockStateSetKey2 = await InitializeBlockStateSetAsync(blockStateSet2, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
 
         //step2: create logEventInfo
         var managerInfoRemoved = new ManagerInfoRemoved
@@ -449,7 +449,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
 
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
-        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey2);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
         //step5: check result
@@ -481,14 +481,14 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         };
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
 
-        var blockStateSet2 = new BlockStateSet<TransactionInfo>
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
             Confirmed = true,
             PreviousBlockHash = previousBlockHash,
         };
-        var blockStateSetKey2 = await InitializeBlockStateSetAsync(blockStateSet2, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
 
         //step2: create logEventInfo
         var managerInfoSocialRecovered = new ManagerInfoSocialRecovered
@@ -529,7 +529,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
 
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
-        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey2);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
         //step5: check result
@@ -707,14 +707,14 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         };
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
 
-        var blockStateSet2 = new BlockStateSet<TransactionInfo>
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
             Confirmed = true,
             PreviousBlockHash = previousBlockHash,
         };
-        var blockStateSetKey2 = await InitializeBlockStateSetAsync(blockStateSet2, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
 
         //step2: create logEventInfo
         var managerInfoUpdated = new ManagerInfoUpdated
@@ -755,7 +755,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
 
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
-        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey2);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
         //step5: check result
