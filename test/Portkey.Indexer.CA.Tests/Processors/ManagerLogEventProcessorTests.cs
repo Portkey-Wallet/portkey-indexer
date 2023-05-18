@@ -155,7 +155,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         };
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
 
-        var blockStateSetTransaction = new BlockStateSet<LogEventInfo>
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -238,7 +238,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         };
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
 
-        var blockStateSetTransaction = new BlockStateSet<LogEventInfo>
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -636,7 +636,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash,
         };
-        var blockStateSetTransaction = new BlockStateSet<LogEventInfo>
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -803,7 +803,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash,
         };
-        var blockStateSetTransaction = new BlockStateSet<LogEventInfo>
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
