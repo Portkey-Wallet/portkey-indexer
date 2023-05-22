@@ -1,7 +1,6 @@
 using AElfIndexer.Client;
 using AElfIndexer.Client.Handlers;
 using AElfIndexer.Grains.State.Client;
-using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Portkey.Contracts.CA;
@@ -23,7 +22,8 @@ public class GuardianAddedProcessor : CAHolderTransactionProcessorBase<GuardianA
             caHolderTransactionAddressIndexRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions, IObjectMapper objectMapper) :
-        base(logger, caHolderIndexRepository,caHolderManagerIndexRepository, caHolderTransactionIndexRepository, tokenInfoIndexRepository,
+        base(logger, caHolderIndexRepository, caHolderManagerIndexRepository, caHolderTransactionIndexRepository,
+            tokenInfoIndexRepository,
             nftInfoIndexRepository, caHolderTransactionAddressIndexRepository, contractInfoOptions,
             caHolderTransactionInfoOptions, objectMapper)
     {
@@ -31,26 +31,11 @@ public class GuardianAddedProcessor : CAHolderTransactionProcessorBase<GuardianA
 
     public override string GetContractAddress(string chainId)
     {
-        return ContractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).CAContractAddress;
-    }
+        return ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress;
+    } 
 
     protected override async Task HandleEventAsync(GuardianAdded eventValue, LogEventContext context)
     {
-        if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
-        var holder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
-            eventValue.CaAddress.ToBase58()),context.ChainId);
-        if (holder == null) return;
-        
-        var index = new CAHolderTransactionIndex
-        {
-            Id = IdGenerateHelper.GetId(context.BlockHash, context.TransactionId),
-            Timestamp = context.BlockTime.ToTimestamp().Seconds,
-            FromAddress = eventValue.CaAddress.ToBase58(),
-            TransactionFee = GetTransactionFee(context.ExtraProperties)
-        };
-        ObjectMapper.Map(context, index);
-        index.MethodName = GetMethodName(context.MethodName, context.Params);
-        
-        await CAHolderTransactionIndexRepository.AddOrUpdateAsync(index);
+        await ProcessCAHolderTransactionAsync(context, eventValue.CaAddress.ToBase58());
     }
 }

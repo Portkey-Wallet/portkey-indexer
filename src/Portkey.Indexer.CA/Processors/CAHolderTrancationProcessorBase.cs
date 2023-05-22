@@ -13,15 +13,23 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public abstract class CAHolderTransactionProcessorBase<TEvent> :AElfLogEventProcessorBase<TEvent,TransactionInfo> where TEvent : IEvent<TEvent>, new()
+public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventProcessorBase<TEvent, TransactionInfo>
+    where TEvent : IEvent<TEvent>, new()
 {
     protected readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> CAHolderIndexRepository;
-    protected readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> CAHolderManagerIndexRepository;
-    protected readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> CAHolderTransactionIndexRepository;
+
+    protected readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo>
+        CAHolderManagerIndexRepository;
+
+    protected readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
+        CAHolderTransactionIndexRepository;
+
     protected readonly IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> TokenInfoIndexRepository;
     protected readonly IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> NFTInfoIndexRepository;
+
     protected readonly IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo>
         CAHolderTransactionAddressIndexRepository;
+
     protected readonly ContractInfoOptions ContractInfoOptions;
     protected readonly CAHolderTransactionInfoOptions CAHolderTransactionInfoOptions;
     protected readonly IObjectMapper ObjectMapper;
@@ -33,8 +41,10 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> :AElfLogEventProc
             caHolderTransactionIndexRepository,
         IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
         IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> nftInfoIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo> caHolderTransactionAddressIndexRepository,
-        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions, IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo>
+            caHolderTransactionAddressIndexRepository,
+        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
+        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions,
         IObjectMapper objectMapper) : base(logger)
     {
         CAHolderIndexRepository = caHolderIndexRepository;
@@ -48,30 +58,30 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> :AElfLogEventProc
         CAHolderTransactionAddressIndexRepository = caHolderTransactionAddressIndexRepository;
     }
 
-    protected bool IsValidTransaction(string chainId,string to, string methodName,string parameter)
+    protected bool IsValidTransaction(string chainId, string to, string methodName, string parameter)
     {
-        if(!CAHolderTransactionInfoOptions.CAHolderTransactionInfos.Where(t => t.ChainId == chainId).Any(t =>
-               t.ContractAddress == to && t.MethodName == methodName &&
-               t.EventNames.Contains(GetEventName()))) return false;
+        if (!CAHolderTransactionInfoOptions.CAHolderTransactionInfos.Where(t => t.ChainId == chainId).Any(t =>
+                t.ContractAddress == to && t.MethodName == methodName &&
+                t.EventNames.Contains(GetEventName()))) return false;
         if (methodName == "ManagerForwardCall" &&
             !IsValidManagerForwardCallTransaction(chainId, to, methodName, parameter)) return false;
         return true;
     }
-    
-    private bool IsValidManagerForwardCallTransaction(string chainId,string to, string methodName, string parameter)
+
+    private bool IsValidManagerForwardCallTransaction(string chainId, string to, string methodName, string parameter)
     {
         if (methodName != "ManagerForwardCall") return false;
-        if(to != ContractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).CAContractAddress) return false;
+        if (to != ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress) return false;
         var managerForwardCallInput = ManagerForwardCallInput.Parser.ParseFrom(ByteString.FromBase64(parameter));
         return IsValidTransaction(chainId, managerForwardCallInput.ContractAddress.ToBase58(),
-                managerForwardCallInput.MethodName, managerForwardCallInput.Args.ToBase64());
+            managerForwardCallInput.MethodName, managerForwardCallInput.Args.ToBase64());
     }
 
     protected string GetMethodName(string methodName, string parameter)
     {
         if (methodName == "ManagerTransfer") return "Transfer";
         if (methodName != "ManagerForwardCall") return methodName;
-        var managerForwardCallInput= ManagerForwardCallInput.Parser.ParseFrom(ByteString.FromBase64(parameter));
+        var managerForwardCallInput = ManagerForwardCallInput.Parser.ParseFrom(ByteString.FromBase64(parameter));
         return GetMethodName(managerForwardCallInput.MethodName, managerForwardCallInput.Args.ToBase64());
     }
 
@@ -83,6 +93,7 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> :AElfLogEventProc
             feeMap = JsonConvert.DeserializeObject<Dictionary<string, long>>(transactionFee) ??
                      new Dictionary<string, long>();
         }
+
         if (extraProperties.TryGetValue("ResourceFee", out var resourceFee))
         {
             var resourceFeeMap = JsonConvert.DeserializeObject<Dictionary<string, long>>(resourceFee) ??
@@ -102,8 +113,9 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> :AElfLogEventProc
 
         return feeMap;
     }
-    
-    protected async Task AddCAHolderTransactionAddressAsync(string caAddress, string address, string addressChainId, LogEventContext context)
+
+    protected async Task AddCAHolderTransactionAddressAsync(string caAddress, string address, string addressChainId,
+        LogEventContext context)
     {
         var id = IdGenerateHelper.GetId(context.ChainId, caAddress, address, addressChainId);
         var caHolderTransactionAddressIndex =
@@ -113,7 +125,7 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> :AElfLogEventProc
             caHolderTransactionAddressIndex = new CAHolderTransactionAddressIndex
             {
                 Id = id,
-                CAAddress =caAddress,
+                CAAddress = caAddress,
                 Address = address,
                 AddressChainId = addressChainId
             };
@@ -124,5 +136,27 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> :AElfLogEventProc
         caHolderTransactionAddressIndex.TransactionTime = transactionTime;
         ObjectMapper.Map(context, caHolderTransactionAddressIndex);
         await CAHolderTransactionAddressIndexRepository.AddOrUpdateAsync(caHolderTransactionAddressIndex);
+    }
+
+    protected async Task<string> ProcessCAHolderTransactionAsync(LogEventContext context, string caAddress)
+    {
+        if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return null;
+        var holder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
+            caAddress), context.ChainId);
+        if (holder == null) return null;
+
+        var index = new CAHolderTransactionIndex
+        {
+            Id = IdGenerateHelper.GetId(context.BlockHash, context.TransactionId),
+            Timestamp = context.BlockTime.ToTimestamp().Seconds,
+            FromAddress = caAddress,
+            TransactionFee = GetTransactionFee(context.ExtraProperties)
+        };
+        ObjectMapper.Map(context, index);
+        index.MethodName = GetMethodName(context.MethodName, context.Params);
+
+        await CAHolderTransactionIndexRepository.AddOrUpdateAsync(index);
+
+        return holder.CAAddress;
     }
 }

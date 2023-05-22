@@ -701,7 +701,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash,
         };
-        var blockStateSet2 = new BlockStateSet<TransactionInfo>
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -709,7 +709,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
             PreviousBlockHash = previousBlockHash,
         };
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
-        var blockStateSetKey2 = await InitializeBlockStateSetAsync(blockStateSet2, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
         var crossChainTransferred = new CrossChainTransferred()
         {
             From = Address.FromPublicKey(defaultManager.HexToByteArray()),
@@ -745,7 +745,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         await Task.Delay(2000);
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
-        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey2);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
         var tokenBalanceIndexData =

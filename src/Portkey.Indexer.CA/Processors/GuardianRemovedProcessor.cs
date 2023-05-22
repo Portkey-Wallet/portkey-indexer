@@ -37,19 +37,6 @@ public class GuardianRemovedProcessor : CAHolderTransactionProcessorBase<Guardia
 
     protected override async Task HandleEventAsync(GuardianRemoved eventValue, LogEventContext context)
     {
-        if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
-        var holder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
-            eventValue.CaAddress.ToBase58()), context.ChainId);
-        if (holder == null) return;
-        var index = new CAHolderTransactionIndex
-        {
-            Id = IdGenerateHelper.GetId(context.BlockHash, context.TransactionId),
-            Timestamp = context.BlockTime.ToTimestamp().Seconds,
-            FromAddress = eventValue.CaAddress.ToBase58(),
-            TransactionFee = GetTransactionFee(context.ExtraProperties)
-        };
-        ObjectMapper.Map(context, index);
-        index.MethodName = GetMethodName(context.MethodName, context.Params);
-        await CAHolderTransactionIndexRepository.AddOrUpdateAsync(index);
+        await ProcessCAHolderTransactionAsync(context, eventValue.CaAddress.ToBase58());
     }
 }

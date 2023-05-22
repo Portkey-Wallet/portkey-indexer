@@ -52,7 +52,7 @@ public sealed class CAHolderCreatedProcessorTests:PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash,
         };
-        var blockStateSet2 = new BlockStateSet<TransactionInfo>
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -61,7 +61,7 @@ public sealed class CAHolderCreatedProcessorTests:PortkeyIndexerCATestBase
         };
         
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
-        var blockStateSetKey2 = await InitializeBlockStateSetAsync(blockStateSet2, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
         
         //step2: create logEventInfo
         var caHolderCreated = new CAHolderCreated
@@ -83,7 +83,16 @@ public sealed class CAHolderCreatedProcessorTests:PortkeyIndexerCATestBase
             BlockHeight = blockHeight,
             BlockHash = blockHash,
             PreviousBlockHash = previousBlockHash,
-            TransactionId = transactionId
+            TransactionId = transactionId,
+            Params = "{ \"to\": \"ca\", \"symbol\": \"ELF\", \"amount\": \"100000000000\" }",
+            To = "CAAddress",
+            MethodName = "CreateHolderInfo",
+            ExtraProperties = new Dictionary<string, string>
+            {
+                { "TransactionFee", "{\"ELF\":\"30000000\"}" },
+                { "ResourceFee", "{\"ELF\":\"30000000\"}" }
+            },
+            BlockTime = DateTime.UtcNow
         };
         
         //step3: handle event and write result to blockStateSet
@@ -97,7 +106,7 @@ public sealed class CAHolderCreatedProcessorTests:PortkeyIndexerCATestBase
         
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
-        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey2);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
         
         //step5: check result

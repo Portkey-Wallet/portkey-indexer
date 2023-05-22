@@ -47,7 +47,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
             PreviousBlockHash = previousBlockHash
         };
         
-        var blockStateSet2 = new BlockStateSet<TransactionInfo>
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -56,7 +56,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
         };
 
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSetAdded, chainId);
-        var blockStateSetKey2 = await InitializeBlockStateSetAsync(blockStateSet2, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
         
         //step2: create logEventInfo
         var guardianAdded = new GuardianAdded
@@ -105,7 +105,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
         
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
-        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey2);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
         //step5: check result
@@ -136,7 +136,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
             PreviousBlockHash = previousBlockHash
         };
         
-        var blockStateSet2 = new BlockStateSet<TransactionInfo>
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -145,7 +145,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
         };
         
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSetAdded, chainId);
-        var blockStateSetKey2 = await InitializeBlockStateSetAsync(blockStateSet2, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
         
         //step2: create logEventInfo
         var guardianRemoved = new GuardianRemoved
@@ -194,7 +194,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
 
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
-        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey2);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
         //step5: check result
@@ -220,7 +220,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash
         };
-        var blockStateSet2 = new BlockStateSet<TransactionInfo>
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -229,7 +229,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
         };
         
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSetAdded, chainId);
-        var blockStateSetKey2 = await InitializeBlockStateSetAsync(blockStateSet2, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
         
         //step2: create logEventInfo
         var guardianUpdated = new GuardianUpdated
@@ -284,7 +284,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
         
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
-        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey2);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
         
         //step5: check result
