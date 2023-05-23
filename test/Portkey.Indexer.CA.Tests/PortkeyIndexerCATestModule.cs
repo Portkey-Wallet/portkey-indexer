@@ -79,6 +79,76 @@ public class PortkeyIndexerCATestModule : AbpModule
                 {
                     ChainId = "AELF",
                     ContractAddress = "CAAddress",
+                    MethodName = "AddGuardian",
+                    EventNames = new List<string>
+                    {
+                        "GuardianAdded"
+                    }
+                },
+                new ()
+                {
+                    ChainId = "AELF",
+                    ContractAddress = "CAAddress",
+                    MethodName = "RemoveGuardian",
+                    EventNames = new List<string>
+                    {
+                        "GuardianRemoved"
+                    }
+                },
+                new ()
+                {
+                    ChainId = "AELF",
+                    ContractAddress = "CAAddress",
+                    MethodName = "UpdateGuardian",
+                    EventNames = new List<string>
+                    {
+                        "GuardianUpdated"
+                    }
+                },
+                new ()
+                {
+                    ChainId = "AELF",
+                    ContractAddress = "CAAddress",
+                    MethodName = "SetGuardianForLogin",
+                    EventNames = new List<string>
+                    {
+                        "LoginGuardianAdded"
+                    }
+                },
+                new ()
+                {
+                    ChainId = "AELF",
+                    ContractAddress = "CAAddress",
+                    MethodName = "UnsetGuardianForLogin",
+                    EventNames = new List<string>
+                    {
+                        "LoginGuardianRemoved"
+                    }
+                },
+                new ()
+                {
+                    ChainId = "AELF",
+                    ContractAddress = "CAAddress",
+                    MethodName = "UnsetGuardianForLogin",
+                    EventNames = new List<string>
+                    {
+                        "LoginGuardianUnbound"
+                    }
+                },
+                new ()
+                {
+                    ChainId = "AELF",
+                    ContractAddress = "TokenAddress",
+                    MethodName = "Approve",
+                    EventNames = new List<string>
+                    {
+                        "Approved"
+                    }
+                },
+                new ()
+                {
+                    ChainId = "AELF",
+                    ContractAddress = "CAAddress",
                     MethodName = "AddManagerInfo",
                     EventNames = new List<string>
                     {
@@ -153,6 +223,13 @@ public class PortkeyIndexerCATestModule : AbpModule
                     MethodName = "Transferred",
                     EventNames = new List<string> { "Transferred" }
                 },
+                new ()
+                {
+                    ChainId = "AELF",
+                    ContractAddress = "CAAddress",
+                    MethodName = "CreateHolderInfo",
+                    EventNames = new List<string> { "CAHolderCreated" }
+                }
             };
         });
         

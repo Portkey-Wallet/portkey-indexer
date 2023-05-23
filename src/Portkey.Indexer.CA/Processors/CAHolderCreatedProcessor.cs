@@ -1,95 +1,54 @@
 using AElfIndexer.Client;
 using AElfIndexer.Client.Handlers;
 using AElfIndexer.Grains.State.Client;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Portkey.Contracts.CA;
 using Portkey.Indexer.CA.Entities;
 using Volo.Abp.ObjectMapping;
-using Guardian = Portkey.Indexer.CA.Entities.Guardian;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class CAHolderCreatedProcessor: AElfLogEventProcessorBase<CAHolderCreated,LogEventInfo>
+public class CAHolderCreatedProcessor : CAHolderTransactionProcessorBase<CAHolderCreated>
 {
-    private readonly IObjectMapper _objectMapper;
-    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _repository;
-    private readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> _caHolderManagerIndexRepository;
-    private readonly ContractInfoOptions _contractInfoOptions;
-    
-    public CAHolderCreatedProcessor(ILogger<CAHolderCreatedProcessor> logger, IObjectMapper objectMapper,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
+    public CAHolderCreatedProcessor(ILogger<CAHolderCreatedProcessor> logger,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
-        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base(logger)
+        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
+            caHolderTransactionIndexRepository,
+        IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> nftInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo>
+            caHolderTransactionAddressIndexRepository,
+        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
+        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions, IObjectMapper objectMapper) :
+        base(logger, caHolderIndexRepository, caHolderManagerIndexRepository, caHolderTransactionIndexRepository,
+            tokenInfoIndexRepository,
+            nftInfoIndexRepository, caHolderTransactionAddressIndexRepository, contractInfoOptions,
+            caHolderTransactionInfoOptions, objectMapper)
     {
-        _objectMapper = objectMapper;
-        _repository = repository;
-        _caHolderManagerIndexRepository = caHolderManagerIndexRepository;
-        _contractInfoOptions = contractInfoOptions.Value;
     }
-    
+
     public override string GetContractAddress(string chainId)
     {
-        return _contractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).CAContractAddress;
+        return ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress;
     }
 
     protected override async Task HandleEventAsync(CAHolderCreated eventValue, LogEventContext context)
     {
-        //check manager is already exist in caHolderManagerIndex
-        var managerIndexId = IdGenerateHelper.GetId(context.ChainId, eventValue.Manager.ToBase58());
-        var caHolderManagerIndex =
-            await _caHolderManagerIndexRepository.GetFromBlockStateSetAsync(managerIndexId, context.ChainId);
-        if (caHolderManagerIndex == null)
-        {
-            caHolderManagerIndex = new CAHolderManagerIndex
-            {
-                Id = managerIndexId,
-                Manager = eventValue.Manager.ToBase58(),
-                CAAddresses = new List<string>()
-                {
-                    eventValue.CaAddress.ToBase58()
-                }
-            };
-        }
-        else
-        {
-            if (!caHolderManagerIndex.CAAddresses.Contains(eventValue.CaAddress.ToBase58()))
-            {
-                caHolderManagerIndex.CAAddresses.Add(eventValue.CaAddress.ToBase58());
-            }
-        }
-        _objectMapper.Map<LogEventContext, CAHolderManagerIndex>(context, caHolderManagerIndex);
-        await _caHolderManagerIndexRepository.AddOrUpdateAsync(caHolderManagerIndex);
+        if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
         
-        
-        //check ca address if already exist in caHolderIndex
-        var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.CaAddress.ToBase58());
-        var caHolderIndex = await _repository.GetFromBlockStateSetAsync(indexId, context.ChainId);
-        if (caHolderIndex != null)
+        var index = new CAHolderTransactionIndex
         {
-            return;
-        }
-        
-        // _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
-
-        caHolderIndex = new CAHolderIndex
-        {
-            Id = indexId,
-            CAHash = eventValue.CaHash.ToHex(),
-            CAAddress = eventValue.CaAddress.ToBase58(),
-            Creator = eventValue.Creator.ToBase58(),
-            ManagerInfos = new List<Entities.ManagerInfo>
-            {
-                new ()
-                {
-                    Address = eventValue.Manager.ToBase58(),
-                    ExtraData = eventValue.ExtraData
-                }
-            },
-            Guardians = new List<Guardian>(),
-            OriginChainId = context.ChainId
+            Id = IdGenerateHelper.GetId(context.BlockHash, context.TransactionId),
+            Timestamp = context.BlockTime.ToTimestamp().Seconds,
+            FromAddress = eventValue.CaAddress.ToBase58(),
+            TransactionFee = GetTransactionFee(context.ExtraProperties)
         };
-        _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
-        await _repository.AddOrUpdateAsync(caHolderIndex);
+        
+        ObjectMapper.Map(context, index);
+        index.MethodName = GetMethodName(context.MethodName, context.Params);
+        await CAHolderTransactionIndexRepository.AddOrUpdateAsync(index);
     }
 }
