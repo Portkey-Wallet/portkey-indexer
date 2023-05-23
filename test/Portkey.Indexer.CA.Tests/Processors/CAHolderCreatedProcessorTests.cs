@@ -52,7 +52,16 @@ public sealed class CAHolderCreatedProcessorTests:PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash,
         };
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash,
+        };
+        
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
         
         //step2: create logEventInfo
         var caHolderCreated = new CAHolderCreated
@@ -74,16 +83,30 @@ public sealed class CAHolderCreatedProcessorTests:PortkeyIndexerCATestBase
             BlockHeight = blockHeight,
             BlockHash = blockHash,
             PreviousBlockHash = previousBlockHash,
-            TransactionId = transactionId
+            TransactionId = transactionId,
+            Params = "{ \"to\": \"ca\", \"symbol\": \"ELF\", \"amount\": \"100000000000\" }",
+            To = "CAAddress",
+            MethodName = "CreateHolderInfo",
+            ExtraProperties = new Dictionary<string, string>
+            {
+                { "TransactionFee", "{\"ELF\":\"30000000\"}" },
+                { "ResourceFee", "{\"ELF\":\"30000000\"}" }
+            },
+            BlockTime = DateTime.UtcNow
         };
         
         //step3: handle event and write result to blockStateSet
+        var caHolderCreatedLogEventProcessor = GetRequiredService<CAHolderCreatedLogEventProcessor>();
+        await caHolderCreatedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
+        caHolderCreatedLogEventProcessor.GetContractAddress(chainId);
+        
         var caHolderCreatedProcessor = GetRequiredService<CAHolderCreatedProcessor>();
         await caHolderCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
         caHolderCreatedProcessor.GetContractAddress(chainId);
         
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
         
         //step5: check result

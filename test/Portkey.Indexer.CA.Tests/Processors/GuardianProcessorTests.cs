@@ -17,10 +17,15 @@ namespace Portkey.Indexer.CA.Tests.Processors;
 public class GuardianProcessorTests: PortkeyIndexerCATestBase
 {
     private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _caHolderIndexRepository;
+
+    private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, LogEventInfo>
+        _caHolderTransactionRepository;
     
     public GuardianProcessorTests()
     {
         _caHolderIndexRepository = GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo>>();
+        _caHolderTransactionRepository =
+            GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, LogEventInfo>>();
     }
     
     [Fact]
@@ -41,8 +46,17 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash
         };
+        
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash
+        };
 
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSetAdded, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
         
         //step2: create logEventInfo
         var guardianAdded = new GuardianAdded
@@ -70,7 +84,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
             TransactionId = transactionId,
             Params = "{ \"to\": \"ca\", \"symbol\": \"ELF\", \"amount\": \"100000000000\" }",
             To = "CAAddress",
-            MethodName = "GuardianAdded",
+            MethodName = "AddGuardian",
             ExtraProperties = new Dictionary<string, string>
             {
                 { "TransactionFee", "{\"ELF\":\"30000000\"}" },
@@ -80,12 +94,18 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
         };
 
         //step3: handle event and write result to blockStateSet
+        var guardianAddedLogEventProcessor = GetRequiredService<GuardianAddedLogEventProcessor>();
         var guardianAddedProcessor = GetRequiredService<GuardianAddedProcessor>();
+        
+        await guardianAddedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         await guardianAddedProcessor.HandleEventAsync(logEventInfo, logEventContext);
+        
+        guardianAddedLogEventProcessor.GetContractAddress(chainId);
         guardianAddedProcessor.GetContractAddress(chainId);
         
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
         //step5: check result
@@ -115,7 +135,17 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash
         };
+        
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash
+        };
+        
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSetAdded, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
         
         //step2: create logEventInfo
         var guardianRemoved = new GuardianRemoved
@@ -143,7 +173,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
             TransactionId = transactionId,
             Params = "{ \"to\": \"ca\", \"symbol\": \"ELF\", \"amount\": \"100000000000\" }",
             To = "CAAddress",
-            MethodName = "GuardianRemoved",
+            MethodName = "RemoveGuardian",
             ExtraProperties = new Dictionary<string, string>
             {
                 { "TransactionFee", "{\"ELF\":\"30000000\"}" },
@@ -153,12 +183,18 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
         };
         
         //step3: handle event and write result to blockStateSet
+        var guardianRemovedLogEventProcessor = GetRequiredService<GuardianRemovedLogEventProcessor>();
         var guardianRemovedProcessor = GetRequiredService<GuardianRemovedProcessor>();
+        
+        await guardianRemovedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         await guardianRemovedProcessor.HandleEventAsync(logEventInfo, logEventContext);
+        
+        guardianRemovedLogEventProcessor.GetContractAddress(chainId);
         guardianRemovedProcessor.GetContractAddress(chainId);
 
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
         //step5: check result
@@ -184,7 +220,16 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash
         };
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash
+        };
+        
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSetAdded, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
         
         //step2: create logEventInfo
         var guardianUpdated = new GuardianUpdated
@@ -218,7 +263,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
             TransactionId = transactionId,
             Params = "{ \"to\": \"ca\", \"symbol\": \"ELF\", \"amount\": \"100000000000\" }",
             To = "CAAddress",
-            MethodName = "GuardianAdded",
+            MethodName = "UpdateGuardian",
             ExtraProperties = new Dictionary<string, string>
             {
                 { "TransactionFee", "{\"ELF\":\"30000000\"}" },
@@ -228,12 +273,18 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
         };
         
         //step3: handle event and write result to blockStateSet
+        var guardianUpdatedLogEventProcessor = GetRequiredService<GuardianUpdatedLogEventProcessor>();
         var guardianUpdatedProcessor = GetRequiredService<GuardianUpdatedProcessor>();
+        
+        await guardianUpdatedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         await guardianUpdatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
+        
+        guardianUpdatedLogEventProcessor.GetContractAddress(chainId);
         guardianUpdatedProcessor.GetContractAddress(chainId);
         
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
         
         //step5: check result
@@ -252,7 +303,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
 
-        var caHolderCreatedProcessor = GetRequiredService<CAHolderCreatedProcessor>();
+        var caHolderCreatedProcessor = GetRequiredService<CAHolderCreatedLogEventProcessor>();
 
         //step1: create blockStateSet
         var blockStateSet = new BlockStateSet<LogEventInfo>
