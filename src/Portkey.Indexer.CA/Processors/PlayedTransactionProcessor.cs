@@ -29,7 +29,7 @@ public class PlayedLogEventProcessor: AElfLogEventProcessorBase<Played,Transacti
     
     public override string GetContractAddress(string chainId)
     {
-        return _contractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).CAContractAddress;
+        return _contractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).BingoGameContractAddress;
     }
 
     protected override async Task HandleEventAsync(Played eventValue, LogEventContext context)

@@ -32,7 +32,7 @@ public class PlayedProcessor : CAHolderTransactionProcessorBase<Played>
 
     public override string GetContractAddress(string chainId)
     {
-        return ContractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).CAContractAddress;
+        return ContractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).BingoGameContractAddress;
     }
 
     protected override async Task HandleEventAsync(Played eventValue, LogEventContext context)
