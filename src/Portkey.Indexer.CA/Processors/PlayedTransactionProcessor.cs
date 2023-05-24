@@ -4,10 +4,8 @@ using AElfIndexer.Grains.State.Client;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Portkey.Contracts.BingoGameContract;
-using Portkey.Contracts.CA;
 using Portkey.Indexer.CA.Entities;
 using Volo.Abp.ObjectMapping;
-using Guardian = Portkey.Indexer.CA.Entities.Guardian;
 
 namespace Portkey.Indexer.CA.Processors;
 
@@ -59,8 +57,8 @@ public class PlayedLogEventProcessor: AElfLogEventProcessorBase<Played,Transacti
         }
         var feeList = feeMap.Select(pair => new TransactionFee
         {
-                Symbol = pair.Key,
-                Amount = pair.Value
+            Symbol = pair.Key,
+            Amount = pair.Value
         }).ToList();
         // _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
 

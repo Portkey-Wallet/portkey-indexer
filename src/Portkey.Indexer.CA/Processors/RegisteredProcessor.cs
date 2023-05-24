@@ -1,11 +1,9 @@
 using AElfIndexer.Client;
 using AElfIndexer.Client.Handlers;
 using AElfIndexer.Grains.State.Client;
-using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Portkey.Contracts.BingoGameContract;
-using Portkey.Contracts.CA;
 using Portkey.Indexer.CA.Entities;
 using Volo.Abp.ObjectMapping;
 
@@ -43,8 +41,5 @@ public class RegisteredProcessor : CAHolderTransactionProcessorBase<Registered>
         }
 
         await ProcessCAHolderTransactionAsync(context, eventValue.PlayerAddress.ToBase58());
-        
-        // await AddCAHolderTransactionAddressAsync(holderAddress, eventValue.Manager.ToBase58(), context.ChainId,
-        //     context);
     }
 }

@@ -42,9 +42,5 @@ public class PlayedProcessor : CAHolderTransactionProcessorBase<Played>
             return;
         }
         await ProcessCAHolderTransactionAsync(context, eventValue.PlayerAddress.ToBase58());
-    
-        
-        // await AddCAHolderTransactionAddressAsync(holderAddress, eventValue.Manager.ToBase58(), context.ChainId,
-        //     context);
     }
 }
