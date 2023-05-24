@@ -4,7 +4,7 @@ using Nest;
 
 namespace Portkey.Indexer.CA.Entities;
 
-public class BingoIndex : AElfIndexerClientEntity<string>, IIndexBuild
+public class BingoGameIndex : AElfIndexerClientEntity<string>, IIndexBuild
 {
     [Keyword]public long PlayBlockHeight { get; set; }
     [Keyword]public long BingoBlockHeight { get; set; }
@@ -18,4 +18,6 @@ public class BingoIndex : AElfIndexerClientEntity<string>, IIndexBuild
     [Keyword]public string PlayerAddress { get; set; }
     [Keyword]public long PlayTime { get; set; }
     [Keyword]public long BingoTime { get; set; }
+    public List<TransactionFee> PlayTransactionFee { get; set; }
+    public List<TransactionFee> BingoTransactionFee { get; set; }
 }

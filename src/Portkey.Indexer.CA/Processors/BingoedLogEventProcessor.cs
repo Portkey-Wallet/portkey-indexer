@@ -11,22 +11,25 @@ using Guardian = Portkey.Indexer.CA.Entities.Guardian;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class BingoedLogEventProcessor: AElfLogEventProcessorBase<Bingoed,LogEventInfo>
+public class BingoedLogEventProcessor: AElfLogEventProcessorBase<Bingoed,TransactionInfo>
 {
     private readonly IObjectMapper _objectMapper;
     private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _repository;
-    private readonly IAElfIndexerClientEntityRepository<BingoIndex, LogEventInfo> _bingoIndexRepository;
+    private readonly IAElfIndexerClientEntityRepository<BingoGameIndex, LogEventInfo> _bingoIndexRepository;
     private readonly ContractInfoOptions _contractInfoOptions;
+    private readonly IAElfIndexerClientEntityRepository<BingoGameStaticsIndex, LogEventInfo> _bingoStaticsIndexRepository;
     
     public BingoedLogEventProcessor(ILogger<CAHolderCreatedLogEventProcessor> logger, IObjectMapper objectMapper,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
-        IAElfIndexerClientEntityRepository<BingoIndex, LogEventInfo> bingoIndexRepository,
-        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base((ILogger<AElfLogEventProcessorBase<Bingoed, LogEventInfo>>)logger)
+        IAElfIndexerClientEntityRepository<BingoGameIndex, LogEventInfo> bingoIndexRepository,
+        IAElfIndexerClientEntityRepository<BingoGameStaticsIndex, LogEventInfo> bingoStaticsIndexRepository,
+        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base((ILogger<AElfLogEventProcessorBase<Bingoed, TransactionInfo>>)logger)
     {
         _objectMapper = objectMapper;
         _repository = repository;
         _bingoIndexRepository = bingoIndexRepository;
         _contractInfoOptions = contractInfoOptions.Value;
+        _bingoStaticsIndexRepository = bingoStaticsIndexRepository;
     }
     
     public override string GetContractAddress(string chainId)
@@ -48,29 +51,54 @@ public class BingoedLogEventProcessor: AElfLogEventProcessorBase<Bingoed,LogEven
             return;
         }
         var index = await _bingoIndexRepository.GetFromBlockStateSetAsync(eventValue.PlayId.ToHex(), context.ChainId);
-        if (index != null)
+        if (index == null)
         {
             return;
         }
         // _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
-
-        var bingoIndex = new BingoIndex
+        index.BingoBlockHeight = context.BlockHeight;
+        index.BingoId = context.TransactionId;
+        index.BingoTime = context.BlockTime.Ticks;
+        var feeMap = TransactionFeeHelper.GetTransactionFee(context.ExtraProperties);
+        if (feeMap.IsNullOrEmpty())
         {
-            Id = eventValue.PlayId.ToHex(),
-            play_block_height = eventValue.PlayBlockHeight,
-            bingo_block_height = context.BlockHeight,
-            amount = eventValue.Amount,
-            award = eventValue.Award,
-            is_complete = eventValue.IsComplete,
-            play_id = eventValue.PlayId.ToHex(),
-            bingo_id = context.TransactionId,
-            bingoType = (int)eventValue.Type,
-            dices = new List<int>{eventValue.Dices.Dices[0], eventValue.Dices.Dices[1], eventValue.Dices.Dices[2]},
-            player_address = eventValue.PlayerAddress.ToBase58(),
-            playTime = eventValue.PlayTime.ToDateTime(),
-            bingoTime = context.BlockTime.Ticks,
-        };
-        _objectMapper.Map<LogEventContext, BingoIndex>(context, bingoIndex);
-        await _bingoIndexRepository.AddOrUpdateAsync(bingoIndex);
+            return;
+        }
+        var feeList = feeMap.Select(pair => new TransactionFee
+        {
+                Symbol = pair.Key,
+                Amount = pair.Value
+        }).ToList();
+        index.BingoTransactionFee = feeList;
+        index.IsComplete = true;
+        index.Dices = eventValue.Dices.Dices.ToList();
+        index.Award = eventValue.Award;
+        _objectMapper.Map<LogEventContext, BingoGameIndex>(context, index);
+        await _bingoIndexRepository.AddOrUpdateAsync(index);
+        
+        //update bingoStaticsIndex
+        var staticsId= IdGenerateHelper.GetId(context.ChainId, eventValue.PlayerAddress.ToBase58());
+        var bingoStaticsIndex = await _bingoStaticsIndexRepository.GetFromBlockStateSetAsync(staticsId, context.ChainId);
+        if (bingoStaticsIndex == null)
+        {
+            bingoStaticsIndex = new BingoGameStaticsIndex
+            {
+                Id = staticsId,
+                PlayerAddress = eventValue.PlayerAddress.ToBase58(),
+                Amount = eventValue.Amount,
+                Award = eventValue.Award,
+                TotalWins = eventValue.Award > 0 ? 1 : 0,
+                TotalPlays = 1
+            };
+        }
+        else
+        {
+            bingoStaticsIndex.Amount += eventValue.Amount;
+            bingoStaticsIndex.Award += eventValue.Award;
+            bingoStaticsIndex.TotalPlays += 1;
+            bingoStaticsIndex.TotalWins += eventValue.Award > 0 ? 1 : 0;
+        }
+        _objectMapper.Map<LogEventContext, BingoGameStaticsIndex>(context, bingoStaticsIndex);
+        await _bingoStaticsIndexRepository.AddOrUpdateAsync(bingoStaticsIndex); 
     }
 }

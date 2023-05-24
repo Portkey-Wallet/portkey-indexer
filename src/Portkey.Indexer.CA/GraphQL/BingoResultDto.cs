@@ -9,6 +9,7 @@ public class BingoResultDto
 {
     public long TotalRecordCount { get; set; }
     public List<BingoInfo> Data { get; set; }
+    public List<BingoStatics> Statics { get; set; }
 }
 
 public class BingoInfo 
@@ -23,4 +24,24 @@ public class BingoInfo
     public string PlayerAddress { get; set; }
     public long PlayTime { get; set; }
     public long BingoTime { get; set; }
+    public List<TransactionFee> PlayTransactionFee { get; set; }
+    public List<TransactionFee> BingoTransactionFee { get; set; }
+    public long PlayBlockHeight { get; set; }
+    public long BingoBlockHeight { get; set; }
+}
+
+public class TransactionFee
+{
+    public string Symbol { get; set; }
+    
+    public long Amount { get; set; }
+}
+
+public class BingoStatics
+{
+    public long TotalWins { get; set; }
+    public long TotalPlays { get; set; }
+    public long Award { get; set; }
+    public long Amount { get; set; }
+    public string PlayerAddress { get; set; }
 }
