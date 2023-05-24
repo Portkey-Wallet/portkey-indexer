@@ -37,29 +37,40 @@ public class BingoedLogEventProcessor: AElfLogEventProcessorBase<Bingoed,LogEven
     protected override async Task HandleEventAsync(Bingoed eventValue, LogEventContext context)
     {   
         //check ca address if already exist in caHolderIndex
+        if (eventValue.PlayerAddress == null || eventValue.PlayerAddress.Value == null)
+        {
+            return;
+        }
         var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.PlayerAddress.ToBase58());
-        var caHolderIndex = await _bingoIndexRepository.GetFromBlockStateSetAsync(indexId, context.ChainId);
+        var caHolderIndex = await _repository.GetFromBlockStateSetAsync(indexId, context.ChainId);
         if (caHolderIndex == null)
         {
             return;
         }
-        
+        var index = await _bingoIndexRepository.GetFromBlockStateSetAsync(eventValue.PlayId.ToHex(), context.ChainId);
+        if (index != null)
+        {
+            return;
+        }
         // _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
 
-        caHolderIndex = new BingoIndex
+        var bingoIndex = new BingoIndex
         {
-            Id = indexId,
-            play_block_height = context.BlockHeight,
+            Id = eventValue.PlayId.ToHex(),
+            play_block_height = eventValue.PlayBlockHeight,
+            bingo_block_height = context.BlockHeight,
             amount = eventValue.Amount,
             award = eventValue.Award,
             is_complete = eventValue.IsComplete,
             play_id = eventValue.PlayId.ToHex(),
-            bingo_id = eventValue.PlayId.ToHex(),
+            bingo_id = context.TransactionId,
             bingoType = (int)eventValue.Type,
             dices = new List<int>{eventValue.Dices.Dices[0], eventValue.Dices.Dices[1], eventValue.Dices.Dices[2]},
             player_address = eventValue.PlayerAddress.ToBase58(),
+            playTime = eventValue.PlayTime.ToDateTime(),
+            bingoTime = context.BlockTime.Ticks,
         };
-        _objectMapper.Map<LogEventContext, BingoIndex>(context, caHolderIndex);
-        await _bingoIndexRepository.AddOrUpdateAsync(caHolderIndex);
+        _objectMapper.Map<LogEventContext, BingoIndex>(context, bingoIndex);
+        await _bingoIndexRepository.AddOrUpdateAsync(bingoIndex);
     }
 }

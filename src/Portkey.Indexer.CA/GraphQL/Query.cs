@@ -447,6 +447,55 @@ public class Query
         return pageResult;
     }
 
+
+    [Name("caHolderBingoInfo")]
+    public static async Task<BingoResultDto> CAHolderBingoInfo(
+        [FromServices] IAElfIndexerClientEntityRepository<BingoIndex, LogEventInfo> repository,
+        [FromServices] IObjectMapper objectMapper,  GetBingoDto dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<BingoIndex>, QueryContainer>>();
+
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.PlayId).Value(dto.PlayId)));
+        // mustQuery.Add(q => q.Term(i => i.Field(f => f.player_address).Value(dto.CAAddressInfos)));
+        // mustQuery.Add(q => q.Term(i => i.Field(f => f.TokenInfo.Symbol).Value(dto.Symbol)));
+        // mustQuery.Add(q => q.Term(i => i.Field(f => f.TokenInfo.Type).Value(dto.Type)));
+
+        // mustQuery.Add(q=> q.Range(i => i.Field(f => f.Balance).GreaterThan(0)));
+
+
+        if (dto.CAAddresses != null)
+        {
+            var shouldQuery = new List<Func<QueryContainerDescriptor<BingoIndex>, QueryContainer>>();
+            foreach (var address in dto.CAAddresses)
+            {
+                var mustQueryAddressInfo = new List<Func<QueryContainerDescriptor<BingoIndex>, QueryContainer>>
+                {
+                    q => q.Term(i => i.Field(f => f.PlayerAddress).Value(address))
+                };
+                shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryAddressInfo)));
+            }
+
+            mustQuery.Add(q => q.Bool(b => b.Should(shouldQuery)));
+        }
+
+        QueryContainer Filter(QueryContainerDescriptor<BingoIndex> f) => f.Bool(b => b.Must(mustQuery));
+
+        Func<SortDescriptor<BingoIndex>, IPromise<IList<ISort>>> sort = s =>
+            s.Ascending(a => a.BingoBlockHeight);
+        // var result = await repository.GetListAsync(Filter, sortExp: k => k.TokenInfo.Symbol,
+        // sortType: SortOrder.Ascending, skip:dto.SkipCount,limit: dto.MaxResultCount);
+        var result = await repository.GetSortListAsync(Filter, sortFunc: sort, skip: dto.SkipCount,
+            limit: dto.MaxResultCount);
+        var dataList = objectMapper.Map<List<BingoIndex>, List<BingoInfo>>(result.Item2);
+
+        var pageResult = new BingoResultDto
+        {
+            TotalRecordCount = result.Item1,
+            Data = dataList
+        };
+        return pageResult;
+    }
+
     [Name("caHolderTransactionAddressInfo")]
     public static async Task<CAHolderTransactionAddressPageResultDto> CAHolderTransactionAddressInfo(
         [FromServices] IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, LogEventInfo> repository,

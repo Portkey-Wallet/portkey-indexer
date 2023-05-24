@@ -36,13 +36,13 @@ public class PlayedProcessor : CAHolderTransactionProcessorBase<Played>
     }
 
     protected override async Task HandleEventAsync(Played eventValue, LogEventContext context)
-    {
-        var holderAddress = await ProcessCAHolderTransactionAsync(context, eventValue.PlayerAddress.ToBase58());
-        
-        if (holderAddress == null)
+    {   
+        if (eventValue.PlayerAddress == null || eventValue.PlayerAddress.Value == null)
         {
             return;
         }
+        await ProcessCAHolderTransactionAsync(context, eventValue.PlayerAddress.ToBase58());
+    
         
         // await AddCAHolderTransactionAddressAsync(holderAddress, eventValue.Manager.ToBase58(), context.ChainId,
         //     context);
