@@ -33,6 +33,14 @@ namespace Portkey.Contracts.BingoGameContract {
       {
         PlayId = PlayId
       },
+      new Played
+      {
+        PlayerAddress = PlayerAddress
+      },
+      new Played
+      {
+        Symbol = Symbol
+      },
       };
     }
 
@@ -82,12 +90,49 @@ namespace Portkey.Contracts.BingoGameContract {
       {
         RandomNumber = RandomNumber
       },
+      new Bingoed
+      {
+        Dices = Dices
+      },
+      new Bingoed
+      {
+        PlayerAddress = PlayerAddress
+      },
       };
     }
 
     public Bingoed GetNonIndexed()
     {
       return new Bingoed
+      {
+      };
+    }
+  }
+
+  public partial class Registered : aelf::IEvent<Registered>
+  {
+    public global::System.Collections.Generic.IEnumerable<Registered> GetIndexed()
+    {
+      return new List<Registered>
+      {
+      new Registered
+      {
+        Seed = Seed
+      },
+      new Registered
+      {
+        RegisterTime = RegisterTime
+      },
+      new Registered
+      {
+        PlayerAddress = PlayerAddress
+      },
+      };
+    }
+
+    public Registered GetNonIndexed()
+    {
+      return new Registered
       {
       };
     }
@@ -110,6 +155,8 @@ namespace Portkey.Contracts.BingoGameContract {
     static readonly aelf::Marshaller<global::Google.Protobuf.WellKnownTypes.Int32Value> __Marshaller_google_protobuf_Int32Value = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Google.Protobuf.WellKnownTypes.Int32Value.Parser.ParseFrom);
     static readonly aelf::Marshaller<global::Portkey.Contracts.BingoGameContract.GetBoutInformationInput> __Marshaller_GetBoutInformationInput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Portkey.Contracts.BingoGameContract.GetBoutInformationInput.Parser.ParseFrom);
     static readonly aelf::Marshaller<global::Portkey.Contracts.BingoGameContract.BoutInformation> __Marshaller_BoutInformation = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Portkey.Contracts.BingoGameContract.BoutInformation.Parser.ParseFrom);
+    static readonly aelf::Marshaller<global::Portkey.Contracts.BingoGameContract.GetRandomHashInput> __Marshaller_GetRandomHashInput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Portkey.Contracts.BingoGameContract.GetRandomHashInput.Parser.ParseFrom);
+    static readonly aelf::Marshaller<global::Portkey.Contracts.BingoGameContract.GetRandomHashOutput> __Marshaller_GetRandomHashOutput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Portkey.Contracts.BingoGameContract.GetRandomHashOutput.Parser.ParseFrom);
     #endregion
 
     #region Methods
@@ -190,6 +237,13 @@ namespace Portkey.Contracts.BingoGameContract {
         __Marshaller_GetBoutInformationInput,
         __Marshaller_BoutInformation);
 
+    static readonly aelf::Method<global::Portkey.Contracts.BingoGameContract.GetRandomHashInput, global::Portkey.Contracts.BingoGameContract.GetRandomHashOutput> __Method_GetRandomHash = new aelf::Method<global::Portkey.Contracts.BingoGameContract.GetRandomHashInput, global::Portkey.Contracts.BingoGameContract.GetRandomHashOutput>(
+        aelf::MethodType.View,
+        __ServiceName,
+        "GetRandomHash",
+        __Marshaller_GetRandomHashInput,
+        __Marshaller_GetRandomHashOutput);
+
     #endregion
 
     #region Descriptors
@@ -211,82 +265,88 @@ namespace Portkey.Contracts.BingoGameContract {
     }
     #endregion
 
-    /// <summary>Base class for the contract of BingoGameContract</summary>
-    // public abstract partial class BingoGameContractBase : AElf.Sdk.CSharp.CSharpSmartContract<Portkey.Contracts.BingoGameContract.BingoGameContractState>
-    // {
-    //   public virtual global::Google.Protobuf.WellKnownTypes.Empty Register(global::Google.Protobuf.WellKnownTypes.Empty input)
-    //   {
-    //     throw new global::System.NotImplementedException();
-    //   }
-    //
-    //   public virtual global::Google.Protobuf.WellKnownTypes.Int64Value Play(global::Portkey.Contracts.BingoGameContract.PlayInput input)
-    //   {
-    //     throw new global::System.NotImplementedException();
-    //   }
-    //
-    //   public virtual global::Google.Protobuf.WellKnownTypes.BoolValue Bingo(global::AElf.Types.Hash input)
-    //   {
-    //     throw new global::System.NotImplementedException();
-    //   }
-    //
-    //   public virtual global::Google.Protobuf.WellKnownTypes.Empty Quit(global::Google.Protobuf.WellKnownTypes.Empty input)
-    //   {
-    //     throw new global::System.NotImplementedException();
-    //   }
-    //
-    //   public virtual global::Google.Protobuf.WellKnownTypes.Empty SetLimitSettings(global::Portkey.Contracts.BingoGameContract.LimitSettings input)
-    //   {
-    //     throw new global::System.NotImplementedException();
-    //   }
-    //
-    //   public virtual global::Google.Protobuf.WellKnownTypes.Empty Initialize(global::Google.Protobuf.WellKnownTypes.Empty input)
-    //   {
-    //     throw new global::System.NotImplementedException();
-    //   }
-    //
-    //   public virtual global::Google.Protobuf.WellKnownTypes.Int64Value GetAward(global::AElf.Types.Hash input)
-    //   {
-    //     throw new global::System.NotImplementedException();
-    //   }
-    //
-    //   public virtual global::Portkey.Contracts.BingoGameContract.PlayerInformation GetPlayerInformation(global::AElf.Types.Address input)
-    //   {
-    //     throw new global::System.NotImplementedException();
-    //   }
-    //
-    //   public virtual global::Portkey.Contracts.BingoGameContract.LimitSettings GetLimitSettings(global::Google.Protobuf.WellKnownTypes.Empty input)
-    //   {
-    //     throw new global::System.NotImplementedException();
-    //   }
-    //
-    //   public virtual global::Google.Protobuf.WellKnownTypes.Int32Value GetRandomNumber(global::AElf.Types.Hash input)
-    //   {
-    //     throw new global::System.NotImplementedException();
-    //   }
-    //
-    //   public virtual global::Portkey.Contracts.BingoGameContract.BoutInformation GetBoutInformation(global::Portkey.Contracts.BingoGameContract.GetBoutInformationInput input)
-    //   {
-    //     throw new global::System.NotImplementedException();
-    //   }
-    //
-    // }
+  //   /// <summary>Base class for the contract of BingoGameContract</summary>
+  //   public abstract partial class BingoGameContractBase : AElf.Sdk.CSharp.CSharpSmartContract<Portkey.Contracts.BingoGameContract.BingoGameContractState>
+  //   {
+  //     public virtual global::Google.Protobuf.WellKnownTypes.Empty Register(global::Google.Protobuf.WellKnownTypes.Empty input)
+  //     {
+  //       throw new global::System.NotImplementedException();
+  //     }
 
-    // public static aelf::ServerServiceDefinition BindService(BingoGameContractBase serviceImpl)
-    // {
-    //   return aelf::ServerServiceDefinition.CreateBuilder()
-    //       .AddDescriptors(Descriptors)
-    //       .AddMethod(__Method_Register, serviceImpl.Register)
-    //       .AddMethod(__Method_Play, serviceImpl.Play)
-    //       .AddMethod(__Method_Bingo, serviceImpl.Bingo)
-    //       .AddMethod(__Method_Quit, serviceImpl.Quit)
-    //       .AddMethod(__Method_SetLimitSettings, serviceImpl.SetLimitSettings)
-    //       .AddMethod(__Method_Initialize, serviceImpl.Initialize)
-    //       .AddMethod(__Method_GetAward, serviceImpl.GetAward)
-    //       .AddMethod(__Method_GetPlayerInformation, serviceImpl.GetPlayerInformation)
-    //       .AddMethod(__Method_GetLimitSettings, serviceImpl.GetLimitSettings)
-    //       .AddMethod(__Method_GetRandomNumber, serviceImpl.GetRandomNumber)
-    //       .AddMethod(__Method_GetBoutInformation, serviceImpl.GetBoutInformation).Build();
-    // }
+  //     public virtual global::Google.Protobuf.WellKnownTypes.Int64Value Play(global::Portkey.Contracts.BingoGameContract.PlayInput input)
+  //     {
+  //       throw new global::System.NotImplementedException();
+  //     }
+
+  //     public virtual global::Google.Protobuf.WellKnownTypes.BoolValue Bingo(global::AElf.Types.Hash input)
+  //     {
+  //       throw new global::System.NotImplementedException();
+  //     }
+
+  //     public virtual global::Google.Protobuf.WellKnownTypes.Empty Quit(global::Google.Protobuf.WellKnownTypes.Empty input)
+  //     {
+  //       throw new global::System.NotImplementedException();
+  //     }
+
+  //     public virtual global::Google.Protobuf.WellKnownTypes.Empty SetLimitSettings(global::Portkey.Contracts.BingoGameContract.LimitSettings input)
+  //     {
+  //       throw new global::System.NotImplementedException();
+  //     }
+
+  //     public virtual global::Google.Protobuf.WellKnownTypes.Empty Initialize(global::Google.Protobuf.WellKnownTypes.Empty input)
+  //     {
+  //       throw new global::System.NotImplementedException();
+  //     }
+
+  //     public virtual global::Google.Protobuf.WellKnownTypes.Int64Value GetAward(global::AElf.Types.Hash input)
+  //     {
+  //       throw new global::System.NotImplementedException();
+  //     }
+
+  //     public virtual global::Portkey.Contracts.BingoGameContract.PlayerInformation GetPlayerInformation(global::AElf.Types.Address input)
+  //     {
+  //       throw new global::System.NotImplementedException();
+  //     }
+
+  //     public virtual global::Portkey.Contracts.BingoGameContract.LimitSettings GetLimitSettings(global::Google.Protobuf.WellKnownTypes.Empty input)
+  //     {
+  //       throw new global::System.NotImplementedException();
+  //     }
+
+  //     public virtual global::Google.Protobuf.WellKnownTypes.Int32Value GetRandomNumber(global::AElf.Types.Hash input)
+  //     {
+  //       throw new global::System.NotImplementedException();
+  //     }
+
+  //     public virtual global::Portkey.Contracts.BingoGameContract.BoutInformation GetBoutInformation(global::Portkey.Contracts.BingoGameContract.GetBoutInformationInput input)
+  //     {
+  //       throw new global::System.NotImplementedException();
+  //     }
+
+  //     public virtual global::Portkey.Contracts.BingoGameContract.GetRandomHashOutput GetRandomHash(global::Portkey.Contracts.BingoGameContract.GetRandomHashInput input)
+  //     {
+  //       throw new global::System.NotImplementedException();
+  //     }
+
+  //   }
+
+  //   public static aelf::ServerServiceDefinition BindService(BingoGameContractBase serviceImpl)
+  //   {
+  //     return aelf::ServerServiceDefinition.CreateBuilder()
+  //         .AddDescriptors(Descriptors)
+  //         .AddMethod(__Method_Register, serviceImpl.Register)
+  //         .AddMethod(__Method_Play, serviceImpl.Play)
+  //         .AddMethod(__Method_Bingo, serviceImpl.Bingo)
+  //         .AddMethod(__Method_Quit, serviceImpl.Quit)
+  //         .AddMethod(__Method_SetLimitSettings, serviceImpl.SetLimitSettings)
+  //         .AddMethod(__Method_Initialize, serviceImpl.Initialize)
+  //         .AddMethod(__Method_GetAward, serviceImpl.GetAward)
+  //         .AddMethod(__Method_GetPlayerInformation, serviceImpl.GetPlayerInformation)
+  //         .AddMethod(__Method_GetLimitSettings, serviceImpl.GetLimitSettings)
+  //         .AddMethod(__Method_GetRandomNumber, serviceImpl.GetRandomNumber)
+  //         .AddMethod(__Method_GetBoutInformation, serviceImpl.GetBoutInformation)
+  //         .AddMethod(__Method_GetRandomHash, serviceImpl.GetRandomHash).Build();
+  //   }
 
   }
 }
