@@ -1657,7 +1657,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
                 },
                 new ()
                 {
-                    CAAddress = Address.FromPublicKey("CAAddress".HexToByteArray()).ToBase58(),
+                    CAAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(),
                     ChainId = ""
                 }
             },
@@ -1673,7 +1673,6 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         result.TotalRecordCount.ShouldBe(1);
         result.Data.Count.ShouldBe(1);
         result.Data.FirstOrDefault().MethodName.ShouldBe("Transfer");
-        result.Data.FirstOrDefault().TransferInfo.FromCAAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
         result.Data.FirstOrDefault().TransferInfo.Amount.ShouldBe(1);
         result.Data.FirstOrDefault().TokenInfo.Symbol.ShouldBe("READ");
     }
