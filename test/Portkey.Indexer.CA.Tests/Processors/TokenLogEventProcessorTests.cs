@@ -1640,6 +1640,44 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
     }
     
     [Fact]
+    public async Task QueryTwoCAHolderTransactionTest()
+    {
+        await HandleTokenCrossChainTransactionAsync_Test();
+        
+        var result= await Query.TwoCAHolderTransaction(_caHolderTransactionIndexRepository, _objectMapper, new GetTwoCAHolderTransactionDto
+        {
+            SkipCount = 0,
+            MaxResultCount = 10,
+            CAAddressInfos = new List<CAAddressInfo>
+            {
+                new ()
+                {
+                    CAAddress = Address.FromPublicKey("AAAA".HexToByteArray()).ToBase58(),
+                    ChainId = chainIdSide
+                },
+                new ()
+                {
+                    CAAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(),
+                    ChainId = ""
+                }
+            },
+            Symbol = "READ",
+            MethodNames = new List<string>
+            {
+                "Transferred",
+                "Transfer",
+                "CrossChainTransfer"
+            }
+        });
+        
+        result.TotalRecordCount.ShouldBe(1);
+        result.Data.Count.ShouldBe(1);
+        result.Data.FirstOrDefault().MethodName.ShouldBe("CrossChainTransfer");
+        result.Data.FirstOrDefault().TransferInfo.Amount.ShouldBe(1);
+        result.Data.FirstOrDefault().TokenInfo.Symbol.ShouldBe("READ");
+    }
+    
+    [Fact]
     public async Task QueryCAHolderTransactionInfoTest()
     {
         await HandleTokenTransferredAsync_Test();
