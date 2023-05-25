@@ -9,17 +9,17 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class PlayedLogEventProcessor: AElfLogEventProcessorBase<Played,TransactionInfo>
+public class PlayedTransactionProcessor: AElfLogEventProcessorBase<Played,TransactionInfo>
 {
     private readonly IObjectMapper _objectMapper;
     private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _repository;
     private readonly IAElfIndexerClientEntityRepository<BingoGameIndex, LogEventInfo> _bingoIndexRepository;
     private readonly ContractInfoOptions _contractInfoOptions;
     
-    public PlayedLogEventProcessor(ILogger<CAHolderCreatedLogEventProcessor> logger, IObjectMapper objectMapper,
+    public PlayedTransactionProcessor(ILogger<PlayedTransactionProcessor> logger, IObjectMapper objectMapper,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
         IAElfIndexerClientEntityRepository<BingoGameIndex, LogEventInfo> bingoIndexRepository,
-        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base((ILogger<AElfLogEventProcessorBase<Played, TransactionInfo>>)logger)
+        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base(logger)
     {
         _objectMapper = objectMapper;
         _repository = repository;

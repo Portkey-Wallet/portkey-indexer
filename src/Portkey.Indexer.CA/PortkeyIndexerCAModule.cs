@@ -56,11 +56,11 @@ public class PortkeyIndexerCAModule:AElfIndexerClientPluginBaseModule<PortkeyInd
         serviceCollection.AddSingleton<IAElfLogEventProcessor<LogEventInfo>, TokenTransferredLogEventProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<LogEventInfo>, TransactionFeeChargedLogEventProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<LogEventInfo>, CAHolderSyncedProcessor>();
-        serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, BingoedLogEventProcessor>();
+        serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, BingoedTransactionProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, BingoedProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, RegisteredProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, PlayedProcessor>();
-        serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, PlayedLogEventProcessor>();
+        serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, PlayedTransactionProcessor>();
 
         Configure<ContractInfoOptions>(configuration.GetSection("ContractInfo"));
         Configure<InitialInfoOptions>(configuration.GetSection("InitialInfo"));

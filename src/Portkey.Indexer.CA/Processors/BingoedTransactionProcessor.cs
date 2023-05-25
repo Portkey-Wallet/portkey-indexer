@@ -9,7 +9,7 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class BingoedLogEventProcessor: AElfLogEventProcessorBase<Bingoed,TransactionInfo>
+public class BingoedTransactionProcessor: AElfLogEventProcessorBase<Bingoed,TransactionInfo>
 {
     private readonly IObjectMapper _objectMapper;
     private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _repository;
@@ -17,11 +17,11 @@ public class BingoedLogEventProcessor: AElfLogEventProcessorBase<Bingoed,Transac
     private readonly ContractInfoOptions _contractInfoOptions;
     private readonly IAElfIndexerClientEntityRepository<BingoGameStaticsIndex, LogEventInfo> _bingoStaticsIndexRepository;
     
-    public BingoedLogEventProcessor(ILogger<CAHolderCreatedLogEventProcessor> logger, IObjectMapper objectMapper,
+    public BingoedTransactionProcessor(ILogger<BingoedTransactionProcessor> logger, IObjectMapper objectMapper,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
         IAElfIndexerClientEntityRepository<BingoGameIndex, LogEventInfo> bingoIndexRepository,
         IAElfIndexerClientEntityRepository<BingoGameStaticsIndex, LogEventInfo> bingoStaticsIndexRepository,
-        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base((ILogger<AElfLogEventProcessorBase<Bingoed, TransactionInfo>>)logger)
+        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base(logger)
     {
         _objectMapper = objectMapper;
         _repository = repository;
