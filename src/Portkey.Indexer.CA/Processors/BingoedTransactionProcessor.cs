@@ -59,15 +59,20 @@ public class BingoedTransactionProcessor: AElfLogEventProcessorBase<Bingoed,Tran
         index.BingoId = context.TransactionId;
         index.BingoTime = context.BlockTime.Ticks;
         var feeMap = TransactionFeeHelper.GetTransactionFee(context.ExtraProperties);
-        if (feeMap.IsNullOrEmpty())
+        List<TransactionFee> feeList;
+        if (!feeMap.IsNullOrEmpty())
         {
-            return;
+            feeList = feeMap.Select(pair => new TransactionFee
+            {
+                Symbol = pair.Key,
+                Amount = pair.Value
+            }).ToList();
         }
-        var feeList = feeMap.Select(pair => new TransactionFee
+        else
         {
-            Symbol = pair.Key,
-            Amount = pair.Value
-        }).ToList();
+            feeList = new List<TransactionFee>();
+        }
+
         index.BingoTransactionFee = feeList;
         index.IsComplete = true;
         index.Dices = eventValue.Dices.Dices.ToList();

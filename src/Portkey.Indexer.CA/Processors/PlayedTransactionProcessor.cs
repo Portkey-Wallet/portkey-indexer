@@ -52,15 +52,19 @@ public class PlayedTransactionProcessor: AElfLogEventProcessorBase<Played,Transa
             return;
         }
         var feeMap = TransactionFeeHelper.GetTransactionFee(context.ExtraProperties);
-        if (feeMap.IsNullOrEmpty())
+        List<TransactionFee> feeList;
+        if (!feeMap.IsNullOrEmpty())
         {
-            return;
+            feeList = feeMap.Select(pair => new TransactionFee
+            {
+                Symbol = pair.Key,
+                Amount = pair.Value
+            }).ToList();
         }
-        var feeList = feeMap.Select(pair => new TransactionFee
+        else
         {
-            Symbol = pair.Key,
-            Amount = pair.Value
-        }).ToList();
+            feeList = new List<TransactionFee>();
+        }
         // _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
 
         var bingoIndex = new BingoGameIndex
