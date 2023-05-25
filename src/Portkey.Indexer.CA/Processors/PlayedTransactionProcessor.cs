@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Portkey.Contracts.BingoGameContract;
 using Portkey.Indexer.CA.Entities;
+using Portkey.Indexer.CA.GraphQL;
 using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;

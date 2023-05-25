@@ -2,6 +2,7 @@ using AElf.Indexing.Elasticsearch;
 using AElfIndexer.Client;
 using GraphQL;
 using Nest;
+using Portkey.Indexer.CA.GraphQL;
 
 namespace Portkey.Indexer.CA.Entities;
 
@@ -28,13 +29,6 @@ public class BingoInfo
     public List<TransactionFee> BingoTransactionFee { get; set; }
     public long PlayBlockHeight { get; set; }
     public long BingoBlockHeight { get; set; }
-}
-
-public class TransactionFee
-{
-    public string Symbol { get; set; }
-    
-    public long Amount { get; set; }
 }
 
 public class BingoStatics
