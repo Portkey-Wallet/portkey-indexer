@@ -4,17 +4,24 @@ using AElfIndexer.Grains.State.Client;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Portkey.Contracts.BingoGameContract;
 using Portkey.Contracts.CA;
 using Portkey.Indexer.CA.Entities;
+using Portkey.Indexer.CA.GraphQL;
 using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
 public class PlayedProcessor : CAHolderTransactionProcessorBase<Played>
 {
+    private readonly IObjectMapper _objectMapper;
+    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _repository;
+    private readonly IAElfIndexerClientEntityRepository<BingoGameIndex, TransactionInfo> _bingoIndexRepository;
     public PlayedProcessor(ILogger<PlayedProcessor> logger,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
+        IAElfIndexerClientEntityRepository<BingoGameIndex, TransactionInfo> bingoIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
             caHolderTransactionIndexRepository,
@@ -28,6 +35,9 @@ public class PlayedProcessor : CAHolderTransactionProcessorBase<Played>
             nftInfoIndexRepository, caHolderTransactionAddressIndexRepository, contractInfoOptions,
             caHolderTransactionInfoOptions, objectMapper)
     {
+        _objectMapper = objectMapper;
+        _repository = repository;
+        _bingoIndexRepository = bingoIndexRepository;
     }
 
     public override string GetContractAddress(string chainId)
@@ -42,5 +52,54 @@ public class PlayedProcessor : CAHolderTransactionProcessorBase<Played>
             return;
         }
         await ProcessCAHolderTransactionAsync(context, eventValue.PlayerAddress.ToBase58());
+
+
+                //check ca address if already exist in caHolderIndex
+        if (eventValue.PlayerAddress == null || eventValue.PlayerAddress.Value == null)
+        {   
+            return;
+        }
+        var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.PlayerAddress.ToBase58());
+        var caHolderIndex = await _repository.GetFromBlockStateSetAsync(indexId, context.ChainId);
+        if (caHolderIndex == null)
+        {   
+            return;
+        }
+        var index = await _bingoIndexRepository.GetFromBlockStateSetAsync(eventValue.PlayId.ToHex(), context.ChainId);
+        if (index != null)
+        {
+            return;
+        }
+        var feeMap = TransactionFeeHelper.GetTransactionFee(context.ExtraProperties);
+        List<TransactionFee> feeList;
+        if (!feeMap.IsNullOrEmpty())
+        {
+            feeList = feeMap.Select(pair => new TransactionFee
+            {
+                Symbol = pair.Key,
+                Amount = pair.Value
+            }).ToList();
+        }
+        else
+        {
+            feeList = new List<TransactionFee>();
+        }
+        // _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
+        var bingoIndex = new BingoGameIndex
+        {
+            Id = eventValue.PlayId.ToHex(),
+            PlayBlockHeight = eventValue.PlayBlockHeight,
+            Amount = eventValue.Amount,
+            IsComplete = false,
+            PlayId = context.TransactionId,
+            BingoType = (int)eventValue.Type,
+            Dices = new List<int>{},
+            PlayerAddress = eventValue.PlayerAddress.ToBase58(),
+            PlayTime = context.BlockTime.Ticks,
+            PlayTransactionFee = feeList,
+            PlayBlockHash = context.BlockHash
+        };
+        _objectMapper.Map<LogEventContext, BingoGameIndex>(context, bingoIndex);
+        await _bingoIndexRepository.AddOrUpdateAsync(bingoIndex);
     }
 }

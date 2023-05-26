@@ -9,6 +9,8 @@ public class BingoGameIndex : AElfIndexerClientEntity<string>, IIndexBuild
 {
     [Keyword]public long PlayBlockHeight { get; set; }
     [Keyword]public long BingoBlockHeight { get; set; }
+    [Keyword]public string PlayBlockHash { get; set; }
+    [Keyword]public string BingoBlockHash { get; set; }
     [Keyword]public long Amount { get; set; }
     [Keyword]public long Award { get; set; }
     [Keyword]public bool IsComplete { get; set; }

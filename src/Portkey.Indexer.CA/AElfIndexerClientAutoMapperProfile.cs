@@ -71,6 +71,9 @@ public class TestGraphQLAutoMapperProfile : Profile
         CreateMap<Guardian, GuardianDto>();
         CreateMap<BingoGameIndex, BingoInfo>();
         CreateMap<BingoGameStaticsIndex, BingoStatics>();
+        CreateMap<LogEventContext, BingoGameIndex>();
+        CreateMap<LogEventContext, BingoGameStaticsIndex>();
+
 
         CreateMap<CAHolderIndex, CAHolderInfoDto>().ForMember(d => d.GuardianList,
             opt => opt.MapFrom(e => e.Guardians.IsNullOrEmpty() ? null : new GuardianList { Guardians = e.Guardians }));

@@ -29,6 +29,8 @@ public class BingoInfo
     public List<TransactionFee> BingoTransactionFee { get; set; }
     public long PlayBlockHeight { get; set; }
     public long BingoBlockHeight { get; set; }
+    public string PlayBlockHash { get; set; }
+    public string BingoBlockHash { get; set; }
 }
 
 public class BingoStatics
