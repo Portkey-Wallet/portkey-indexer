@@ -67,7 +67,7 @@ public class PlayedProcessor : CAHolderTransactionProcessorBase<Played>
             {
                 FromAddress = eventValue.PlayerAddress.ToBase58(),
                 ToAddress = GetContractAddress(context.ChainId),
-                Amount = eventValue.Amount,
+                Amount = eventValue.Amount / 100000000,
                 FromChainId = context.ChainId,
                 ToChainId = context.ChainId,
             },
@@ -76,13 +76,6 @@ public class PlayedProcessor : CAHolderTransactionProcessorBase<Played>
         transIndex.MethodName = GetMethodName(context.MethodName, context.Params);
 
         await CAHolderTransactionIndexRepository.AddOrUpdateAsync(transIndex);
-
-        var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.PlayerAddress.ToBase58());
-        var caHolderIndex = await _repository.GetFromBlockStateSetAsync(indexId, context.ChainId);
-        if (caHolderIndex == null)
-        {   
-            return;
-        }
         var index = await _bingoIndexRepository.GetFromBlockStateSetAsync(eventValue.PlayId.ToHex(), context.ChainId);
         if (index != null)
         {

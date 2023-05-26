@@ -71,7 +71,7 @@ public class BingoedProcessor : CAHolderTransactionProcessorBase<Bingoed>
             {
                 FromAddress = GetContractAddress(context.ChainId),
                 ToAddress = eventValue.PlayerAddress.ToBase58(),
-                Amount = eventValue.Amount + eventValue.Award,
+                Amount = (eventValue.Amount + eventValue.Award) / 100000000,
                 FromChainId = context.ChainId,
                 ToChainId = context.ChainId,
             },
