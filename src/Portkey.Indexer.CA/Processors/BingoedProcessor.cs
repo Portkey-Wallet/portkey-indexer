@@ -1,6 +1,7 @@
 using AElfIndexer.Client;
 using AElfIndexer.Client.Handlers;
 using AElfIndexer.Grains.State.Client;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Portkey.Contracts.BingoGameContract;
@@ -54,13 +55,31 @@ public class BingoedProcessor : CAHolderTransactionProcessorBase<Bingoed>
             return;
         }
         
-        await ProcessCAHolderTransactionAsync(context, eventValue.PlayerAddress.ToBase58());
-        var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.PlayerAddress.ToBase58());
-        var caHolderIndex = await _repository.GetFromBlockStateSetAsync(indexId, context.ChainId);
-        if (caHolderIndex == null)
+        // await ProcessCAHolderTransactionAsync(context, eventValue.PlayerAddress.ToBase58());
+        if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
+        var holder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
+            eventValue.PlayerAddress.ToBase58()), context.ChainId);
+        if (holder == null) return;
+
+        var transIndex = new CAHolderTransactionIndex
         {
-            return;
-        }
+            Id = IdGenerateHelper.GetId(context.BlockHash, context.TransactionId),
+            Timestamp = context.BlockTime.ToTimestamp().Seconds,
+            FromAddress = eventValue.PlayerAddress.ToBase58(),
+            TransactionFee = GetTransactionFee(context.ExtraProperties),
+            TransferInfo = new TransferInfo
+            {
+                FromAddress = GetContractAddress(context.ChainId),
+                ToAddress = eventValue.PlayerAddress.ToBase58(),
+                Amount = eventValue.Amount + eventValue.Award,
+                FromChainId = context.ChainId,
+                ToChainId = context.ChainId,
+            },
+        };
+        ObjectMapper.Map(context, transIndex);
+        transIndex.MethodName = GetMethodName(context.MethodName, context.Params);
+
+        await CAHolderTransactionIndexRepository.AddOrUpdateAsync(transIndex);
         var index = await _bingoIndexRepository.GetFromBlockStateSetAsync(eventValue.PlayId.ToHex(), context.ChainId);
         if (index == null)
         {

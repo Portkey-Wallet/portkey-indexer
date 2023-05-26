@@ -51,14 +51,32 @@ public class PlayedProcessor : CAHolderTransactionProcessorBase<Played>
         {
             return;
         }
-        await ProcessCAHolderTransactionAsync(context, eventValue.PlayerAddress.ToBase58());
+        // await ProcessCAHolderTransactionAsync(context, eventValue.PlayerAddress.ToBase58());
+        if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
+        var holder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
+            eventValue.PlayerAddress.ToBase58()), context.ChainId);
+        if (holder == null) return;
 
+        var transIndex = new CAHolderTransactionIndex
+        {
+            Id = IdGenerateHelper.GetId(context.BlockHash, context.TransactionId),
+            Timestamp = context.BlockTime.ToTimestamp().Seconds,
+            FromAddress = eventValue.PlayerAddress.ToBase58(),
+            TransactionFee = GetTransactionFee(context.ExtraProperties),
+            TransferInfo = new TransferInfo
+            {
+                FromAddress = eventValue.PlayerAddress.ToBase58(),
+                ToAddress = GetContractAddress(context.ChainId),
+                Amount = eventValue.Amount,
+                FromChainId = context.ChainId,
+                ToChainId = context.ChainId,
+            },
+        };
+        ObjectMapper.Map(context, transIndex);
+        transIndex.MethodName = GetMethodName(context.MethodName, context.Params);
 
-                //check ca address if already exist in caHolderIndex
-        if (eventValue.PlayerAddress == null || eventValue.PlayerAddress.Value == null)
-        {   
-            return;
-        }
+        await CAHolderTransactionIndexRepository.AddOrUpdateAsync(transIndex);
+
         var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.PlayerAddress.ToBase58());
         var caHolderIndex = await _repository.GetFromBlockStateSetAsync(indexId, context.ChainId);
         if (caHolderIndex == null)
