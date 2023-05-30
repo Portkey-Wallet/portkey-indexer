@@ -88,7 +88,7 @@ public class BingoedProcessor : CAHolderTransactionProcessorBase<Bingoed>
         // _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
         index.BingoBlockHeight = context.BlockHeight;
         index.BingoId = context.TransactionId;
-        index.BingoTime = context.BlockTime.Ticks;
+        index.BingoTime = context.BlockTime.ToTimestamp().Seconds;
         var feeMap = TransactionFeeHelper.GetTransactionFee(context.ExtraProperties);
         List<TransactionFee> feeList;
         if (!feeMap.IsNullOrEmpty())

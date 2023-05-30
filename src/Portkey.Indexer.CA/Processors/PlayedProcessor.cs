@@ -106,7 +106,7 @@ public class PlayedProcessor : CAHolderTransactionProcessorBase<Played>
             BingoType = (int)eventValue.Type,
             Dices = new List<int>{},
             PlayerAddress = eventValue.PlayerAddress.ToBase58(),
-            PlayTime = context.BlockTime.Ticks,
+            PlayTime = context.BlockTime.ToTimestamp().Seconds,
             PlayTransactionFee = feeList,
             PlayBlockHash = context.BlockHash
         };

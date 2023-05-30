@@ -607,7 +607,7 @@ public class Query
         QueryContainer Filter(QueryContainerDescriptor<BingoGameIndex> f) => f.Bool(b => b.Must(mustQuery));
 
         Func<SortDescriptor<BingoGameIndex>, IPromise<IList<ISort>>> sort = s =>
-            s.Ascending(a => a.BingoBlockHeight);
+            s.Descending(a => a.BingoBlockHeight);
         // var result = await repository.GetListAsync(Filter, sortExp: k => k.TokenInfo.Symbol,
         // sortType: SortOrder.Ascending, skip:dto.SkipCount,limit: dto.MaxResultCount);
         var result = await repository.GetSortListAsync(Filter, sortFunc: sort, skip: dto.SkipCount,
