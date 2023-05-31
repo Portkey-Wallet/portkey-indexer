@@ -33,7 +33,7 @@ public class PlayedLogEventProcessorTests: PortkeyIndexerCATestBase
         _caHolderIndexRepository = GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo>>();
     }
     [Fact]
-    public async Task HandleBingoedLogEventAsync_Test(){
+    public async Task HandlePlayedLogEventAsync_Test(){
         await CreateHolder();
         //step1: create blockStateSet
         const string chainId = "AELF";
@@ -83,7 +83,7 @@ public class PlayedLogEventProcessorTests: PortkeyIndexerCATestBase
             TransactionId = transactionId,
             Params = "{ \"to\": \"ca\", \"symbol\": \"ELF\", \"amount\": \"100000000000\" }",
             To = "CAAddress",
-            MethodName = "AddGuardian",
+            MethodName = "Transferred",
             ExtraProperties = new Dictionary<string, string>
             {
                 { "TransactionFee", "{\"ELF\":\"30000000\"}" },
@@ -102,11 +102,15 @@ public class PlayedLogEventProcessorTests: PortkeyIndexerCATestBase
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
-        var bingoGameIndexData = await _caHolderIndexRepository.GetAsync(IdGenerateHelper.GetId(chainId, bingoed.PlayerAddress.ToBase58()));
+        var bingoGameIndexData = await _bingoGameIndexRepository.GetAsync(HashHelper.ComputeFrom("PlayId").ToHex());
         bingoGameIndexData.ShouldNotBeNull();
+        bingoGameIndexData.Amount.ShouldBe(100000000);
+        bingoGameIndexData.PlayerAddress.ShouldBe(bingoed.PlayerAddress.ToBase58());
+        bingoGameIndexData.PlayTransactionFee[0].Amount.ShouldBe(60000000);
+        bingoGameIndexData.PlayTransactionFee[0].Symbol.ShouldBe("ELF");
+        bingoGameIndexData.PlayBlockHash.ShouldBe(blockHash);
+        bingoGameIndexData.PlayBlockHeight.ShouldBe(blockHeight);
         bingoGameIndexData.ChainId.ShouldBe(chainId);
-        bingoGameIndexData.CAAddress.ShouldBe(bingoed.PlayerAddress.ToBase58());
-        
     }
     private async Task CreateHolder()
     {
