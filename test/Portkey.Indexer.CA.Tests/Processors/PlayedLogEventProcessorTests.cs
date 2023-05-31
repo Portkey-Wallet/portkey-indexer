@@ -15,7 +15,7 @@ using Xunit;
 
 namespace Portkey.Indexer.CA.Tests.Processors;
 
-public class BingoedProcessorTests: PortkeyIndexerCATestBase
+public class PlayedLogEventProcessorTests: PortkeyIndexerCATestBase
 {
     private readonly IAElfIndexerClientEntityRepository<BingoGameIndex, LogEventInfo> _bingoGameIndexRepository;
 
@@ -23,7 +23,7 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
         _caHolderTransactionRepository;
     private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _repository;
     
-    public BingoedProcessorTests()
+    public PlayedLogEventProcessorTests()
     {
         _bingoGameIndexRepository = GetRequiredService<IAElfIndexerClientEntityRepository<BingoGameIndex, LogEventInfo>>();
         _caHolderTransactionRepository =
@@ -58,20 +58,14 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSetAdded, chainId);
         var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
                 //step2: create logEventInfo
-        var bingoed = new Bingoed
+        var bingoed = new Played
         {
             PlayBlockHeight = blockHeight,
-            PlayerAddress = Address.FromPublicKey("AAA".HexToByteArray()),
-            BingoBlockHeight = blockHeight,
+            PlayerAddress = Address.FromPublicKey("AAA".HexToByteArray()),       
             Amount = 100000000,
-            Award = 100000000,
-            IsComplete = true,
             Type = BingoType.Large,
-            Dices = new DiceList
-            {
-                Dices = {1, 2, 3, 4, 5, 6}
-            },
-            PlayId = HashHelper.ComputeFrom("PlayId")
+            PlayId = HashHelper.ComputeFrom("PlayId"),
+            Symbol = "ELF",
         };
         var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(bingoed.ToLogEvent());
         logEventInfo.BlockHeight = blockHeight;
@@ -95,7 +89,7 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
             },
             BlockTime = DateTime.UtcNow
         };
-        var bingoedLogEventProcessor = GetRequiredService<BingoedProcessor>();
+        var bingoedLogEventProcessor = GetRequiredService<PlayedProcessor>();
         
         await bingoedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         
@@ -108,13 +102,9 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
 
         var bingoGameIndexData = await _bingoGameIndexRepository.GetAsync(IdGenerateHelper.GetId(chainId, bingoed.PlayerAddress.ToBase58()));
         bingoGameIndexData.BingoType.ShouldBe((int)bingoed.Type);
-        bingoGameIndexData.BingoBlockHeight.ShouldBe(bingoed.BingoBlockHeight);
         bingoGameIndexData.PlayBlockHeight.ShouldBe(bingoed.PlayBlockHeight);
         bingoGameIndexData.PlayerAddress.ShouldBe(bingoed.PlayerAddress.ToBase58());
         bingoGameIndexData.Amount.ShouldBe(bingoed.Amount);
-        bingoGameIndexData.Award.ShouldBe(bingoed.Award);
-        bingoGameIndexData.IsComplete.ShouldBe(bingoed.IsComplete);
-        bingoGameIndexData.Dices.ShouldBe(bingoed.Dices.Dices.Select(d => (int)d));
         bingoGameIndexData.PlayId.ShouldBe(bingoed.PlayId.ToHex());
         
     }
