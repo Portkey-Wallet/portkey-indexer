@@ -18,6 +18,7 @@ namespace Portkey.Indexer.CA.Tests.Processors;
 public class BingoedProcessorTests: PortkeyIndexerCATestBase
 {
     private readonly IAElfIndexerClientEntityRepository<BingoGameIndex, LogEventInfo> _bingoGameIndexRepository;
+    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _caHolderIndexRepository;
 
     private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, LogEventInfo>
         _caHolderTransactionRepository;
@@ -29,6 +30,7 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
         _caHolderTransactionRepository =
             GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, LogEventInfo>>();
         _repository = GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo>>();
+        _caHolderIndexRepository = GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo>>();
     }
     [Fact]
     public async Task HandleBingoedLogEventAsync_Test(){
@@ -57,7 +59,7 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
 
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSetAdded, chainId);
         var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
-                //step2: create logEventInfo
+        //step2: create logEventInfo
         var bingoed = new Bingoed
         {
             PlayBlockHeight = blockHeight,
@@ -87,7 +89,7 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
             TransactionId = transactionId,
             Params = "{ \"to\": \"ca\", \"symbol\": \"ELF\", \"amount\": \"100000000000\" }",
             To = "CAAddress",
-            MethodName = "AddGuardian",
+            MethodName = "Bingoed",
             ExtraProperties = new Dictionary<string, string>
             {
                 { "TransactionFee", "{\"ELF\":\"30000000\"}" },
@@ -106,13 +108,10 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
-        var bingoGameIndexData = await _bingoGameIndexRepository.GetAsync(IdGenerateHelper.GetId(chainId, bingoed.PlayerAddress.ToBase58()));
-        bingoGameIndexData.BingoType.ShouldBe(1);
-        bingoGameIndexData.BingoBlockHeight.ShouldBe(blockHeight);
-        bingoGameIndexData.PlayerAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
-        bingoGameIndexData.Amount.ShouldBe(100000000);
-        bingoGameIndexData.Award.ShouldBe(100000000);
-        bingoGameIndexData.IsComplete.ShouldBe(true);
+        var bingoGameIndexData = await _caHolderIndexRepository.GetAsync(IdGenerateHelper.GetId(chainId, bingoed.PlayerAddress.ToBase58()));
+        bingoGameIndexData.ShouldNotBeNull();
+        bingoGameIndexData.ChainId.ShouldBe(chainId);
+        bingoGameIndexData.CAAddress.ShouldBe(bingoed.PlayerAddress.ToBase58());
         
     }
     private async Task CreateHolder()

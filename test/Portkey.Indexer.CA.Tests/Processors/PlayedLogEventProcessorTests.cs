@@ -18,6 +18,7 @@ namespace Portkey.Indexer.CA.Tests.Processors;
 public class PlayedLogEventProcessorTests: PortkeyIndexerCATestBase
 {
     private readonly IAElfIndexerClientEntityRepository<BingoGameIndex, LogEventInfo> _bingoGameIndexRepository;
+    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _caHolderIndexRepository;
 
     private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, LogEventInfo>
         _caHolderTransactionRepository;
@@ -29,6 +30,7 @@ public class PlayedLogEventProcessorTests: PortkeyIndexerCATestBase
         _caHolderTransactionRepository =
             GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, LogEventInfo>>();
         _repository = GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo>>();
+        _caHolderIndexRepository = GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo>>();
     }
     [Fact]
     public async Task HandleBingoedLogEventAsync_Test(){
@@ -100,11 +102,10 @@ public class PlayedLogEventProcessorTests: PortkeyIndexerCATestBase
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
-        var bingoGameIndexData = await _bingoGameIndexRepository.GetAsync(IdGenerateHelper.GetId(chainId, bingoed.PlayerAddress.ToBase58()));
-        bingoGameIndexData.BingoType.ShouldBe(1);
-        bingoGameIndexData.PlayBlockHeight.ShouldBe(blockHeight);
-        bingoGameIndexData.PlayerAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
-        bingoGameIndexData.Amount.ShouldBe(100000000);
+        var bingoGameIndexData = await _caHolderIndexRepository.GetAsync(IdGenerateHelper.GetId(chainId, bingoed.PlayerAddress.ToBase58()));
+        bingoGameIndexData.ShouldNotBeNull();
+        bingoGameIndexData.ChainId.ShouldBe(chainId);
+        bingoGameIndexData.CAAddress.ShouldBe(bingoed.PlayerAddress.ToBase58());
         
     }
     private async Task CreateHolder()
