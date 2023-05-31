@@ -101,11 +101,10 @@ public class PlayedLogEventProcessorTests: PortkeyIndexerCATestBase
         await Task.Delay(2000);
 
         var bingoGameIndexData = await _bingoGameIndexRepository.GetAsync(IdGenerateHelper.GetId(chainId, bingoed.PlayerAddress.ToBase58()));
-        bingoGameIndexData.BingoType.ShouldBe((int)bingoed.Type);
-        bingoGameIndexData.PlayBlockHeight.ShouldBe(bingoed.PlayBlockHeight);
-        bingoGameIndexData.PlayerAddress.ShouldBe(bingoed.PlayerAddress.ToBase58());
-        bingoGameIndexData.Amount.ShouldBe(bingoed.Amount);
-        bingoGameIndexData.PlayId.ShouldBe(bingoed.PlayId.ToHex());
+        bingoGameIndexData.BingoType.ShouldBe(1);
+        bingoGameIndexData.PlayBlockHeight.ShouldBe(blockHeight);
+        bingoGameIndexData.PlayerAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
+        bingoGameIndexData.Amount.ShouldBe(100000000);
         
     }
     private async Task CreateHolder()

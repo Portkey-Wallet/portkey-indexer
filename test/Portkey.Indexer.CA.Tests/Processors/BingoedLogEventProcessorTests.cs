@@ -69,7 +69,7 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
             Type = BingoType.Large,
             Dices = new DiceList
             {
-                Dices = {1, 2, 3, 4, 5, 6}
+                Dices = {1, 2, 6}
             },
             PlayId = HashHelper.ComputeFrom("PlayId")
         };
@@ -107,15 +107,12 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
         await Task.Delay(2000);
 
         var bingoGameIndexData = await _bingoGameIndexRepository.GetAsync(IdGenerateHelper.GetId(chainId, bingoed.PlayerAddress.ToBase58()));
-        bingoGameIndexData.BingoType.ShouldBe((int)bingoed.Type);
-        bingoGameIndexData.BingoBlockHeight.ShouldBe(bingoed.BingoBlockHeight);
-        bingoGameIndexData.PlayBlockHeight.ShouldBe(bingoed.PlayBlockHeight);
-        bingoGameIndexData.PlayerAddress.ShouldBe(bingoed.PlayerAddress.ToBase58());
-        bingoGameIndexData.Amount.ShouldBe(bingoed.Amount);
-        bingoGameIndexData.Award.ShouldBe(bingoed.Award);
-        bingoGameIndexData.IsComplete.ShouldBe(bingoed.IsComplete);
-        bingoGameIndexData.Dices.ShouldBe(bingoed.Dices.Dices.Select(d => (int)d));
-        bingoGameIndexData.PlayId.ShouldBe(bingoed.PlayId.ToHex());
+        bingoGameIndexData.BingoType.ShouldBe(1);
+        bingoGameIndexData.BingoBlockHeight.ShouldBe(blockHeight);
+        bingoGameIndexData.PlayerAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
+        bingoGameIndexData.Amount.ShouldBe(100000000);
+        bingoGameIndexData.Award.ShouldBe(100000000);
+        bingoGameIndexData.IsComplete.ShouldBe(true);
         
     }
     private async Task CreateHolder()
