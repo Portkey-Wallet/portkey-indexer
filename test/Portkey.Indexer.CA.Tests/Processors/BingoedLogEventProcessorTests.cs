@@ -95,7 +95,7 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
             TransactionId = transactionId,
             Params = "{ \"to\": \"ca\", \"symbol\": \"ELF\", \"amount\": \"100000000000\" }",
             To = "CAAddress",
-            MethodName = "RemoveGuardian",
+            MethodName = "Bingoed",
             ExtraProperties = new Dictionary<string, string>
             {
                 { "TransactionFee", "{\"ELF\":\"30000000\"}" },
@@ -136,6 +136,18 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
         bingoGameStaticsIndexData.Award.ShouldBe(100000000);
         bingoGameStaticsIndexData.TotalPlays.ShouldBe(1);
         bingoGameStaticsIndexData.TotalWins.ShouldBe(1);
+        var result = await Query.CAHolderBingoInfo(_bingoGameIndexRepository, _staticsrepository,
+            _objectMapper, new GetBingoDto
+            {
+                CAAddresses = new List<string> {Address.FromPublicKey("AAA".HexToByteArray()).ToBase58()},
+            });
+        result.TotalRecordCount.ShouldBe(1);
+        result.Data[0].Amount.ShouldBe(100000000);
+        result.Data[0].Award.ShouldBe(100000000);
+        result.Statics[0].Amount.ShouldBe(100000000);
+        result.Statics[0].Award.ShouldBe(100000000);
+        result.Statics[0].TotalPlays.ShouldBe(1);
+        result.Statics[0].TotalWins.ShouldBe(1);
         
     }
     private async Task CreateHolder()
@@ -247,7 +259,7 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
             TransactionId = transactionId,
             Params = "{ \"to\": \"ca\", \"symbol\": \"ELF\", \"amount\": \"100000000000\" }",
             To = "CAAddress",
-            MethodName = "AddGuardian",
+            MethodName = "Played",
             ExtraProperties = new Dictionary<string, string>
             {
                 { "TransactionFee", "{\"ELF\":\"30000000\"}" },

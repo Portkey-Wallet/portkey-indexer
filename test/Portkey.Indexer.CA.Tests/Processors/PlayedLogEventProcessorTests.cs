@@ -83,7 +83,7 @@ public class PlayedLogEventProcessorTests: PortkeyIndexerCATestBase
             TransactionId = transactionId,
             Params = "{ \"to\": \"ca\", \"symbol\": \"ELF\", \"amount\": \"100000000000\" }",
             To = "CAAddress",
-            MethodName = "Transferred",
+            MethodName = "Played",
             ExtraProperties = new Dictionary<string, string>
             {
                 { "TransactionFee", "{\"ELF\":\"30000000\"}" },
