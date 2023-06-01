@@ -81,7 +81,7 @@ public class PlayedProcessor : CAHolderTransactionProcessorBase<Played>
         {
             return;
         }
-        var feeMap = TransactionFeeHelper.GetTransactionFee(context.ExtraProperties);
+        var feeMap = GetTransactionFee(context.ExtraProperties);
         List<TransactionFee> feeList;
         if (!feeMap.IsNullOrEmpty())
         {
