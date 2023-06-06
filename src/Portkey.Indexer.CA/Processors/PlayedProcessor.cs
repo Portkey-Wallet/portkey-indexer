@@ -93,7 +93,11 @@ public class PlayedProcessor : CAHolderTransactionProcessorBase<Played>
         }
         else
         {
-            feeList = new List<TransactionFee>();
+            feeList = feeMap.Select(pair => new TransactionFee
+            {
+                Symbol = null,
+                Amount = 0
+            }).ToList();
         }
         // _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
         var bingoIndex = new BingoGameIndex
