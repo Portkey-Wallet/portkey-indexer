@@ -103,7 +103,7 @@ public class BingoedProcessor : CAHolderTransactionProcessorBase<Bingoed>
         {
             feeList = new List<TransactionFee>
             {
-                new TransactionFee
+                new ()
                 {
                     Symbol = null,
                     Amount = 0
