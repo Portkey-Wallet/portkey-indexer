@@ -101,11 +101,14 @@ public class BingoedProcessor : CAHolderTransactionProcessorBase<Bingoed>
         }
         else
         {
-            feeList = feeMap.Select(pair => new TransactionFee
+            feeList = new List<TransactionFee>
             {
-                Symbol = null,
-                Amount = 0
-            }).ToList();
+                new TransactionFee
+                {
+                    Symbol = null,
+                    Amount = 0
+                }
+            };
         }
         index.BingoTransactionFee = feeList;
         index.IsComplete = true;
