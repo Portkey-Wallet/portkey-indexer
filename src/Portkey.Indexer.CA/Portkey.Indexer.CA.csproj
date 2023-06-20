@@ -4,6 +4,9 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
     <ItemGroup>
-      <PackageReference Include="AElfIndexer.Client" Version="1.0.0-24" />
+      <PackageReference Include="AElf.BaseStorageMapper" Version="1.0.5" />
+      <PackageReference Include="AElfIndexer.Client" Version="1.2.0" />
+
+
     </ItemGroup>
 </Project>
