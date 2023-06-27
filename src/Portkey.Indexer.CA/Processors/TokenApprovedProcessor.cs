@@ -51,7 +51,5 @@ public class TokenApprovedProcessor : CAHolderTransactionProcessorBase<Approved>
         ObjectMapper.Map(context, index);
         index.MethodName = GetMethodName(context.MethodName, context.Params);
         await CAHolderTransactionIndexRepository.AddOrUpdateAsync(index);
-        await AddCAHolderTransactionAddressAsync(holder.CAAddress, eventValue.Spender.ToBase58(), context.ChainId,
-            context);
     }
 }

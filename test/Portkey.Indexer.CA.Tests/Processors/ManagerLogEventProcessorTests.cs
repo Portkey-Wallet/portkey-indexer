@@ -929,13 +929,8 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
                 SkipCount = 0,
                 MaxResultCount = 10
             });
-        result.TotalRecordCount.ShouldBe(1);
-        result.Data.Count.ShouldBe(1);
-        result.Data.First().CAAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
-        result.Data.First().ChainId.ShouldBe("AELF");
-        result.Data.First().AddressChainId.ShouldBe("AELF");
-        result.Data.First().Address.ShouldBe(Address.FromPublicKey("DDD".HexToByteArray()).ToBase58());
-        result.Data.First().TransactionTime.ShouldNotBe(0);
+        result.TotalRecordCount.ShouldBe(0);
+        result.Data.Count.ShouldBe(0);
     }
 
     private async Task CreateHolder()

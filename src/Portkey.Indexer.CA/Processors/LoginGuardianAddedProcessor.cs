@@ -23,7 +23,8 @@ public class LoginGuardianAddedProcessor : CAHolderTransactionProcessorBase<Logi
             caHolderTransactionAddressIndexRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions, IObjectMapper objectMapper) :
-        base(logger, caHolderIndexRepository,caHolderManagerIndexRepository, caHolderTransactionIndexRepository, tokenInfoIndexRepository,
+        base(logger, caHolderIndexRepository, caHolderManagerIndexRepository, caHolderTransactionIndexRepository,
+            tokenInfoIndexRepository,
             nftInfoIndexRepository, caHolderTransactionAddressIndexRepository, contractInfoOptions,
             caHolderTransactionInfoOptions, objectMapper)
     {
@@ -31,19 +32,11 @@ public class LoginGuardianAddedProcessor : CAHolderTransactionProcessorBase<Logi
 
     public override string GetContractAddress(string chainId)
     {
-        return ContractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).CAContractAddress;
+        return ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress;
     }
 
     protected override async Task HandleEventAsync(LoginGuardianAdded eventValue, LogEventContext context)
     {
-        var holderAddress = await ProcessCAHolderTransactionAsync(context, eventValue.CaAddress.ToBase58());
-        
-        if (holderAddress == null)
-        {
-            return;
-        }
-        
-        await AddCAHolderTransactionAddressAsync(holderAddress, eventValue.Manager.ToBase58(), context.ChainId,
-            context);
+        await ProcessCAHolderTransactionAsync(context, eventValue.CaAddress.ToBase58());
     }
 }
