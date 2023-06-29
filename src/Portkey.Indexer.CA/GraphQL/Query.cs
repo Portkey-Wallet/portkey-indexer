@@ -21,8 +21,14 @@ public class Query
 
         mustQuery.Add(q => q.Term(i => i.Field(f => f.ChainId).Value(dto.ChainId)));
         mustQuery.Add(q => q.Term(i => i.Field(f => f.Symbol).Value(dto.Symbol)));
+        
+        var wildCardKeyword = string.Empty;
+        if (!string.IsNullOrEmpty(dto.SymbolKeyword))
+        {
+            wildCardKeyword = "*" + dto.SymbolKeyword + "*";
+        }
         mustQuery.Add(s =>
-            s.Wildcard(i => i.Field(f => f.Symbol).Value(dto.SymbolKeyword).CaseInsensitive(true)));
+            s.Wildcard(i => i.Field(f => f.Symbol).Value(wildCardKeyword).CaseInsensitive(true)));
 
         QueryContainer Filter(QueryContainerDescriptor<TokenInfoIndex> f) => f.Bool(b => b.Must(mustQuery));
 
