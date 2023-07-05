@@ -20,6 +20,7 @@ public class GetCAHolderTransactionInfoDto : PagedResultRequestDto
     public string BlockHash { get; set; }
 
     public string TransferTransactionId { get; set; }
+    public string Memo { get; set; }
 
     public List<string> MethodNames { get; set; } = new();
 }

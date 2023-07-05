@@ -716,7 +716,8 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
             To = holderB.CaAddress,
             ToChainId = 1866392,
             Symbol = symbol,
-            Amount = amount
+            Amount = amount,
+            Memo = "test-READ"
         };
 
         var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(crossChainTransferred.ToLogEvent());
@@ -1644,7 +1645,8 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
                     "Transferred",
                     "Transfer",
                     "CrossChainTransfer"
-                }
+                },
+                Memo = "test-READ"
             });
 
         result.TotalRecordCount.ShouldBe(1);

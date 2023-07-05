@@ -67,6 +67,9 @@ public class TransferInfo
     public string ToChainId { get; set; }
     [Keyword]
     public string TransferTransactionId { get; set; }
+    
+    [Keyword]
+    public string Memo { get; set; }
 }
 
 public enum TransactionStatus

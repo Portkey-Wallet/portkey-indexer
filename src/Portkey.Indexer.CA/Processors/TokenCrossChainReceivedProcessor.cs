@@ -20,35 +20,42 @@ public class TokenCrossChainReceivedProcessor : CAHolderTransactionProcessorBase
             caHolderTransactionIndexRepository,
         IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
         IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> nftInfoIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex,TransactionInfo> caHolderTransactionAddressIndexRepository
-,        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo>
+            caHolderTransactionAddressIndexRepository
+        , IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions, IObjectMapper objectMapper) :
-        base(logger, caHolderIndexRepository,caHolderManagerIndexRepository, caHolderTransactionIndexRepository, tokenInfoIndexRepository,
-            nftInfoIndexRepository,caHolderTransactionAddressIndexRepository, contractInfoOptions, caHolderTransactionInfoOptions, objectMapper)
+        base(logger, caHolderIndexRepository, caHolderManagerIndexRepository, caHolderTransactionIndexRepository,
+            tokenInfoIndexRepository,
+            nftInfoIndexRepository, caHolderTransactionAddressIndexRepository, contractInfoOptions,
+            caHolderTransactionInfoOptions, objectMapper)
     {
     }
 
     public override string GetContractAddress(string chainId)
     {
-        return ContractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).TokenContractAddress;
+        return ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).TokenContractAddress;
     }
 
     protected override async Task HandleEventAsync(CrossChainReceived eventValue, LogEventContext context)
     {
         if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
-        
+
         var tokenInfoIndex =
-            await TokenInfoIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol),context.ChainId);
+            await TokenInfoIndexRepository.GetFromBlockStateSetAsync(
+                IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol), context.ChainId);
         var nftInfoIndex =
-            await NFTInfoIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol),context.ChainId);
-        var from_manager = await CAHolderManagerIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
-            eventValue.From.ToBase58()),context.ChainId);
+            await NFTInfoIndexRepository.GetFromBlockStateSetAsync(
+                IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol), context.ChainId);
+        var from_manager = await CAHolderManagerIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(
+            context.ChainId,
+            eventValue.From.ToBase58()), context.ChainId);
         string fromManagerCAAddress = from_manager == null ? "" : from_manager.CAAddresses.FirstOrDefault();
-        await CAHolderTransactionIndexRepository.AddOrUpdateAsync(GetCaHolderTransactionIndex(eventValue, tokenInfoIndex,nftInfoIndex,
-            fromManagerCAAddress,context));
-        
+        await CAHolderTransactionIndexRepository.AddOrUpdateAsync(GetCaHolderTransactionIndex(eventValue,
+            tokenInfoIndex, nftInfoIndex,
+            fromManagerCAAddress, context));
+
         var to_ca = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
-            eventValue.To.ToBase58()),context.ChainId);
+            eventValue.To.ToBase58()), context.ChainId);
         if (to_ca != null)
         {
             await AddCAHolderTransactionAddressAsync(to_ca.CAAddress, eventValue.From.ToBase58(),
@@ -56,19 +63,21 @@ public class TokenCrossChainReceivedProcessor : CAHolderTransactionProcessorBase
         }
         else
         {
-            var to_manager = await CAHolderManagerIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
-                eventValue.To.ToBase58()),context.ChainId);
+            var to_manager = await CAHolderManagerIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(
+                context.ChainId,
+                eventValue.To.ToBase58()), context.ChainId);
             if (to_manager != null)
             {
-                await AddCAHolderTransactionAddressAsync(to_manager.CAAddresses.FirstOrDefault(), eventValue.From.ToBase58(),
+                await AddCAHolderTransactionAddressAsync(to_manager.CAAddresses.FirstOrDefault(),
+                    eventValue.From.ToBase58(),
                     ChainHelper.ConvertChainIdToBase58(eventValue.FromChainId), context);
             }
         }
-        
     }
-    
-    private CAHolderTransactionIndex GetCaHolderTransactionIndex(CrossChainReceived transferred, TokenInfoIndex tokenInfoIndex,
-        NFTInfoIndex nftInfoIndex,string fromManagerCAAddress, LogEventContext context)
+
+    private CAHolderTransactionIndex GetCaHolderTransactionIndex(CrossChainReceived transferred,
+        TokenInfoIndex tokenInfoIndex,
+        NFTInfoIndex nftInfoIndex, string fromManagerCAAddress, LogEventContext context)
     {
         var index = new CAHolderTransactionIndex
         {
@@ -80,7 +89,7 @@ public class TokenCrossChainReceivedProcessor : CAHolderTransactionProcessorBase
             //     Decimals = tokenInfoIndex.Decimals,
             //     Symbol = tokenInfoIndex.Symbol
             // },
-            TokenInfo=tokenInfoIndex,
+            TokenInfo = tokenInfoIndex,
             NftInfo = nftInfoIndex,
             TransactionFee = GetTransactionFee(context.ExtraProperties),
             TransferInfo = new TransferInfo
@@ -91,7 +100,8 @@ public class TokenCrossChainReceivedProcessor : CAHolderTransactionProcessorBase
                 ToAddress = transferred.To.ToBase58(),
                 FromChainId = ChainHelper.ConvertChainIdToBase58(transferred.FromChainId),
                 ToChainId = context.ChainId,
-                TransferTransactionId = transferred.TransferTransactionId.ToHex()
+                TransferTransactionId = transferred.TransferTransactionId.ToHex(),
+                Memo = transferred.Memo
             }
         };
         ObjectMapper.Map(context, index);

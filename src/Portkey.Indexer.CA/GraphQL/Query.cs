@@ -75,6 +75,9 @@ public class Query
         mustQuery.Add(q => q.Term(i => i.Field(f => f.TransactionId).Value(dto.TransactionId)));
         mustQuery.Add(q =>
             q.Term(i => i.Field(f => f.TransferInfo.TransferTransactionId).Value(dto.TransferTransactionId)));
+        mustQuery.Add(q =>
+            q.Term(i => i.Field(f => f.TransferInfo.Memo).Value(dto.Memo)));
+        
         if (dto.MethodNames != null)
         {
             var methodNameShouldQuery =
@@ -287,6 +290,8 @@ public class Query
         mustQuery.Add(q => q.Term(i => i.Field(f => f.TransactionId).Value(dto.TransactionId)));
         mustQuery.Add(q =>
             q.Term(i => i.Field(f => f.TransferInfo.TransferTransactionId).Value(dto.TransferTransactionId)));
+        mustQuery.Add(q =>
+            q.Term(i => i.Field(f => f.TransferInfo.Memo).Value(dto.Memo)));
 
         if (dto.MethodNames != null)
         {
