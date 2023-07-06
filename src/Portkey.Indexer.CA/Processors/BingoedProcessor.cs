@@ -19,7 +19,6 @@ public class BingoedProcessor : CAHolderTransactionProcessorBase<Bingoed>
     private readonly IAElfIndexerClientEntityRepository<BingoGameStaticsIndex, TransactionInfo> _bingoStaticsIndexRepository;
     private readonly IObjectMapper _objectMapper;
     public BingoedProcessor(ILogger<BingoedProcessor> logger,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
         IAElfIndexerClientEntityRepository<BingoGameIndex, TransactionInfo> bingoIndexRepository,
         IAElfIndexerClientEntityRepository<BingoGameStaticsIndex, TransactionInfo> bingoStaticsIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
@@ -36,8 +35,6 @@ public class BingoedProcessor : CAHolderTransactionProcessorBase<Bingoed>
             nftInfoIndexRepository, caHolderTransactionAddressIndexRepository, contractInfoOptions,
             caHolderTransactionInfoOptions, objectMapper)
     {
-   
-        _repository = repository;
         _bingoIndexRepository = bingoIndexRepository;
         _objectMapper = objectMapper;
         _bingoStaticsIndexRepository = bingoStaticsIndexRepository;
@@ -140,7 +137,7 @@ public class BingoedProcessor : CAHolderTransactionProcessorBase<Bingoed>
             bingoStaticsIndex.TotalPlays += 1;
             bingoStaticsIndex.TotalWins += eventValue.Award > 0 ? 1 : 0;
         }
-        _objectMapper.Map<LogEventContext, BingoGameStaticsIndex>(context, bingoStaticsIndex);
+        ObjectMapper.Map<LogEventContext, BingoGameStaticsIndex>(context, bingoStaticsIndex);
         await _bingoStaticsIndexRepository.AddOrUpdateAsync(bingoStaticsIndex); 
     }
 }
