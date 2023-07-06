@@ -229,7 +229,28 @@ public class PortkeyIndexerCATestModule : AbpModule
                     ContractAddress = "CAAddress",
                     MethodName = "CreateHolderInfo",
                     EventNames = new List<string> { "CAHolderCreated" }
-                }
+                },
+                new ()
+                {
+                    ChainId = "AELF",
+                    ContractAddress = "CAAddress",
+                    MethodName = "Bingoed",
+                    EventNames = new List<string> { "Bingoed" }
+                },
+                new ()
+                {
+                    ChainId = "AELF",
+                    ContractAddress = "CAAddress",
+                    MethodName = "Played",
+                    EventNames = new List<string> { "Played" }
+                },
+                new ()
+                {
+                    ChainId = "AELF",
+                    ContractAddress = "CAAddress",
+                    MethodName = "Registered",
+                    EventNames = new List<string> { "Registered" }
+                },
             };
         });
         
