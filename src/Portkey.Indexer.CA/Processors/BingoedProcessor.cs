@@ -13,13 +13,10 @@ namespace Portkey.Indexer.CA.Processors;
 
 public class BingoedProcessor : CAHolderTransactionProcessorBase<Bingoed>
 {   
-
-    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _repository;
+    
     private readonly IAElfIndexerClientEntityRepository<BingoGameIndex, TransactionInfo> _bingoIndexRepository;
     private readonly IAElfIndexerClientEntityRepository<BingoGameStaticsIndex, TransactionInfo> _bingoStaticsIndexRepository;
-    private readonly IObjectMapper _objectMapper;
     public BingoedProcessor(ILogger<BingoedProcessor> logger,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
         IAElfIndexerClientEntityRepository<BingoGameIndex, TransactionInfo> bingoIndexRepository,
         IAElfIndexerClientEntityRepository<BingoGameStaticsIndex, TransactionInfo> bingoStaticsIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
@@ -36,10 +33,7 @@ public class BingoedProcessor : CAHolderTransactionProcessorBase<Bingoed>
             nftInfoIndexRepository, caHolderTransactionAddressIndexRepository, contractInfoOptions,
             caHolderTransactionInfoOptions, objectMapper)
     {
-   
-        _repository = repository;
         _bingoIndexRepository = bingoIndexRepository;
-        _objectMapper = objectMapper;
         _bingoStaticsIndexRepository = bingoStaticsIndexRepository;
     }
 
@@ -115,7 +109,7 @@ public class BingoedProcessor : CAHolderTransactionProcessorBase<Bingoed>
         index.Dices = eventValue.Dices.Dices.ToList();
         index.Award = eventValue.Award;
         index.BingoBlockHash = context.BlockHash;
-        _objectMapper.Map<LogEventContext, BingoGameIndex>(context, index);
+        ObjectMapper.Map<LogEventContext, BingoGameIndex>(context, index);
         await _bingoIndexRepository.AddOrUpdateAsync(index);
         
         //update bingoStaticsIndex
@@ -140,7 +134,7 @@ public class BingoedProcessor : CAHolderTransactionProcessorBase<Bingoed>
             bingoStaticsIndex.TotalPlays += 1;
             bingoStaticsIndex.TotalWins += eventValue.Award > 0 ? 1 : 0;
         }
-        _objectMapper.Map<LogEventContext, BingoGameStaticsIndex>(context, bingoStaticsIndex);
+        ObjectMapper.Map<LogEventContext, BingoGameStaticsIndex>(context, bingoStaticsIndex);
         await _bingoStaticsIndexRepository.AddOrUpdateAsync(bingoStaticsIndex); 
     }
 }

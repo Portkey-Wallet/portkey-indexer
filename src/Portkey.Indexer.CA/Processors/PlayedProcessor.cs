@@ -15,12 +15,9 @@ namespace Portkey.Indexer.CA.Processors;
 
 public class PlayedProcessor : CAHolderTransactionProcessorBase<Played>
 {
-    private readonly IObjectMapper _objectMapper;
-    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _repository;
     private readonly IAElfIndexerClientEntityRepository<BingoGameIndex, TransactionInfo> _bingoIndexRepository;
     public PlayedProcessor(ILogger<PlayedProcessor> logger,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
         IAElfIndexerClientEntityRepository<BingoGameIndex, TransactionInfo> bingoIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
@@ -35,8 +32,6 @@ public class PlayedProcessor : CAHolderTransactionProcessorBase<Played>
             nftInfoIndexRepository, caHolderTransactionAddressIndexRepository, contractInfoOptions,
             caHolderTransactionInfoOptions, objectMapper)
     {
-        _objectMapper = objectMapper;
-        _repository = repository;
         _bingoIndexRepository = bingoIndexRepository;
     }
 
@@ -117,7 +112,7 @@ public class PlayedProcessor : CAHolderTransactionProcessorBase<Played>
             PlayTransactionFee = feeList,
             PlayBlockHash = context.BlockHash
         };
-        _objectMapper.Map<LogEventContext, BingoGameIndex>(context, bingoIndex);
+        ObjectMapper.Map<LogEventContext, BingoGameIndex>(context, bingoIndex);
         await _bingoIndexRepository.AddOrUpdateAsync(bingoIndex);
     }
 }
