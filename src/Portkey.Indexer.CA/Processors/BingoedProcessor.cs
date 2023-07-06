@@ -13,11 +13,9 @@ namespace Portkey.Indexer.CA.Processors;
 
 public class BingoedProcessor : CAHolderTransactionProcessorBase<Bingoed>
 {   
-
-    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _repository;
+    
     private readonly IAElfIndexerClientEntityRepository<BingoGameIndex, TransactionInfo> _bingoIndexRepository;
     private readonly IAElfIndexerClientEntityRepository<BingoGameStaticsIndex, TransactionInfo> _bingoStaticsIndexRepository;
-    private readonly IObjectMapper _objectMapper;
     public BingoedProcessor(ILogger<BingoedProcessor> logger,
         IAElfIndexerClientEntityRepository<BingoGameIndex, TransactionInfo> bingoIndexRepository,
         IAElfIndexerClientEntityRepository<BingoGameStaticsIndex, TransactionInfo> bingoStaticsIndexRepository,
@@ -36,7 +34,6 @@ public class BingoedProcessor : CAHolderTransactionProcessorBase<Bingoed>
             caHolderTransactionInfoOptions, objectMapper)
     {
         _bingoIndexRepository = bingoIndexRepository;
-        _objectMapper = objectMapper;
         _bingoStaticsIndexRepository = bingoStaticsIndexRepository;
     }
 
@@ -112,7 +109,7 @@ public class BingoedProcessor : CAHolderTransactionProcessorBase<Bingoed>
         index.Dices = eventValue.Dices.Dices.ToList();
         index.Award = eventValue.Award;
         index.BingoBlockHash = context.BlockHash;
-        _objectMapper.Map<LogEventContext, BingoGameIndex>(context, index);
+        ObjectMapper.Map<LogEventContext, BingoGameIndex>(context, index);
         await _bingoIndexRepository.AddOrUpdateAsync(index);
         
         //update bingoStaticsIndex
