@@ -21,7 +21,15 @@ public class Query
 
         mustQuery.Add(q => q.Term(i => i.Field(f => f.ChainId).Value(dto.ChainId)));
         mustQuery.Add(q => q.Term(i => i.Field(f => f.Symbol).Value(dto.Symbol)));
-
+        
+        string wildCardKeyword;
+        if (!string.IsNullOrWhiteSpace(dto.SymbolKeyword))
+        {
+            wildCardKeyword = "*" + dto.SymbolKeyword + "*";
+            mustQuery.Add(s =>
+                s.Wildcard(i => i.Field(f => f.Symbol).Value(wildCardKeyword).CaseInsensitive(true)));
+        }
+        
         QueryContainer Filter(QueryContainerDescriptor<TokenInfoIndex> f) => f.Bool(b => b.Must(mustQuery));
 
         var result = await repository.GetListAsync(Filter, sortExp: k => k.Symbol,
@@ -85,31 +93,36 @@ public class Query
             var shouldQuery = new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>();
             foreach (var info in dto.CAAddressInfos)
             {
-                var mustQueryFromAddressInfo = new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
-                {
-                    q => q.Term(i => i.Field(f => f.FromAddress).Value(info.CAAddress)),
-                    q => q.Term(i => i.Field(f => f.ChainId).Value(info.ChainId))
-                };
+                var mustQueryFromAddressInfo =
+                    new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
+                    {
+                        q => q.Term(i => i.Field(f => f.FromAddress).Value(info.CAAddress)),
+                        q => q.Term(i => i.Field(f => f.ChainId).Value(info.ChainId))
+                    };
                 shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryFromAddressInfo)));
-                var mustQueryTransferFromAddressInfo = new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
-                {
-                    q => q.Term(i => i.Field(f => f.TransferInfo.FromAddress).Value(info.CAAddress)),
-                    q => q.Term(i => i.Field(f => f.TransferInfo.FromChainId).Value(info.ChainId))
-                };
+                var mustQueryTransferFromAddressInfo =
+                    new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
+                    {
+                        q => q.Term(i => i.Field(f => f.TransferInfo.FromAddress).Value(info.CAAddress)),
+                        q => q.Term(i => i.Field(f => f.TransferInfo.FromChainId).Value(info.ChainId))
+                    };
                 shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryTransferFromAddressInfo)));
-                var mustQueryTransferFromCAAddressInfo = new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
-                {
-                    q => q.Term(i => i.Field(f => f.TransferInfo.FromCAAddress).Value(info.CAAddress)),
-                    q => q.Term(i => i.Field(f => f.TransferInfo.FromChainId).Value(info.ChainId))
-                };
+                var mustQueryTransferFromCAAddressInfo =
+                    new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
+                    {
+                        q => q.Term(i => i.Field(f => f.TransferInfo.FromCAAddress).Value(info.CAAddress)),
+                        q => q.Term(i => i.Field(f => f.TransferInfo.FromChainId).Value(info.ChainId))
+                    };
                 shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryTransferFromCAAddressInfo)));
-                var mustQueryTransferToAddressInfo = new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
-                {
-                    q => q.Term(i => i.Field(f => f.TransferInfo.ToAddress).Value(info.CAAddress)),
-                    q => q.Term(i => i.Field(f => f.TransferInfo.ToChainId).Value(info.ChainId))
-                };
+                var mustQueryTransferToAddressInfo =
+                    new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
+                    {
+                        q => q.Term(i => i.Field(f => f.TransferInfo.ToAddress).Value(info.CAAddress)),
+                        q => q.Term(i => i.Field(f => f.TransferInfo.ToChainId).Value(info.ChainId))
+                    };
                 shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryTransferToAddressInfo)));
             }
+
             mustQuery.Add(q => q.Bool(b => b.Should(shouldQuery)));
         }
 
@@ -349,7 +362,6 @@ public class Query
         var result = await repository.GetListAsync(Filter, sortExp: k => k.BlockHeight,
             sortType: SortOrder.Ascending, skip: dto.SkipCount, limit: dto.MaxResultCount);
         return objectMapper.Map<List<CAHolderIndex>, List<CAHolderManagerDto>>(result.Item2);
-
     }
 
     [Name("caHolderInfo")]
@@ -393,7 +405,7 @@ public class Query
                     f.Bool(b => b.Must(mustQueryLoginGuardian));
 
                 var holderInfoResult = await repositoryLoginGuardian.GetListAsync(FilterLoginGuardian);
-                
+
                 if (holderInfoResult.Item1 == 0) return new List<CAHolderInfoDto>();
 
                 hash = holderInfoResult.Item2.First().CAHash;
@@ -440,14 +452,16 @@ public class Query
 
         if (dto.CAAddressInfos != null)
         {
-            var shouldQuery = new List<Func<QueryContainerDescriptor<CAHolderNFTCollectionBalanceIndex>, QueryContainer>>();
+            var shouldQuery =
+                new List<Func<QueryContainerDescriptor<CAHolderNFTCollectionBalanceIndex>, QueryContainer>>();
             foreach (var info in dto.CAAddressInfos)
             {
-                var mustQueryAddressInfo = new List<Func<QueryContainerDescriptor<CAHolderNFTCollectionBalanceIndex>, QueryContainer>>
-                {
-                    q => q.Term(i => i.Field(f => f.CAAddress).Value(info.CAAddress)),
-                    q => q.Term(i => i.Field(f => f.ChainId).Value(info.ChainId))
-                };
+                var mustQueryAddressInfo =
+                    new List<Func<QueryContainerDescriptor<CAHolderNFTCollectionBalanceIndex>, QueryContainer>>
+                    {
+                        q => q.Term(i => i.Field(f => f.CAAddress).Value(info.CAAddress)),
+                        q => q.Term(i => i.Field(f => f.ChainId).Value(info.ChainId))
+                    };
                 shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryAddressInfo)));
             }
 
@@ -493,11 +507,12 @@ public class Query
             var shouldQuery = new List<Func<QueryContainerDescriptor<CAHolderNFTBalanceIndex>, QueryContainer>>();
             foreach (var info in dto.CAAddressInfos)
             {
-                var mustQueryAddressInfo = new List<Func<QueryContainerDescriptor<CAHolderNFTBalanceIndex>, QueryContainer>>
-                {
-                    q => q.Term(i => i.Field(f => f.CAAddress).Value(info.CAAddress)),
-                    q => q.Term(i => i.Field(f => f.ChainId).Value(info.ChainId))
-                };
+                var mustQueryAddressInfo =
+                    new List<Func<QueryContainerDescriptor<CAHolderNFTBalanceIndex>, QueryContainer>>
+                    {
+                        q => q.Term(i => i.Field(f => f.CAAddress).Value(info.CAAddress)),
+                        q => q.Term(i => i.Field(f => f.ChainId).Value(info.ChainId))
+                    };
                 shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryAddressInfo)));
             }
 
@@ -542,11 +557,12 @@ public class Query
             var shouldQuery = new List<Func<QueryContainerDescriptor<CAHolderTokenBalanceIndex>, QueryContainer>>();
             foreach (var info in dto.CAAddressInfos)
             {
-                var mustQueryAddressInfo = new List<Func<QueryContainerDescriptor<CAHolderTokenBalanceIndex>, QueryContainer>>
-                {
-                    q => q.Term(i => i.Field(f => f.CAAddress).Value(info.CAAddress)),
-                    q => q.Term(i => i.Field(f => f.ChainId).Value(info.ChainId))
-                };
+                var mustQueryAddressInfo =
+                    new List<Func<QueryContainerDescriptor<CAHolderTokenBalanceIndex>, QueryContainer>>
+                    {
+                        q => q.Term(i => i.Field(f => f.CAAddress).Value(info.CAAddress)),
+                        q => q.Term(i => i.Field(f => f.ChainId).Value(info.ChainId))
+                    };
                 shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryAddressInfo)));
             }
 
@@ -582,14 +598,16 @@ public class Query
         // mustQuery.Add(q => q.Term(i => i.Field(f => f.CAAddress).Value(dto.CAAddress)));
         if (dto.CAAddressInfos != null)
         {
-            var shouldQuery = new List<Func<QueryContainerDescriptor<CAHolderTransactionAddressIndex>, QueryContainer>>();
+            var shouldQuery =
+                new List<Func<QueryContainerDescriptor<CAHolderTransactionAddressIndex>, QueryContainer>>();
             foreach (var info in dto.CAAddressInfos)
             {
-                var mustQueryAddressInfo = new List<Func<QueryContainerDescriptor<CAHolderTransactionAddressIndex>, QueryContainer>>
-                {
-                    q => q.Term(i => i.Field(f => f.CAAddress).Value(info.CAAddress)),
-                    q => q.Term(i => i.Field(f => f.ChainId).Value(info.ChainId))
-                };
+                var mustQueryAddressInfo =
+                    new List<Func<QueryContainerDescriptor<CAHolderTransactionAddressIndex>, QueryContainer>>
+                    {
+                        q => q.Term(i => i.Field(f => f.CAAddress).Value(info.CAAddress)),
+                        q => q.Term(i => i.Field(f => f.ChainId).Value(info.ChainId))
+                    };
                 shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryAddressInfo)));
             }
 
@@ -676,14 +694,16 @@ public class Query
 
         if (dto.CAAddressInfos != null)
         {
-            var shouldQueryCAAddress = new List<Func<QueryContainerDescriptor<CAHolderSearchTokenNFTIndex>, QueryContainer>>();
+            var shouldQueryCAAddress =
+                new List<Func<QueryContainerDescriptor<CAHolderSearchTokenNFTIndex>, QueryContainer>>();
             foreach (var info in dto.CAAddressInfos)
             {
-                var mustQueryAddressInfo = new List<Func<QueryContainerDescriptor<CAHolderSearchTokenNFTIndex>, QueryContainer>>
-                {
-                    q => q.Term(i => i.Field(f => f.CAAddress).Value(info.CAAddress)),
-                    q => q.Term(i => i.Field(f => f.ChainId).Value(info.ChainId))
-                };
+                var mustQueryAddressInfo =
+                    new List<Func<QueryContainerDescriptor<CAHolderSearchTokenNFTIndex>, QueryContainer>>
+                    {
+                        q => q.Term(i => i.Field(f => f.CAAddress).Value(info.CAAddress)),
+                        q => q.Term(i => i.Field(f => f.ChainId).Value(info.ChainId))
+                    };
                 shouldQueryCAAddress.Add(q => q.Bool(b => b.Must(mustQueryAddressInfo)));
             }
 
