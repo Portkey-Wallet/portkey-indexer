@@ -27,59 +27,78 @@ namespace Portkey.Contracts.BingoGameContract {
             "ChliaW5nb19nYW1lX2NvbnRyYWN0LnByb3RvGg9hZWxmL2NvcmUucHJvdG8a",
             "EmFlbGYvb3B0aW9ucy5wcm90bxobZ29vZ2xlL3Byb3RvYnVmL2VtcHR5LnBy",
             "b3RvGh5nb29nbGUvcHJvdG9idWYvd3JhcHBlcnMucHJvdG8aH2dvb2dsZS9w",
-            "cm90b2J1Zi90aW1lc3RhbXAucHJvdG8aC2FjczEyLnByb3RvIjUKCVBsYXlJ",
-            "bnB1dBIOCgZhbW91bnQYASABKAMSGAoEdHlwZRgCIAEoDjIKLkJpbmdvVHlw",
-            "ZSJWChdHZXRCb3V0SW5mb3JtYXRpb25JbnB1dBIbCgdwbGF5X2lkGAEgASgL",
-            "MgouYWVsZi5IYXNoEh4KB2FkZHJlc3MYAiABKAsyDS5hZWxmLkFkZHJlc3Mi",
-            "gQEKEVBsYXllckluZm9ybWF0aW9uEhgKBHNlZWQYASABKAsyCi5hZWxmLkhh",
-            "c2gSHwoFYm91dHMYAiADKAsyEC5Cb3V0SW5mb3JtYXRpb24SMQoNcmVnaXN0",
-            "ZXJfdGltZRgDIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAijwIK",
-            "D0JvdXRJbmZvcm1hdGlvbhIZChFwbGF5X2Jsb2NrX2hlaWdodBgBIAEoAxIO",
-            "CgZhbW91bnQYAiABKAMSDQoFYXdhcmQYAyABKAMSEwoLaXNfY29tcGxldGUY",
-            "BCABKAgSGwoHcGxheV9pZBgFIAEoCzIKLmFlbGYuSGFzaBIaChJiaW5nb19i",
-            "bG9ja19oZWlnaHQYBiABKAMSGAoEdHlwZRgHIAEoDjIKLkJpbmdvVHlwZRIV",
-            "Cg1yYW5kb21fbnVtYmVyGAggASgFEhQKDHJvdW5kX251bWJlchgJIAEoAxIt",
-            "CglwbGF5X3RpbWUYCiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1w",
-            "IjcKDUxpbWl0U2V0dGluZ3MSEgoKbWluX2Ftb3VudBgBIAEoAxISCgptYXhf",
-            "YW1vdW50GAIgASgDIowBCgZQbGF5ZWQSIAoRcGxheV9ibG9ja19oZWlnaHQY",
-            "ASABKANCBYiP9QEBEhUKBmFtb3VudBgCIAEoA0IFiI/1AQESHwoEdHlwZRgD",
-            "IAEoDjIKLkJpbmdvVHlwZUIFiI/1AQESIgoHcGxheV9pZBgEIAEoCzIKLmFl",
-            "bGYuSGFzaEIFiI/1AQE6BKC7GAEigAIKB0JpbmdvZWQSIAoRcGxheV9ibG9j",
-            "a19oZWlnaHQYASABKANCBYiP9QEBEhUKBmFtb3VudBgCIAEoA0IFiI/1AQES",
-            "FAoFYXdhcmQYAyABKANCBYiP9QEBEhoKC2lzX2NvbXBsZXRlGAQgASgIQgWI",
-            "j/UBARIiCgdwbGF5X2lkGAUgASgLMgouYWVsZi5IYXNoQgWIj/UBARIhChJi",
-            "aW5nb19ibG9ja19oZWlnaHQYBiABKANCBYiP9QEBEh8KBHR5cGUYByABKA4y",
-            "Ci5CaW5nb1R5cGVCBYiP9QEBEhwKDXJhbmRvbV9udW1iZXIYCCABKAVCBYiP",
-            "9QEBOgSguxgBKiEKCUJpbmdvVHlwZRIJCgVTbWFsbBAAEgkKBUxhcmdlEAEy",
-            "jQYKEUJpbmdvR2FtZUNvbnRyYWN0EjwKCFJlZ2lzdGVyEhYuZ29vZ2xlLnBy",
-            "b3RvYnVmLkVtcHR5GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgASMQoEUGxh",
-            "eRIKLlBsYXlJbnB1dBobLmdvb2dsZS5wcm90b2J1Zi5JbnQ2NFZhbHVlIgAS",
-            "MQoFQmluZ28SCi5hZWxmLkhhc2gaGi5nb29nbGUucHJvdG9idWYuQm9vbFZh",
-            "bHVlIgASOAoEUXVpdBIWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eRoWLmdvb2ds",
-            "ZS5wcm90b2J1Zi5FbXB0eSIAEjwKEFNldExpbWl0U2V0dGluZ3MSDi5MaW1p",
-            "dFNldHRpbmdzGhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgASPgoKSW5pdGlh",
-            "bGl6ZRIWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eRoWLmdvb2dsZS5wcm90b2J1",
-            "Zi5FbXB0eSIAEjoKCEdldEF3YXJkEgouYWVsZi5IYXNoGhsuZ29vZ2xlLnBy",
-            "b3RvYnVmLkludDY0VmFsdWUiBYiJ9wEBEkAKFEdldFBsYXllckluZm9ybWF0",
-            "aW9uEg0uYWVsZi5BZGRyZXNzGhIuUGxheWVySW5mb3JtYXRpb24iBYiJ9wEB",
-            "EkEKEEdldExpbWl0U2V0dGluZ3MSFi5nb29nbGUucHJvdG9idWYuRW1wdHka",
-            "Di5MaW1pdFNldHRpbmdzIgWIifcBARJBCg9HZXRSYW5kb21OdW1iZXISCi5h",
-            "ZWxmLkhhc2gaGy5nb29nbGUucHJvdG9idWYuSW50MzJWYWx1ZSIFiIn3AQES",
-            "RwoSR2V0Qm91dEluZm9ybWF0aW9uEhguR2V0Qm91dEluZm9ybWF0aW9uSW5w",
-            "dXQaEC5Cb3V0SW5mb3JtYXRpb24iBYiJ9wEBGk+yzPYBOlBvcnRrZXkuQ29u",
-            "dHJhY3RzLkJpbmdvR2FtZUNvbnRyYWN0LkJpbmdvR2FtZUNvbnRyYWN0U3Rh",
-            "dGXKyvYBC2FjczEyLnByb3RvQiaqAiNQb3J0a2V5LkNvbnRyYWN0cy5CaW5n",
-            "b0dhbWVDb250cmFjdGIGcHJvdG8z"));
+            "cm90b2J1Zi90aW1lc3RhbXAucHJvdG8aC2FjczEyLnByb3RvIj0KEkdldFJh",
+            "bmRvbUhhc2hJbnB1dBIYCgRzZWVkGAEgASgLMgouYWVsZi5IYXNoEg0KBXRp",
+            "bWVzGAIgASgDIjwKE0dldFJhbmRvbUhhc2hPdXRwdXQSJQoOcmFuZG9tX3Jl",
+            "c3VsdHMYASADKAsyDS5SYW5kb21SZXN1bHQiPwoMUmFuZG9tUmVzdWx0Eh8K",
+            "C3JhbmRvbV9oYXNoGAEgASgLMgouYWVsZi5IYXNoEg4KBmhlaWdodBgCIAEo",
+            "AyI1CglQbGF5SW5wdXQSDgoGYW1vdW50GAEgASgDEhgKBHR5cGUYAiABKA4y",
+            "Ci5CaW5nb1R5cGUiNgoXR2V0Qm91dEluZm9ybWF0aW9uSW5wdXQSGwoHcGxh",
+            "eV9pZBgBIAEoCzIKLmFlbGYuSGFzaCKBAQoRUGxheWVySW5mb3JtYXRpb24S",
+            "GAoEc2VlZBgBIAEoCzIKLmFlbGYuSGFzaBIfCgVib3V0cxgCIAMoCzIQLkJv",
+            "dXRJbmZvcm1hdGlvbhIxCg1yZWdpc3Rlcl90aW1lGAMgASgLMhouZ29vZ2xl",
+            "LnByb3RvYnVmLlRpbWVzdGFtcCIZCghEaWNlTGlzdBINCgVkaWNlcxgBIAMo",
+            "BSLQAgoPQm91dEluZm9ybWF0aW9uEhkKEXBsYXlfYmxvY2tfaGVpZ2h0GAEg",
+            "ASgDEg4KBmFtb3VudBgCIAEoAxINCgVhd2FyZBgDIAEoAxITCgtpc19jb21w",
+            "bGV0ZRgEIAEoCBIbCgdwbGF5X2lkGAUgASgLMgouYWVsZi5IYXNoEhoKEmJp",
+            "bmdvX2Jsb2NrX2hlaWdodBgGIAEoAxIYCgR0eXBlGAcgASgOMgouQmluZ29U",
+            "eXBlEhUKDXJhbmRvbV9udW1iZXIYCCABKAUSFAoMcm91bmRfbnVtYmVyGAkg",
+            "ASgDEi0KCXBsYXlfdGltZRgKIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1l",
+            "c3RhbXASGAoFZGljZXMYCyABKAsyCS5EaWNlTGlzdBIlCg5wbGF5ZXJfYWRk",
+            "cmVzcxgMIAEoCzINLmFlbGYuQWRkcmVzcyI3Cg1MaW1pdFNldHRpbmdzEhIK",
+            "Cm1pbl9hbW91bnQYASABKAMSEgoKbWF4X2Ftb3VudBgCIAEoAyLRAQoGUGxh",
+            "eWVkEiAKEXBsYXlfYmxvY2tfaGVpZ2h0GAEgASgDQgWIj/UBARIVCgZhbW91",
+            "bnQYAiABKANCBYiP9QEBEh8KBHR5cGUYAyABKA4yCi5CaW5nb1R5cGVCBYiP",
+            "9QEBEiIKB3BsYXlfaWQYBCABKAsyCi5hZWxmLkhhc2hCBYiP9QEBEiwKDnBs",
+            "YXllcl9hZGRyZXNzGAUgASgLMg0uYWVsZi5BZGRyZXNzQgWIj/UBARIVCgZz",
+            "eW1ib2wYBiABKAlCBYiP9QEBOgSguxgBIs8CCgdCaW5nb2VkEiAKEXBsYXlf",
+            "YmxvY2tfaGVpZ2h0GAEgASgDQgWIj/UBARIVCgZhbW91bnQYAiABKANCBYiP",
+            "9QEBEhQKBWF3YXJkGAMgASgDQgWIj/UBARIaCgtpc19jb21wbGV0ZRgEIAEo",
+            "CEIFiI/1AQESIgoHcGxheV9pZBgFIAEoCzIKLmFlbGYuSGFzaEIFiI/1AQES",
+            "IQoSYmluZ29fYmxvY2tfaGVpZ2h0GAYgASgDQgWIj/UBARIfCgR0eXBlGAcg",
+            "ASgOMgouQmluZ29UeXBlQgWIj/UBARIcCg1yYW5kb21fbnVtYmVyGAggASgF",
+            "QgWIj/UBARIfCgVkaWNlcxgJIAEoCzIJLkRpY2VMaXN0QgWIj/UBARIsCg5w",
+            "bGF5ZXJfYWRkcmVzcxgKIAEoCzINLmFlbGYuQWRkcmVzc0IFiI/1AQE6BKC7",
+            "GAEimwEKClJlZ2lzdGVyZWQSHwoEc2VlZBgBIAEoCzIKLmFlbGYuSGFzaEIF",
+            "iI/1AQESOAoNcmVnaXN0ZXJfdGltZRgCIAEoCzIaLmdvb2dsZS5wcm90b2J1",
+            "Zi5UaW1lc3RhbXBCBYiP9QEBEiwKDnBsYXllcl9hZGRyZXNzGAMgASgLMg0u",
+            "YWVsZi5BZGRyZXNzQgWIj/UBAToEoLsYASohCglCaW5nb1R5cGUSCQoFU21h",
+            "bGwQABIJCgVMYXJnZRABMtAGChFCaW5nb0dhbWVDb250cmFjdBI8CghSZWdp",
+            "c3RlchIWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eRoWLmdvb2dsZS5wcm90b2J1",
+            "Zi5FbXB0eSIAEjEKBFBsYXkSCi5QbGF5SW5wdXQaGy5nb29nbGUucHJvdG9i",
+            "dWYuSW50NjRWYWx1ZSIAEjEKBUJpbmdvEgouYWVsZi5IYXNoGhouZ29vZ2xl",
+            "LnByb3RvYnVmLkJvb2xWYWx1ZSIAEjgKBFF1aXQSFi5nb29nbGUucHJvdG9i",
+            "dWYuRW1wdHkaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABI8ChBTZXRMaW1p",
+            "dFNldHRpbmdzEg4uTGltaXRTZXR0aW5ncxoWLmdvb2dsZS5wcm90b2J1Zi5F",
+            "bXB0eSIAEj4KCkluaXRpYWxpemUSFi5nb29nbGUucHJvdG9idWYuRW1wdHka",
+            "Fi5nb29nbGUucHJvdG9idWYuRW1wdHkiABI6CghHZXRBd2FyZBIKLmFlbGYu",
+            "SGFzaBobLmdvb2dsZS5wcm90b2J1Zi5JbnQ2NFZhbHVlIgWIifcBARJAChRH",
+            "ZXRQbGF5ZXJJbmZvcm1hdGlvbhINLmFlbGYuQWRkcmVzcxoSLlBsYXllcklu",
+            "Zm9ybWF0aW9uIgWIifcBARJBChBHZXRMaW1pdFNldHRpbmdzEhYuZ29vZ2xl",
+            "LnByb3RvYnVmLkVtcHR5Gg4uTGltaXRTZXR0aW5ncyIFiIn3AQESQQoPR2V0",
+            "UmFuZG9tTnVtYmVyEgouYWVsZi5IYXNoGhsuZ29vZ2xlLnByb3RvYnVmLklu",
+            "dDMyVmFsdWUiBYiJ9wEBEkcKEkdldEJvdXRJbmZvcm1hdGlvbhIYLkdldEJv",
+            "dXRJbmZvcm1hdGlvbklucHV0GhAuQm91dEluZm9ybWF0aW9uIgWIifcBARJB",
+            "Cg1HZXRSYW5kb21IYXNoEhMuR2V0UmFuZG9tSGFzaElucHV0GhQuR2V0UmFu",
+            "ZG9tSGFzaE91dHB1dCIFiIn3AQEaT7LM9gE6UG9ydGtleS5Db250cmFjdHMu",
+            "QmluZ29HYW1lQ29udHJhY3QuQmluZ29HYW1lQ29udHJhY3RTdGF0ZcrK9gEL",
+            "YWNzMTIucHJvdG9CJqoCI1BvcnRrZXkuQ29udHJhY3RzLkJpbmdvR2FtZUNv",
+            "bnRyYWN0YgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::AElf.Types.CoreReflection.Descriptor, global::AElf.OptionsReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.WrappersReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, global::AElf.Standards.ACS12.Acs12Reflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Portkey.Contracts.BingoGameContract.BingoType), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.BingoGameContract.GetRandomHashInput), global::Portkey.Contracts.BingoGameContract.GetRandomHashInput.Parser, new[]{ "Seed", "Times" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.BingoGameContract.GetRandomHashOutput), global::Portkey.Contracts.BingoGameContract.GetRandomHashOutput.Parser, new[]{ "RandomResults" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.BingoGameContract.RandomResult), global::Portkey.Contracts.BingoGameContract.RandomResult.Parser, new[]{ "RandomHash", "Height" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.BingoGameContract.PlayInput), global::Portkey.Contracts.BingoGameContract.PlayInput.Parser, new[]{ "Amount", "Type" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.BingoGameContract.GetBoutInformationInput), global::Portkey.Contracts.BingoGameContract.GetBoutInformationInput.Parser, new[]{ "PlayId", "Address" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.BingoGameContract.GetBoutInformationInput), global::Portkey.Contracts.BingoGameContract.GetBoutInformationInput.Parser, new[]{ "PlayId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.BingoGameContract.PlayerInformation), global::Portkey.Contracts.BingoGameContract.PlayerInformation.Parser, new[]{ "Seed", "Bouts", "RegisterTime" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.BingoGameContract.BoutInformation), global::Portkey.Contracts.BingoGameContract.BoutInformation.Parser, new[]{ "PlayBlockHeight", "Amount", "Award", "IsComplete", "PlayId", "BingoBlockHeight", "Type", "RandomNumber", "RoundNumber", "PlayTime" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.BingoGameContract.DiceList), global::Portkey.Contracts.BingoGameContract.DiceList.Parser, new[]{ "Dices" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.BingoGameContract.BoutInformation), global::Portkey.Contracts.BingoGameContract.BoutInformation.Parser, new[]{ "PlayBlockHeight", "Amount", "Award", "IsComplete", "PlayId", "BingoBlockHeight", "Type", "RandomNumber", "RoundNumber", "PlayTime", "Dices", "PlayerAddress" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.BingoGameContract.LimitSettings), global::Portkey.Contracts.BingoGameContract.LimitSettings.Parser, new[]{ "MinAmount", "MaxAmount" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.BingoGameContract.Played), global::Portkey.Contracts.BingoGameContract.Played.Parser, new[]{ "PlayBlockHeight", "Amount", "Type", "PlayId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.BingoGameContract.Bingoed), global::Portkey.Contracts.BingoGameContract.Bingoed.Parser, new[]{ "PlayBlockHeight", "Amount", "Award", "IsComplete", "PlayId", "BingoBlockHeight", "Type", "RandomNumber" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.BingoGameContract.Played), global::Portkey.Contracts.BingoGameContract.Played.Parser, new[]{ "PlayBlockHeight", "Amount", "Type", "PlayId", "PlayerAddress", "Symbol" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.BingoGameContract.Bingoed), global::Portkey.Contracts.BingoGameContract.Bingoed.Parser, new[]{ "PlayBlockHeight", "Amount", "Award", "IsComplete", "PlayId", "BingoBlockHeight", "Type", "RandomNumber", "Dices", "PlayerAddress" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.BingoGameContract.Registered), global::Portkey.Contracts.BingoGameContract.Registered.Parser, new[]{ "Seed", "RegisterTime", "PlayerAddress" }, null, null, null, null)
           }));
     }
     #endregion
@@ -94,6 +113,654 @@ namespace Portkey.Contracts.BingoGameContract {
   #endregion
 
   #region Messages
+  public sealed partial class GetRandomHashInput : pb::IMessage<GetRandomHashInput>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<GetRandomHashInput> _parser = new pb::MessageParser<GetRandomHashInput>(() => new GetRandomHashInput());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<GetRandomHashInput> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Portkey.Contracts.BingoGameContract.BingoGameContractReflection.Descriptor.MessageTypes[0]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetRandomHashInput() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetRandomHashInput(GetRandomHashInput other) : this() {
+      seed_ = other.seed_ != null ? other.seed_.Clone() : null;
+      times_ = other.times_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetRandomHashInput Clone() {
+      return new GetRandomHashInput(this);
+    }
+
+    /// <summary>Field number for the "seed" field.</summary>
+    public const int SeedFieldNumber = 1;
+    private global::AElf.Types.Hash seed_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::AElf.Types.Hash Seed {
+      get { return seed_; }
+      set {
+        seed_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "times" field.</summary>
+    public const int TimesFieldNumber = 2;
+    private long times_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public long Times {
+      get { return times_; }
+      set {
+        times_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as GetRandomHashInput);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(GetRandomHashInput other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(Seed, other.Seed)) return false;
+      if (Times != other.Times) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (seed_ != null) hash ^= Seed.GetHashCode();
+      if (Times != 0L) hash ^= Times.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (seed_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Seed);
+      }
+      if (Times != 0L) {
+        output.WriteRawTag(16);
+        output.WriteInt64(Times);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (seed_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Seed);
+      }
+      if (Times != 0L) {
+        output.WriteRawTag(16);
+        output.WriteInt64(Times);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (seed_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Seed);
+      }
+      if (Times != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Times);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(GetRandomHashInput other) {
+      if (other == null) {
+        return;
+      }
+      if (other.seed_ != null) {
+        if (seed_ == null) {
+          Seed = new global::AElf.Types.Hash();
+        }
+        Seed.MergeFrom(other.Seed);
+      }
+      if (other.Times != 0L) {
+        Times = other.Times;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (seed_ == null) {
+              Seed = new global::AElf.Types.Hash();
+            }
+            input.ReadMessage(Seed);
+            break;
+          }
+          case 16: {
+            Times = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            if (seed_ == null) {
+              Seed = new global::AElf.Types.Hash();
+            }
+            input.ReadMessage(Seed);
+            break;
+          }
+          case 16: {
+            Times = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class GetRandomHashOutput : pb::IMessage<GetRandomHashOutput>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<GetRandomHashOutput> _parser = new pb::MessageParser<GetRandomHashOutput>(() => new GetRandomHashOutput());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<GetRandomHashOutput> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Portkey.Contracts.BingoGameContract.BingoGameContractReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetRandomHashOutput() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetRandomHashOutput(GetRandomHashOutput other) : this() {
+      randomResults_ = other.randomResults_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetRandomHashOutput Clone() {
+      return new GetRandomHashOutput(this);
+    }
+
+    /// <summary>Field number for the "random_results" field.</summary>
+    public const int RandomResultsFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::Portkey.Contracts.BingoGameContract.RandomResult> _repeated_randomResults_codec
+        = pb::FieldCodec.ForMessage(10, global::Portkey.Contracts.BingoGameContract.RandomResult.Parser);
+    private readonly pbc::RepeatedField<global::Portkey.Contracts.BingoGameContract.RandomResult> randomResults_ = new pbc::RepeatedField<global::Portkey.Contracts.BingoGameContract.RandomResult>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::Portkey.Contracts.BingoGameContract.RandomResult> RandomResults {
+      get { return randomResults_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as GetRandomHashOutput);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(GetRandomHashOutput other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!randomResults_.Equals(other.randomResults_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= randomResults_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      randomResults_.WriteTo(output, _repeated_randomResults_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      randomResults_.WriteTo(ref output, _repeated_randomResults_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      size += randomResults_.CalculateSize(_repeated_randomResults_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(GetRandomHashOutput other) {
+      if (other == null) {
+        return;
+      }
+      randomResults_.Add(other.randomResults_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            randomResults_.AddEntriesFrom(input, _repeated_randomResults_codec);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            randomResults_.AddEntriesFrom(ref input, _repeated_randomResults_codec);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class RandomResult : pb::IMessage<RandomResult>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<RandomResult> _parser = new pb::MessageParser<RandomResult>(() => new RandomResult());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<RandomResult> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Portkey.Contracts.BingoGameContract.BingoGameContractReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public RandomResult() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public RandomResult(RandomResult other) : this() {
+      randomHash_ = other.randomHash_ != null ? other.randomHash_.Clone() : null;
+      height_ = other.height_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public RandomResult Clone() {
+      return new RandomResult(this);
+    }
+
+    /// <summary>Field number for the "random_hash" field.</summary>
+    public const int RandomHashFieldNumber = 1;
+    private global::AElf.Types.Hash randomHash_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::AElf.Types.Hash RandomHash {
+      get { return randomHash_; }
+      set {
+        randomHash_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "height" field.</summary>
+    public const int HeightFieldNumber = 2;
+    private long height_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public long Height {
+      get { return height_; }
+      set {
+        height_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as RandomResult);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(RandomResult other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(RandomHash, other.RandomHash)) return false;
+      if (Height != other.Height) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (randomHash_ != null) hash ^= RandomHash.GetHashCode();
+      if (Height != 0L) hash ^= Height.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (randomHash_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(RandomHash);
+      }
+      if (Height != 0L) {
+        output.WriteRawTag(16);
+        output.WriteInt64(Height);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (randomHash_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(RandomHash);
+      }
+      if (Height != 0L) {
+        output.WriteRawTag(16);
+        output.WriteInt64(Height);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (randomHash_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(RandomHash);
+      }
+      if (Height != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Height);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(RandomResult other) {
+      if (other == null) {
+        return;
+      }
+      if (other.randomHash_ != null) {
+        if (randomHash_ == null) {
+          RandomHash = new global::AElf.Types.Hash();
+        }
+        RandomHash.MergeFrom(other.RandomHash);
+      }
+      if (other.Height != 0L) {
+        Height = other.Height;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (randomHash_ == null) {
+              RandomHash = new global::AElf.Types.Hash();
+            }
+            input.ReadMessage(RandomHash);
+            break;
+          }
+          case 16: {
+            Height = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            if (randomHash_ == null) {
+              RandomHash = new global::AElf.Types.Hash();
+            }
+            input.ReadMessage(RandomHash);
+            break;
+          }
+          case 16: {
+            Height = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
   public sealed partial class PlayInput : pb::IMessage<PlayInput>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -108,7 +775,7 @@ namespace Portkey.Contracts.BingoGameContract {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.BingoGameContract.BingoGameContractReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Portkey.Contracts.BingoGameContract.BingoGameContractReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -334,7 +1001,7 @@ namespace Portkey.Contracts.BingoGameContract {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.BingoGameContract.BingoGameContractReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Portkey.Contracts.BingoGameContract.BingoGameContractReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -355,7 +1022,6 @@ namespace Portkey.Contracts.BingoGameContract {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GetBoutInformationInput(GetBoutInformationInput other) : this() {
       playId_ = other.playId_ != null ? other.playId_.Clone() : null;
-      address_ = other.address_ != null ? other.address_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -377,18 +1043,6 @@ namespace Portkey.Contracts.BingoGameContract {
       }
     }
 
-    /// <summary>Field number for the "address" field.</summary>
-    public const int AddressFieldNumber = 2;
-    private global::AElf.Types.Address address_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::AElf.Types.Address Address {
-      get { return address_; }
-      set {
-        address_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -405,7 +1059,6 @@ namespace Portkey.Contracts.BingoGameContract {
         return true;
       }
       if (!object.Equals(PlayId, other.PlayId)) return false;
-      if (!object.Equals(Address, other.Address)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -414,7 +1067,6 @@ namespace Portkey.Contracts.BingoGameContract {
     public override int GetHashCode() {
       int hash = 1;
       if (playId_ != null) hash ^= PlayId.GetHashCode();
-      if (address_ != null) hash ^= Address.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -437,10 +1089,6 @@ namespace Portkey.Contracts.BingoGameContract {
         output.WriteRawTag(10);
         output.WriteMessage(PlayId);
       }
-      if (address_ != null) {
-        output.WriteRawTag(18);
-        output.WriteMessage(Address);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -455,10 +1103,6 @@ namespace Portkey.Contracts.BingoGameContract {
         output.WriteRawTag(10);
         output.WriteMessage(PlayId);
       }
-      if (address_ != null) {
-        output.WriteRawTag(18);
-        output.WriteMessage(Address);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -471,9 +1115,6 @@ namespace Portkey.Contracts.BingoGameContract {
       int size = 0;
       if (playId_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayId);
-      }
-      if (address_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Address);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -492,12 +1133,6 @@ namespace Portkey.Contracts.BingoGameContract {
           PlayId = new global::AElf.Types.Hash();
         }
         PlayId.MergeFrom(other.PlayId);
-      }
-      if (other.address_ != null) {
-        if (address_ == null) {
-          Address = new global::AElf.Types.Address();
-        }
-        Address.MergeFrom(other.Address);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -519,13 +1154,6 @@ namespace Portkey.Contracts.BingoGameContract {
               PlayId = new global::AElf.Types.Hash();
             }
             input.ReadMessage(PlayId);
-            break;
-          }
-          case 18: {
-            if (address_ == null) {
-              Address = new global::AElf.Types.Address();
-            }
-            input.ReadMessage(Address);
             break;
           }
         }
@@ -550,13 +1178,6 @@ namespace Portkey.Contracts.BingoGameContract {
             input.ReadMessage(PlayId);
             break;
           }
-          case 18: {
-            if (address_ == null) {
-              Address = new global::AElf.Types.Address();
-            }
-            input.ReadMessage(Address);
-            break;
-          }
         }
       }
     }
@@ -578,7 +1199,7 @@ namespace Portkey.Contracts.BingoGameContract {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.BingoGameContract.BingoGameContractReflection.Descriptor.MessageTypes[2]; }
+      get { return global::Portkey.Contracts.BingoGameContract.BingoGameContractReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -834,6 +1455,186 @@ namespace Portkey.Contracts.BingoGameContract {
 
   }
 
+  public sealed partial class DiceList : pb::IMessage<DiceList>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<DiceList> _parser = new pb::MessageParser<DiceList>(() => new DiceList());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<DiceList> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Portkey.Contracts.BingoGameContract.BingoGameContractReflection.Descriptor.MessageTypes[6]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DiceList() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DiceList(DiceList other) : this() {
+      dices_ = other.dices_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DiceList Clone() {
+      return new DiceList(this);
+    }
+
+    /// <summary>Field number for the "dices" field.</summary>
+    public const int DicesFieldNumber = 1;
+    private static readonly pb::FieldCodec<int> _repeated_dices_codec
+        = pb::FieldCodec.ForInt32(10);
+    private readonly pbc::RepeatedField<int> dices_ = new pbc::RepeatedField<int>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<int> Dices {
+      get { return dices_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as DiceList);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(DiceList other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!dices_.Equals(other.dices_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= dices_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      dices_.WriteTo(output, _repeated_dices_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      dices_.WriteTo(ref output, _repeated_dices_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      size += dices_.CalculateSize(_repeated_dices_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(DiceList other) {
+      if (other == null) {
+        return;
+      }
+      dices_.Add(other.dices_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10:
+          case 8: {
+            dices_.AddEntriesFrom(input, _repeated_dices_codec);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10:
+          case 8: {
+            dices_.AddEntriesFrom(ref input, _repeated_dices_codec);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
   public sealed partial class BoutInformation : pb::IMessage<BoutInformation>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -848,7 +1649,7 @@ namespace Portkey.Contracts.BingoGameContract {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.BingoGameContract.BingoGameContractReflection.Descriptor.MessageTypes[3]; }
+      get { return global::Portkey.Contracts.BingoGameContract.BingoGameContractReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -878,6 +1679,8 @@ namespace Portkey.Contracts.BingoGameContract {
       randomNumber_ = other.randomNumber_;
       roundNumber_ = other.roundNumber_;
       playTime_ = other.playTime_ != null ? other.playTime_.Clone() : null;
+      dices_ = other.dices_ != null ? other.dices_.Clone() : null;
+      playerAddress_ = other.playerAddress_ != null ? other.playerAddress_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1007,6 +1810,30 @@ namespace Portkey.Contracts.BingoGameContract {
       }
     }
 
+    /// <summary>Field number for the "dices" field.</summary>
+    public const int DicesFieldNumber = 11;
+    private global::Portkey.Contracts.BingoGameContract.DiceList dices_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Portkey.Contracts.BingoGameContract.DiceList Dices {
+      get { return dices_; }
+      set {
+        dices_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "player_address" field.</summary>
+    public const int PlayerAddressFieldNumber = 12;
+    private global::AElf.Types.Address playerAddress_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::AElf.Types.Address PlayerAddress {
+      get { return playerAddress_; }
+      set {
+        playerAddress_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1032,6 +1859,8 @@ namespace Portkey.Contracts.BingoGameContract {
       if (RandomNumber != other.RandomNumber) return false;
       if (RoundNumber != other.RoundNumber) return false;
       if (!object.Equals(PlayTime, other.PlayTime)) return false;
+      if (!object.Equals(Dices, other.Dices)) return false;
+      if (!object.Equals(PlayerAddress, other.PlayerAddress)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1049,6 +1878,8 @@ namespace Portkey.Contracts.BingoGameContract {
       if (RandomNumber != 0) hash ^= RandomNumber.GetHashCode();
       if (RoundNumber != 0L) hash ^= RoundNumber.GetHashCode();
       if (playTime_ != null) hash ^= PlayTime.GetHashCode();
+      if (dices_ != null) hash ^= Dices.GetHashCode();
+      if (playerAddress_ != null) hash ^= PlayerAddress.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1107,6 +1938,14 @@ namespace Portkey.Contracts.BingoGameContract {
         output.WriteRawTag(82);
         output.WriteMessage(PlayTime);
       }
+      if (dices_ != null) {
+        output.WriteRawTag(90);
+        output.WriteMessage(Dices);
+      }
+      if (playerAddress_ != null) {
+        output.WriteRawTag(98);
+        output.WriteMessage(PlayerAddress);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1157,6 +1996,14 @@ namespace Portkey.Contracts.BingoGameContract {
         output.WriteRawTag(82);
         output.WriteMessage(PlayTime);
       }
+      if (dices_ != null) {
+        output.WriteRawTag(90);
+        output.WriteMessage(Dices);
+      }
+      if (playerAddress_ != null) {
+        output.WriteRawTag(98);
+        output.WriteMessage(PlayerAddress);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1196,6 +2043,12 @@ namespace Portkey.Contracts.BingoGameContract {
       }
       if (playTime_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayTime);
+      }
+      if (dices_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Dices);
+      }
+      if (playerAddress_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayerAddress);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1244,6 +2097,18 @@ namespace Portkey.Contracts.BingoGameContract {
           PlayTime = new global::Google.Protobuf.WellKnownTypes.Timestamp();
         }
         PlayTime.MergeFrom(other.PlayTime);
+      }
+      if (other.dices_ != null) {
+        if (dices_ == null) {
+          Dices = new global::Portkey.Contracts.BingoGameContract.DiceList();
+        }
+        Dices.MergeFrom(other.Dices);
+      }
+      if (other.playerAddress_ != null) {
+        if (playerAddress_ == null) {
+          PlayerAddress = new global::AElf.Types.Address();
+        }
+        PlayerAddress.MergeFrom(other.PlayerAddress);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1304,6 +2169,20 @@ namespace Portkey.Contracts.BingoGameContract {
               PlayTime = new global::Google.Protobuf.WellKnownTypes.Timestamp();
             }
             input.ReadMessage(PlayTime);
+            break;
+          }
+          case 90: {
+            if (dices_ == null) {
+              Dices = new global::Portkey.Contracts.BingoGameContract.DiceList();
+            }
+            input.ReadMessage(Dices);
+            break;
+          }
+          case 98: {
+            if (playerAddress_ == null) {
+              PlayerAddress = new global::AElf.Types.Address();
+            }
+            input.ReadMessage(PlayerAddress);
             break;
           }
         }
@@ -1367,6 +2246,20 @@ namespace Portkey.Contracts.BingoGameContract {
             input.ReadMessage(PlayTime);
             break;
           }
+          case 90: {
+            if (dices_ == null) {
+              Dices = new global::Portkey.Contracts.BingoGameContract.DiceList();
+            }
+            input.ReadMessage(Dices);
+            break;
+          }
+          case 98: {
+            if (playerAddress_ == null) {
+              PlayerAddress = new global::AElf.Types.Address();
+            }
+            input.ReadMessage(PlayerAddress);
+            break;
+          }
         }
       }
     }
@@ -1388,7 +2281,7 @@ namespace Portkey.Contracts.BingoGameContract {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.BingoGameContract.BingoGameContractReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Portkey.Contracts.BingoGameContract.BingoGameContractReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1617,7 +2510,7 @@ namespace Portkey.Contracts.BingoGameContract {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.BingoGameContract.BingoGameContractReflection.Descriptor.MessageTypes[5]; }
+      get { return global::Portkey.Contracts.BingoGameContract.BingoGameContractReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1641,6 +2534,8 @@ namespace Portkey.Contracts.BingoGameContract {
       amount_ = other.amount_;
       type_ = other.type_;
       playId_ = other.playId_ != null ? other.playId_.Clone() : null;
+      playerAddress_ = other.playerAddress_ != null ? other.playerAddress_.Clone() : null;
+      symbol_ = other.symbol_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1698,6 +2593,30 @@ namespace Portkey.Contracts.BingoGameContract {
       }
     }
 
+    /// <summary>Field number for the "player_address" field.</summary>
+    public const int PlayerAddressFieldNumber = 5;
+    private global::AElf.Types.Address playerAddress_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::AElf.Types.Address PlayerAddress {
+      get { return playerAddress_; }
+      set {
+        playerAddress_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "symbol" field.</summary>
+    public const int SymbolFieldNumber = 6;
+    private string symbol_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Symbol {
+      get { return symbol_; }
+      set {
+        symbol_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1717,6 +2636,8 @@ namespace Portkey.Contracts.BingoGameContract {
       if (Amount != other.Amount) return false;
       if (Type != other.Type) return false;
       if (!object.Equals(PlayId, other.PlayId)) return false;
+      if (!object.Equals(PlayerAddress, other.PlayerAddress)) return false;
+      if (Symbol != other.Symbol) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1728,6 +2649,8 @@ namespace Portkey.Contracts.BingoGameContract {
       if (Amount != 0L) hash ^= Amount.GetHashCode();
       if (Type != global::Portkey.Contracts.BingoGameContract.BingoType.Small) hash ^= Type.GetHashCode();
       if (playId_ != null) hash ^= PlayId.GetHashCode();
+      if (playerAddress_ != null) hash ^= PlayerAddress.GetHashCode();
+      if (Symbol.Length != 0) hash ^= Symbol.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1762,6 +2685,14 @@ namespace Portkey.Contracts.BingoGameContract {
         output.WriteRawTag(34);
         output.WriteMessage(PlayId);
       }
+      if (playerAddress_ != null) {
+        output.WriteRawTag(42);
+        output.WriteMessage(PlayerAddress);
+      }
+      if (Symbol.Length != 0) {
+        output.WriteRawTag(50);
+        output.WriteString(Symbol);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1788,6 +2719,14 @@ namespace Portkey.Contracts.BingoGameContract {
         output.WriteRawTag(34);
         output.WriteMessage(PlayId);
       }
+      if (playerAddress_ != null) {
+        output.WriteRawTag(42);
+        output.WriteMessage(PlayerAddress);
+      }
+      if (Symbol.Length != 0) {
+        output.WriteRawTag(50);
+        output.WriteString(Symbol);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1809,6 +2748,12 @@ namespace Portkey.Contracts.BingoGameContract {
       }
       if (playId_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayId);
+      }
+      if (playerAddress_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayerAddress);
+      }
+      if (Symbol.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Symbol);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1836,6 +2781,15 @@ namespace Portkey.Contracts.BingoGameContract {
           PlayId = new global::AElf.Types.Hash();
         }
         PlayId.MergeFrom(other.PlayId);
+      }
+      if (other.playerAddress_ != null) {
+        if (playerAddress_ == null) {
+          PlayerAddress = new global::AElf.Types.Address();
+        }
+        PlayerAddress.MergeFrom(other.PlayerAddress);
+      }
+      if (other.Symbol.Length != 0) {
+        Symbol = other.Symbol;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1869,6 +2823,17 @@ namespace Portkey.Contracts.BingoGameContract {
               PlayId = new global::AElf.Types.Hash();
             }
             input.ReadMessage(PlayId);
+            break;
+          }
+          case 42: {
+            if (playerAddress_ == null) {
+              PlayerAddress = new global::AElf.Types.Address();
+            }
+            input.ReadMessage(PlayerAddress);
+            break;
+          }
+          case 50: {
+            Symbol = input.ReadString();
             break;
           }
         }
@@ -1905,6 +2870,17 @@ namespace Portkey.Contracts.BingoGameContract {
             input.ReadMessage(PlayId);
             break;
           }
+          case 42: {
+            if (playerAddress_ == null) {
+              PlayerAddress = new global::AElf.Types.Address();
+            }
+            input.ReadMessage(PlayerAddress);
+            break;
+          }
+          case 50: {
+            Symbol = input.ReadString();
+            break;
+          }
         }
       }
     }
@@ -1926,7 +2902,7 @@ namespace Portkey.Contracts.BingoGameContract {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.BingoGameContract.BingoGameContractReflection.Descriptor.MessageTypes[6]; }
+      get { return global::Portkey.Contracts.BingoGameContract.BingoGameContractReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1954,6 +2930,8 @@ namespace Portkey.Contracts.BingoGameContract {
       bingoBlockHeight_ = other.bingoBlockHeight_;
       type_ = other.type_;
       randomNumber_ = other.randomNumber_;
+      dices_ = other.dices_ != null ? other.dices_.Clone() : null;
+      playerAddress_ = other.playerAddress_ != null ? other.playerAddress_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -2059,6 +3037,30 @@ namespace Portkey.Contracts.BingoGameContract {
       }
     }
 
+    /// <summary>Field number for the "dices" field.</summary>
+    public const int DicesFieldNumber = 9;
+    private global::Portkey.Contracts.BingoGameContract.DiceList dices_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Portkey.Contracts.BingoGameContract.DiceList Dices {
+      get { return dices_; }
+      set {
+        dices_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "player_address" field.</summary>
+    public const int PlayerAddressFieldNumber = 10;
+    private global::AElf.Types.Address playerAddress_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::AElf.Types.Address PlayerAddress {
+      get { return playerAddress_; }
+      set {
+        playerAddress_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -2082,6 +3084,8 @@ namespace Portkey.Contracts.BingoGameContract {
       if (BingoBlockHeight != other.BingoBlockHeight) return false;
       if (Type != other.Type) return false;
       if (RandomNumber != other.RandomNumber) return false;
+      if (!object.Equals(Dices, other.Dices)) return false;
+      if (!object.Equals(PlayerAddress, other.PlayerAddress)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -2097,6 +3101,8 @@ namespace Portkey.Contracts.BingoGameContract {
       if (BingoBlockHeight != 0L) hash ^= BingoBlockHeight.GetHashCode();
       if (Type != global::Portkey.Contracts.BingoGameContract.BingoType.Small) hash ^= Type.GetHashCode();
       if (RandomNumber != 0) hash ^= RandomNumber.GetHashCode();
+      if (dices_ != null) hash ^= Dices.GetHashCode();
+      if (playerAddress_ != null) hash ^= PlayerAddress.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2147,6 +3153,14 @@ namespace Portkey.Contracts.BingoGameContract {
         output.WriteRawTag(64);
         output.WriteInt32(RandomNumber);
       }
+      if (dices_ != null) {
+        output.WriteRawTag(74);
+        output.WriteMessage(Dices);
+      }
+      if (playerAddress_ != null) {
+        output.WriteRawTag(82);
+        output.WriteMessage(PlayerAddress);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2189,6 +3203,14 @@ namespace Portkey.Contracts.BingoGameContract {
         output.WriteRawTag(64);
         output.WriteInt32(RandomNumber);
       }
+      if (dices_ != null) {
+        output.WriteRawTag(74);
+        output.WriteMessage(Dices);
+      }
+      if (playerAddress_ != null) {
+        output.WriteRawTag(82);
+        output.WriteMessage(PlayerAddress);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -2222,6 +3244,12 @@ namespace Portkey.Contracts.BingoGameContract {
       }
       if (RandomNumber != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(RandomNumber);
+      }
+      if (dices_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Dices);
+      }
+      if (playerAddress_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayerAddress);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -2261,6 +3289,18 @@ namespace Portkey.Contracts.BingoGameContract {
       }
       if (other.RandomNumber != 0) {
         RandomNumber = other.RandomNumber;
+      }
+      if (other.dices_ != null) {
+        if (dices_ == null) {
+          Dices = new global::Portkey.Contracts.BingoGameContract.DiceList();
+        }
+        Dices.MergeFrom(other.Dices);
+      }
+      if (other.playerAddress_ != null) {
+        if (playerAddress_ == null) {
+          PlayerAddress = new global::AElf.Types.Address();
+        }
+        PlayerAddress.MergeFrom(other.PlayerAddress);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2312,6 +3352,20 @@ namespace Portkey.Contracts.BingoGameContract {
             RandomNumber = input.ReadInt32();
             break;
           }
+          case 74: {
+            if (dices_ == null) {
+              Dices = new global::Portkey.Contracts.BingoGameContract.DiceList();
+            }
+            input.ReadMessage(Dices);
+            break;
+          }
+          case 82: {
+            if (playerAddress_ == null) {
+              PlayerAddress = new global::AElf.Types.Address();
+            }
+            input.ReadMessage(PlayerAddress);
+            break;
+          }
         }
       }
     #endif
@@ -2360,6 +3414,310 @@ namespace Portkey.Contracts.BingoGameContract {
           }
           case 64: {
             RandomNumber = input.ReadInt32();
+            break;
+          }
+          case 74: {
+            if (dices_ == null) {
+              Dices = new global::Portkey.Contracts.BingoGameContract.DiceList();
+            }
+            input.ReadMessage(Dices);
+            break;
+          }
+          case 82: {
+            if (playerAddress_ == null) {
+              PlayerAddress = new global::AElf.Types.Address();
+            }
+            input.ReadMessage(PlayerAddress);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class Registered : pb::IMessage<Registered>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<Registered> _parser = new pb::MessageParser<Registered>(() => new Registered());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<Registered> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Portkey.Contracts.BingoGameContract.BingoGameContractReflection.Descriptor.MessageTypes[11]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public Registered() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public Registered(Registered other) : this() {
+      seed_ = other.seed_ != null ? other.seed_.Clone() : null;
+      registerTime_ = other.registerTime_ != null ? other.registerTime_.Clone() : null;
+      playerAddress_ = other.playerAddress_ != null ? other.playerAddress_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public Registered Clone() {
+      return new Registered(this);
+    }
+
+    /// <summary>Field number for the "seed" field.</summary>
+    public const int SeedFieldNumber = 1;
+    private global::AElf.Types.Hash seed_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::AElf.Types.Hash Seed {
+      get { return seed_; }
+      set {
+        seed_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "register_time" field.</summary>
+    public const int RegisterTimeFieldNumber = 2;
+    private global::Google.Protobuf.WellKnownTypes.Timestamp registerTime_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Google.Protobuf.WellKnownTypes.Timestamp RegisterTime {
+      get { return registerTime_; }
+      set {
+        registerTime_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "player_address" field.</summary>
+    public const int PlayerAddressFieldNumber = 3;
+    private global::AElf.Types.Address playerAddress_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::AElf.Types.Address PlayerAddress {
+      get { return playerAddress_; }
+      set {
+        playerAddress_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as Registered);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(Registered other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(Seed, other.Seed)) return false;
+      if (!object.Equals(RegisterTime, other.RegisterTime)) return false;
+      if (!object.Equals(PlayerAddress, other.PlayerAddress)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (seed_ != null) hash ^= Seed.GetHashCode();
+      if (registerTime_ != null) hash ^= RegisterTime.GetHashCode();
+      if (playerAddress_ != null) hash ^= PlayerAddress.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (seed_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Seed);
+      }
+      if (registerTime_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(RegisterTime);
+      }
+      if (playerAddress_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(PlayerAddress);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (seed_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Seed);
+      }
+      if (registerTime_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(RegisterTime);
+      }
+      if (playerAddress_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(PlayerAddress);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (seed_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Seed);
+      }
+      if (registerTime_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(RegisterTime);
+      }
+      if (playerAddress_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayerAddress);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(Registered other) {
+      if (other == null) {
+        return;
+      }
+      if (other.seed_ != null) {
+        if (seed_ == null) {
+          Seed = new global::AElf.Types.Hash();
+        }
+        Seed.MergeFrom(other.Seed);
+      }
+      if (other.registerTime_ != null) {
+        if (registerTime_ == null) {
+          RegisterTime = new global::Google.Protobuf.WellKnownTypes.Timestamp();
+        }
+        RegisterTime.MergeFrom(other.RegisterTime);
+      }
+      if (other.playerAddress_ != null) {
+        if (playerAddress_ == null) {
+          PlayerAddress = new global::AElf.Types.Address();
+        }
+        PlayerAddress.MergeFrom(other.PlayerAddress);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (seed_ == null) {
+              Seed = new global::AElf.Types.Hash();
+            }
+            input.ReadMessage(Seed);
+            break;
+          }
+          case 18: {
+            if (registerTime_ == null) {
+              RegisterTime = new global::Google.Protobuf.WellKnownTypes.Timestamp();
+            }
+            input.ReadMessage(RegisterTime);
+            break;
+          }
+          case 26: {
+            if (playerAddress_ == null) {
+              PlayerAddress = new global::AElf.Types.Address();
+            }
+            input.ReadMessage(PlayerAddress);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            if (seed_ == null) {
+              Seed = new global::AElf.Types.Hash();
+            }
+            input.ReadMessage(Seed);
+            break;
+          }
+          case 18: {
+            if (registerTime_ == null) {
+              RegisterTime = new global::Google.Protobuf.WellKnownTypes.Timestamp();
+            }
+            input.ReadMessage(RegisterTime);
+            break;
+          }
+          case 26: {
+            if (playerAddress_ == null) {
+              PlayerAddress = new global::AElf.Types.Address();
+            }
+            input.ReadMessage(PlayerAddress);
             break;
           }
         }
