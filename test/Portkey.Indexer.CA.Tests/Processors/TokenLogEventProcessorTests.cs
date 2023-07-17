@@ -1531,7 +1531,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
                 ChainId = "AELF",
                 CAAddressInfos = new List<CAAddressInfo>
                 {
-                    new ()
+                    new()
                     {
                         CAAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(),
                         ChainId = "AELF"
@@ -1563,7 +1563,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
                 ChainId = "AELF",
                 CAAddressInfos = new List<CAAddressInfo>
                 {
-                    new ()
+                    new()
                     {
                         CAAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(),
                         ChainId = "AELF"
@@ -1589,7 +1589,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
     public async Task QueryTokenInfoTest()
     {
         await HandleTokenCreatedAsync_Test();
-        
+
         var result = await Query.TokenInfo(_tokenInfoIndexRepository, _objectMapper, new GetTokenInfoDto
         {
             SkipCount = 0,
@@ -1603,68 +1603,214 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
     }
     
     [Fact]
-    public async Task QueryCAHolderTransactionTest()
+    public async Task QueryTokenInfo_Symbol_Fuzzy_Matching_Test()
     {
-        await HandleTokenCrossChainTransactionAsync_Test();
-        
-        var result= await Query.CAHolderTransaction(_caHolderTransactionIndexRepository, _objectMapper, new GetCAHolderTransactionDto
+        await HandleTokenCreatedAsync_Test();
+
+        var result = await Query.TokenInfo(_tokenInfoIndexRepository, _objectMapper, new GetTokenInfoDto
         {
             SkipCount = 0,
             MaxResultCount = 10,
-            ChainId = chainIdSide,
-            CAAddressInfos = new List<CAAddressInfo>
-            {
-                new ()
-                {
-                    CAAddress = Address.FromPublicKey("AAAA".HexToByteArray()).ToBase58(),
-                    ChainId = chainIdSide
-                }
-            },
-            Symbol = "READ",
-            MethodNames = new List<string>
-            {
-                "Transferred",
-                "Transfer",
-                "CrossChainTransfer"
-            }
+            ChainId = "AELF",
+            SymbolKeyword = "EA"
         });
-        
+        result.Count.ShouldBe(1);
+        result.First().Decimals.ShouldBe(8);
+        result.First().TokenName.ShouldBe("READ Token");
+    }
+
+    [Fact]
+    public async Task QueryCAHolderTransactionTest()
+    {
+        await HandleTokenCrossChainTransactionAsync_Test();
+
+        var result = await Query.CAHolderTransaction(_caHolderTransactionIndexRepository, _objectMapper,
+            new GetCAHolderTransactionDto
+            {
+                SkipCount = 0,
+                MaxResultCount = 10,
+                ChainId = chainIdSide,
+                CAAddressInfos = new List<CAAddressInfo>
+                {
+                    new()
+                    {
+                        CAAddress = Address.FromPublicKey("AAAA".HexToByteArray()).ToBase58(),
+                        ChainId = chainIdSide
+                    }
+                },
+                Symbol = "READ",
+                MethodNames = new List<string>
+                {
+                    "Transferred",
+                    "Transfer",
+                    "CrossChainTransfer"
+                }
+            });
+
         result.TotalRecordCount.ShouldBe(1);
         result.Data.Count.ShouldBe(1);
         result.Data.FirstOrDefault().MethodName.ShouldBe("CrossChainTransfer");
-        result.Data.FirstOrDefault().TransferInfo.FromCAAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
-        result.Data.FirstOrDefault().TransferInfo.ToAddress.ShouldBe(Address.FromPublicKey("AAAA".HexToByteArray()).ToBase58());
+        result.Data.FirstOrDefault().TransferInfo.FromCAAddress
+            .ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
+        result.Data.FirstOrDefault().TransferInfo.ToAddress
+            .ShouldBe(Address.FromPublicKey("AAAA".HexToByteArray()).ToBase58());
         result.Data.FirstOrDefault().TransferInfo.Amount.ShouldBe(1);
         result.Data.FirstOrDefault().TransferInfo.ToChainId.ShouldBe(chainIdSide);
         result.Data.FirstOrDefault().TokenInfo.Symbol.ShouldBe("READ");
     }
-    
+
+    [Fact]
+    public async Task QueryCAHolderTransaction_StartBlockHeight_EndBlockHeight_Test()
+    {
+        await HandleTokenCrossChainTransactionAsync_Test();
+
+        var result = await Query.CAHolderTransaction(_caHolderTransactionIndexRepository, _objectMapper,
+            new GetCAHolderTransactionDto
+            {
+                SkipCount = 0,
+                MaxResultCount = 10,
+                ChainId = chainIdSide,
+                StartBlockHeight = 1,
+                EndBlockHeight = 1000000000,
+                CAAddressInfos = new List<CAAddressInfo>
+                {
+                    new()
+                    {
+                        CAAddress = Address.FromPublicKey("AAAA".HexToByteArray()).ToBase58(),
+                        ChainId = chainIdSide
+                    }
+                },
+                Symbol = "READ",
+                MethodNames = new List<string>
+                {
+                    "Transferred",
+                    "Transfer",
+                    "CrossChainTransfer"
+                }
+            });
+
+        result.TotalRecordCount.ShouldBe(1);
+        result.Data.Count.ShouldBe(1);
+        result.Data.FirstOrDefault().MethodName.ShouldBe("CrossChainTransfer");
+        result.Data.FirstOrDefault().TransferInfo.FromCAAddress
+            .ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
+        result.Data.FirstOrDefault().TransferInfo.ToAddress
+            .ShouldBe(Address.FromPublicKey("AAAA".HexToByteArray()).ToBase58());
+        result.Data.FirstOrDefault().TransferInfo.Amount.ShouldBe(1);
+        result.Data.FirstOrDefault().TransferInfo.ToChainId.ShouldBe(chainIdSide);
+        result.Data.FirstOrDefault().TokenInfo.Symbol.ShouldBe("READ");
+    }
+
+    [Fact]
+    public async Task QueryTwoCAHolderTransactionTest()
+    {
+        await HandleTokenCrossChainTransactionAsync_Test();
+
+        var result = await Query.TwoCAHolderTransaction(_caHolderTransactionIndexRepository, _objectMapper,
+            new GetTwoCAHolderTransactionDto
+            {
+                SkipCount = 0,
+                MaxResultCount = 10,
+                CAAddressInfos = new List<CAAddressInfo>
+                {
+                    new()
+                    {
+                        CAAddress = Address.FromPublicKey("AAAA".HexToByteArray()).ToBase58(),
+                        ChainId = chainIdSide
+                    },
+                    new()
+                    {
+                        CAAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(),
+                        ChainId = ""
+                    }
+                },
+                Symbol = "READ",
+                MethodNames = new List<string>
+                {
+                    "Transferred",
+                    "Transfer",
+                    "CrossChainTransfer"
+                }
+            });
+
+        result.TotalRecordCount.ShouldBe(1);
+        result.Data.Count.ShouldBe(1);
+        result.Data.FirstOrDefault().MethodName.ShouldBe("CrossChainTransfer");
+        result.Data.FirstOrDefault().TransferInfo.Amount.ShouldBe(1);
+        result.Data.FirstOrDefault().TokenInfo.Symbol.ShouldBe("READ");
+    }
+
+    [Fact]
+    public async Task QueryTwoCAHolderTransaction_StartBlockHeight_EndBlockHeight_Test()
+    {
+        await HandleTokenCrossChainTransactionAsync_Test();
+
+        var result = await Query.TwoCAHolderTransaction(_caHolderTransactionIndexRepository, _objectMapper,
+            new GetTwoCAHolderTransactionDto
+            {
+                SkipCount = 0,
+                MaxResultCount = 10,
+                StartBlockHeight = 1,
+                EndBlockHeight = 10000000000,
+                TransactionId = string.Empty,
+                TransferTransactionId = string.Empty,
+                CAAddressInfos = new List<CAAddressInfo>
+                {
+                    new()
+                    {
+                        CAAddress = Address.FromPublicKey("AAAA".HexToByteArray()).ToBase58(),
+                        ChainId = chainIdSide
+                    },
+                    new()
+                    {
+                        CAAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(),
+                        ChainId = ""
+                    }
+                },
+                Symbol = "READ",
+                MethodNames = new List<string>
+                {
+                    "Transferred",
+                    "Transfer",
+                    "CrossChainTransfer"
+                }
+            });
+
+        result.TotalRecordCount.ShouldBe(1);
+        result.Data.Count.ShouldBe(1);
+        result.Data.FirstOrDefault().MethodName.ShouldBe("CrossChainTransfer");
+        result.Data.FirstOrDefault().TransferInfo.Amount.ShouldBe(1);
+        result.Data.FirstOrDefault().TokenInfo.Symbol.ShouldBe("READ");
+    }
+
     [Fact]
     public async Task QueryCAHolderTransactionInfoTest()
     {
         await HandleTokenTransferredAsync_Test();
 
-        var result= await Query.CAHolderTransactionInfo(_caHolderTransactionIndexRepository, _objectMapper, new GetCAHolderTransactionInfoDto
-        {
-            SkipCount = 0,
-            MaxResultCount = 10,
-            ChainId = chainId,
-            CAAddresses = new List<string>
+        var result = await Query.CAHolderTransactionInfo(_caHolderTransactionIndexRepository, _objectMapper,
+            new GetCAHolderTransactionInfoDto
             {
-                Address.FromPublicKey("AAAA".HexToByteArray()).ToBase58()
-            },
-            Symbol = "READ",
-            MethodNames = new List<string>
-            {
-                "Transferred",
-                "Transfer",
-                "CrossChainTransfer"
-            }
-        });
+                SkipCount = 0,
+                MaxResultCount = 10,
+                ChainId = chainId,
+                CAAddresses = new List<string>
+                {
+                    Address.FromPublicKey("AAAA".HexToByteArray()).ToBase58()
+                },
+                Symbol = "READ",
+                MethodNames = new List<string>
+                {
+                    "Transferred",
+                    "Transfer",
+                    "CrossChainTransfer"
+                }
+            });
         result.TotalRecordCount.ShouldBe(1);
         result.Data.Count.ShouldBe(1);
         result.Data.FirstOrDefault().MethodName.ShouldBe("Transferred");
-        result.Data.FirstOrDefault().TransferInfo.FromCAAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
+        result.Data.FirstOrDefault().TransferInfo.FromCAAddress
+            .ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
         result.Data.FirstOrDefault().ChainId.ShouldBe("AELF");
         result.Data.FirstOrDefault().TransferInfo.Amount.ShouldBe(1);
     }
@@ -1681,7 +1827,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
             Symbol = defaultSymbol,
             CAAddressInfos = new List<CAAddressInfo>
             {
-                new ()
+                new()
                 {
                     CAAddress = holder.CaAddress.ToString().Trim(new char[] { '"' }),
                     ChainId = "AELF"
@@ -1707,7 +1853,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
             SearchWord = "",
             CAAddressInfos = new List<CAAddressInfo>
             {
-                new ()
+                new()
                 {
                     CAAddress = holder.CaAddress.ToString().Trim(new char[] { '"' }),
                     ChainId = "AELF"

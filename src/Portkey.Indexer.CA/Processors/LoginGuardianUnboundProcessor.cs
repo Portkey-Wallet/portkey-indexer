@@ -36,14 +36,6 @@ public class LoginGuardianUnboundProcessor : CAHolderTransactionProcessorBase<Lo
 
     protected override async Task HandleEventAsync(LoginGuardianUnbound eventValue, LogEventContext context)
     {
-        var holderAddress = await ProcessCAHolderTransactionAsync(context, eventValue.CaAddress.ToBase58());
-        
-        if (holderAddress == null)
-        {
-            return;
-        }
-        
-        await AddCAHolderTransactionAddressAsync(holderAddress, eventValue.Manager.ToBase58(), context.ChainId,
-            context);
+        await ProcessCAHolderTransactionAsync(context, eventValue.CaAddress.ToBase58());
     }
 }
