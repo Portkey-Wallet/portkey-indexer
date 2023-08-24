@@ -21,7 +21,7 @@ public class Query
 
         mustQuery.Add(q => q.Term(i => i.Field(f => f.ChainId).Value(dto.ChainId)));
         mustQuery.Add(q => q.Term(i => i.Field(f => f.Symbol).Value(dto.Symbol)));
-        
+
         string wildCardKeyword;
         if (!string.IsNullOrWhiteSpace(dto.SymbolKeyword))
         {
@@ -29,7 +29,7 @@ public class Query
             mustQuery.Add(s =>
                 s.Wildcard(i => i.Field(f => f.Symbol).Value(wildCardKeyword).CaseInsensitive(true)));
         }
-        
+
         QueryContainer Filter(QueryContainerDescriptor<TokenInfoIndex> f) => f.Bool(b => b.Must(mustQuery));
 
         var result = await repository.GetListAsync(Filter, sortExp: k => k.Symbol,
@@ -592,7 +592,7 @@ public class Query
     public static async Task<BingoResultDto> CAHolderBingoInfo(
         [FromServices] IAElfIndexerClientEntityRepository<BingoGameIndex, LogEventInfo> repository,
         [FromServices] IAElfIndexerClientEntityRepository<BingoGameStaticsIndex, LogEventInfo> staticsrepository,
-        [FromServices] IObjectMapper objectMapper,  GetBingoDto dto)
+        [FromServices] IObjectMapper objectMapper, GetBingoDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<BingoGameIndex>, QueryContainer>>();
 
@@ -629,24 +629,27 @@ public class Query
         var result = await repository.GetSortListAsync(Filter, sortFunc: sort, skip: dto.SkipCount,
             limit: dto.MaxResultCount);
         var dataList = objectMapper.Map<List<BingoGameIndex>, List<BingoInfo>>(result.Item2);
-        
+
         var staticsMustQuery = new List<Func<QueryContainerDescriptor<BingoGameStaticsIndex>, QueryContainer>>();
         if (dto.CAAddresses != null)
         {
             var staticsShouldQuery = new List<Func<QueryContainerDescriptor<BingoGameStaticsIndex>, QueryContainer>>();
             foreach (var address in dto.CAAddresses)
             {
-                var staticsMustQueryAddressInfo = new List<Func<QueryContainerDescriptor<BingoGameStaticsIndex>, QueryContainer>>
-                {
-                    q => q.Term(i => i.Field(f => f.PlayerAddress).Value(address))
-                };
+                var staticsMustQueryAddressInfo =
+                    new List<Func<QueryContainerDescriptor<BingoGameStaticsIndex>, QueryContainer>>
+                    {
+                        q => q.Term(i => i.Field(f => f.PlayerAddress).Value(address))
+                    };
                 staticsShouldQuery.Add(q => q.Bool(b => b.Must(staticsMustQueryAddressInfo)));
             }
 
             staticsMustQuery.Add(q => q.Bool(b => b.Should(staticsShouldQuery)));
         }
 
-        QueryContainer staticsFilter(QueryContainerDescriptor<BingoGameStaticsIndex> f) => f.Bool(b => b.Must(staticsMustQuery));
+        QueryContainer staticsFilter(QueryContainerDescriptor<BingoGameStaticsIndex> f) =>
+            f.Bool(b => b.Must(staticsMustQuery));
+
         // var result = await repository.GetListAsync(Filter, sortExp: k => k.TokenInfo.Symbol,
         // sortType: SortOrder.Ascending, skip:dto.SkipCount,limit: dto.MaxResultCount);
         var staticsResult = await staticsrepository.GetListAsync(staticsFilter);
@@ -843,9 +846,9 @@ public class Query
             ConfirmedBlockHeight = confirmedHeight
         };
     }
-    
+
     [Name("guardianAddedCAHolderInfo")]
-    public static async Task<List<CAHolderInfoDto>> GuardianAddedCAHolderInfo(
+    public static async Task<GuardianAddedCAHolderInfoResultDto> GuardianAddedCAHolderInfo(
         [FromServices] IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetGuardianAddedCAHolderInfo dto)
     {
@@ -854,7 +857,12 @@ public class Query
 
         QueryContainer Filter(QueryContainerDescriptor<CAHolderIndex> f) => f.Bool(b => b.Must(mustQuery));
 
-        var result = await repository.GetListAsync(Filter, skip: dto.SkipCount, limit: dto.MaxResultCount);
-        return objectMapper.Map<List<CAHolderIndex>, List<CAHolderInfoDto>>(result.Item2);
+        var holders = await repository.GetListAsync(Filter, skip: dto.SkipCount, limit: dto.MaxResultCount);
+        
+        return new GuardianAddedCAHolderInfoResultDto()
+        {
+            TotalRecordCount = holders.Item1,
+            Data = objectMapper.Map<List<CAHolderIndex>, List<CAHolderInfoDto>>(holders.Item2)
+        };
     }
 }
