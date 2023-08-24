@@ -843,4 +843,18 @@ public class Query
             ConfirmedBlockHeight = confirmedHeight
         };
     }
+    
+    [Name("guardianAddedCAHolderInfo")]
+    public static async Task<List<CAHolderInfoDto>> GuardianAddedCAHolderInfo(
+        [FromServices] IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
+        [FromServices] IObjectMapper objectMapper, GetGuardianAddedCAHolderInfo dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderIndex>, QueryContainer>>();
+        mustQuery.Add(q => q.Terms(t => t.Field("Guardians.identifierHash").Terms(dto.LoginGuardianIdentifierHash)));
+
+        QueryContainer Filter(QueryContainerDescriptor<CAHolderIndex> f) => f.Bool(b => b.Must(mustQuery));
+
+        var result = await repository.GetListAsync(Filter, skip: dto.SkipCount, limit: dto.MaxResultCount);
+        return objectMapper.Map<List<CAHolderIndex>, List<CAHolderInfoDto>>(result.Item2);
+    }
 }
