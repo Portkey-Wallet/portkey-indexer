@@ -269,6 +269,129 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
     }
 
     [Fact]
+    public async Task HandleNFTCollectionCreated_Default_Async_Test()
+    {
+        const string symbol = "READ-0";
+        const string tokenName = "READ Token";
+        const long totalSupply = 0;
+        const int decimals = 8;
+        const bool isBurnable = true;
+        const int issueChainId = 9992731;
+
+        var tokenCreatedProcessor = GetRequiredService<TokenCreatedProcessor>();
+        var blockStateSet = new BlockStateSet<LogEventInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash,
+        };
+        var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
+
+        var tokenCreated = new TokenCreated()
+        {
+            Symbol = symbol,
+            TokenName = tokenName,
+            TotalSupply = totalSupply,
+            Decimals = decimals,
+            Issuer = Address.FromPublicKey("AAA".HexToByteArray()),
+            IsBurnable = isBurnable,
+            IssueChainId = issueChainId
+        };
+
+        var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(tokenCreated.ToLogEvent());
+        logEventInfo.BlockHeight = blockHeight;
+        logEventInfo.ChainId = chainId;
+        logEventInfo.BlockHash = blockHash;
+        logEventInfo.TransactionId = transactionId;
+        var logEventContext = new LogEventContext
+        {
+            ChainId = chainId,
+            BlockHeight = blockHeight,
+            BlockHash = blockHash,
+            PreviousBlockHash = previousBlockHash,
+            TransactionId = transactionId
+        };
+
+        await tokenCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
+
+        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await Task.Delay(2000);
+
+        var tokenInfoIndexData = await _nftCollectionInfoIndexRepository.GetAsync(chainId + "-" + symbol);
+        tokenInfoIndexData.BlockHeight.ShouldBe(blockHeight);
+        tokenInfoIndexData.Decimals.ShouldBe(decimals);
+        tokenInfoIndexData.Symbol.ShouldBe(symbol);
+        tokenInfoIndexData.TokenName.ShouldBe(tokenName);
+        tokenInfoIndexData.TotalSupply.ShouldBe(totalSupply);
+        tokenInfoIndexData.Decimals.ShouldBe(decimals);
+        tokenInfoIndexData.IsBurnable.ShouldBe(isBurnable);
+        tokenInfoIndexData.IssueChainId.ShouldBe(issueChainId);
+    }
+
+    [Fact]
+    public async Task HandleNFTCollectionCreated_Null_Async_Test()
+    {
+        const string symbol = "READ-0";
+        const string tokenName = "READ Token";
+        const long totalSupply = 0;
+        const int decimals = 8;
+        const bool isBurnable = true;
+        const int issueChainId = 9992731;
+
+        var tokenCreatedProcessor = GetRequiredService<TokenCreatedProcessor>();
+        var blockStateSet = new BlockStateSet<LogEventInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash,
+        };
+        var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
+
+        var tokenCreated = new TokenCreated()
+        {
+            Symbol = symbol,
+            TokenName = tokenName,
+            TotalSupply = totalSupply,
+            Decimals = decimals,
+            Issuer = Address.FromPublicKey("AAA".HexToByteArray()),
+            IsBurnable = isBurnable,
+            IssueChainId = issueChainId,
+            ExternalInfo = null
+        };
+
+        var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(tokenCreated.ToLogEvent());
+        logEventInfo.BlockHeight = blockHeight;
+        logEventInfo.ChainId = chainId;
+        logEventInfo.BlockHash = blockHash;
+        logEventInfo.TransactionId = transactionId;
+        var logEventContext = new LogEventContext
+        {
+            ChainId = chainId,
+            BlockHeight = blockHeight,
+            BlockHash = blockHash,
+            PreviousBlockHash = previousBlockHash,
+            TransactionId = transactionId
+        };
+
+        await tokenCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
+
+        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await Task.Delay(2000);
+
+        var tokenInfoIndexData = await _nftCollectionInfoIndexRepository.GetAsync(chainId + "-" + symbol);
+        tokenInfoIndexData.BlockHeight.ShouldBe(blockHeight);
+        tokenInfoIndexData.Decimals.ShouldBe(decimals);
+        tokenInfoIndexData.Symbol.ShouldBe(symbol);
+        tokenInfoIndexData.TokenName.ShouldBe(tokenName);
+        tokenInfoIndexData.TotalSupply.ShouldBe(totalSupply);
+        tokenInfoIndexData.Decimals.ShouldBe(decimals);
+        tokenInfoIndexData.IsBurnable.ShouldBe(isBurnable);
+        tokenInfoIndexData.IssueChainId.ShouldBe(issueChainId);
+    }
+
+    [Fact]
     public async Task HandleNFTItemCreatedEventAsync_Test()
     {
         const string symbol = "READ-1";
@@ -298,6 +421,128 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
             IsBurnable = isBurnable,
             IssueChainId = issueChainId,
             ExternalInfo = new ExternalInfo()
+        };
+
+        var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(tokenCreated.ToLogEvent());
+        logEventInfo.BlockHeight = blockHeight;
+        logEventInfo.ChainId = chainId;
+        logEventInfo.BlockHash = blockHash;
+        logEventInfo.TransactionId = transactionId;
+        var logEventContext = new LogEventContext
+        {
+            ChainId = chainId,
+            BlockHeight = blockHeight,
+            BlockHash = blockHash,
+            PreviousBlockHash = previousBlockHash,
+            TransactionId = transactionId
+        };
+
+        await tokenCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
+        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await Task.Delay(2000);
+
+        var tokenInfoIndexData = await _nftInfoIndexRepository.GetAsync(chainId + "-" + symbol);
+        tokenInfoIndexData.BlockHeight.ShouldBe(blockHeight);
+        tokenInfoIndexData.Decimals.ShouldBe(decimals);
+        tokenInfoIndexData.Symbol.ShouldBe(symbol);
+        tokenInfoIndexData.TokenName.ShouldBe(tokenName);
+        tokenInfoIndexData.TotalSupply.ShouldBe(totalSupply);
+        tokenInfoIndexData.Decimals.ShouldBe(decimals);
+        tokenInfoIndexData.IsBurnable.ShouldBe(isBurnable);
+        tokenInfoIndexData.IssueChainId.ShouldBe(issueChainId);
+    }
+
+
+    [Fact]
+    public async Task HandleNFTItemCreated_ExternalInfo_Default_EventAsync_Test()
+    {
+        const string symbol = "READ-1";
+        const string tokenName = "READ Token";
+        const long totalSupply = 0;
+        const int decimals = 8;
+        const bool isBurnable = true;
+        const int issueChainId = 9992731;
+
+        var tokenCreatedProcessor = GetRequiredService<TokenCreatedProcessor>();
+        var blockStateSet = new BlockStateSet<LogEventInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash,
+        };
+        var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
+
+        var tokenCreated = new TokenCreated()
+        {
+            Symbol = symbol,
+            TokenName = tokenName,
+            TotalSupply = totalSupply,
+            Decimals = decimals,
+            Issuer = Address.FromPublicKey("AAA".HexToByteArray()),
+            IsBurnable = isBurnable,
+            IssueChainId = issueChainId
+        };
+
+        var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(tokenCreated.ToLogEvent());
+        logEventInfo.BlockHeight = blockHeight;
+        logEventInfo.ChainId = chainId;
+        logEventInfo.BlockHash = blockHash;
+        logEventInfo.TransactionId = transactionId;
+        var logEventContext = new LogEventContext
+        {
+            ChainId = chainId,
+            BlockHeight = blockHeight,
+            BlockHash = blockHash,
+            PreviousBlockHash = previousBlockHash,
+            TransactionId = transactionId
+        };
+
+        await tokenCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
+        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await Task.Delay(2000);
+
+        var tokenInfoIndexData = await _nftInfoIndexRepository.GetAsync(chainId + "-" + symbol);
+        tokenInfoIndexData.BlockHeight.ShouldBe(blockHeight);
+        tokenInfoIndexData.Decimals.ShouldBe(decimals);
+        tokenInfoIndexData.Symbol.ShouldBe(symbol);
+        tokenInfoIndexData.TokenName.ShouldBe(tokenName);
+        tokenInfoIndexData.TotalSupply.ShouldBe(totalSupply);
+        tokenInfoIndexData.Decimals.ShouldBe(decimals);
+        tokenInfoIndexData.IsBurnable.ShouldBe(isBurnable);
+        tokenInfoIndexData.IssueChainId.ShouldBe(issueChainId);
+    }
+
+    [Fact]
+    public async Task HandleNFTItemCreated_ExternalInfo_Null_EventAsync_Test()
+    {
+        const string symbol = "READ-1";
+        const string tokenName = "READ Token";
+        const long totalSupply = 0;
+        const int decimals = 8;
+        const bool isBurnable = true;
+        const int issueChainId = 9992731;
+
+        var tokenCreatedProcessor = GetRequiredService<TokenCreatedProcessor>();
+        var blockStateSet = new BlockStateSet<LogEventInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash,
+        };
+        var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
+
+        var tokenCreated = new TokenCreated()
+        {
+            Symbol = symbol,
+            TokenName = tokenName,
+            TotalSupply = totalSupply,
+            Decimals = decimals,
+            Issuer = Address.FromPublicKey("AAA".HexToByteArray()),
+            IsBurnable = isBurnable,
+            IssueChainId = issueChainId,
+            ExternalInfo = null
         };
 
         var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(tokenCreated.ToLogEvent());
@@ -1601,7 +1846,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         result.First().Decimals.ShouldBe(8);
         result.First().TokenName.ShouldBe("READ Token");
     }
-    
+
     [Fact]
     public async Task QueryTokenInfo_Symbol_Fuzzy_Matching_Test()
     {
