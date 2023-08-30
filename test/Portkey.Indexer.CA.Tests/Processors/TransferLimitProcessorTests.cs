@@ -43,7 +43,7 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
         const long blockHeight = 100;
         const string defaultSymbol = "ELF";
         const long defaultTransferLimit = 10000000;
-        var CaHash = HashHelper.ComputeFrom("test@google.com");
+        var caHash = HashHelper.ComputeFrom("test@google.com");
 
 
         var tokenCreatedProcessor = GetRequiredService<TransferLimitChangedLogEventProcessor>();
@@ -58,7 +58,7 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
         var transferLimitChanged = new TransferLimitChanged()
         {
-            CaHash = CaHash,
+            CaHash = caHash,
             Symbol = defaultSymbol,
             SingleLimit = defaultTransferLimit,
             DailyLimit = defaultTransferLimit
@@ -83,7 +83,8 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
         await Task.Delay(2000);
         var tokenInfoIndexData =
-            await _transferLimitIndexRepository.GetAsync(IdGenerateHelper.GetId(chainId, transactionId));
+            await _transferLimitIndexRepository.GetAsync(IdGenerateHelper.GetId(chainId, caHash.ToHex(),
+                nameof(TransferLimitChanged), defaultSymbol));
         tokenInfoIndexData.BlockHeight.ShouldBe(blockHeight);
         tokenInfoIndexData.Symbol.ShouldBe(defaultSymbol);
         tokenInfoIndexData.SingleLimit.ShouldBe(defaultTransferLimit);

@@ -31,7 +31,8 @@ public class TransferLimitChangedLogEventProcessor : AElfLogEventProcessorBase<T
 
     protected override async Task HandleEventAsync(TransferLimitChanged eventValue, LogEventContext context)
     {
-        var indexId = IdGenerateHelper.GetId(context.ChainId, context.TransactionId);
+        var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.CaHash.ToHex(), nameof(TransferLimitChanged),
+            eventValue.Symbol);
         var index = await _repository.GetFromBlockStateSetAsync(indexId, context.ChainId);
         if (index == null)
         {
