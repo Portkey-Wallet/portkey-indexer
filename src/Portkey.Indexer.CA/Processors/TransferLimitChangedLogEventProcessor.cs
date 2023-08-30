@@ -26,12 +26,12 @@ public class TransferLimitChangedLogEventProcessor : AElfLogEventProcessorBase<T
 
     public override string GetContractAddress(string chainId)
     {
-        return _contractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).TokenContractAddress;
+        return _contractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress;
     }
 
     protected override async Task HandleEventAsync(TransferLimitChanged eventValue, LogEventContext context)
     {
-        var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.CaHash.ToHex(), eventValue.Symbol);
+        var indexId = IdGenerateHelper.GetId(context.ChainId, context.TransactionId);
         var index = await _repository.GetFromBlockStateSetAsync(indexId, context.ChainId);
         if (index == null)
         {

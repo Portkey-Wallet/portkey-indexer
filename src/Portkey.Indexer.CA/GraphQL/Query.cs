@@ -21,7 +21,7 @@ public class Query
 
         mustQuery.Add(q => q.Term(i => i.Field(f => f.ChainId).Value(dto.ChainId)));
         mustQuery.Add(q => q.Term(i => i.Field(f => f.Symbol).Value(dto.Symbol)));
-        
+
         string wildCardKeyword;
         if (!string.IsNullOrWhiteSpace(dto.SymbolKeyword))
         {
@@ -29,7 +29,7 @@ public class Query
             mustQuery.Add(s =>
                 s.Wildcard(i => i.Field(f => f.Symbol).Value(wildCardKeyword).CaseInsensitive(true)));
         }
-        
+
         QueryContainer Filter(QueryContainerDescriptor<TokenInfoIndex> f) => f.Bool(b => b.Must(mustQuery));
 
         var result = await repository.GetListAsync(Filter, sortExp: k => k.Symbol,
@@ -629,24 +629,27 @@ public class Query
         var result = await repository.GetSortListAsync(Filter, sortFunc: sort, skip: dto.SkipCount,
             limit: dto.MaxResultCount);
         var dataList = objectMapper.Map<List<BingoGameIndex>, List<BingoInfo>>(result.Item2);
-        
+
         var staticsMustQuery = new List<Func<QueryContainerDescriptor<BingoGameStaticsIndex>, QueryContainer>>();
         if (dto.CAAddresses != null)
         {
             var staticsShouldQuery = new List<Func<QueryContainerDescriptor<BingoGameStaticsIndex>, QueryContainer>>();
             foreach (var address in dto.CAAddresses)
             {
-                var staticsMustQueryAddressInfo = new List<Func<QueryContainerDescriptor<BingoGameStaticsIndex>, QueryContainer>>
-                {
-                    q => q.Term(i => i.Field(f => f.PlayerAddress).Value(address))
-                };
+                var staticsMustQueryAddressInfo =
+                    new List<Func<QueryContainerDescriptor<BingoGameStaticsIndex>, QueryContainer>>
+                    {
+                        q => q.Term(i => i.Field(f => f.PlayerAddress).Value(address))
+                    };
                 staticsShouldQuery.Add(q => q.Bool(b => b.Must(staticsMustQueryAddressInfo)));
             }
 
             staticsMustQuery.Add(q => q.Bool(b => b.Should(staticsShouldQuery)));
         }
 
-        QueryContainer staticsFilter(QueryContainerDescriptor<BingoGameStaticsIndex> f) => f.Bool(b => b.Must(staticsMustQuery));
+        QueryContainer staticsFilter(QueryContainerDescriptor<BingoGameStaticsIndex> f) =>
+            f.Bool(b => b.Must(staticsMustQuery));
+
         // var result = await repository.GetListAsync(Filter, sortExp: k => k.TokenInfo.Symbol,
         // sortType: SortOrder.Ascending, skip:dto.SkipCount,limit: dto.MaxResultCount);
         var staticsResult = await staticsrepository.GetListAsync(staticsFilter);
@@ -829,7 +832,7 @@ public class Query
     }
 
     [Name("caHolderTransferLimit")]
-    public static async Task<CAHolderTransferLimitPageResultDto> CAHolderTransferLimit(
+    public static async Task<CAHolderTransferLimitResultDto> CAHolderTransferLimit(
         [FromServices] IAElfIndexerClientEntityRepository<TransferLimitIndex, LogEventInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetCAHolderTransferLimitDto dto)
     {
@@ -837,10 +840,32 @@ public class Query
         mustQuery.Add(q => q.Term(i => i.Field(f => f.CaHash).Value(dto.CAHash)));
         QueryContainer Filter(QueryContainerDescriptor<TransferLimitIndex> f) => f.Bool(b => b.Must(mustQuery));
         var (_, res) = await repository.GetListAsync(Filter);
-        var result = new CAHolderTransferLimitPageResultDto
+        var result = new CAHolderTransferLimitResultDto
         {
             TotalRecordCount = res.Count,
             Data = objectMapper.Map<List<TransferLimitIndex>, List<CAHolderTransferlimitDto>>(res)
+        };
+        return result;
+    }
+
+    [Name("caHolderManagerApproved")]
+    public static async Task<CAHolderManagerApprovedPageResultDto> CAHolderManagerApproved(
+        [FromServices] IAElfIndexerClientEntityRepository<ManagerApprovedIndex, LogEventInfo> repository,
+        [FromServices] IObjectMapper objectMapper, GetCAHolderManagerApprovedDto dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<ManagerApprovedIndex>, QueryContainer>>();
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.ChainId).Value(dto.ChainId)));
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.CaHash).Value(dto.CAHash)));
+        if (!string.IsNullOrEmpty(dto.Spender))
+            mustQuery.Add(q => q.Term(i => i.Field(f => f.Spender).Value(dto.Spender)));
+        if (!string.IsNullOrEmpty(dto.Symbol))
+            mustQuery.Add(q => q.Term(i => i.Field(f => f.Symbol).Value(dto.Symbol)));
+        QueryContainer Filter(QueryContainerDescriptor<ManagerApprovedIndex> f) => f.Bool(b => b.Must(mustQuery));
+        var (_, res) = await repository.GetListAsync(Filter, skip: dto.SkipCount, limit: dto.MaxResultCount);
+        var result = new CAHolderManagerApprovedPageResultDto
+        {
+            TotalRecordCount = res.Count,
+            Data = objectMapper.Map<List<ManagerApprovedIndex>, List<CAHolderManagerApprovedDto>>(res)
         };
         return result;
     }

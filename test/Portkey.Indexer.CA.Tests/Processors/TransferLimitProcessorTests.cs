@@ -1,24 +1,33 @@
 using AElf;
 using AElf.CSharp.Core.Extension;
+using AElf.Types;
 using AElfIndexer.Client;
 using AElfIndexer.Client.Handlers;
 using AElfIndexer.Grains.State.Client;
+using Nethereum.Hex.HexConvertors.Extensions;
 using Portkey.Contracts.CA;
 using Portkey.Indexer.CA.Entities;
+using Portkey.Indexer.CA.GraphQL;
 using Portkey.Indexer.CA.Processors;
 using Portkey.Indexer.CA.Tests.Helper;
+using Portkey.Indexer.Orleans.TestBase;
 using Shouldly;
+using Volo.Abp.ObjectMapping;
 using Xunit;
 
 namespace Portkey.Indexer.CA.Tests.Processors;
 
+[Collection(ClusterCollection.Name)]
 public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
 {
     private readonly IAElfIndexerClientEntityRepository<TransferLimitIndex, LogEventInfo>
         _transferLimitIndexRepository;
 
+    private readonly IObjectMapper _objectMapper;
+
     public TransferLimitProcessorTests()
     {
+        _objectMapper = GetRequiredService<IObjectMapper>();
         _transferLimitIndexRepository =
             GetRequiredService<IAElfIndexerClientEntityRepository<TransferLimitIndex, LogEventInfo>>();
     }
@@ -73,11 +82,25 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
 
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
         await Task.Delay(2000);
-        var tokenInfoIndexData = await _transferLimitIndexRepository.GetAsync(IdGenerateHelper.GetId(chainId,
-            CaHash.ToHex(), defaultSymbol));
+        var tokenInfoIndexData =
+            await _transferLimitIndexRepository.GetAsync(IdGenerateHelper.GetId(chainId, transactionId));
         tokenInfoIndexData.BlockHeight.ShouldBe(blockHeight);
         tokenInfoIndexData.Symbol.ShouldBe(defaultSymbol);
         tokenInfoIndexData.SingleLimit.ShouldBe(defaultTransferLimit);
         tokenInfoIndexData.DailyLimit.ShouldBe(defaultTransferLimit);
+    }
+
+    [Fact]
+    public async Task QueryCAHolderTransferLimitTests()
+    {
+        await TransferLimitChangedAsync_Test();
+
+        var result = await Query.CAHolderTransferLimit(_transferLimitIndexRepository, _objectMapper,
+            new GetCAHolderTransferLimitDto()
+            {
+                CAHash = HashHelper.ComputeFrom("test@google.com").ToHex(),
+            });
+        result.TotalRecordCount.ShouldBe(1);
+        result.Data.Count.ShouldBe(1);
     }
 }

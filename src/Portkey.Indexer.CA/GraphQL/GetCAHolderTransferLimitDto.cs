@@ -1,6 +1,8 @@
+using GraphQL;
+
 namespace Portkey.Indexer.CA.GraphQL;
 
-public class GetCAHolderTransferLimitDto 
+public class GetCAHolderTransferLimitDto
 {
-    public string CAHash { get; set; }
+    [Name("caHash")] public string CAHash { get; set; }
 }

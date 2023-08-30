@@ -213,115 +213,121 @@ namespace Portkey.Contracts.CA {
             "Q29udHJhY3RBZGRyZXNzZXNJbnB1dBI0ChVjYV9jb250cmFjdF9hZGRyZXNz",
             "ZXMYASADKAsyFS5jYS5DQUNvbnRyYWN0QWRkcmVzcyJFChFDQUNvbnRyYWN0",
             "QWRkcmVzcxIeCgdhZGRyZXNzGAEgASgLMg0uYWVsZi5BZGRyZXNzEhAKCGNo",
-            "YWluX2lkGAIgASgFIqABChNNYW5hZ2VyQXBwcm92ZUlucHV0EhsKB2NhX2hh",
+            "YWluX2lkGAIgASgFIsQBChNNYW5hZ2VyQXBwcm92ZUlucHV0EhsKB2NhX2hh",
             "c2gYASABKAsyCi5hZWxmLkhhc2gSHgoHc3BlbmRlchgCIAEoCzINLmFlbGYu",
             "QWRkcmVzcxIsChJndWFyZGlhbnNfYXBwcm92ZWQYAyADKAsyEC5jYS5HdWFy",
-            "ZGlhbkluZm8SDgoGc3ltYm9sGAQgASgJEg4KBmFtb3VudBgFIAEoAyKSAQoV",
-            "TWFuYWdlclVuQXBwcm92ZUlucHV0EhsKB2NhX2hhc2gYASABKAsyCi5hZWxm",
-            "Lkhhc2gSHgoHc3BlbmRlchgCIAEoCzINLmFlbGYuQWRkcmVzcxIsChJndWFy",
-            "ZGlhbnNfYXBwcm92ZWQYAyADKAsyEC5jYS5HdWFyZGlhbkluZm8SDgoGc3lt",
-            "Ym9sGAQgASgJIp0BChVTZXRUcmFuc2ZlckxpbWl0SW5wdXQSGwoHY2FfaGFz",
-            "aBgBIAEoCzIKLmFlbGYuSGFzaBIOCgZzeW1ib2wYAiABKAkSLAoSZ3VhcmRp",
-            "YW5zX2FwcHJvdmVkGAMgAygLMhAuY2EuR3VhcmRpYW5JbmZvEhQKDHNpbmds",
-            "ZV9saW1pdBgEIAEoAxITCgtkYWlseV9saW1pdBgFIAEoAyKQAQoUVHJhbnNm",
-            "ZXJMaW1pdENoYW5nZWQSIgoHY2FfaGFzaBgBIAEoCzIKLmFlbGYuSGFzaEIF",
-            "iI/1AQESFQoGc3ltYm9sGAIgASgJQgWIj/UBARIbCgxzaW5nbGVfbGltaXQY",
-            "AyABKANCBYiP9QEBEhoKC2RhaWx5X2xpbWl0GAQgASgDQgWIj/UBAToEoLsY",
-            "ASp/CgxHdWFyZGlhblR5cGUSGgoWR1VBUkRJQU5fVFlQRV9PRl9FTUFJTBAA",
-            "EhoKFkdVQVJESUFOX1RZUEVfT0ZfUEhPTkUQARIbChdHVUFSRElBTl9UWVBF",
-            "X09GX0dPT0dMRRACEhoKFkdVQVJESUFOX1RZUEVfT0ZfQVBQTEUQAyo5ChFT",
-            "dHJhdGVneVZhbHVlVHlwZRIMCghTVFJBVEVHWRAAEggKBExPTkcQARIMCghW",
-            "QVJJQUJMRRACKqcBCgxTdHJhdGVneU5hbWUSBwoDQW5kEAASBgoCT3IQARIH",
-            "CgNOb3QQAhIKCgZJZkVsc2UQAxIOCgpMYXJnZXJUaGFuEAQSEQoNTm90TGFy",
-            "Z2VyVGhhbhAFEgwKCExlc3NUaGFuEAYSDwoLTm90TGVzc1RoYW4QBxIJCgVF",
-            "cXVhbBAIEgwKCE5vdEVxdWFsEAkSFgoSUmF0aW9CeVRlblRob3VzYW5kEAoq",
-            "vwEKDU9wZXJhdGlvblR5cGUSCwoHVW5rbm93bhAAEhIKDkNyZWF0ZUNBSG9s",
-            "ZGVyEAESEgoOU29jaWFsUmVjb3ZlcnkQAhIPCgtBZGRHdWFyZGlhbhADEhIK",
-            "DlJlbW92ZUd1YXJkaWFuEAQSEgoOVXBkYXRlR3VhcmRpYW4QBRIaChZSZW1v",
-            "dmVPdGhlck1hbmFnZXJJbmZvEAYSCwoHQXBwcm92ZRAHEhcKE01vZGlmeVRy",
-            "YW5zZmVyTGltaXQQCDLlHAoKQ0FDb250cmFjdBI7CgpJbml0aWFsaXplEhMu",
-            "Y2EuSW5pdGlhbGl6ZUlucHV0GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgAS",
-            "QwoOQ3JlYXRlQ0FIb2xkZXISFy5jYS5DcmVhdGVDQUhvbGRlcklucHV0GhYu",
-            "Z29vZ2xlLnByb3RvYnVmLkVtcHR5IgASPQoLQWRkR3VhcmRpYW4SFC5jYS5B",
-            "ZGRHdWFyZGlhbklucHV0GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgASQwoO",
-            "UmVtb3ZlR3VhcmRpYW4SFy5jYS5SZW1vdmVHdWFyZGlhbklucHV0GhYuZ29v",
-            "Z2xlLnByb3RvYnVmLkVtcHR5IgASQwoOVXBkYXRlR3VhcmRpYW4SFy5jYS5V",
-            "cGRhdGVHdWFyZGlhbklucHV0GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgAS",
-            "TQoTU2V0R3VhcmRpYW5Gb3JMb2dpbhIcLmNhLlNldEd1YXJkaWFuRm9yTG9n",
-            "aW5JbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIAElEKFVVuc2V0R3Vh",
-            "cmRpYW5Gb3JMb2dpbhIeLmNhLlVuc2V0R3VhcmRpYW5Gb3JMb2dpbklucHV0",
-            "GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgASSwoSTWFuYWdlckZvcndhcmRD",
-            "YWxsEhsuY2EuTWFuYWdlckZvcndhcmRDYWxsSW5wdXQaFi5nb29nbGUucHJv",
-            "dG9idWYuRW1wdHkiABJFCg9NYW5hZ2VyVHJhbnNmZXISGC5jYS5NYW5hZ2Vy",
-            "VHJhbnNmZXJJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIAEk0KE01h",
-            "bmFnZXJUcmFuc2ZlckZyb20SHC5jYS5NYW5hZ2VyVHJhbnNmZXJGcm9tSW5w",
-            "dXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJDCg5Tb2NpYWxSZWNvdmVy",
-            "eRIXLmNhLlNvY2lhbFJlY292ZXJ5SW5wdXQaFi5nb29nbGUucHJvdG9idWYu",
-            "RW1wdHkiABJDCg5BZGRNYW5hZ2VySW5mbxIXLmNhLkFkZE1hbmFnZXJJbmZv",
-            "SW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJJChFSZW1vdmVNYW5h",
-            "Z2VySW5mbxIaLmNhLlJlbW92ZU1hbmFnZXJJbmZvSW5wdXQaFi5nb29nbGUu",
-            "cHJvdG9idWYuRW1wdHkiABJTChZSZW1vdmVPdGhlck1hbmFnZXJJbmZvEh8u",
-            "Y2EuUmVtb3ZlT3RoZXJNYW5hZ2VySW5mb0lucHV0GhYuZ29vZ2xlLnByb3Rv",
-            "YnVmLkVtcHR5IgASSwoSVXBkYXRlTWFuYWdlckluZm9zEhsuY2EuVXBkYXRl",
-            "TWFuYWdlckluZm9zSW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJb",
-            "ChpBZGRWZXJpZmllclNlcnZlckVuZFBvaW50cxIjLmNhLkFkZFZlcmlmaWVy",
-            "U2VydmVyRW5kUG9pbnRzSW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHki",
-            "ABJhCh1SZW1vdmVWZXJpZmllclNlcnZlckVuZFBvaW50cxImLmNhLlJlbW92",
-            "ZVZlcmlmaWVyU2VydmVyRW5kUG9pbnRzSW5wdXQaFi5nb29nbGUucHJvdG9i",
-            "dWYuRW1wdHkiABJPChRSZW1vdmVWZXJpZmllclNlcnZlchIdLmNhLlJlbW92",
-            "ZVZlcmlmaWVyU2VydmVySW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHki",
-            "ABI9CgtBZGRDQVNlcnZlchIULmNhLkFkZENBU2VydmVySW5wdXQaFi5nb29n",
-            "bGUucHJvdG9idWYuRW1wdHkiABJDCg5SZW1vdmVDQVNlcnZlchIXLmNhLlJl",
-            "bW92ZUNBU2VydmVySW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJH",
-            "Cg1HZXRIb2xkZXJJbmZvEhYuY2EuR2V0SG9sZGVySW5mb0lucHV0GhcuY2Eu",
-            "R2V0SG9sZGVySW5mb091dHB1dCIFiIn3AQESUQoSR2V0VmVyaWZpZXJTZXJ2",
-            "ZXJzEhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5GhwuY2EuR2V0VmVyaWZpZXJT",
-            "ZXJ2ZXJzT3V0cHV0IgWIifcBARJFCgxHZXRDQVNlcnZlcnMSFi5nb29nbGUu",
-            "cHJvdG9idWYuRW1wdHkaFi5jYS5HZXRDQVNlcnZlcnNPdXRwdXQiBYiJ9wEB",
-            "EnsKKlZhbGlkYXRlQ0FIb2xkZXJJbmZvV2l0aE1hbmFnZXJJbmZvc0V4aXN0",
-            "cxIzLmNhLlZhbGlkYXRlQ0FIb2xkZXJJbmZvV2l0aE1hbmFnZXJJbmZvc0V4",
-            "aXN0c0lucHV0GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgASQwoOU3luY0hv",
-            "bGRlckluZm8SFy5jYS5TeW5jSG9sZGVySW5mb0lucHV0GhYuZ29vZ2xlLnBy",
-            "b3RvYnVmLkVtcHR5IgASUAoQVmFsaWRhdGVTdHJhdGVneRIZLmNhLlZhbGlk",
-            "YXRlU3RyYXRlZ3lJbnB1dBoaLmNhLlZhbGlkYXRlU3RyYXRlZ3lPdXRwdXQi",
-            "BYiJ9wEBElcKGFNldENvbnRyYWN0RGVsZWdhdGlvbkZlZRIhLmNhLlNldENv",
-            "bnRyYWN0RGVsZWdhdGlvbkZlZUlucHV0GhYuZ29vZ2xlLnByb3RvYnVmLkVt",
-            "cHR5IgASWAoYR2V0Q29udHJhY3REZWxlZ2F0aW9uRmVlEhYuZ29vZ2xlLnBy",
-            "b3RvYnVmLkVtcHR5GiIuY2EuR2V0Q29udHJhY3REZWxlZ2F0aW9uRmVlT3V0",
-            "cHV0IgASRQoUQWRkQ3JlYXRvckNvbnRyb2xsZXISEy5jYS5Db250cm9sbGVy",
-            "SW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJIChdSZW1vdmVDcmVh",
-            "dG9yQ29udHJvbGxlchITLmNhLkNvbnRyb2xsZXJJbnB1dBoWLmdvb2dsZS5w",
-            "cm90b2J1Zi5FbXB0eSIAEkwKFUdldENyZWF0b3JDb250cm9sbGVycxIWLmdv",
-            "b2dsZS5wcm90b2J1Zi5FbXB0eRoULmNhLkNvbnRyb2xsZXJPdXRwdXQiBYiJ",
-            "9wEBEkQKE0FkZFNlcnZlckNvbnRyb2xsZXISEy5jYS5Db250cm9sbGVySW5w",
-            "dXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJHChZSZW1vdmVTZXJ2ZXJD",
-            "b250cm9sbGVyEhMuY2EuQ29udHJvbGxlcklucHV0GhYuZ29vZ2xlLnByb3Rv",
-            "YnVmLkVtcHR5IgASSwoUR2V0U2VydmVyQ29udHJvbGxlcnMSFi5nb29nbGUu",
-            "cHJvdG9idWYuRW1wdHkaFC5jYS5Db250cm9sbGVyT3V0cHV0IgWIifcBARI3",
-            "CgtDaGFuZ2VBZG1pbhIOLmNhLkFkbWluSW5wdXQaFi5nb29nbGUucHJvdG9i",
-            "dWYuRW1wdHkiABI6CghHZXRBZG1pbhIWLmdvb2dsZS5wcm90b2J1Zi5FbXB0",
-            "eRoPLmNhLkFkbWluT3V0cHV0IgWIifcBARJrCiVDaGFuZ2VPcGVyYXRpb25U",
-            "eXBlSW5TaWduYXR1cmVFbmFibGVkEiguY2EuT3BlcmF0aW9uVHlwZUluU2ln",
-            "bmF0dXJlRW5hYmxlZElucHV0GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgAS",
-            "UwoWU2V0Q0FDb250cmFjdEFkZHJlc3NlcxIfLmNhLlNldENBQ29udHJhY3RB",
-            "ZGRyZXNzZXNJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIAEkMKDk1h",
-            "bmFnZXJBcHByb3ZlEhcuY2EuTWFuYWdlckFwcHJvdmVJbnB1dBoWLmdvb2ds",
-            "ZS5wcm90b2J1Zi5FbXB0eSIAEkcKEE1hbmFnZXJVbkFwcHJvdmUSGS5jYS5N",
-            "YW5hZ2VyVW5BcHByb3ZlSW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHki",
-            "ABJHChBTZXRUcmFuc2ZlckxpbWl0EhkuY2EuU2V0VHJhbnNmZXJMaW1pdElu",
-            "cHV0GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgASWAoQR2V0VHJhbnNmZXJM",
-            "aW1pdBIdLmNhaW1wbC5HZXRUcmFuc2ZlckxpbWl0SW5wdXQaHi5jYWltcGwu",
-            "R2V0VHJhbnNmZXJMaW1pdE91dHB1dCIFiIn3AQESYwocU2V0RGVmYXVsdFRv",
-            "a2VuVHJhbnNmZXJMaW1pdBIpLmNhaW1wbC5TZXREZWZhdWx0VG9rZW5UcmFu",
-            "c2ZlckxpbWl0SW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJ8ChxH",
-            "ZXREZWZhdWx0VG9rZW5UcmFuc2ZlckxpbWl0EikuY2FpbXBsLkdldERlZmF1",
-            "bHRUb2tlblRyYW5zZmVyTGltaXRJbnB1dBoqLmNhaW1wbC5HZXREZWZhdWx0",
-            "VG9rZW5UcmFuc2ZlckxpbWl0T3V0cHV0IgWIifcBARJ1CiVTZXRGb3JiaWRk",
-            "ZW5Gb3J3YXJkQ2FsbENvbnRyYWN0TWV0aG9kEjIuY2FpbXBsLlNldEZvcmJp",
-            "ZGRlbkZvcndhcmRDYWxsQ29udHJhY3RNZXRob2RJbnB1dBoWLmdvb2dsZS5w",
-            "cm90b2J1Zi5FbXB0eSIAGlTKyvYBC2FjczEyLnByb3Rvysr2ARZjYV9jb250",
-            "cmFjdF9pbXBsLnByb3Rvssz2ASRQb3J0a2V5LkNvbnRyYWN0cy5DQS5DQUNv",
-            "bnRyYWN0U3RhdGVCF6oCFFBvcnRrZXkuQ29udHJhY3RzLkNBYgZwcm90bzM="));
+            "ZGlhbkluZm8SDgoGc3ltYm9sGAQgASgJEg4KBmFtb3VudBgFIAEoAxIiCghl",
+            "eHRlcm5hbBgGIAEoCzIQLmNhaW1wbC5FeHRlcm5hbCKYAQoPTWFuYWdlckFw",
+            "cHJvdmVkEhsKB2NhX2hhc2gYASABKAsyCi5hZWxmLkhhc2gSHgoHc3BlbmRl",
+            "chgCIAEoCzINLmFlbGYuQWRkcmVzcxIOCgZzeW1ib2wYAyABKAkSDgoGYW1v",
+            "dW50GAQgASgDEiIKCGV4dGVybmFsGAUgASgLMhAuY2FpbXBsLkV4dGVybmFs",
+            "OgSguxgBIrYBChVNYW5hZ2VyVW5BcHByb3ZlSW5wdXQSGwoHY2FfaGFzaBgB",
+            "IAEoCzIKLmFlbGYuSGFzaBIeCgdzcGVuZGVyGAIgASgLMg0uYWVsZi5BZGRy",
+            "ZXNzEiwKEmd1YXJkaWFuc19hcHByb3ZlZBgDIAMoCzIQLmNhLkd1YXJkaWFu",
+            "SW5mbxIOCgZzeW1ib2wYBCABKAkSIgoIZXh0ZXJuYWwYBSABKAsyEC5jYWlt",
+            "cGwuRXh0ZXJuYWwinQEKFVNldFRyYW5zZmVyTGltaXRJbnB1dBIbCgdjYV9o",
+            "YXNoGAEgASgLMgouYWVsZi5IYXNoEg4KBnN5bWJvbBgCIAEoCRIsChJndWFy",
+            "ZGlhbnNfYXBwcm92ZWQYAyADKAsyEC5jYS5HdWFyZGlhbkluZm8SFAoMc2lu",
+            "Z2xlX2xpbWl0GAQgASgDEhMKC2RhaWx5X2xpbWl0GAUgASgDIpABChRUcmFu",
+            "c2ZlckxpbWl0Q2hhbmdlZBIiCgdjYV9oYXNoGAEgASgLMgouYWVsZi5IYXNo",
+            "QgWIj/UBARIVCgZzeW1ib2wYAiABKAlCBYiP9QEBEhsKDHNpbmdsZV9saW1p",
+            "dBgDIAEoA0IFiI/1AQESGgoLZGFpbHlfbGltaXQYBCABKANCBYiP9QEBOgSg",
+            "uxgBKn8KDEd1YXJkaWFuVHlwZRIaChZHVUFSRElBTl9UWVBFX09GX0VNQUlM",
+            "EAASGgoWR1VBUkRJQU5fVFlQRV9PRl9QSE9ORRABEhsKF0dVQVJESUFOX1RZ",
+            "UEVfT0ZfR09PR0xFEAISGgoWR1VBUkRJQU5fVFlQRV9PRl9BUFBMRRADKjkK",
+            "EVN0cmF0ZWd5VmFsdWVUeXBlEgwKCFNUUkFURUdZEAASCAoETE9ORxABEgwK",
+            "CFZBUklBQkxFEAIqpwEKDFN0cmF0ZWd5TmFtZRIHCgNBbmQQABIGCgJPchAB",
+            "EgcKA05vdBACEgoKBklmRWxzZRADEg4KCkxhcmdlclRoYW4QBBIRCg1Ob3RM",
+            "YXJnZXJUaGFuEAUSDAoITGVzc1RoYW4QBhIPCgtOb3RMZXNzVGhhbhAHEgkK",
+            "BUVxdWFsEAgSDAoITm90RXF1YWwQCRIWChJSYXRpb0J5VGVuVGhvdXNhbmQQ",
+            "Ciq/AQoNT3BlcmF0aW9uVHlwZRILCgdVbmtub3duEAASEgoOQ3JlYXRlQ0FI",
+            "b2xkZXIQARISCg5Tb2NpYWxSZWNvdmVyeRACEg8KC0FkZEd1YXJkaWFuEAMS",
+            "EgoOUmVtb3ZlR3VhcmRpYW4QBBISCg5VcGRhdGVHdWFyZGlhbhAFEhoKFlJl",
+            "bW92ZU90aGVyTWFuYWdlckluZm8QBhILCgdBcHByb3ZlEAcSFwoTTW9kaWZ5",
+            "VHJhbnNmZXJMaW1pdBAIMuUcCgpDQUNvbnRyYWN0EjsKCkluaXRpYWxpemUS",
+            "Ey5jYS5Jbml0aWFsaXplSW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHki",
+            "ABJDCg5DcmVhdGVDQUhvbGRlchIXLmNhLkNyZWF0ZUNBSG9sZGVySW5wdXQa",
+            "Fi5nb29nbGUucHJvdG9idWYuRW1wdHkiABI9CgtBZGRHdWFyZGlhbhIULmNh",
+            "LkFkZEd1YXJkaWFuSW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJD",
+            "Cg5SZW1vdmVHdWFyZGlhbhIXLmNhLlJlbW92ZUd1YXJkaWFuSW5wdXQaFi5n",
+            "b29nbGUucHJvdG9idWYuRW1wdHkiABJDCg5VcGRhdGVHdWFyZGlhbhIXLmNh",
+            "LlVwZGF0ZUd1YXJkaWFuSW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHki",
+            "ABJNChNTZXRHdWFyZGlhbkZvckxvZ2luEhwuY2EuU2V0R3VhcmRpYW5Gb3JM",
+            "b2dpbklucHV0GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgASUQoVVW5zZXRH",
+            "dWFyZGlhbkZvckxvZ2luEh4uY2EuVW5zZXRHdWFyZGlhbkZvckxvZ2luSW5w",
+            "dXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJLChJNYW5hZ2VyRm9yd2Fy",
+            "ZENhbGwSGy5jYS5NYW5hZ2VyRm9yd2FyZENhbGxJbnB1dBoWLmdvb2dsZS5w",
+            "cm90b2J1Zi5FbXB0eSIAEkUKD01hbmFnZXJUcmFuc2ZlchIYLmNhLk1hbmFn",
+            "ZXJUcmFuc2ZlcklucHV0GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgASTQoT",
+            "TWFuYWdlclRyYW5zZmVyRnJvbRIcLmNhLk1hbmFnZXJUcmFuc2ZlckZyb21J",
+            "bnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIAEkMKDlNvY2lhbFJlY292",
+            "ZXJ5EhcuY2EuU29jaWFsUmVjb3ZlcnlJbnB1dBoWLmdvb2dsZS5wcm90b2J1",
+            "Zi5FbXB0eSIAEkMKDkFkZE1hbmFnZXJJbmZvEhcuY2EuQWRkTWFuYWdlcklu",
+            "Zm9JbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIAEkkKEVJlbW92ZU1h",
+            "bmFnZXJJbmZvEhouY2EuUmVtb3ZlTWFuYWdlckluZm9JbnB1dBoWLmdvb2ds",
+            "ZS5wcm90b2J1Zi5FbXB0eSIAElMKFlJlbW92ZU90aGVyTWFuYWdlckluZm8S",
+            "Hy5jYS5SZW1vdmVPdGhlck1hbmFnZXJJbmZvSW5wdXQaFi5nb29nbGUucHJv",
+            "dG9idWYuRW1wdHkiABJLChJVcGRhdGVNYW5hZ2VySW5mb3MSGy5jYS5VcGRh",
+            "dGVNYW5hZ2VySW5mb3NJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIA",
+            "ElsKGkFkZFZlcmlmaWVyU2VydmVyRW5kUG9pbnRzEiMuY2EuQWRkVmVyaWZp",
+            "ZXJTZXJ2ZXJFbmRQb2ludHNJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0",
+            "eSIAEmEKHVJlbW92ZVZlcmlmaWVyU2VydmVyRW5kUG9pbnRzEiYuY2EuUmVt",
+            "b3ZlVmVyaWZpZXJTZXJ2ZXJFbmRQb2ludHNJbnB1dBoWLmdvb2dsZS5wcm90",
+            "b2J1Zi5FbXB0eSIAEk8KFFJlbW92ZVZlcmlmaWVyU2VydmVyEh0uY2EuUmVt",
+            "b3ZlVmVyaWZpZXJTZXJ2ZXJJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0",
+            "eSIAEj0KC0FkZENBU2VydmVyEhQuY2EuQWRkQ0FTZXJ2ZXJJbnB1dBoWLmdv",
+            "b2dsZS5wcm90b2J1Zi5FbXB0eSIAEkMKDlJlbW92ZUNBU2VydmVyEhcuY2Eu",
+            "UmVtb3ZlQ0FTZXJ2ZXJJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIA",
+            "EkcKDUdldEhvbGRlckluZm8SFi5jYS5HZXRIb2xkZXJJbmZvSW5wdXQaFy5j",
+            "YS5HZXRIb2xkZXJJbmZvT3V0cHV0IgWIifcBARJRChJHZXRWZXJpZmllclNl",
+            "cnZlcnMSFi5nb29nbGUucHJvdG9idWYuRW1wdHkaHC5jYS5HZXRWZXJpZmll",
+            "clNlcnZlcnNPdXRwdXQiBYiJ9wEBEkUKDEdldENBU2VydmVycxIWLmdvb2ds",
+            "ZS5wcm90b2J1Zi5FbXB0eRoWLmNhLkdldENBU2VydmVyc091dHB1dCIFiIn3",
+            "AQESewoqVmFsaWRhdGVDQUhvbGRlckluZm9XaXRoTWFuYWdlckluZm9zRXhp",
+            "c3RzEjMuY2EuVmFsaWRhdGVDQUhvbGRlckluZm9XaXRoTWFuYWdlckluZm9z",
+            "RXhpc3RzSW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJDCg5TeW5j",
+            "SG9sZGVySW5mbxIXLmNhLlN5bmNIb2xkZXJJbmZvSW5wdXQaFi5nb29nbGUu",
+            "cHJvdG9idWYuRW1wdHkiABJQChBWYWxpZGF0ZVN0cmF0ZWd5EhkuY2EuVmFs",
+            "aWRhdGVTdHJhdGVneUlucHV0GhouY2EuVmFsaWRhdGVTdHJhdGVneU91dHB1",
+            "dCIFiIn3AQESVwoYU2V0Q29udHJhY3REZWxlZ2F0aW9uRmVlEiEuY2EuU2V0",
+            "Q29udHJhY3REZWxlZ2F0aW9uRmVlSW5wdXQaFi5nb29nbGUucHJvdG9idWYu",
+            "RW1wdHkiABJYChhHZXRDb250cmFjdERlbGVnYXRpb25GZWUSFi5nb29nbGUu",
+            "cHJvdG9idWYuRW1wdHkaIi5jYS5HZXRDb250cmFjdERlbGVnYXRpb25GZWVP",
+            "dXRwdXQiABJFChRBZGRDcmVhdG9yQ29udHJvbGxlchITLmNhLkNvbnRyb2xs",
+            "ZXJJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIAEkgKF1JlbW92ZUNy",
+            "ZWF0b3JDb250cm9sbGVyEhMuY2EuQ29udHJvbGxlcklucHV0GhYuZ29vZ2xl",
+            "LnByb3RvYnVmLkVtcHR5IgASTAoVR2V0Q3JlYXRvckNvbnRyb2xsZXJzEhYu",
+            "Z29vZ2xlLnByb3RvYnVmLkVtcHR5GhQuY2EuQ29udHJvbGxlck91dHB1dCIF",
+            "iIn3AQESRAoTQWRkU2VydmVyQ29udHJvbGxlchITLmNhLkNvbnRyb2xsZXJJ",
+            "bnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIAEkcKFlJlbW92ZVNlcnZl",
+            "ckNvbnRyb2xsZXISEy5jYS5Db250cm9sbGVySW5wdXQaFi5nb29nbGUucHJv",
+            "dG9idWYuRW1wdHkiABJLChRHZXRTZXJ2ZXJDb250cm9sbGVycxIWLmdvb2ds",
+            "ZS5wcm90b2J1Zi5FbXB0eRoULmNhLkNvbnRyb2xsZXJPdXRwdXQiBYiJ9wEB",
+            "EjcKC0NoYW5nZUFkbWluEg4uY2EuQWRtaW5JbnB1dBoWLmdvb2dsZS5wcm90",
+            "b2J1Zi5FbXB0eSIAEjoKCEdldEFkbWluEhYuZ29vZ2xlLnByb3RvYnVmLkVt",
+            "cHR5Gg8uY2EuQWRtaW5PdXRwdXQiBYiJ9wEBEmsKJUNoYW5nZU9wZXJhdGlv",
+            "blR5cGVJblNpZ25hdHVyZUVuYWJsZWQSKC5jYS5PcGVyYXRpb25UeXBlSW5T",
+            "aWduYXR1cmVFbmFibGVkSW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHki",
+            "ABJTChZTZXRDQUNvbnRyYWN0QWRkcmVzc2VzEh8uY2EuU2V0Q0FDb250cmFj",
+            "dEFkZHJlc3Nlc0lucHV0GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgASQwoO",
+            "TWFuYWdlckFwcHJvdmUSFy5jYS5NYW5hZ2VyQXBwcm92ZUlucHV0GhYuZ29v",
+            "Z2xlLnByb3RvYnVmLkVtcHR5IgASRwoQTWFuYWdlclVuQXBwcm92ZRIZLmNh",
+            "Lk1hbmFnZXJVbkFwcHJvdmVJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0",
+            "eSIAEkcKEFNldFRyYW5zZmVyTGltaXQSGS5jYS5TZXRUcmFuc2ZlckxpbWl0",
+            "SW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJYChBHZXRUcmFuc2Zl",
+            "ckxpbWl0Eh0uY2FpbXBsLkdldFRyYW5zZmVyTGltaXRJbnB1dBoeLmNhaW1w",
+            "bC5HZXRUcmFuc2ZlckxpbWl0T3V0cHV0IgWIifcBARJjChxTZXREZWZhdWx0",
+            "VG9rZW5UcmFuc2ZlckxpbWl0EikuY2FpbXBsLlNldERlZmF1bHRUb2tlblRy",
+            "YW5zZmVyTGltaXRJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIAEnwK",
+            "HEdldERlZmF1bHRUb2tlblRyYW5zZmVyTGltaXQSKS5jYWltcGwuR2V0RGVm",
+            "YXVsdFRva2VuVHJhbnNmZXJMaW1pdElucHV0GiouY2FpbXBsLkdldERlZmF1",
+            "bHRUb2tlblRyYW5zZmVyTGltaXRPdXRwdXQiBYiJ9wEBEnUKJVNldEZvcmJp",
+            "ZGRlbkZvcndhcmRDYWxsQ29udHJhY3RNZXRob2QSMi5jYWltcGwuU2V0Rm9y",
+            "YmlkZGVuRm9yd2FyZENhbGxDb250cmFjdE1ldGhvZElucHV0GhYuZ29vZ2xl",
+            "LnByb3RvYnVmLkVtcHR5IgAaVMrK9gELYWNzMTIucHJvdG/KyvYBFmNhX2Nv",
+            "bnRyYWN0X2ltcGwucHJvdG+yzPYBJFBvcnRrZXkuQ29udHJhY3RzLkNBLkNB",
+            "Q29udHJhY3RTdGF0ZUIXqgIUUG9ydGtleS5Db250cmFjdHMuQ0FiBnByb3Rv",
+            "Mw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::AElf.Types.CoreReflection.Descriptor, global::AElf.OptionsReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, global::AuthorityInfoReflection.Descriptor, global::AElf.Standards.ACS12.Acs12Reflection.Descriptor, global::Portkey.Contracts.CA.CaContractImplReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Portkey.Contracts.CA.GuardianType), typeof(global::Portkey.Contracts.CA.StrategyValueType), typeof(global::Portkey.Contracts.CA.StrategyName), typeof(global::Portkey.Contracts.CA.OperationType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -402,8 +408,9 @@ namespace Portkey.Contracts.CA {
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.OperationTypeInSignatureEnabledInput), global::Portkey.Contracts.CA.OperationTypeInSignatureEnabledInput.Parser, new[]{ "OperationTypeInSignatureEnabled" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.SetCAContractAddressesInput), global::Portkey.Contracts.CA.SetCAContractAddressesInput.Parser, new[]{ "CaContractAddresses" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.CAContractAddress), global::Portkey.Contracts.CA.CAContractAddress.Parser, new[]{ "Address", "ChainId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.ManagerApproveInput), global::Portkey.Contracts.CA.ManagerApproveInput.Parser, new[]{ "CaHash", "Spender", "GuardiansApproved", "Symbol", "Amount" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.ManagerUnApproveInput), global::Portkey.Contracts.CA.ManagerUnApproveInput.Parser, new[]{ "CaHash", "Spender", "GuardiansApproved", "Symbol" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.ManagerApproveInput), global::Portkey.Contracts.CA.ManagerApproveInput.Parser, new[]{ "CaHash", "Spender", "GuardiansApproved", "Symbol", "Amount", "External" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.ManagerApproved), global::Portkey.Contracts.CA.ManagerApproved.Parser, new[]{ "CaHash", "Spender", "Symbol", "Amount", "External" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.ManagerUnApproveInput), global::Portkey.Contracts.CA.ManagerUnApproveInput.Parser, new[]{ "CaHash", "Spender", "GuardiansApproved", "Symbol", "External" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.SetTransferLimitInput), global::Portkey.Contracts.CA.SetTransferLimitInput.Parser, new[]{ "CaHash", "Symbol", "GuardiansApproved", "SingleLimit", "DailyLimit" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.TransferLimitChanged), global::Portkey.Contracts.CA.TransferLimitChanged.Parser, new[]{ "CaHash", "Symbol", "SingleLimit", "DailyLimit" }, null, null, null, null)
           }));
@@ -19725,6 +19732,7 @@ namespace Portkey.Contracts.CA {
       guardiansApproved_ = other.guardiansApproved_.Clone();
       symbol_ = other.symbol_;
       amount_ = other.amount_;
+      external_ = other.external_ != null ? other.external_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -19793,6 +19801,18 @@ namespace Portkey.Contracts.CA {
       }
     }
 
+    /// <summary>Field number for the "external" field.</summary>
+    public const int ExternalFieldNumber = 6;
+    private global::Portkey.Contracts.CA.External external_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Portkey.Contracts.CA.External External {
+      get { return external_; }
+      set {
+        external_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -19813,6 +19833,7 @@ namespace Portkey.Contracts.CA {
       if(!guardiansApproved_.Equals(other.guardiansApproved_)) return false;
       if (Symbol != other.Symbol) return false;
       if (Amount != other.Amount) return false;
+      if (!object.Equals(External, other.External)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -19825,6 +19846,7 @@ namespace Portkey.Contracts.CA {
       hash ^= guardiansApproved_.GetHashCode();
       if (Symbol.Length != 0) hash ^= Symbol.GetHashCode();
       if (Amount != 0L) hash ^= Amount.GetHashCode();
+      if (external_ != null) hash ^= External.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -19860,6 +19882,10 @@ namespace Portkey.Contracts.CA {
         output.WriteRawTag(40);
         output.WriteInt64(Amount);
       }
+      if (external_ != null) {
+        output.WriteRawTag(50);
+        output.WriteMessage(External);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -19887,6 +19913,10 @@ namespace Portkey.Contracts.CA {
         output.WriteRawTag(40);
         output.WriteInt64(Amount);
       }
+      if (external_ != null) {
+        output.WriteRawTag(50);
+        output.WriteMessage(External);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -19909,6 +19939,9 @@ namespace Portkey.Contracts.CA {
       }
       if (Amount != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(Amount);
+      }
+      if (external_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(External);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -19940,6 +19973,12 @@ namespace Portkey.Contracts.CA {
       }
       if (other.Amount != 0L) {
         Amount = other.Amount;
+      }
+      if (other.external_ != null) {
+        if (external_ == null) {
+          External = new global::Portkey.Contracts.CA.External();
+        }
+        External.MergeFrom(other.External);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -19980,6 +20019,13 @@ namespace Portkey.Contracts.CA {
           }
           case 40: {
             Amount = input.ReadInt64();
+            break;
+          }
+          case 50: {
+            if (external_ == null) {
+              External = new global::Portkey.Contracts.CA.External();
+            }
+            input.ReadMessage(External);
             break;
           }
         }
@@ -20023,6 +20069,377 @@ namespace Portkey.Contracts.CA {
             Amount = input.ReadInt64();
             break;
           }
+          case 50: {
+            if (external_ == null) {
+              External = new global::Portkey.Contracts.CA.External();
+            }
+            input.ReadMessage(External);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class ManagerApproved : pb::IMessage<ManagerApproved>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<ManagerApproved> _parser = new pb::MessageParser<ManagerApproved>(() => new ManagerApproved());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<ManagerApproved> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[78]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ManagerApproved() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ManagerApproved(ManagerApproved other) : this() {
+      caHash_ = other.caHash_ != null ? other.caHash_.Clone() : null;
+      spender_ = other.spender_ != null ? other.spender_.Clone() : null;
+      symbol_ = other.symbol_;
+      amount_ = other.amount_;
+      external_ = other.external_ != null ? other.external_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ManagerApproved Clone() {
+      return new ManagerApproved(this);
+    }
+
+    /// <summary>Field number for the "ca_hash" field.</summary>
+    public const int CaHashFieldNumber = 1;
+    private global::AElf.Types.Hash caHash_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::AElf.Types.Hash CaHash {
+      get { return caHash_; }
+      set {
+        caHash_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "spender" field.</summary>
+    public const int SpenderFieldNumber = 2;
+    private global::AElf.Types.Address spender_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::AElf.Types.Address Spender {
+      get { return spender_; }
+      set {
+        spender_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "symbol" field.</summary>
+    public const int SymbolFieldNumber = 3;
+    private string symbol_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Symbol {
+      get { return symbol_; }
+      set {
+        symbol_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "amount" field.</summary>
+    public const int AmountFieldNumber = 4;
+    private long amount_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public long Amount {
+      get { return amount_; }
+      set {
+        amount_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "external" field.</summary>
+    public const int ExternalFieldNumber = 5;
+    private global::Portkey.Contracts.CA.External external_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Portkey.Contracts.CA.External External {
+      get { return external_; }
+      set {
+        external_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as ManagerApproved);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(ManagerApproved other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(CaHash, other.CaHash)) return false;
+      if (!object.Equals(Spender, other.Spender)) return false;
+      if (Symbol != other.Symbol) return false;
+      if (Amount != other.Amount) return false;
+      if (!object.Equals(External, other.External)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (caHash_ != null) hash ^= CaHash.GetHashCode();
+      if (spender_ != null) hash ^= Spender.GetHashCode();
+      if (Symbol.Length != 0) hash ^= Symbol.GetHashCode();
+      if (Amount != 0L) hash ^= Amount.GetHashCode();
+      if (external_ != null) hash ^= External.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (caHash_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(CaHash);
+      }
+      if (spender_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Spender);
+      }
+      if (Symbol.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(Symbol);
+      }
+      if (Amount != 0L) {
+        output.WriteRawTag(32);
+        output.WriteInt64(Amount);
+      }
+      if (external_ != null) {
+        output.WriteRawTag(42);
+        output.WriteMessage(External);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (caHash_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(CaHash);
+      }
+      if (spender_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Spender);
+      }
+      if (Symbol.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(Symbol);
+      }
+      if (Amount != 0L) {
+        output.WriteRawTag(32);
+        output.WriteInt64(Amount);
+      }
+      if (external_ != null) {
+        output.WriteRawTag(42);
+        output.WriteMessage(External);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (caHash_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(CaHash);
+      }
+      if (spender_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Spender);
+      }
+      if (Symbol.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Symbol);
+      }
+      if (Amount != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Amount);
+      }
+      if (external_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(External);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(ManagerApproved other) {
+      if (other == null) {
+        return;
+      }
+      if (other.caHash_ != null) {
+        if (caHash_ == null) {
+          CaHash = new global::AElf.Types.Hash();
+        }
+        CaHash.MergeFrom(other.CaHash);
+      }
+      if (other.spender_ != null) {
+        if (spender_ == null) {
+          Spender = new global::AElf.Types.Address();
+        }
+        Spender.MergeFrom(other.Spender);
+      }
+      if (other.Symbol.Length != 0) {
+        Symbol = other.Symbol;
+      }
+      if (other.Amount != 0L) {
+        Amount = other.Amount;
+      }
+      if (other.external_ != null) {
+        if (external_ == null) {
+          External = new global::Portkey.Contracts.CA.External();
+        }
+        External.MergeFrom(other.External);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (caHash_ == null) {
+              CaHash = new global::AElf.Types.Hash();
+            }
+            input.ReadMessage(CaHash);
+            break;
+          }
+          case 18: {
+            if (spender_ == null) {
+              Spender = new global::AElf.Types.Address();
+            }
+            input.ReadMessage(Spender);
+            break;
+          }
+          case 26: {
+            Symbol = input.ReadString();
+            break;
+          }
+          case 32: {
+            Amount = input.ReadInt64();
+            break;
+          }
+          case 42: {
+            if (external_ == null) {
+              External = new global::Portkey.Contracts.CA.External();
+            }
+            input.ReadMessage(External);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            if (caHash_ == null) {
+              CaHash = new global::AElf.Types.Hash();
+            }
+            input.ReadMessage(CaHash);
+            break;
+          }
+          case 18: {
+            if (spender_ == null) {
+              Spender = new global::AElf.Types.Address();
+            }
+            input.ReadMessage(Spender);
+            break;
+          }
+          case 26: {
+            Symbol = input.ReadString();
+            break;
+          }
+          case 32: {
+            Amount = input.ReadInt64();
+            break;
+          }
+          case 42: {
+            if (external_ == null) {
+              External = new global::Portkey.Contracts.CA.External();
+            }
+            input.ReadMessage(External);
+            break;
+          }
         }
       }
     }
@@ -20044,7 +20461,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[78]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[79]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -20068,6 +20485,7 @@ namespace Portkey.Contracts.CA {
       spender_ = other.spender_ != null ? other.spender_.Clone() : null;
       guardiansApproved_ = other.guardiansApproved_.Clone();
       symbol_ = other.symbol_;
+      external_ = other.external_ != null ? other.external_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -20124,6 +20542,18 @@ namespace Portkey.Contracts.CA {
       }
     }
 
+    /// <summary>Field number for the "external" field.</summary>
+    public const int ExternalFieldNumber = 5;
+    private global::Portkey.Contracts.CA.External external_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Portkey.Contracts.CA.External External {
+      get { return external_; }
+      set {
+        external_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -20143,6 +20573,7 @@ namespace Portkey.Contracts.CA {
       if (!object.Equals(Spender, other.Spender)) return false;
       if(!guardiansApproved_.Equals(other.guardiansApproved_)) return false;
       if (Symbol != other.Symbol) return false;
+      if (!object.Equals(External, other.External)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -20154,6 +20585,7 @@ namespace Portkey.Contracts.CA {
       if (spender_ != null) hash ^= Spender.GetHashCode();
       hash ^= guardiansApproved_.GetHashCode();
       if (Symbol.Length != 0) hash ^= Symbol.GetHashCode();
+      if (external_ != null) hash ^= External.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -20185,6 +20617,10 @@ namespace Portkey.Contracts.CA {
         output.WriteRawTag(34);
         output.WriteString(Symbol);
       }
+      if (external_ != null) {
+        output.WriteRawTag(42);
+        output.WriteMessage(External);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -20208,6 +20644,10 @@ namespace Portkey.Contracts.CA {
         output.WriteRawTag(34);
         output.WriteString(Symbol);
       }
+      if (external_ != null) {
+        output.WriteRawTag(42);
+        output.WriteMessage(External);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -20227,6 +20667,9 @@ namespace Portkey.Contracts.CA {
       size += guardiansApproved_.CalculateSize(_repeated_guardiansApproved_codec);
       if (Symbol.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Symbol);
+      }
+      if (external_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(External);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -20255,6 +20698,12 @@ namespace Portkey.Contracts.CA {
       guardiansApproved_.Add(other.guardiansApproved_);
       if (other.Symbol.Length != 0) {
         Symbol = other.Symbol;
+      }
+      if (other.external_ != null) {
+        if (external_ == null) {
+          External = new global::Portkey.Contracts.CA.External();
+        }
+        External.MergeFrom(other.External);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -20291,6 +20740,13 @@ namespace Portkey.Contracts.CA {
           }
           case 34: {
             Symbol = input.ReadString();
+            break;
+          }
+          case 42: {
+            if (external_ == null) {
+              External = new global::Portkey.Contracts.CA.External();
+            }
+            input.ReadMessage(External);
             break;
           }
         }
@@ -20330,6 +20786,13 @@ namespace Portkey.Contracts.CA {
             Symbol = input.ReadString();
             break;
           }
+          case 42: {
+            if (external_ == null) {
+              External = new global::Portkey.Contracts.CA.External();
+            }
+            input.ReadMessage(External);
+            break;
+          }
         }
       }
     }
@@ -20351,7 +20814,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[79]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[80]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -20686,7 +21149,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[80]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[81]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

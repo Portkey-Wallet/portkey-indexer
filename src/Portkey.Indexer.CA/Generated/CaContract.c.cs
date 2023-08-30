@@ -577,6 +577,28 @@ namespace Portkey.Contracts.CA {
     }
   }
 
+  public partial class ManagerApproved : aelf::IEvent<ManagerApproved>
+  {
+    public global::System.Collections.Generic.IEnumerable<ManagerApproved> GetIndexed()
+    {
+      return new List<ManagerApproved>
+      {
+      };
+    }
+
+    public ManagerApproved GetNonIndexed()
+    {
+      return new ManagerApproved
+      {
+        CaHash = CaHash,
+        Spender = Spender,
+        Symbol = Symbol,
+        Amount = Amount,
+        External = External,
+      };
+    }
+  }
+
   public partial class TransferLimitChanged : aelf::IEvent<TransferLimitChanged>
   {
     public global::System.Collections.Generic.IEnumerable<TransferLimitChanged> GetIndexed()

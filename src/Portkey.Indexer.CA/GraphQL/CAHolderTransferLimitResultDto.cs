@@ -1,6 +1,6 @@
 namespace Portkey.Indexer.CA.GraphQL;
 
-public class CAHolderTransferLimitPageResultDto
+public class CAHolderTransferLimitResultDto
 {
     public long TotalRecordCount { get; set; }
 

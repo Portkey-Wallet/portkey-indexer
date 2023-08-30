@@ -202,7 +202,7 @@ public class CAHolderSyncedProcessorTests : PortkeyIndexerCATestBase
                 {
                     new List<ManagerInfo>()
                     {
-                        new ManagerInfo()
+                        new ManagerInfo
                         {
                             Address = Address.FromPublicKey("CCC".HexToByteArray()),
                             ExtraData = "ExtraData_add_manager1"

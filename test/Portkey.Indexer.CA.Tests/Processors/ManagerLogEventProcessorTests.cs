@@ -31,6 +31,9 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
     private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, LogEventInfo>
         _caHolderTransactionAddressIndexRepository;
 
+    private readonly IAElfIndexerClientEntityRepository<ManagerApprovedIndex, LogEventInfo>
+        _managerApprovedIndexRepository;
+
     private readonly IObjectMapper _objectMapper;
 
     public ManagerLogEventProcessorTests()
@@ -43,6 +46,8 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
             GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderManagerChangeRecordIndex, LogEventInfo>>();
         _caHolderTransactionAddressIndexRepository =
             GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, LogEventInfo>>();
+        _managerApprovedIndexRepository =
+            GetRequiredService<IAElfIndexerClientEntityRepository<ManagerApprovedIndex, LogEventInfo>>();
         _objectMapper = GetRequiredService<IObjectMapper>();
     }
 
@@ -643,7 +648,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash,
         };
-        
+
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
         var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
 
@@ -810,7 +815,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash,
         };
-        
+
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
         var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
 
@@ -861,6 +866,81 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         var caHolderManagerIndexData =
             await _caHolderManagerIndexRepository.GetAsync(chainId + "-" + managerInfoUpdated.Manager.ToBase58());
         caHolderManagerIndexData.ShouldBeNull();
+    }
+
+    [Fact]
+    public async Task ManagerApprovedTests()
+    {
+        const string chainId = "AELF";
+        const string blockHash = "dac5cd67a2783d0a3d843426c2d45f1178f4d052235a907a0d796ae4659103b1";
+        const string previousBlockHash = "e38c4fb1cf6af05878657cb3f7b5fc8a5fcfb2eec19cd76b73abb831973fbf4e";
+        const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
+        const long blockHeight = 100;
+        Hash owner = HashHelper.ComputeFrom("test@google.com");
+        Address spenderAddr = Address.FromPublicKey("AAA".HexToByteArray());
+        var managerApprovedLogEventProcessor = GetRequiredService<ManagerApprovedLogEventProcessor>();
+
+        //step1: create blockStateSet
+        var blockStateSet = new BlockStateSet<LogEventInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash,
+        };
+
+
+        var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
+
+        //step2: create logEventInfo
+        var managerInfoUpdated = new ManagerApproved()
+        {
+            CaHash = owner,
+            Spender = spenderAddr,
+            Symbol = "ELF",
+            Amount = 10000,
+            External = new External()
+            {
+                Value =
+                {
+                    new Dictionary<string, string>()
+                    {
+                        {
+                            "testKey", "testValue"
+                        }
+                    }
+                }
+            }
+        };
+        var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(managerInfoUpdated.ToLogEvent());
+        logEventInfo.BlockHeight = blockHeight;
+        logEventInfo.ChainId = chainId;
+        logEventInfo.BlockHash = blockHash;
+        logEventInfo.TransactionId = transactionId;
+        var logEventContext = new LogEventContext
+        {
+            ChainId = chainId,
+            BlockHeight = blockHeight,
+            BlockHash = blockHash,
+            PreviousBlockHash = previousBlockHash,
+            TransactionId = transactionId
+        };
+
+        //step3: handle event and write result to blockStateSet
+        await managerApprovedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
+        managerApprovedLogEventProcessor.GetContractAddress("AELF");
+
+        //step4: save blockStateSet into es
+        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await Task.Delay(2000);
+
+        //step5: check result
+        var managerApprovedIndexData = await _managerApprovedIndexRepository.GetAsync(chainId + "-" + transactionId);
+        managerApprovedIndexData.ChainId.ShouldBe(chainId);
+        managerApprovedIndexData.CaHash.ShouldBe(owner.ToHex());
+        managerApprovedIndexData.Spender.ShouldBe(spenderAddr.ToBase58());
+        managerApprovedIndexData.Symbol.ShouldBe("ELF");
+        managerApprovedIndexData.Amount.ShouldBe(10000);
     }
 
     [Fact]
@@ -920,7 +1000,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
                 ChainId = "AELF",
                 CAAddressInfos = new List<CAAddressInfo>
                 {
-                    new ()
+                    new()
                     {
                         CAAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(),
                         ChainId = "AELF"
@@ -931,6 +1011,25 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
             });
         result.TotalRecordCount.ShouldBe(0);
         result.Data.Count.ShouldBe(0);
+    }
+
+    [Fact]
+    public async Task QueryCAHolderManagerApprovedTests()
+    {
+        await ManagerApprovedTests();
+
+        var result = await Query.CAHolderManagerApproved(_managerApprovedIndexRepository,
+            _objectMapper, new GetCAHolderManagerApprovedDto()
+            {
+                ChainId = "AELF",
+                CAHash = HashHelper.ComputeFrom("test@google.com").ToHex(),
+                Spender = Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(),
+                Symbol = "ELF",
+                SkipCount = 0,
+                MaxResultCount = 10
+            });
+        result.TotalRecordCount.ShouldBe(1);
+        result.Data.Count.ShouldBe(1);
     }
 
     private async Task CreateHolder()
