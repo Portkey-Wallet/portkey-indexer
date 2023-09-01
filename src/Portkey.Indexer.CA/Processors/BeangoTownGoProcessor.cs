@@ -18,6 +18,7 @@ public class BeangoTownGoProcessor : CAHolderTransactionProcessorBase<Played>
 {
     private readonly IAElfIndexerClientEntityRepository<BeangoTownIndex, TransactionInfo> _bingoIndexRepository;
     private readonly string _methodName = "BeanGoTown-Play";
+    private readonly ILogger<BeangoTownGoProcessor> _logger;
     
     public BeangoTownGoProcessor(ILogger<BeangoTownGoProcessor> logger,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
@@ -36,6 +37,7 @@ public class BeangoTownGoProcessor : CAHolderTransactionProcessorBase<Played>
             caHolderTransactionInfoOptions, objectMapper)
     {
         _bingoIndexRepository = bingoIndexRepository;
+        _logger = logger;
     }
 
     public override string GetContractAddress(string chainId)
@@ -45,14 +47,21 @@ public class BeangoTownGoProcessor : CAHolderTransactionProcessorBase<Played>
 
     protected override async Task HandleEventAsync(Played eventValue, LogEventContext context)
     {   
+        _logger.LogInformation("recive Played,eventValue.PlayerAddress:{eventValue.PlayerAddress}",
+            eventValue.PlayerAddress);
         if (eventValue.PlayerAddress == null || eventValue.PlayerAddress.Value == null)
         {
             return;
         }
+        
         // await ProcessCAHolderTransactionAsync(context, eventValue.PlayerAddress.ToBase58());
+        _logger.LogInformation("recive Played,eventValue.IsValidTransaction:{IsValidTransaction}",
+            IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params));
         if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
         var holder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
             eventValue.PlayerAddress.ToBase58()), context.ChainId);
+        _logger.LogInformation("recive Played,holder:{holder}",
+            holder);
         if (holder == null) return;
 
         var transIndex = new CAHolderTransactionIndex
@@ -72,7 +81,8 @@ public class BeangoTownGoProcessor : CAHolderTransactionProcessorBase<Played>
         };
         ObjectMapper.Map(context, transIndex);
         transIndex.MethodName = _methodName;
-
+        _logger.LogInformation("recive Played,MethodName:{_methodName}",
+            _methodName);
         await CAHolderTransactionIndexRepository.AddOrUpdateAsync(transIndex);
         
         var index = await _bingoIndexRepository.GetFromBlockStateSetAsync(eventValue.PlayId.ToHex(), context.ChainId);
