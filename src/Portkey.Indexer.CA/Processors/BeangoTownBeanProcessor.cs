@@ -14,6 +14,7 @@ public class BeangoTownBeanProcessor : CAHolderTransactionProcessorBase<Bingoed>
 {
     private readonly IAElfIndexerClientEntityRepository<BeangoTownIndex, TransactionInfo> _bingoIndexRepository;
     private readonly string _methodName = "BeanGoTown-Bingo";
+    private readonly string _methodNameOrigin = "Bingo";
     private readonly ILogger<BeangoTownBeanProcessor> _logger;
 
     public BeangoTownBeanProcessor(ILogger<BeangoTownBeanProcessor> logger,
@@ -43,22 +44,15 @@ public class BeangoTownBeanProcessor : CAHolderTransactionProcessorBase<Bingoed>
     }
 
     protected override async Task HandleEventAsync(Bingoed eventValue, LogEventContext context)
-    {
-        _logger.LogInformation("recive Bingoed,eventValue.PlayerAddress:{eventValue.PlayerAddress}",
-            eventValue.PlayerAddress);
+    { 
         if (eventValue.PlayerAddress == null || eventValue.PlayerAddress.Value == null)
         {
             return;
         }
-        _logger.LogInformation("recive Bingoed,eventValue.IsValidTransaction:{IsValidTransaction}",
-            IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params));
         // await ProcessCAHolderTransactionAsync(context, eventValue.PlayerAddress.ToBase58());
         if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
         var holder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
             eventValue.PlayerAddress.ToBase58()), context.ChainId);
-        _logger.LogInformation("recive Bingoed,holder:{holder},id:{id}",
-            holder, IdGenerateHelper.GetId(context.ChainId,
-                eventValue.PlayerAddress.ToBase58()));
         if (holder == null) return;
 
         var transIndex = new CAHolderTransactionIndex
@@ -78,9 +72,12 @@ public class BeangoTownBeanProcessor : CAHolderTransactionProcessorBase<Bingoed>
             },
         };
         ObjectMapper.Map(context, transIndex);
-        transIndex.MethodName = _methodName;
-        _logger.LogInformation("recive Bingoed,MethodName:{_methodName}",
-            _methodName);
+        transIndex.MethodName = GetMethodName(context.MethodName, context.Params);
+        if (transIndex.MethodName == _methodNameOrigin)
+        {
+            transIndex.MethodName = _methodName;
+        }
+        
         await CAHolderTransactionIndexRepository.AddOrUpdateAsync(transIndex);
         
         var index = await _bingoIndexRepository.GetFromBlockStateSetAsync(eventValue.PlayId.ToHex(), context.ChainId);
@@ -89,22 +86,22 @@ public class BeangoTownBeanProcessor : CAHolderTransactionProcessorBase<Bingoed>
             return;
         }
         
-        await SaveGameIndexAsync(index, eventValue, context,"");
+        await SaveBeangoIndexAsync(index, eventValue, context,"");
     }
     
-    private async Task SaveGameIndexAsync(BeangoTownIndex townIndex, Bingoed eventValue, LogEventContext context,
+    private async Task SaveBeangoIndexAsync(BeangoTownIndex townIndex, Bingoed eventValue, LogEventContext context,
         string? seasonId)
     {
         var feeAmount = GetFeeAmount(context.ExtraProperties);
         
         townIndex.SeasonId = seasonId;
-        ObjectMapper.Map(eventValue, townIndex);
         townIndex.BingoTransactionInfo = new TransactionInfoIndex()
         {
             TransactionId = context.TransactionId,
             TriggerTime = context.BlockTime,
             TransactionFee = feeAmount
         };
+        townIndex.BingoBlockHeight = context.BlockHeight;
         ObjectMapper.Map(context, townIndex);
         await _bingoIndexRepository.AddOrUpdateAsync(townIndex);
     }
