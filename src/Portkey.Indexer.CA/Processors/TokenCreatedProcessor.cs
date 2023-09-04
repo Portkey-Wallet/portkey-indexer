@@ -20,7 +20,6 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
     private readonly IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> _nftInfoIndexRepository;
     private readonly ContractInfoOptions _contractInfoOptions;
     private readonly IObjectMapper _objectMapper;
-    private readonly ILogger<TokenCreatedProcessor> _tokenCreatedLogger;
 
     public TokenCreatedProcessor(ILogger<TokenCreatedProcessor> logger,
         IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
@@ -34,7 +33,6 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
         _nftInfoIndexRepository = nftInfoIndexRepository;
         _objectMapper = objectMapper;
         _contractInfoOptions = contractInfoOptions.Value;
-        _tokenCreatedLogger = logger;
     }
 
     public override string GetContractAddress(string chainId)
@@ -44,10 +42,6 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
 
     protected override async Task HandleEventAsync(TokenCreated eventValue, LogEventContext context)
     {
-        _tokenCreatedLogger.LogInformation(
-            "[## in TokenCreatedProcessor], eventValue:{eventValue}, context:{context}",
-            JsonConvert.SerializeObject(eventValue), JsonConvert.SerializeObject(context));
-
         TokenType tokenType = TokenHelper.GetTokenType(eventValue.Symbol);
         if (tokenType == TokenType.Token)
         {
@@ -71,14 +65,7 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
 
             tokenInfoIndex.Issuer = eventValue.Issuer.ToBase58();
             _objectMapper.Map(context, tokenInfoIndex);
-
-            if (tokenInfoIndex.ExternalInfoDictionary == null)
-            {
-                tokenInfoIndex.ExternalInfoDictionary = new Dictionary<string, string>();
-                _tokenCreatedLogger.LogInformation(
-                    "#### external dictionary is null, token , data: {data}, eventValue:{eventValue}, ",
-                    JsonConvert.SerializeObject(tokenInfoIndex), JsonConvert.SerializeObject(eventValue));
-            }
+            tokenInfoIndex.ExternalInfoDictionary ??= new Dictionary<string, string>();
 
             await _tokenInfoIndexRepository.AddOrUpdateAsync(tokenInfoIndex);
         }
@@ -131,6 +118,7 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
                 nftCollectionInfoIndex.ExternalInfoDictionary = eventValue.ExternalInfo.Value
                     .Where(t => !t.Key.IsNullOrWhiteSpace())
                     .ToDictionary(item => item.Key, item => item.Value);
+
                 nftCollectionInfoIndex.Issuer = eventValue.Issuer.ToBase58();
                 if (eventValue.ExternalInfo.Value.ContainsKey("__nft_image_url"))
                 {
@@ -139,14 +127,7 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
             }
 
             _objectMapper.Map(context, nftCollectionInfoIndex);
-
-            if (nftCollectionInfoIndex.ExternalInfoDictionary == null)
-            {
-                nftCollectionInfoIndex.ExternalInfoDictionary = new Dictionary<string, string>();
-                _tokenCreatedLogger.LogInformation(
-                    "#### external dictionary is null, nftCollection, data: {data}, eventValue:{eventValue}, ",
-                    JsonConvert.SerializeObject(nftCollectionInfoIndex), JsonConvert.SerializeObject(eventValue));
-            }
+            nftCollectionInfoIndex.ExternalInfoDictionary ??= new Dictionary<string, string>();
 
             await _nftCollectionInfoIndexRepository.AddOrUpdateAsync(nftCollectionInfoIndex);
         }
@@ -169,6 +150,7 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
                 nftInfoIndex.ExternalInfoDictionary = eventValue.ExternalInfo.Value
                     .Where(t => !t.Key.IsNullOrWhiteSpace())
                     .ToDictionary(item => item.Key, item => item.Value);
+
                 nftInfoIndex.Issuer = eventValue.Issuer.ToBase58();
                 if (eventValue.ExternalInfo.Value.ContainsKey("__nft_image_url"))
                 {
@@ -187,13 +169,7 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
             }
 
             _objectMapper.Map(context, nftInfoIndex);
-            if (nftInfoIndex.ExternalInfoDictionary == null)
-            {
-                nftInfoIndex.ExternalInfoDictionary = new Dictionary<string, string>();
-                _tokenCreatedLogger.LogInformation(
-                    "#### external dictionary is null, nftItem, data: {data}, eventValue:{eventValue}, ",
-                    JsonConvert.SerializeObject(nftInfoIndex), JsonConvert.SerializeObject(eventValue));
-            }
+            nftInfoIndex.ExternalInfoDictionary ??= new Dictionary<string, string>();
 
             await _nftInfoIndexRepository.AddOrUpdateAsync(nftInfoIndex);
         }
