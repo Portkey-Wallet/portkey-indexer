@@ -104,7 +104,5 @@ public class BeangoTownBeanProcessor : CAHolderTransactionProcessorBase<Bingoed>
         townIndex.BingoBlockHeight = context.BlockHeight;
         ObjectMapper.Map(context, townIndex);
         await _bingoIndexRepository.AddOrUpdateAsync(townIndex);
-        
-        
     }
 }

@@ -246,6 +246,84 @@ public class BeangoTownProcessorTests : PortkeyIndexerCATestBase
         bingoGameIndexData.PlayBlockHeight.ShouldBe(blockHeight);
         bingoGameIndexData.ChainId.ShouldBe(chainId);
     }
+    
+     [Fact]
+    public async Task HandlePlayedLogEventAsync_play_method_Test()
+    {
+        await CreateHolder();
+        //step1: create blockStateSet
+        const string chainId = "AELF";
+        const string blockHash = "3c7c267341e9f097b0886c8a1661bef73d6bb4c30464ad73be714fdf22b09bdd";
+        const string previousBlockHash = "9a6ef475e4c4b6f15c37559033bcfdbed34ca666c67b2ae6be22751a3ae171de";
+        const string transactionId = "c09b8c142dd5e07acbc1028e5f59adca5b5be93a0680eb3609b773044a852c43";
+        const long blockHeight = 200;
+        var blockStateSetAdded = new BlockStateSet<LogEventInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash
+        };
+
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash
+        };
+
+        var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSetAdded, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
+        //step2: create logEventInfo
+        var played = new Played
+        {
+            PlayBlockHeight = blockHeight,
+            PlayerAddress = Address.FromPublicKey("AAA".HexToByteArray()),
+            PlayId = HashHelper.ComputeFrom("PlayId"),
+        };
+        var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(played.ToLogEvent());
+        logEventInfo.BlockHeight = blockHeight;
+        logEventInfo.ChainId = chainId;
+        logEventInfo.BlockHash = blockHash;
+        logEventInfo.TransactionId = transactionId;
+        var logEventContext = new LogEventContext
+        {
+            ChainId = chainId,
+            BlockHeight = blockHeight,
+            BlockHash = blockHash,
+            PreviousBlockHash = previousBlockHash,
+            TransactionId = transactionId,
+            Params = "{ \"to\": \"ca\", \"symbol\": \"ELF\", \"amount\": \"100000000000\" }",
+            To = "CAAddress",
+            MethodName = "Play",
+            ExtraProperties = new Dictionary<string, string>
+            {
+                { "TransactionFee", "{\"ELF\":\"30000000\"}" },
+                { "ResourceFee", "{\"ELF\":\"30000000\"}" }
+            },
+            BlockTime = DateTime.UtcNow
+        };
+        var playedLogEventProcessor = GetRequiredService<BeangoTownGoProcessor>();
+
+        await playedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
+
+        playedLogEventProcessor.GetContractAddress(chainId);
+
+        //step4: save blockStateSet into es
+        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
+        await Task.Delay(2000);
+
+        var bingoGameIndexData = await _bingoIndexRepository.GetAsync(HashHelper.ComputeFrom("PlayId").ToHex());
+        bingoGameIndexData.ShouldNotBeNull();
+        bingoGameIndexData.PlayBlockHeight.ShouldBe(blockHeight);
+        bingoGameIndexData.ChainId.ShouldBe(chainId);
+        
+        var transationData = await _caHolderTransactionRepository.GetAsync(IdGenerateHelper.GetId(blockHash, transactionId));
+        transationData.ShouldNotBeNull();
+        transationData.MethodName.ShouldBe("BeanGoTown-Play");
+    }
 
     [Fact]
     public async Task HandleBingoedLogEventAsync_Test()
@@ -323,5 +401,90 @@ public class BeangoTownProcessorTests : PortkeyIndexerCATestBase
         bingoIndexData.BingoBlockHeight.ShouldBe(blockHeight);
         bingoIndexData.PlayBlockHeight.ShouldBe(blockHeight);
         bingoIndexData.ChainId.ShouldBe(chainId);
+        var transationData = await _caHolderTransactionRepository.GetAsync(IdGenerateHelper.GetId(blockHash, transactionId));
+        transationData.ShouldNotBeNull();
+        transationData.MethodName.ShouldBe("Bingoed");
+    }
+    
+    [Fact]
+    public async Task HandleBingoedLogEventAsync_beango_method_Test()
+    {
+        await CreateHolder();
+        await HandlePlayedLogEventAsync_Test();
+        //step1: create blockStateSet
+        const string chainId = "AELF";
+        const string blockHash = "3c7c267341e9f097b0886c8a1661bef73d6bb4c30464ad73be714fdf22b09bdd";
+        const string previousBlockHash = "9a6ef475e4c4b6f15c37559033bcfdbed34ca666c67b2ae6be22751a3ae171de";
+        const string transactionId = "c09b8c142dd5e07acbc1028e5f59adca5b5be93a0680eb3609b773044a852c43";
+        const long blockHeight = 200;
+        var blockStateSetAdded = new BlockStateSet<LogEventInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash
+        };
+
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash
+        };
+
+        var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSetAdded, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
+        //step2: create logEventInfo
+        var bingoed = new Bingoed
+        {
+            PlayBlockHeight = blockHeight,
+            PlayerAddress = Address.FromPublicKey("AAA".HexToByteArray()),
+            BingoBlockHeight = blockHeight,
+            IsComplete = true,
+            PlayId = HashHelper.ComputeFrom("PlayId")
+        };
+        var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(bingoed.ToLogEvent());
+        logEventInfo.BlockHeight = blockHeight;
+        logEventInfo.ChainId = chainId;
+        logEventInfo.BlockHash = blockHash;
+        logEventInfo.TransactionId = transactionId;
+        var logEventContext = new LogEventContext
+        {
+            ChainId = chainId,
+            BlockHeight = blockHeight,
+            BlockHash = blockHash,
+            PreviousBlockHash = previousBlockHash,
+            TransactionId = transactionId,
+            Params = "{ \"to\": \"ca\", \"symbol\": \"ELF\", \"amount\": \"100000000000\" }",
+            To = "CAAddress",
+            MethodName = "Bingo",
+            ExtraProperties = new Dictionary<string, string>
+            {
+                { "TransactionFee", "{\"ELF\":\"30000000\"}" },
+                { "ResourceFee", "{\"ELF\":\"30000000\"}" }
+            },
+            BlockTime = DateTime.UtcNow
+        };
+        var bingoedLogEventProcessor = GetRequiredService<BeangoTownBeanProcessor>();
+
+        await bingoedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
+
+        bingoedLogEventProcessor.GetContractAddress(chainId);
+
+        //step4: save blockStateSet into es
+        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
+        await Task.Delay(2000);
+
+        var bingoIndexData = await _bingoIndexRepository.GetAsync(HashHelper.ComputeFrom("PlayId").ToHex());
+        bingoIndexData.ShouldNotBeNull();
+        bingoIndexData.BingoBlockHeight.ShouldBe(blockHeight);
+        bingoIndexData.PlayBlockHeight.ShouldBe(blockHeight);
+        bingoIndexData.ChainId.ShouldBe(chainId);
+        
+        var transationData = await _caHolderTransactionRepository.GetAsync(IdGenerateHelper.GetId(blockHash, transactionId));
+        transationData.ShouldNotBeNull();
+        transationData.MethodName.ShouldBe("BeanGoTown-Bingo");
     }
 }
