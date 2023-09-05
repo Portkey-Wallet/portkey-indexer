@@ -15,11 +15,13 @@ public class ManagerApprovedLogEventProcessor : AElfLogEventProcessorBase<Manage
     private readonly IAElfIndexerClientEntityRepository<ManagerApprovedIndex, LogEventInfo> _repository;
     private readonly ContractInfoOptions _contractInfoOptions;
     private readonly IObjectMapper _objectMapper;
+    private readonly ILogger<ManagerApprovedLogEventProcessor> _logger;
 
     public ManagerApprovedLogEventProcessor(ILogger<ManagerApprovedLogEventProcessor> logger,
         IObjectMapper objectMapper, IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IAElfIndexerClientEntityRepository<ManagerApprovedIndex, LogEventInfo> repository) : base(logger)
     {
+        _logger = logger;
         _objectMapper = objectMapper;
         _repository = repository;
         _contractInfoOptions = contractInfoOptions.Value;
@@ -50,5 +52,7 @@ public class ManagerApprovedLogEventProcessor : AElfLogEventProcessorBase<Manage
             _objectMapper.Map(context, index);
             await _repository.AddOrUpdateAsync(index);
         }
+
+        _logger.LogDebug("[ManagerApproved]id: {id} transactionId: {transactionId}", indexId, context.TransactionId);
     }
 }

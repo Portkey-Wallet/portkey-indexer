@@ -14,6 +14,7 @@ public class TransferLimitChangedLogEventProcessor : AElfLogEventProcessorBase<T
     private readonly IAElfIndexerClientEntityRepository<TransferLimitIndex, LogEventInfo> _repository;
     private readonly ContractInfoOptions _contractInfoOptions;
     private readonly IObjectMapper _objectMapper;
+    private readonly ILogger<TransferLimitChangedLogEventProcessor> _processorLogger;
 
     public TransferLimitChangedLogEventProcessor(ILogger<TransferLimitChangedLogEventProcessor> logger,
         IObjectMapper objectMapper, IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
@@ -21,6 +22,7 @@ public class TransferLimitChangedLogEventProcessor : AElfLogEventProcessorBase<T
     {
         _objectMapper = objectMapper;
         _repository = repository;
+        _processorLogger = logger;
         _contractInfoOptions = contractInfoOptions.Value;
     }
 
@@ -47,5 +49,8 @@ public class TransferLimitChangedLogEventProcessor : AElfLogEventProcessorBase<T
             _objectMapper.Map(context, index);
             await _repository.AddOrUpdateAsync(index);
         }
+
+        _processorLogger.LogDebug("[TransferLimitChanged] id: {indexId} CaHash:{CaHash}", index,
+            eventValue.CaHash.ToHex());
     }
 }
