@@ -831,6 +831,45 @@ public class Query
         return pageResult;
     }
 
+    [Name("caHolderTransferLimit")]
+    public static async Task<CAHolderTransferLimitResultDto> CAHolderTransferLimit(
+        [FromServices] IAElfIndexerClientEntityRepository<TransferLimitIndex, LogEventInfo> repository,
+        [FromServices] IObjectMapper objectMapper, GetCAHolderTransferLimitDto dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<TransferLimitIndex>, QueryContainer>>();
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.CaHash).Value(dto.CAHash)));
+        QueryContainer Filter(QueryContainerDescriptor<TransferLimitIndex> f) => f.Bool(b => b.Must(mustQuery));
+        var (_, res) = await repository.GetListAsync(Filter);
+        var result = new CAHolderTransferLimitResultDto
+        {
+            TotalRecordCount = res.Count,
+            Data = objectMapper.Map<List<TransferLimitIndex>, List<CAHolderTransferlimitDto>>(res)
+        };
+        return result;
+    }
+
+    [Name("caHolderManagerApproved")]
+    public static async Task<CAHolderManagerApprovedPageResultDto> CAHolderManagerApproved(
+        [FromServices] IAElfIndexerClientEntityRepository<ManagerApprovedIndex, LogEventInfo> repository,
+        [FromServices] IObjectMapper objectMapper, GetCAHolderManagerApprovedDto dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<ManagerApprovedIndex>, QueryContainer>>();
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.ChainId).Value(dto.ChainId)));
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.CaHash).Value(dto.CAHash)));
+        if (!string.IsNullOrEmpty(dto.Spender))
+            mustQuery.Add(q => q.Term(i => i.Field(f => f.Spender).Value(dto.Spender)));
+        if (!string.IsNullOrEmpty(dto.Symbol))
+            mustQuery.Add(q => q.Term(i => i.Field(f => f.Symbol).Value(dto.Symbol)));
+        QueryContainer Filter(QueryContainerDescriptor<ManagerApprovedIndex> f) => f.Bool(b => b.Must(mustQuery));
+        var (_, res) = await repository.GetListAsync(Filter, skip: dto.SkipCount, limit: dto.MaxResultCount);
+        var result = new CAHolderManagerApprovedPageResultDto
+        {
+            TotalRecordCount = res.Count,
+            Data = objectMapper.Map<List<ManagerApprovedIndex>, List<CAHolderManagerApprovedDto>>(res)
+        };
+        return result;
+    }
+
     public static async Task<SyncStateDto> SyncState(
         [FromServices] IClusterClient clusterClient, [FromServices] IAElfIndexerClientInfoProvider clientInfoProvider,
         [FromServices] IObjectMapper objectMapper, GetSyncStateDto dto)

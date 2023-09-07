@@ -87,6 +87,10 @@ public class TestGraphQLAutoMapperProfile : Profile
         // CreateMap<NFTInfoIndex, NFTSearchInfo>();
         // CreateMap<TokenSearchInfo, TokenSearchInfoDto>();
         // CreateMap<NFTSearchInfo, NFTSearchInfoDto>();
+        CreateMap<TransferLimitIndex, CAHolderTransferlimitDto>();
+        CreateMap<LogEventContext, TransferLimitIndex>();
+        CreateMap<ManagerApprovedIndex, CAHolderManagerApprovedDto>();
+        CreateMap<LogEventContext, ManagerApprovedIndex>();
         CreateMap<GuardianChangeRecordIndex, GuardianChangeRecordDto>();
     }
 }
