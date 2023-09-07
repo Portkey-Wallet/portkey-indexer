@@ -865,4 +865,25 @@ public class Query
             Data = objectMapper.Map<List<CAHolderIndex>, List<CAHolderInfoDto>>(holders.Item2)
         };
     }
+    
+    [Name("guardianChangeRecordInfo")]
+    public static async Task<List<GuardianChangeRecordDto>> GuardianChangeRecordInfo(
+        [FromServices] IAElfIndexerClientEntityRepository<GuardianChangeRecordIndex, LogEventInfo> repository,
+        [FromServices] IObjectMapper objectMapper, GetGuardianChangeRecordDto dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<GuardianChangeRecordIndex>, QueryContainer>>();
+
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.ChainId).Value(dto.ChainId)));
+        // mustQuery.Add(q => q.Term(i => i.Field(f => f.CAAddress).Value(dto.CAHash)));
+        mustQuery.Add(q => q.Range(i => i.Field(f => f.BlockHeight).GreaterThanOrEquals(dto.StartBlockHeight)));
+        mustQuery.Add(q => q.Range(i => i.Field(f => f.BlockHeight).LessThanOrEquals(dto.EndBlockHeight)));
+
+        QueryContainer Filter(QueryContainerDescriptor<GuardianChangeRecordIndex> f) =>
+            f.Bool(b => b.Must(mustQuery));
+
+        var result = await repository.GetListAsync(Filter, sortExp: k => k.BlockHeight,
+            sortType: SortOrder.Ascending, skip: 0, limit: 10000);
+        return objectMapper.Map<List<GuardianChangeRecordIndex>, List<GuardianChangeRecordDto>>(
+            result.Item2);
+    }
 }

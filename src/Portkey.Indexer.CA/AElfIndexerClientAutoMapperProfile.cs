@@ -87,6 +87,7 @@ public class TestGraphQLAutoMapperProfile : Profile
         // CreateMap<NFTInfoIndex, NFTSearchInfo>();
         // CreateMap<TokenSearchInfo, TokenSearchInfoDto>();
         // CreateMap<NFTSearchInfo, NFTSearchInfoDto>();
+        CreateMap<GuardianChangeRecordIndex, GuardianChangeRecordDto>();
     }
 }
 

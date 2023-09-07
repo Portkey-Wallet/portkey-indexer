@@ -14,8 +14,10 @@ public class GuardianAddedLogEventProcessor : GuardianProcessorBase<GuardianAdde
 {
     public GuardianAddedLogEventProcessor(ILogger<GuardianAddedLogEventProcessor> logger,
         IObjectMapper objectMapper, IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
-        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base(logger, objectMapper, repository,
-        contractInfoOptions)
+        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
+        IAElfIndexerClientEntityRepository<GuardianChangeRecordIndex, LogEventInfo> changeRecordRepository) : base(
+        logger, objectMapper, repository,
+        contractInfoOptions, changeRecordRepository)
     {
     }
 
@@ -40,10 +42,13 @@ public class GuardianAddedLogEventProcessor : GuardianProcessorBase<GuardianAdde
 
         if (guardian != null) return;
 
-        caHolderIndex.Guardians.Add(
-            ObjectMapper.Map<Guardian, Entities.Guardian>(eventValue.GuardianAdded_));
+        var guardianAdded = ObjectMapper.Map<Guardian, Entities.Guardian>(eventValue.GuardianAdded_);
+        caHolderIndex.Guardians.Add(guardianAdded);
 
         ObjectMapper.Map(context, caHolderIndex);
         await Repository.AddOrUpdateAsync(caHolderIndex);
+        
+        await AddChangeRecordAsync(eventValue.CaAddress.ToBase58(), eventValue.CaHash.ToHex(), nameof(GuardianAdded),
+            nameof(GuardianAdded), guardianAdded, context);
     }
 }
