@@ -36,19 +36,16 @@ public class TransferLimitChangedLogEventProcessor : AElfLogEventProcessorBase<T
         var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.CaHash.ToHex(), nameof(TransferLimitChanged),
             eventValue.Symbol);
         var index = await _repository.GetFromBlockStateSetAsync(indexId, context.ChainId);
-        if (index == null)
+        index = new TransferLimitIndex
         {
-            index = new TransferLimitIndex
-            {
-                Id = indexId,
-                CaHash = eventValue.CaHash.ToHex(),
-                Symbol = eventValue.Symbol,
-                SingleLimit = eventValue.SingleLimit,
-                DailyLimit = eventValue.DailyLimit
-            };
-            _objectMapper.Map(context, index);
-            await _repository.AddOrUpdateAsync(index);
-        }
+            Id = indexId,
+            CaHash = eventValue.CaHash.ToHex(),
+            Symbol = eventValue.Symbol,
+            SingleLimit = eventValue.SingleLimit,
+            DailyLimit = eventValue.DailyLimit
+        };
+        _objectMapper.Map(context, index);
+        await _repository.AddOrUpdateAsync(index);
 
         _processorLogger.LogDebug("[TransferLimitChanged] id: {indexId} CaHash:{CaHash}", index,
             eventValue.CaHash.ToHex());
