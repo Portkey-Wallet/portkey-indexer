@@ -46,7 +46,7 @@ public class GuardianRemovedLogEventProcessor : GuardianProcessorBase<GuardianRe
         ObjectMapper.Map(context, caHolderIndex);
         await Repository.AddOrUpdateAsync(caHolderIndex);
 
-        await AddChangeRecordAsync(eventValue.CaAddress.ToBase58(), eventValue.CaHash.ToHex(), nameof(GuardianRemoved),
+        await AddChangeRecordAsync(eventValue.CaAddress.ToBase58(), eventValue.CaHash.ToHex(), eventValue.GuardiansMerkleTreeRoot,
             nameof(GuardianRemoved), ObjectMapper.Map<Guardian, Entities.Guardian>(eventValue.GuardianRemoved_),
             context);
     }

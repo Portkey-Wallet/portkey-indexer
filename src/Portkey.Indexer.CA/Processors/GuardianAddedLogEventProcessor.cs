@@ -48,7 +48,7 @@ public class GuardianAddedLogEventProcessor : GuardianProcessorBase<GuardianAdde
         ObjectMapper.Map(context, caHolderIndex);
         await Repository.AddOrUpdateAsync(caHolderIndex);
         
-        await AddChangeRecordAsync(eventValue.CaAddress.ToBase58(), eventValue.CaHash.ToHex(), nameof(GuardianAdded),
+        await AddChangeRecordAsync(eventValue.CaAddress.ToBase58(), eventValue.CaHash.ToHex(), eventValue.GuardiansMerkleTreeRoot,
             nameof(GuardianAdded), guardianAdded, context);
     }
 }
