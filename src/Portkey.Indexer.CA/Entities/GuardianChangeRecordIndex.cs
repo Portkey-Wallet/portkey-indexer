@@ -10,7 +10,6 @@ public class GuardianChangeRecordIndex : AElfIndexerClientEntity<string>, IIndex
 
     [Keyword] public string CAHash { get; set; }
     [Keyword] public string CAAddress { get; set; }
-    [Keyword] public string GuardiansMerkleTreeRoot { get; set; }
     [Keyword] public string ChangeType { get; set; }
 
     public Guardian Guardian { get; set; }

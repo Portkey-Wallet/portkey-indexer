@@ -29,17 +29,15 @@ public abstract class GuardianProcessorBase<TEvent> : AElfLogEventProcessorBase<
         ChangeRecordRepository = changeRecordRepository;
     }
 
-    protected async Task AddChangeRecordAsync(string caAddress, string caHash, string guardiansMerkleTreeRoot,
+    protected async Task AddChangeRecordAsync(string caAddress, string caHash,
         string changeType, Guardian guardian, LogEventContext context)
     {
-        var changeRecordId = IdGenerateHelper.GetId(context.ChainId, caAddress,
-            guardiansMerkleTreeRoot, context.TransactionId);
+        var changeRecordId = IdGenerateHelper.GetId(context.ChainId, caAddress, context.TransactionId);
         var changeRecordIndex = await ChangeRecordRepository.GetFromBlockStateSetAsync(changeRecordId, context.ChainId);
         if (changeRecordIndex != null) return;
         changeRecordIndex = new GuardianChangeRecordIndex
         {
             Id = changeRecordId,
-            GuardiansMerkleTreeRoot = guardiansMerkleTreeRoot,
             ChangeType = changeType,
             CAAddress = caAddress,
             CAHash = caHash,

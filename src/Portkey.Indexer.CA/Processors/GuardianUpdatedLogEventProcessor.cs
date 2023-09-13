@@ -46,8 +46,7 @@ public class GuardianUpdatedLogEventProcessor : GuardianProcessorBase<GuardianUp
         ObjectMapper.Map(context, caHolderIndex);
         await Repository.AddOrUpdateAsync(caHolderIndex);
 
-        await AddChangeRecordAsync(eventValue.CaAddress.ToBase58(), eventValue.CaHash.ToHex(), eventValue.GuardiansMerkleTreeRoot,
-            nameof(GuardianUpdated), ObjectMapper.Map<Guardian, Entities.Guardian>(eventValue.GuardianUpdatedNew),
-            context);
+        await AddChangeRecordAsync(eventValue.CaAddress.ToBase58(), eventValue.CaHash.ToHex(), nameof(GuardianUpdated),
+            ObjectMapper.Map<Guardian, Entities.Guardian>(eventValue.GuardianUpdatedNew), context);
     }
 }
