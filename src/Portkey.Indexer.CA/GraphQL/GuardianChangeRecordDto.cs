@@ -11,7 +11,7 @@ public class GuardianChangeRecordDto
     
     [Name("caAddress")]
     public string CAAddress { get; set; }
-    public string GuardiansMerkleTreeRoot { get; set; }
+
     public string ChangeType { get; set; }
     public GuardianDto Guardian { get; set; }
     
