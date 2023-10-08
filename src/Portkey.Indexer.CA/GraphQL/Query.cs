@@ -870,6 +870,25 @@ public class Query
         return result;
     }
 
+    [Name("transferSecurityThresholdList")]
+    public static async Task<TransferSecurityThresholdPageResultDto> TransferSecurityThresholdList(
+        [FromServices] IAElfIndexerClientEntityRepository<TransferSecurityThresholdIndex, LogEventInfo> repository,
+        [FromServices] IObjectMapper objectMapper, GetTransferSecurityThresholdChangedDto dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<TransferSecurityThresholdIndex>, QueryContainer>>();
+
+        QueryContainer Filter(QueryContainerDescriptor<TransferSecurityThresholdIndex> f) =>
+            f.Bool(b => b.Must(mustQuery));
+
+        var (_, res) = await repository.GetListAsync(Filter, skip: dto.SkipCount, limit: dto.MaxResultCount);
+        var result = new TransferSecurityThresholdPageResultDto
+        {
+            TotalRecordCount = res.Count,
+            Data = objectMapper.Map<List<TransferSecurityThresholdIndex>, List<TransferSecurityThresholdDto>>(res)
+        };
+        return result;
+    }
+
     public static async Task<SyncStateDto> SyncState(
         [FromServices] IClusterClient clusterClient, [FromServices] IAElfIndexerClientInfoProvider clientInfoProvider,
         [FromServices] IObjectMapper objectMapper, GetSyncStateDto dto)

@@ -12,5 +12,4 @@ public class ManagerApprovedIndex : AElfIndexerClientEntity<string>, IIndexBuild
     [Keyword] public string CaHash { get; set; }
     [Keyword] public string Spender { get; set; }
     public long Amount { get; set; }
-    public string External { get; set; }
 }

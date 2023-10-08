@@ -45,9 +45,6 @@ public class ManagerApprovedLogEventProcessor : AElfLogEventProcessorBase<Manage
                 Spender = eventValue.Spender.ToBase58(),
                 Symbol = eventValue.Symbol,
                 Amount = eventValue.Amount,
-                External = eventValue.External == null || eventValue.External.Value.Count == 0
-                    ? ""
-                    : JsonSerializer.Serialize(eventValue.External.Value)
             };
             _objectMapper.Map(context, index);
             await _repository.AddOrUpdateAsync(index);
