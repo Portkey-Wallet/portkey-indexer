@@ -14,6 +14,8 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
     private readonly IAElfIndexerClientEntityRepository<TransactionFeeChangedIndex, LogEventInfo>
         _transactionFeeChangedIndexRepository;
 
+    private readonly ILogger<TransactionFeeChargedLogEventProcessor> _processorLogger;
+
     private readonly IObjectMapper _objectMapper;
 
     public TransactionFeeChargedLogEventProcessor(ILogger<TransactionFeeChargedLogEventProcessor> logger,
@@ -30,7 +32,8 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
         IAElfIndexerClientEntityRepository<CAHolderNFTCollectionBalanceIndex, LogEventInfo>
             caHolderNFTCollectionBalanceIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, LogEventInfo> caHolderNFTBalanceIndexRepository,
-        IObjectMapper objectMapper) : base(logger, contractInfoOptions,
+        IObjectMapper objectMapper, ILogger<TransactionFeeChargedLogEventProcessor> processorLogger) : base(logger,
+        contractInfoOptions,
         caHolderIndexRepository, tokenInfoIndexRepository, nftCollectionInfoRepository, nftInfoRepository,
         caHolderSearchTokenNFTRepository,
         caHolderTokenBalanceIndexRepository, caHolderNFTCollectionBalanceIndexRepository,
@@ -38,6 +41,7 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
     {
         _transactionFeeChangedIndexRepository = transactionFeeChangedIndexRepository;
         _objectMapper = objectMapper;
+        _processorLogger = processorLogger;
     }
 
     public override string GetContractAddress(string chainId)
@@ -51,9 +55,10 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
         var caHolderIndex = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(
             context.ChainId, eventValue.ChargingAddress.ToBase58()), context.ChainId);
 
+        var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.ChargingAddress, context.BlockHash);
         var transactionFeeChangedIndex = new TransactionFeeChangedIndex
         {
-            Id = IdGenerateHelper.GetId(context.ChainId, eventValue.ChargingAddress, context.BlockHash),
+            Id = indexId,
             ConsumerAddress = eventValue.ChargingAddress.ToBase58(),
             CAAddress = caHolderIndex.CAAddress,
         };
@@ -65,5 +70,8 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
         {
             await ModifyBalanceAsync(caHolderIndex.CAAddress, eventValue.Symbol, -eventValue.Amount, context);
         }
+
+        _processorLogger.LogDebug("[TransactionFeeCharged] id: {indexId} TransactionId:{TransactionId}", indexId,
+            transactionFeeChangedIndex.TransactionId);
     }
 }
