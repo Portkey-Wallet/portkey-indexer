@@ -28,6 +28,7 @@ public class TransactionFeeChargedLogEventProcessorTests : PortkeyIndexerCATestB
         const long blockHeight = 100;
         var transactionFeeChargedLogEventProcessor = GetRequiredService<TransactionFeeChargedLogEventProcessor>();
         
+        
         var blockStateSet = new BlockStateSet<LogEventInfo>
         {
             BlockHash = blockHash,
