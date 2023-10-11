@@ -37,6 +37,7 @@ public class CAHolderTransactionDto
     public string FromAddress { get; set; }
     
     public List<TransactionFee> TransactionFees { get; set; }
+    public bool IsManagerConsumer { get; set; } = false;
 }
 
 public class TransactionFee
