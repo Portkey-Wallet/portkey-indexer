@@ -48,22 +48,24 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
     protected override async Task HandleEventAsync(TransactionFeeCharged eventValue, LogEventContext context)
     {
         if (eventValue.ChargingAddress == null) return;
-        var caHolderIndex = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(
-            context.ChainId, eventValue.ChargingAddress.ToBase58()), context.ChainId);
 
+        var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.ChargingAddress, context.BlockHash);
         var transactionFeeChangedIndex = new TransactionFeeChangedIndex
         {
-            Id = IdGenerateHelper.GetId(context.ChainId, eventValue.ChargingAddress, context.BlockHash),
+            Id = indexId,
             ConsumerAddress = eventValue.ChargingAddress.ToBase58(),
-            CAAddress = caHolderIndex.CAAddress,
         };
         _objectMapper.Map(eventValue, transactionFeeChangedIndex);
         _objectMapper.Map(context, transactionFeeChangedIndex);
-        await _transactionFeeChangedIndexRepository.AddOrUpdateAsync(transactionFeeChangedIndex);
 
+        var caHolderIndex = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(
+            context.ChainId, eventValue.ChargingAddress.ToBase58()), context.ChainId);
         if (caHolderIndex != null)
         {
+            transactionFeeChangedIndex.CAAddress = caHolderIndex.CAAddress;
             await ModifyBalanceAsync(caHolderIndex.CAAddress, eventValue.Symbol, -eventValue.Amount, context);
         }
+
+        await _transactionFeeChangedIndexRepository.AddOrUpdateAsync(transactionFeeChangedIndex);
     }
 }

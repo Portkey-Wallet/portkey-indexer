@@ -154,8 +154,8 @@ public class Query
                 f.Bool(b => b.Must(query));
 
             var transactionFee = await transactionFeeRepository.GetAsync(TransactionFeeFilter);
-            if (transactionFee == null || string.IsNullOrEmpty(transactionFee.CAAddress)) continue;
-            if (transactionFee.CAAddress != transactionFee.ConsumerAddress) transaction.IsManagerConsumer = true;
+            if (transactionFee == null || string.IsNullOrEmpty(transactionFee.CAAddress))
+                transaction.IsManagerConsumer = true;
         }
 
         var pageResult = new CAHolderTransactionPageResultDto
