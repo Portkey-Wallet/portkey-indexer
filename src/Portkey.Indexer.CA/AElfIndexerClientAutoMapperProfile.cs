@@ -73,6 +73,7 @@ public class TestGraphQLAutoMapperProfile : Profile
         CreateMap<BingoGameIndex, BingoInfo>();
         CreateMap<BingoGameStaticsIndex, BingoStatics>();
         CreateMap<LogEventContext, BingoGameIndex>();
+        CreateMap<LogEventContext, BeangoTownIndex>();
         CreateMap<LogEventContext, BingoGameStaticsIndex>();
 
 

@@ -70,6 +70,16 @@ public class Query
             mustQuery.Add(q => q.Range(i => i.Field(f => f.BlockHeight).LessThanOrEquals(dto.EndBlockHeight)));
         }
 
+        if (dto.StartTime > 0)
+        {
+            mustQuery.Add(q => q.Range(i => i.Field(f => f.Timestamp).GreaterThanOrEquals(dto.StartTime)));
+        }
+        
+        if (dto.EndTime > 0)
+        {
+            mustQuery.Add(q => q.Range(i => i.Field(f => f.Timestamp).LessThanOrEquals(dto.EndTime)));
+        }
+
         mustQuery.Add(q => q.Term(i => i.Field(f => f.TokenInfo.Symbol).Value(dto.Symbol)));
         mustQuery.Add(q => q.Term(i => i.Field(f => f.BlockHash).Value(dto.BlockHash)));
         mustQuery.Add(q => q.Term(i => i.Field(f => f.TransactionId).Value(dto.TransactionId)));
@@ -902,6 +912,25 @@ public class Query
         return new SyncStateDto
         {
             ConfirmedBlockHeight = confirmedHeight
+        };
+    }
+
+    [Name("guardianAddedCAHolderInfo")]
+    public static async Task<GuardianAddedCAHolderInfoResultDto> GuardianAddedCAHolderInfo(
+        [FromServices] IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
+        [FromServices] IObjectMapper objectMapper, GetGuardianAddedCAHolderInfo dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderIndex>, QueryContainer>>();
+        mustQuery.Add(q => q.Terms(t => t.Field("Guardians.identifierHash").Terms(dto.LoginGuardianIdentifierHash)));
+
+        QueryContainer Filter(QueryContainerDescriptor<CAHolderIndex> f) => f.Bool(b => b.Must(mustQuery));
+
+        var holders = await repository.GetListAsync(Filter, skip: dto.SkipCount, limit: dto.MaxResultCount);
+        
+        return new GuardianAddedCAHolderInfoResultDto()
+        {
+            TotalRecordCount = holders.Item1,
+            Data = objectMapper.Map<List<CAHolderIndex>, List<CAHolderInfoDto>>(holders.Item2)
         };
     }
 }

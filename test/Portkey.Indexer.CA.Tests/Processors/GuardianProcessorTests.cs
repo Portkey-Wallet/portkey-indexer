@@ -7,9 +7,11 @@ using AElfIndexer.Grains.State.Client;
 using Nethereum.Hex.HexConvertors.Extensions;
 using Portkey.Contracts.CA;
 using Portkey.Indexer.CA.Entities;
+using Portkey.Indexer.CA.GraphQL;
 using Portkey.Indexer.CA.Processors;
 using Portkey.Indexer.CA.Tests.Helper;
 using Shouldly;
+using Volo.Abp.ObjectMapping;
 using Xunit;
 
 namespace Portkey.Indexer.CA.Tests.Processors;
@@ -20,12 +22,14 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
 
     private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, LogEventInfo>
         _caHolderTransactionRepository;
-    
+    private readonly IObjectMapper _objectMapper;
     public GuardianProcessorTests()
     {
         _caHolderIndexRepository = GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo>>();
         _caHolderTransactionRepository =
             GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, LogEventInfo>>();
+        
+        _objectMapper = GetRequiredService<IObjectMapper>();
     }
     
     [Fact]
@@ -353,5 +357,19 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
         await Task.Delay(2000);
+    }
+    
+    [Fact]
+    public async Task Query_GuardianAddedCAHolderInfo_Test()
+    {
+        await HandleGuardianAddedLogEventAsync_Test();
+        await Task.Delay(1000);
+        var param = new GetGuardianAddedCAHolderInfo()
+        {
+            LoginGuardianIdentifierHash = HashHelper.ComputeFrom("yangtze.cn").ToHex()
+        };
+        var result = await Query.GuardianAddedCAHolderInfo(_caHolderIndexRepository, _objectMapper, param);
+        result.TotalRecordCount.ShouldBe(1);
+        result.Data.FirstOrDefault().CAAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
     }
 }
