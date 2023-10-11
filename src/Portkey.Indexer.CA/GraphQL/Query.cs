@@ -55,6 +55,8 @@ public class Query
     [Name("caHolderTransaction")]
     public static async Task<CAHolderTransactionPageResultDto> CAHolderTransaction(
         [FromServices] IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> repository,
+        [FromServices]
+        IAElfIndexerClientEntityRepository<TransactionFeeChangedIndex, LogEventInfo> transactionFeeRepository,
         [FromServices] IObjectMapper objectMapper, GetCAHolderTransactionDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>();
@@ -74,7 +76,7 @@ public class Query
         {
             mustQuery.Add(q => q.Range(i => i.Field(f => f.Timestamp).GreaterThanOrEquals(dto.StartTime)));
         }
-        
+
         if (dto.EndTime > 0)
         {
             mustQuery.Add(q => q.Range(i => i.Field(f => f.Timestamp).LessThanOrEquals(dto.EndTime)));
@@ -141,6 +143,20 @@ public class Query
         var result = await repository.GetListAsync(Filter, sortExp: k => k.Timestamp,
             sortType: SortOrder.Descending, skip: dto.SkipCount, limit: dto.MaxResultCount);
         var dataList = objectMapper.Map<List<CAHolderTransactionIndex>, List<CAHolderTransactionDto>>(result.Item2);
+
+        foreach (var transaction in dataList)
+        {
+            if (string.IsNullOrEmpty(transaction.TransactionId)) continue;
+            var query = new List<Func<QueryContainerDescriptor<TransactionFeeChangedIndex>, QueryContainer>>
+                { q => q.Term(i => i.Field(f => f.TransactionId).Value(transaction.TransactionId)) };
+
+            QueryContainer TransactionFeeFilter(QueryContainerDescriptor<TransactionFeeChangedIndex> f) =>
+                f.Bool(b => b.Must(query));
+
+            var transactionFee = await transactionFeeRepository.GetAsync(TransactionFeeFilter);
+            if (transactionFee == null || string.IsNullOrEmpty(transactionFee.CAAddress)) continue;
+            if (transactionFee.CAAddress != transactionFee.ConsumerAddress) transaction.IsManagerConsumer = true;
+        }
 
         var pageResult = new CAHolderTransactionPageResultDto
         {
@@ -926,7 +942,7 @@ public class Query
         QueryContainer Filter(QueryContainerDescriptor<CAHolderIndex> f) => f.Bool(b => b.Must(mustQuery));
 
         var holders = await repository.GetListAsync(Filter, skip: dto.SkipCount, limit: dto.MaxResultCount);
-        
+
         return new GuardianAddedCAHolderInfoResultDto()
         {
             TotalRecordCount = holders.Item1,
