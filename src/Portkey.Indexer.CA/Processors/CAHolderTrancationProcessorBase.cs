@@ -33,6 +33,8 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
     protected readonly ContractInfoOptions ContractInfoOptions;
     protected readonly CAHolderTransactionInfoOptions CAHolderTransactionInfoOptions;
     protected readonly IObjectMapper ObjectMapper;
+    private const string FullAddressPrefix = "ELF";
+    private const char FullAddressSeparator = '_';
 
     protected CAHolderTransactionProcessorBase(ILogger<CAHolderTransactionProcessorBase<TEvent>> logger,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
@@ -158,5 +160,21 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
         await CAHolderTransactionIndexRepository.AddOrUpdateAsync(index);
 
         return holder.CAAddress;
+    }
+    
+    protected long GetFeeAmount(Dictionary<string, string> extraProperties)
+    {
+        var feeMap = GetTransactionFee(extraProperties);
+        if (feeMap.TryGetValue("ELF", out var value))
+        {
+            return value;
+        }
+
+        return 0;
+    }
+    
+    public static string ToFullAddress(string address, string chainId)
+    {
+        return string.Join(FullAddressSeparator, FullAddressPrefix, address, chainId);
     }
 }

@@ -70,6 +70,16 @@ public class Query
             mustQuery.Add(q => q.Range(i => i.Field(f => f.BlockHeight).LessThanOrEquals(dto.EndBlockHeight)));
         }
 
+        if (dto.StartTime > 0)
+        {
+            mustQuery.Add(q => q.Range(i => i.Field(f => f.Timestamp).GreaterThanOrEquals(dto.StartTime)));
+        }
+        
+        if (dto.EndTime > 0)
+        {
+            mustQuery.Add(q => q.Range(i => i.Field(f => f.Timestamp).LessThanOrEquals(dto.EndTime)));
+        }
+
         mustQuery.Add(q => q.Term(i => i.Field(f => f.TokenInfo.Symbol).Value(dto.Symbol)));
         mustQuery.Add(q => q.Term(i => i.Field(f => f.BlockHash).Value(dto.BlockHash)));
         mustQuery.Add(q => q.Term(i => i.Field(f => f.TransactionId).Value(dto.TransactionId)));
@@ -866,6 +876,25 @@ public class Query
         {
             TotalRecordCount = res.Count,
             Data = objectMapper.Map<List<ManagerApprovedIndex>, List<CAHolderManagerApprovedDto>>(res)
+        };
+        return result;
+    }
+
+    [Name("transferSecurityThresholdList")]
+    public static async Task<TransferSecurityThresholdPageResultDto> TransferSecurityThresholdList(
+        [FromServices] IAElfIndexerClientEntityRepository<TransferSecurityThresholdIndex, LogEventInfo> repository,
+        [FromServices] IObjectMapper objectMapper, GetTransferSecurityThresholdChangedDto dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<TransferSecurityThresholdIndex>, QueryContainer>>();
+
+        QueryContainer Filter(QueryContainerDescriptor<TransferSecurityThresholdIndex> f) =>
+            f.Bool(b => b.Must(mustQuery));
+
+        var (_, res) = await repository.GetListAsync(Filter, skip: dto.SkipCount, limit: dto.MaxResultCount);
+        var result = new TransferSecurityThresholdPageResultDto
+        {
+            TotalRecordCount = res.Count,
+            Data = objectMapper.Map<List<TransferSecurityThresholdIndex>, List<TransferSecurityThresholdDto>>(res)
         };
         return result;
     }

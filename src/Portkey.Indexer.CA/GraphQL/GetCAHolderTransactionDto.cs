@@ -23,4 +23,7 @@ public class GetCAHolderTransactionDto : PagedResultRequestDto
     public string TransferTransactionId { get; set; }
 
     public List<string> MethodNames { get; set; } = new();
+    
+    public long? StartTime { get; set; }
+    public long? EndTime { get; set; }
 }

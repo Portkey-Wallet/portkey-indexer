@@ -33,6 +33,8 @@ public class TestGraphQLAutoMapperProfile : Profile
         CreateMap<LogEventContext, CAHolderSearchTokenNFTIndex>();
         CreateMap<LogEventContext, CAHolderManagerIndex>();
         CreateMap<LogEventContext, GuardianChangeRecordIndex>();
+        CreateMap<LogEventContext, TransferLimitIndex>();
+        CreateMap<LogEventContext, TransferSecurityThresholdIndex>();
 
         CreateMap<TokenInfo, TokenInfoIndex>();
         CreateMap<TokenInfoIndex, TokenInfoDto>();
@@ -73,6 +75,7 @@ public class TestGraphQLAutoMapperProfile : Profile
         CreateMap<BingoGameIndex, BingoInfo>();
         CreateMap<BingoGameStaticsIndex, BingoStatics>();
         CreateMap<LogEventContext, BingoGameIndex>();
+        CreateMap<LogEventContext, BeangoTownIndex>();
         CreateMap<LogEventContext, BingoGameStaticsIndex>();
 
 
@@ -89,6 +92,7 @@ public class TestGraphQLAutoMapperProfile : Profile
         // CreateMap<TokenSearchInfo, TokenSearchInfoDto>();
         // CreateMap<NFTSearchInfo, NFTSearchInfoDto>();
         CreateMap<TransferLimitIndex, CAHolderTransferlimitDto>();
+        CreateMap<TransferSecurityThresholdIndex, TransferSecurityThresholdDto>();
         CreateMap<LogEventContext, TransferLimitIndex>();
         CreateMap<ManagerApprovedIndex, CAHolderManagerApprovedDto>();
         CreateMap<LogEventContext, ManagerApprovedIndex>();

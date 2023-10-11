@@ -14,6 +14,27 @@ using aelf = global::AElf.CSharp.Core;
 namespace Portkey.Contracts.CA {
 
   #region Events
+  public partial class ManagerApproved : aelf::IEvent<ManagerApproved>
+  {
+    public global::System.Collections.Generic.IEnumerable<ManagerApproved> GetIndexed()
+    {
+      return new List<ManagerApproved>
+      {
+      };
+    }
+
+    public ManagerApproved GetNonIndexed()
+    {
+      return new ManagerApproved
+      {
+        CaHash = CaHash,
+        Spender = Spender,
+        Symbol = Symbol,
+        Amount = Amount,
+      };
+    }
+  }
+
   public partial class DefaultTokenTransferLimitChanged : aelf::IEvent<DefaultTokenTransferLimitChanged>
   {
     public global::System.Collections.Generic.IEnumerable<DefaultTokenTransferLimitChanged> GetIndexed()
@@ -49,6 +70,59 @@ namespace Portkey.Contracts.CA {
         MethodName = MethodName,
         Address = Address,
         Forbidden = Forbidden,
+      };
+    }
+  }
+
+  public partial class TransferLimitChanged : aelf::IEvent<TransferLimitChanged>
+  {
+    public global::System.Collections.Generic.IEnumerable<TransferLimitChanged> GetIndexed()
+    {
+      return new List<TransferLimitChanged>
+      {
+      new TransferLimitChanged
+      {
+        CaHash = CaHash
+      },
+      new TransferLimitChanged
+      {
+        Symbol = Symbol
+      },
+      new TransferLimitChanged
+      {
+        SingleLimit = SingleLimit
+      },
+      new TransferLimitChanged
+      {
+        DailyLimit = DailyLimit
+      },
+      };
+    }
+
+    public TransferLimitChanged GetNonIndexed()
+    {
+      return new TransferLimitChanged
+      {
+      };
+    }
+  }
+
+  public partial class TransferSecurityThresholdChanged : aelf::IEvent<TransferSecurityThresholdChanged>
+  {
+    public global::System.Collections.Generic.IEnumerable<TransferSecurityThresholdChanged> GetIndexed()
+    {
+      return new List<TransferSecurityThresholdChanged>
+      {
+      };
+    }
+
+    public TransferSecurityThresholdChanged GetNonIndexed()
+    {
+      return new TransferSecurityThresholdChanged
+      {
+        Symbol = Symbol,
+        GuardianThreshold = GuardianThreshold,
+        BalanceThreshold = BalanceThreshold,
       };
     }
   }

@@ -248,6 +248,20 @@ public class PortkeyIndexerCATestModule : AbpModule
                 {
                     ChainId = "AELF",
                     ContractAddress = "CAAddress",
+                    MethodName = "Bingo",
+                    EventNames = new List<string> { "Bingoed" }
+                },
+                new ()
+                {
+                    ChainId = "AELF",
+                    ContractAddress = "CAAddress",
+                    MethodName = "Play",
+                    EventNames = new List<string> { "Played" }
+                },
+                new ()
+                {
+                    ChainId = "AELF",
+                    ContractAddress = "CAAddress",
                     MethodName = "Registered",
                     EventNames = new List<string> { "Registered" }
                 },
@@ -269,6 +283,11 @@ public class PortkeyIndexerCATestModule : AbpModule
                 new ()
                 {
                     ChainId = "AELF",
+                    CAContractAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToString(),
+                },
+                new ()
+                {
+                    ChainId = "tDVV",
                     CAContractAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToString(),
                 }
             };
