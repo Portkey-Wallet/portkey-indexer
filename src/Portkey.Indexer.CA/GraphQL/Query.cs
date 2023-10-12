@@ -443,7 +443,34 @@ public class Query
         QueryContainer Filter(QueryContainerDescriptor<CAHolderIndex> f) => f.Bool(b => b.Must(mustQuery));
 
         var result = await repository.GetListAsync(Filter, skip: dto.SkipCount, limit: dto.MaxResultCount);
+
+        if (result.Item1 > 0)
+        {
+            await AddOriginChainIdIfNullAsync(result.Item2, repository);
+        }
+
         return objectMapper.Map<List<CAHolderIndex>, List<CAHolderInfoDto>>(result.Item2);
+    }
+
+    private static async Task AddOriginChainIdIfNullAsync(List<CAHolderIndex> holders,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository)
+    {
+        foreach (var holder in holders.Where(holder => holder.OriginChainId.IsNullOrWhiteSpace()))
+        {
+            holder.OriginChainId = await GetOriginChainIdAsync(holder.CAHash, repository);
+        }
+    }
+
+    private static async Task<string> GetOriginChainIdAsync(string caHash,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderIndex>, QueryContainer>>();
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.CAHash).Value(caHash)));
+        QueryContainer Filter(QueryContainerDescriptor<CAHolderIndex> f) => f.Bool(b => b.Must(mustQuery));
+
+        var result = await repository.GetListAsync(Filter);
+
+        return result.Item2.FirstOrDefault(t => !t.OriginChainId.IsNullOrWhiteSpace())?.OriginChainId;
     }
 
     public static async Task<List<LoginGuardianDto>> LoginGuardianInfo(
