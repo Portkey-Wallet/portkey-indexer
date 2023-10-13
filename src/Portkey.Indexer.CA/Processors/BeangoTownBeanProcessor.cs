@@ -14,7 +14,7 @@ public class BeangoTownBeanProcessor : CAHolderTransactionProcessorBase<Bingoed>
 {
     private readonly IAElfIndexerClientEntityRepository<BeangoTownIndex, TransactionInfo> _bingoIndexRepository;
     private readonly string _methodName = "BeanGoTown-Bingo";
-    private readonly string _methodNameOrigin = "Bingo";
+    private readonly string _methodNameOrigin = "Play";
     private readonly ILogger<BeangoTownBeanProcessor> _logger;
 
     public BeangoTownBeanProcessor(ILogger<BeangoTownBeanProcessor> logger,
