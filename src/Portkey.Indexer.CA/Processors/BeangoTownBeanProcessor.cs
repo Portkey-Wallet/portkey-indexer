@@ -50,7 +50,7 @@ public class BeangoTownBeanProcessor : CAHolderTransactionProcessorBase<Bingoed>
             return;
         }
         // await ProcessCAHolderTransactionAsync(context, eventValue.PlayerAddress.ToBase58());
-        if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
+        //if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
         var holder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
             eventValue.PlayerAddress.ToBase58()), context.ChainId);
         if (holder == null) return;
