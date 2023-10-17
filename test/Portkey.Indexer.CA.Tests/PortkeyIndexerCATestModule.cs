@@ -17,6 +17,7 @@ using Portkey.Indexer.Orleans.TestBase;
 using Volo.Abp;
 using Volo.Abp.Autofac;
 using Volo.Abp.AutoMapper;
+using Volo.Abp.EventBus.Distributed;
 using Volo.Abp.Modularity;
 using Volo.Abp.Threading;
 
@@ -37,6 +38,9 @@ public class PortkeyIndexerCATestModule : AbpModule
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        var mockEventbus = new Mock<IDistributedEventBus>();
+        mockEventbus.Setup(x => x.PublishAsync(It.IsAny<object>(), It.IsAny<bool>(), It.IsAny<bool>())).Returns(Task.CompletedTask);
+        context.Services.AddSingleton(mockEventbus.Object);
         Configure<AbpAutoMapperOptions>(options => { options.AddMaps<PortkeyIndexerCATestModule>(); });
         context.Services.AddSingleton<IAElfIndexerClientInfoProvider, AElfIndexerClientInfoProvider>();
         context.Services.AddSingleton<ISubscribedBlockHandler, SubscribedBlockHandler>();
@@ -264,7 +268,7 @@ public class PortkeyIndexerCATestModule : AbpModule
                     ContractAddress = "CAAddress",
                     MethodName = "Registered",
                     EventNames = new List<string> { "Registered" }
-                },
+                }
             };
         });
         
@@ -289,6 +293,16 @@ public class PortkeyIndexerCATestModule : AbpModule
                 {
                     ChainId = "tDVV",
                     CAContractAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToString(),
+                }
+            };
+            options.CATransactionInfos = new List<CATransactionInfo>
+            {
+                new ()
+                {
+                    ChainId = "AELF",
+                    ContractAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(),
+                    MethodName = "ManagerForwardCall",
+                    BlackMethodNames = new List<string>{"Play"}
                 }
             };
         });

@@ -20,20 +20,28 @@ namespace Portkey.Indexer.CA.Handlers;
 public class CAHolderTransactionHandler : TransactionDataHandler
 {
     private readonly ContractInfoOptions _contractInfoOptions;
-    protected readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _caHolderIndexRepository;
-    protected readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> _caHolderTransactionIndexRepository;
+    private readonly CAHolderTransactionInfoOptions _caHolderTransactionInfoOptions;
+    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _caHolderIndexRepository;
+    private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> _caHolderTransactionIndexRepository;
 
     public CAHolderTransactionHandler(IClusterClient clusterClient, IObjectMapper objectMapper,
         IAElfIndexerClientInfoProvider aelfIndexerClientInfoProvider, IDAppDataProvider dAppDataProvider,
         IBlockStateSetProvider<TransactionInfo> blockStateSetProvider, IDAppDataIndexManagerProvider dAppDataIndexManagerProvider,
         IEnumerable<IAElfLogEventProcessor<TransactionInfo>> processors, ILogger<TransactionDataHandler> logger,
-        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions, IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
+        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions, IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> caHolderTransactionIndexRepository)
         : base(clusterClient, objectMapper, aelfIndexerClientInfoProvider, dAppDataProvider, blockStateSetProvider, dAppDataIndexManagerProvider, processors, logger)
     {
         _contractInfoOptions = contractInfoOptions.Value;
+        _caHolderTransactionInfoOptions = caHolderTransactionInfoOptions.Value;
         _caHolderIndexRepository = caHolderIndexRepository;
         _caHolderTransactionIndexRepository = caHolderTransactionIndexRepository;
+    }
+
+    public async Task ProcessTransactionListAsync(List<TransactionInfo> transactions)
+    {
+        await ProcessTransactionsAsync(transactions);
     }
 
     protected async override Task ProcessTransactionsAsync(List<TransactionInfo> transactions)
@@ -54,7 +62,7 @@ public class CAHolderTransactionHandler : TransactionDataHandler
         if (transactionInfo.MethodName == "ManagerForwardCall")
         {
             var managerForwardCallInput = ManagerForwardCallInput.Parser.ParseFrom(ByteString.FromBase64(transactionInfo.Params));
-            if (transactionInfoOption.BlackSubMethodNames.Contains(managerForwardCallInput.MethodName))
+            if (transactionInfoOption.BlackMethodNames.Contains(managerForwardCallInput.MethodName))
             {
                 return;
             }

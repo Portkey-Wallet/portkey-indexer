@@ -1,6 +1,7 @@
 using AElf.Contracts.MultiToken;
 using AElf.Contracts.NFT;
 using AElfIndexer.Client.Handlers;
+using AElfIndexer.Grains.State.Client;
 using AutoMapper;
 using Portkey.Indexer.CA.Entities;
 using Portkey.Indexer.CA.GraphQL;
@@ -15,6 +16,8 @@ public class TestGraphQLAutoMapperProfile : Profile
         CreateMap<TokenCreated, TokenInfoIndex>();
         CreateMap<TokenCreated, NFTCollectionInfoIndex>();
         CreateMap<TokenCreated, NFTInfoIndex>();
+
+        CreateMap<TransactionInfo, CAHolderTransactionIndex>();
 
         CreateMap<LogEventContext, TokenInfoIndex>();
         CreateMap<LogEventContext, NFTCollectionInfoIndex>();
@@ -74,7 +77,6 @@ public class TestGraphQLAutoMapperProfile : Profile
         CreateMap<BingoGameIndex, BingoInfo>();
         CreateMap<BingoGameStaticsIndex, BingoStatics>();
         CreateMap<LogEventContext, BingoGameIndex>();
-        CreateMap<LogEventContext, BeangoTownIndex>();
         CreateMap<LogEventContext, BingoGameStaticsIndex>();
 
 
