@@ -20,7 +20,6 @@ namespace Portkey.Indexer.CA.Handlers;
 public class CAHolderTransactionHandler : TransactionDataHandler
 {
     private readonly ContractInfoOptions _contractInfoOptions;
-    private readonly CAHolderTransactionInfoOptions _caHolderTransactionInfoOptions;
     private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _caHolderIndexRepository;
     private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> _caHolderTransactionIndexRepository;
 
@@ -28,13 +27,12 @@ public class CAHolderTransactionHandler : TransactionDataHandler
         IAElfIndexerClientInfoProvider aelfIndexerClientInfoProvider, IDAppDataProvider dAppDataProvider,
         IBlockStateSetProvider<TransactionInfo> blockStateSetProvider, IDAppDataIndexManagerProvider dAppDataIndexManagerProvider,
         IEnumerable<IAElfLogEventProcessor<TransactionInfo>> processors, ILogger<TransactionDataHandler> logger,
-        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions, IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions,
+        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> caHolderTransactionIndexRepository)
         : base(clusterClient, objectMapper, aelfIndexerClientInfoProvider, dAppDataProvider, blockStateSetProvider, dAppDataIndexManagerProvider, processors, logger)
     {
         _contractInfoOptions = contractInfoOptions.Value;
-        _caHolderTransactionInfoOptions = caHolderTransactionInfoOptions.Value;
         _caHolderIndexRepository = caHolderIndexRepository;
         _caHolderTransactionIndexRepository = caHolderTransactionIndexRepository;
     }
