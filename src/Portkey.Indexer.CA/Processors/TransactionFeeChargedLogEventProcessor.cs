@@ -14,8 +14,6 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
     private readonly IAElfIndexerClientEntityRepository<TransactionFeeChangedIndex, LogEventInfo>
         _transactionFeeChangedIndexRepository;
 
-    private readonly ILogger<TransactionFeeChargedLogEventProcessor> _processorLogger;
-
     private readonly IObjectMapper _objectMapper;
 
     public TransactionFeeChargedLogEventProcessor(ILogger<TransactionFeeChargedLogEventProcessor> logger,
@@ -32,8 +30,7 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
         IAElfIndexerClientEntityRepository<CAHolderNFTCollectionBalanceIndex, LogEventInfo>
             caHolderNFTCollectionBalanceIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, LogEventInfo> caHolderNFTBalanceIndexRepository,
-        IObjectMapper objectMapper, ILogger<TransactionFeeChargedLogEventProcessor> processorLogger) : base(logger,
-        contractInfoOptions,
+        IObjectMapper objectMapper) : base(logger, contractInfoOptions,
         caHolderIndexRepository, tokenInfoIndexRepository, nftCollectionInfoRepository, nftInfoRepository,
         caHolderSearchTokenNFTRepository,
         caHolderTokenBalanceIndexRepository, caHolderNFTCollectionBalanceIndexRepository,
@@ -41,7 +38,6 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
     {
         _transactionFeeChangedIndexRepository = transactionFeeChangedIndexRepository;
         _objectMapper = objectMapper;
-        _processorLogger = processorLogger;
     }
 
     public override string GetContractAddress(string chainId)
@@ -59,9 +55,6 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
             Id = indexId,
             ConsumerAddress = eventValue.ChargingAddress.ToBase58(),
         };
-        _processorLogger.LogDebug("[TransactionFeeCharged] id: {indexId} TransactionId:{TransactionId}", indexId,
-            transactionFeeChangedIndex.TransactionId);
-
         _objectMapper.Map(eventValue, transactionFeeChangedIndex);
         _objectMapper.Map(context, transactionFeeChangedIndex);
 

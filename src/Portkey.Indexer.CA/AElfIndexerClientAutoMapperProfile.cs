@@ -32,6 +32,8 @@ public class TestGraphQLAutoMapperProfile : Profile
         CreateMap<LogEventContext, CAHolderManagerChangeRecordIndex>();
         CreateMap<LogEventContext, CAHolderSearchTokenNFTIndex>();
         CreateMap<LogEventContext, CAHolderManagerIndex>();
+        CreateMap<LogEventContext, TransactionFeeChangedIndex>();
+        CreateMap<TransactionFeeCharged, TransactionFeeChangedIndex>();
         CreateMap<LogEventContext, GuardianChangeRecordIndex>();
         CreateMap<LogEventContext, TransferLimitIndex>();
         CreateMap<LogEventContext, TransferSecurityThresholdIndex>();
