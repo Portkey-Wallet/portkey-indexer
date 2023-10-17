@@ -22,6 +22,7 @@ public class CAHolderTransactionHandler : TransactionDataHandler
     private readonly ContractInfoOptions _contractInfoOptions;
     private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _caHolderIndexRepository;
     private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> _caHolderTransactionIndexRepository;
+    private readonly IAElfIndexerClientEntityRepository<TransactionInfoIndex, TransactionInfo> _transactionInfoIndexRepository;
 
     public CAHolderTransactionHandler(IClusterClient clusterClient, IObjectMapper objectMapper,
         IAElfIndexerClientInfoProvider aelfIndexerClientInfoProvider, IDAppDataProvider dAppDataProvider,
@@ -29,12 +30,15 @@ public class CAHolderTransactionHandler : TransactionDataHandler
         IEnumerable<IAElfLogEventProcessor<TransactionInfo>> processors, ILogger<TransactionDataHandler> logger,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> caHolderTransactionIndexRepository)
+        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> caHolderTransactionIndexRepository,
+        IAElfIndexerClientEntityRepository<TransactionInfoIndex, TransactionInfo> transactionInfoIndexRepository
+        )
         : base(clusterClient, objectMapper, aelfIndexerClientInfoProvider, dAppDataProvider, blockStateSetProvider, dAppDataIndexManagerProvider, processors, logger)
     {
         _contractInfoOptions = contractInfoOptions.Value;
         _caHolderIndexRepository = caHolderIndexRepository;
         _caHolderTransactionIndexRepository = caHolderTransactionIndexRepository;
+        _transactionInfoIndexRepository = transactionInfoIndexRepository;
     }
 
     public async Task ProcessTransactionListAsync(List<TransactionInfo> transactions)
@@ -81,7 +85,26 @@ public class CAHolderTransactionHandler : TransactionDataHandler
             ObjectMapper.Map(transactionInfo, transIndex);
             transIndex.MethodName = managerForwardCallInput.MethodName;
             await _caHolderTransactionIndexRepository.AddOrUpdateAsync(transIndex);
+            return;
         }
+
+        await ProcessTransactionInfoIndexAsync(transactionInfo);
+    }
+
+    private async Task ProcessTransactionInfoIndexAsync(TransactionInfo transactionInfo)
+    {
+        var id = IdGenerateHelper.GetId(transactionInfo.ChainId, transactionInfo.TransactionId);
+        var transactionInfoIndex =
+            await _transactionInfoIndexRepository.GetFromBlockStateSetAsync(id, transactionInfo.ChainId);
+        if (transactionInfoIndex == null)
+        {
+            transactionInfoIndex = new TransactionInfoIndex
+            {
+                Id = id
+            };
+        }
+        ObjectMapper.Map(transactionInfo, transactionInfoIndex);
+        await _transactionInfoIndexRepository.AddOrUpdateAsync(transactionInfoIndex);
     }
 
     private Address ConvertVirtualAddressToContractAddress(

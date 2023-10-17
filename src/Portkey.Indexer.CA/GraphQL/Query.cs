@@ -891,4 +891,28 @@ public class Query
             Data = objectMapper.Map<List<CAHolderIndex>, List<CAHolderInfoDto>>(holders.Item2)
         };
     }
+    
+    [Name("queryTransactionInfos")]
+    public static async Task<List<TransactionInfoDto>> QueryTransactionInfos(
+        [FromServices] IAElfIndexerClientEntityRepository<TransactionInfoIndex, TransactionInfo> repository,
+        [FromServices] IObjectMapper objectMapper, GetTransactionIdsDto dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<TransactionInfoIndex>, QueryContainer>>();
+        mustQuery.Add(q => q.Term(t => t.Field(f => f.ChainId).Value(dto.ChainId)));
+        mustQuery.Add(q => q.Terms(t => t.Field(f => f.TransactionId).Terms(dto.TransactionList)));
+        if (dto.Confirmed.HasValue)
+        {
+            mustQuery.Add(q => q.Term(t => t.Field(f => f.Confirmed).Value(dto.Confirmed.Value)));
+        }
+
+        QueryContainer Filter(QueryContainerDescriptor<TransactionInfoIndex> f) => f.Bool(b => b.Must(mustQuery));
+
+        var result = await repository.GetListAsync(Filter);
+        if (result.Item1 == 0)
+        {
+            return new List<TransactionInfoDto>();
+        }
+
+        return objectMapper.Map<List<TransactionInfoIndex>, List<TransactionInfoDto>>(result.Item2);
+    }
 }

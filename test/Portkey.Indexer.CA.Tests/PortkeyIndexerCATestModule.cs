@@ -303,6 +303,18 @@ public class PortkeyIndexerCATestModule : AbpModule
                     ContractAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(),
                     MethodName = "ManagerForwardCall",
                     BlackMethodNames = new List<string>{"Play"}
+                },
+                new ()
+                {
+                    ChainId = "AELF",
+                    ContractAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(),
+                    MethodName = "ValidateCAHolderInfoWithManagerInfosExists"
+                },
+                new ()
+                {
+                    ChainId = "AELF",
+                    ContractAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(),
+                    MethodName = "SyncHolderInfo"
                 }
             };
         });
