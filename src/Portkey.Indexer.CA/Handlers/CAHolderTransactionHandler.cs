@@ -54,41 +54,52 @@ public class CAHolderTransactionHandler : TransactionDataHandler
 
     private async Task ProcessTransactionsAsync(TransactionInfo transactionInfo)
     {
-        var transactionInfoOption = _contractInfoOptions.CATransactionInfos.FirstOrDefault(t => t.ChainId == transactionInfo.ChainId &&
-            t.ContractAddress == transactionInfo.To && t.MethodName == transactionInfo.MethodName);
-        if (transactionInfoOption == null)
+        Logger.LogDebug("received transactionInfo:{transactionInfo}", JsonConvert.SerializeObject(transactionInfo));
+        try
         {
-            return;
-        }
-
-        if (transactionInfo.MethodName == "ManagerForwardCall")
-        {
-            var managerForwardCallInput = ManagerForwardCallInput.Parser.ParseFrom(ByteString.FromBase64(transactionInfo.Params));
-            if (transactionInfoOption.BlackMethodNames.Contains(managerForwardCallInput.MethodName))
+            var transactionInfoOption = _contractInfoOptions.CATransactionInfos.FirstOrDefault(t =>
+                t.ChainId == transactionInfo.ChainId &&
+                t.ContractAddress == transactionInfo.To && t.MethodName == transactionInfo.MethodName);
+            if (transactionInfoOption == null)
             {
                 return;
             }
 
-            var caAddress = ConvertVirtualAddressToContractAddress(managerForwardCallInput.CaHash,
-                Address.FromBase58(transactionInfo.To)).ToBase58();
-            var holder = await _caHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(transactionInfo.ChainId,
-                caAddress), transactionInfo.ChainId);
-            if (holder == null) return;
-
-            var transIndex = new CAHolderTransactionIndex
+            if (transactionInfo.MethodName == "ManagerForwardCall")
             {
-                Id = IdGenerateHelper.GetId(transactionInfo.BlockHash, transactionInfo.TransactionId),
-                Timestamp = transactionInfo.BlockTime.ToTimestamp().Seconds,
-                FromAddress = caAddress,
-                TransactionFee = GetTransactionFee(transactionInfo.ExtraProperties),
-            };
-            ObjectMapper.Map(transactionInfo, transIndex);
-            transIndex.MethodName = managerForwardCallInput.MethodName;
-            await _caHolderTransactionIndexRepository.AddOrUpdateAsync(transIndex);
-            return;
-        }
+                var managerForwardCallInput =
+                    ManagerForwardCallInput.Parser.ParseFrom(ByteString.FromBase64(transactionInfo.Params));
+                if (transactionInfoOption.BlackMethodNames.Contains(managerForwardCallInput.MethodName))
+                {
+                    return;
+                }
 
-        await ProcessTransactionInfoIndexAsync(transactionInfo);
+                var caAddress = ConvertVirtualAddressToContractAddress(managerForwardCallInput.CaHash,
+                    Address.FromBase58(transactionInfo.To)).ToBase58();
+                var holder = await _caHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(
+                    transactionInfo.ChainId,
+                    caAddress), transactionInfo.ChainId);
+                if (holder == null) return;
+
+                var transIndex = new CAHolderTransactionIndex
+                {
+                    Id = IdGenerateHelper.GetId(transactionInfo.BlockHash, transactionInfo.TransactionId),
+                    Timestamp = transactionInfo.BlockTime.ToTimestamp().Seconds,
+                    FromAddress = caAddress,
+                    TransactionFee = GetTransactionFee(transactionInfo.ExtraProperties),
+                };
+                ObjectMapper.Map(transactionInfo, transIndex);
+                transIndex.MethodName = managerForwardCallInput.MethodName;
+                await _caHolderTransactionIndexRepository.AddOrUpdateAsync(transIndex);
+                return;
+            }
+
+            await ProcessTransactionInfoIndexAsync(transactionInfo);
+        }
+        catch (Exception e)
+        {
+            Logger.LogError(e, "{message}, transactionInfo:{transactionInfo}", e.Message, JsonConvert.SerializeObject(transactionInfo));
+        }
     }
 
     private async Task ProcessTransactionInfoIndexAsync(TransactionInfo transactionInfo)
