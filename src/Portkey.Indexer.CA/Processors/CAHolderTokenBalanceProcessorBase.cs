@@ -278,7 +278,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
     protected async Task AddOrUpdateBalanceRecordAsync(string address, string symbol, long amount,
         LogEventContext context)
     {
-        var id = IdGenerateHelper.GetId(Prefix, address, context.TransactionId);
+        var id = IdGenerateHelper.GetId(Prefix, context.TransactionId);
 
         var record = await BalanceChangeRecordRepository.GetFromBlockStateSetAsync(id, context.ChainId);
         if (record == null)
@@ -293,7 +293,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
                     ChainId = context.ChainId,
                     Symbol = symbol
                 },
-                OperatorType = amount < 0 ? OperatorType.Minus : OperatorType.Add
+                OperatorType = amount < 0 ? OperatorType.Minus.ToString() : OperatorType.Add.ToString()
             };
 
             ObjectMapper.Map(context, record);
@@ -302,9 +302,10 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
         await BalanceChangeRecordRepository.AddOrUpdateAsync(record);
     }
 
-    protected async Task AddBalanceRecordAsync(string address, BalanceChangeType balanceChangeType, LogEventContext context)
+    protected async Task AddBalanceRecordAsync(string address, BalanceChangeType balanceChangeType,
+        LogEventContext context)
     {
-        var id = IdGenerateHelper.GetId(Prefix, address, context.TransactionId);
+        var id = IdGenerateHelper.GetId(Prefix, context.TransactionId);
 
         var record = await BalanceChangeRecordRepository.GetFromBlockStateSetAsync(id, context.ChainId);
         if (record != null)
@@ -316,7 +317,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
         {
             Id = id,
             CaAddress = address,
-            BalanceChangeType = balanceChangeType
+            BalanceChangeType = balanceChangeType.ToString()
         };
 
         ObjectMapper.Map(context, record);
