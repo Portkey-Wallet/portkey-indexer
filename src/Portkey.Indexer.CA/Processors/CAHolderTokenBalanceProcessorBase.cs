@@ -279,12 +279,16 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
     protected async Task AddOrUpdateBalanceRecordAsync(string recordId, string address, string symbol, long amount,
         LogEventContext context)
     {
-        Logger.LogInformation("in AddOrUpdateBalanceRecordAsync, address:{address}, amount:{amount}", address, amount);
+        Logger.LogInformation(
+            "in AddOrUpdateBalanceRecordAsync, address:{address}, amount:{amount}, transactionId:{transactionId}",
+            address, amount, context.TransactionId);
         var record = await BalanceChangeRecordRepository.GetFromBlockStateSetAsync(recordId, context.ChainId);
         if (record == null)
         {
-            Logger.LogInformation("in AddOrUpdateBalanceRecordAsync record == null, address:{address}, amount:{amount}",
-                address, amount);
+            Logger.LogError(
+                "in AddOrUpdateBalanceRecordAsync  record == null, address:{address}, amount:{amount}, transactionId:{transactionId}",
+                address, amount, context.TransactionId);
+            
             record = new BalanceChangeRecordIndex
             {
                 Id = recordId,
