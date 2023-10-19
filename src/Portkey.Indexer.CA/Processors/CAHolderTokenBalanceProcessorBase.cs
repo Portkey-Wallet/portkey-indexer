@@ -39,6 +39,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
     protected readonly ContractInfoOptions ContractInfoOptions;
     protected readonly SubscribersOptions SubscribersOptions;
     protected const string Prefix = "balance";
+    private readonly ILogger<CAHolderTokenBalanceProcessorBase<TEvent>> Logger;
 
     public CAHolderTokenBalanceProcessorBase(ILogger<CAHolderTokenBalanceProcessorBase<TEvent>> logger,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
@@ -68,13 +69,12 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
         BalanceChangeRecordRepository = balanceChangeRecordRepository;
         ContractInfoOptions = contractInfoOptions.Value;
         SubscribersOptions = subscribersOptions.Value;
+        Logger = logger;
     }
 
     protected async Task ModifyBalanceAsync(string address, string symbol, long amount, LogEventContext context)
     {
-        var needModify = CheckHelper.CheckNeedModifyBalance(address, SubscribersOptions);
-        if (!needModify) return;
-
+        Logger.LogInformation("in ModifyBalanceAsync ....address:{address}, amount:{amount}", address, amount);
         TokenType tokenType = TokenHelper.GetTokenType(symbol);
         if (tokenType == TokenType.Token)
         {
@@ -278,26 +278,29 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
     protected async Task AddOrUpdateBalanceRecordAsync(string address, string symbol, long amount,
         LogEventContext context)
     {
+        Logger.LogInformation("in AddOrUpdateBalanceRecordAsync, address:{address}, amount:{amount}", address, amount);
         var id = IdGenerateHelper.GetId(Prefix, context.TransactionId);
 
         var record = await BalanceChangeRecordRepository.GetFromBlockStateSetAsync(id, context.ChainId);
         if (record == null)
         {
+            Logger.LogInformation("in AddOrUpdateBalanceRecordAsync record == null, address:{address}, amount:{amount}", address, amount);
             record = new BalanceChangeRecordIndex
             {
                 Id = id,
-                CaAddress = address,
-                Amount = amount,
-                TokenInfo = new TokenBasicInfo
-                {
-                    ChainId = context.ChainId,
-                    Symbol = symbol
-                },
-                OperatorType = amount < 0 ? OperatorType.Minus.ToString() : OperatorType.Add.ToString()
+                CaAddress = address
             };
 
             ObjectMapper.Map(context, record);
         }
+
+        record.Amount = amount;
+        record.TokenInfo = new TokenBasicInfo
+        {
+            ChainId = context.ChainId,
+            Symbol = symbol
+        };
+        record.OperatorType = amount < 0 ? OperatorType.Minus.ToString() : OperatorType.Add.ToString();
 
         await BalanceChangeRecordRepository.AddOrUpdateAsync(record);
     }

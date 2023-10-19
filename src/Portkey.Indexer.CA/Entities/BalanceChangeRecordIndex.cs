@@ -7,7 +7,6 @@ namespace Portkey.Indexer.CA.Entities;
 public class BalanceChangeRecordIndex : AElfIndexerClientEntity<string>, IIndexBuild
 {
     [Keyword] public override string Id { get; set; }
-    [Keyword] public string ChainId { get; set; }
     [Keyword] public string CaAddress { get; set; }
     [Keyword] public string TransactionId { get; set; }
     public long TransactionTime { get; set; }
