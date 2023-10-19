@@ -75,6 +75,11 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
     protected async Task ModifyBalanceAsync(string address, string symbol, long amount, LogEventContext context,
         string recordId)
     {
+        if (!CheckHelper.CheckNeedModifyBalance(address, SubscribersOptions))
+        {
+            return;
+        }
+        
         Logger.LogInformation("in ModifyBalanceAsync ....address:{address}, amount:{amount}", address, amount);
         TokenType tokenType = TokenHelper.GetTokenType(symbol);
         if (tokenType == TokenType.Token)
