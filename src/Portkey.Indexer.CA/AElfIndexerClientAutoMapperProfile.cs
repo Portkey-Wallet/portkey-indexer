@@ -91,6 +91,7 @@ public class TestGraphQLAutoMapperProfile : Profile
         // CreateMap<TokenSearchInfo, TokenSearchInfoDto>();
         // CreateMap<NFTSearchInfo, NFTSearchInfoDto>();
         CreateMap<BalanceChangeRecordIndex, CaHolderBalanceChangeRecordDto>();
+        CreateMap<LogEventContext, BalanceChangeRecordIndex>();
     }
 }
 
