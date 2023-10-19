@@ -73,7 +73,7 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
         _objectMapper.Map(eventValue, transactionFeeChangedIndex);
         _objectMapper.Map(context, transactionFeeChangedIndex);
 
-        await AddBalanceRecordAsync(address,BalanceChangeType.TransactionFeeCharged, context);
+        var recordId = await AddBalanceRecordAsync(address, BalanceChangeType.TransactionFeeCharged, context);
         _logger.LogInformation(
             "In {processor}, caAddress:{address}, symbol:{symbol}, amount:{amount}, transactionId:{transactionId}",
             nameof(TransactionFeeChargedLogEventProcessor), address, eventValue.Symbol, -eventValue.Amount,
@@ -93,7 +93,7 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
         if (caHolderIndex != null)
         {
             transactionFeeChangedIndex.CAAddress = caHolderIndex.CAAddress;
-            await ModifyBalanceAsync(caHolderIndex.CAAddress, eventValue.Symbol, -eventValue.Amount, context);
+            await ModifyBalanceAsync(caHolderIndex.CAAddress, eventValue.Symbol, -eventValue.Amount, context, recordId);
         }
 
         await _transactionFeeChangedIndexRepository.AddOrUpdateAsync(transactionFeeChangedIndex);

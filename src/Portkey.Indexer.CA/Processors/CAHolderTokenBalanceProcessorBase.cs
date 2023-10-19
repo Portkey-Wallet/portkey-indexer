@@ -72,7 +72,8 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
         Logger = logger;
     }
 
-    protected async Task ModifyBalanceAsync(string address, string symbol, long amount, LogEventContext context)
+    protected async Task ModifyBalanceAsync(string address, string symbol, long amount, LogEventContext context,
+        string recordId)
     {
         Logger.LogInformation("in ModifyBalanceAsync ....address:{address}, amount:{amount}", address, amount);
         TokenType tokenType = TokenHelper.GetTokenType(symbol);
@@ -98,7 +99,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
             ObjectMapper.Map(context, tokenBalance);
 
             await CAHolderTokenBalanceIndexRepository.AddOrUpdateAsync(tokenBalance);
-            await AddOrUpdateBalanceRecordAsync(address, symbol, amount, context);
+            await AddOrUpdateBalanceRecordAsync(recordId, address, symbol, amount, context);
         }
 
         // if (tokenType == TokenType.NFTCollection)
@@ -275,19 +276,18 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
         }
     }
 
-    protected async Task AddOrUpdateBalanceRecordAsync(string address, string symbol, long amount,
+    protected async Task AddOrUpdateBalanceRecordAsync(string recordId, string address, string symbol, long amount,
         LogEventContext context)
     {
         Logger.LogInformation("in AddOrUpdateBalanceRecordAsync, address:{address}, amount:{amount}", address, amount);
-        var id = IdGenerateHelper.GetId(Prefix, context.TransactionId);
-
-        var record = await BalanceChangeRecordRepository.GetFromBlockStateSetAsync(id, context.ChainId);
+        var record = await BalanceChangeRecordRepository.GetFromBlockStateSetAsync(recordId, context.ChainId);
         if (record == null)
         {
-            Logger.LogInformation("in AddOrUpdateBalanceRecordAsync record == null, address:{address}, amount:{amount}", address, amount);
+            Logger.LogInformation("in AddOrUpdateBalanceRecordAsync record == null, address:{address}, amount:{amount}",
+                address, amount);
             record = new BalanceChangeRecordIndex
             {
-                Id = id,
+                Id = recordId,
                 CaAddress = address
             };
 
@@ -305,15 +305,14 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
         await BalanceChangeRecordRepository.AddOrUpdateAsync(record);
     }
 
-    protected async Task AddBalanceRecordAsync(string address, BalanceChangeType balanceChangeType,
+    protected async Task<string> AddBalanceRecordAsync(string address, BalanceChangeType balanceChangeType,
         LogEventContext context)
     {
-        var id = IdGenerateHelper.GetId(Prefix, context.TransactionId);
-
+        var id = Guid.NewGuid().ToString();
         var record = await BalanceChangeRecordRepository.GetFromBlockStateSetAsync(id, context.ChainId);
         if (record != null)
         {
-            return;
+            return record.Id;
         }
 
         record = new BalanceChangeRecordIndex
@@ -325,5 +324,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
 
         ObjectMapper.Map(context, record);
         await BalanceChangeRecordRepository.AddOrUpdateAsync(record);
+
+        return record.Id;
     }
 }

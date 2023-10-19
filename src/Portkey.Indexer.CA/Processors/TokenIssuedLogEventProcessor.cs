@@ -13,6 +13,7 @@ namespace Portkey.Indexer.CA.Processors;
 public class TokenIssuedLogEventProcessor : CAHolderTokenBalanceProcessorBase<Issued>
 {
     private readonly ILogger<TokenIssuedLogEventProcessor> _logger;
+
     public TokenIssuedLogEventProcessor(ILogger<TokenIssuedLogEventProcessor> logger,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IOptionsSnapshot<SubscribersOptions> subscribersOptions,
@@ -49,7 +50,7 @@ public class TokenIssuedLogEventProcessor : CAHolderTokenBalanceProcessorBase<Is
             return;
         }
 
-        await AddBalanceRecordAsync(address, BalanceChangeType.TokenIssued, context);
+        var recordId = await AddBalanceRecordAsync(address, BalanceChangeType.TokenIssued, context);
         _logger.LogInformation(
             "In {processor}, caAddress:{address}, symbol:{symbol}, amount:{amount}, transactionId:{transactionId}",
             nameof(TokenIssuedLogEventProcessor), address, eventValue.Symbol, eventValue.Amount,
@@ -68,7 +69,7 @@ public class TokenIssuedLogEventProcessor : CAHolderTokenBalanceProcessorBase<Is
             return;
         }
 
-        await ModifyBalanceAsync(holder.CAAddress, eventValue.Symbol, eventValue.Amount, context);
+        await ModifyBalanceAsync(holder.CAAddress, eventValue.Symbol, eventValue.Amount, context, recordId);
     }
 
     private async Task UpdateTokenSupply(Issued eventValue, LogEventContext context)

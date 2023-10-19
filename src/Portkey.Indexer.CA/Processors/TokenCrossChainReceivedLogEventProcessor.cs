@@ -13,6 +13,7 @@ namespace Portkey.Indexer.CA.Processors;
 public class TokenCrossChainReceivedLogEventProcessor : CAHolderTokenBalanceProcessorBase<CrossChainReceived>
 {
     private readonly ILogger<TokenCrossChainReceivedLogEventProcessor> _logger;
+
     public TokenCrossChainReceivedLogEventProcessor(ILogger<TokenCrossChainReceivedLogEventProcessor> logger,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IOptionsSnapshot<SubscribersOptions> subscribersOptions,
@@ -49,7 +50,7 @@ public class TokenCrossChainReceivedLogEventProcessor : CAHolderTokenBalanceProc
             return;
         }
 
-        await AddBalanceRecordAsync(address, BalanceChangeType.TokenCrossChainReceived, context);
+        var recordId = await AddBalanceRecordAsync(address, BalanceChangeType.TokenCrossChainReceived, context);
         _logger.LogInformation("In {processor}, caAddress:{address}, symbol:{symbol}, amount:{amount}",
             nameof(TokenCrossChainReceivedLogEventProcessor), address, eventValue.Symbol, eventValue.Amount);
 
@@ -62,6 +63,6 @@ public class TokenCrossChainReceivedLogEventProcessor : CAHolderTokenBalanceProc
             return;
         }
 
-        await ModifyBalanceAsync(holder.CAAddress, eventValue.Symbol, eventValue.Amount, context);
+        await ModifyBalanceAsync(holder.CAAddress, eventValue.Symbol, eventValue.Amount, context, recordId);
     }
 }

@@ -60,7 +60,7 @@ public class TokenTransferredLogEventProcessor : CAHolderTokenBalanceProcessorBa
             amount = eventValue.Amount;
         }
 
-        await AddBalanceRecordAsync(address, BalanceChangeType.TokenTransferred, context);
+        var recordId = await AddBalanceRecordAsync(address, BalanceChangeType.TokenTransferred, context);
         _logger.LogInformation(
             "In {processor}, caAddress:{address}, symbol:{symbol}, amount:{amount}, transactionId:{transactionId}",
             nameof(TokenTransferredLogEventProcessor), address, eventValue.Symbol, amount,
@@ -70,12 +70,12 @@ public class TokenTransferredLogEventProcessor : CAHolderTokenBalanceProcessorBa
             eventValue.From.ToBase58()), context.ChainId);
         if (from != null)
         {
-            await ModifyBalanceAsync(from.CAAddress, eventValue.Symbol, -eventValue.Amount, context);
+            await ModifyBalanceAsync(from.CAAddress, eventValue.Symbol, -eventValue.Amount, context, recordId);
         }
 
         var to = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
             eventValue.To.ToBase58()), context.ChainId);
         if (to == null) return;
-        await ModifyBalanceAsync(to.CAAddress, eventValue.Symbol, eventValue.Amount, context);
+        await ModifyBalanceAsync(to.CAAddress, eventValue.Symbol, eventValue.Amount, context, recordId);
     }
 }
