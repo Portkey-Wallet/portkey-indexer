@@ -970,4 +970,28 @@ public class Query
         return objectMapper.Map<List<GuardianChangeRecordIndex>, List<GuardianChangeRecordDto>>(
             result.Item2);
     }
+
+    [Name("caHolderBalanceChangeRecord")]
+    public static async Task<CaHolderBalanceChangeRecordPageResultDto> CaHolderBalanceChangeRecord(
+        [FromServices] IAElfIndexerClientEntityRepository<BalanceChangeRecordIndex, LogEventInfo> repository,
+        [FromServices] IObjectMapper objectMapper, GetCaHolderBalanceChangeRecordDto dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<BalanceChangeRecordIndex>, QueryContainer>>();
+
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.ChainId).Value(dto.ChainId)));
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.CaAddress).Value(dto.CaAddress)));
+
+        QueryContainer Filter(QueryContainerDescriptor<BalanceChangeRecordIndex> f) =>
+            f.Bool(b => b.Must(mustQuery));
+
+        var records = await repository.GetListAsync(Filter, skip: dto.SkipCount, limit: dto.MaxResultCount);
+        var data = objectMapper.Map<List<BalanceChangeRecordIndex>, List<CaHolderBalanceChangeRecordDto>>(
+            records.Item2);
+
+        return new CaHolderBalanceChangeRecordPageResultDto()
+        {
+            TotalRecordCount = records.Item1,
+            Data = data
+        };
+    }
 }

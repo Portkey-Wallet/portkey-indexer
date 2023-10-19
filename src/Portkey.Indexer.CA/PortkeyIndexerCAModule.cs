@@ -4,6 +4,7 @@ using AElfIndexer.Grains.State.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Portkey.Indexer.CA.GraphQL;
 using Portkey.Indexer.CA.Handlers;
+using Portkey.Indexer.CA.Options;
 using Portkey.Indexer.CA.Processors;
 using Volo.Abp.Modularity;
 
@@ -69,6 +70,7 @@ public class PortkeyIndexerCAModule:AElfIndexerClientPluginBaseModule<PortkeyInd
         Configure<ContractInfoOptions>(configuration.GetSection("ContractInfo"));
         Configure<InitialInfoOptions>(configuration.GetSection("InitialInfo"));
         Configure<CAHolderTransactionInfoOptions>(configuration.GetSection("CAHolderTransactionInfo"));
+        Configure<SubscribersOptions>(configuration.GetSection("Subscribers"));
     }
 
     protected override string ClientId => "AElfIndexer_DApp";

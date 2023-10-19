@@ -43,6 +43,11 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
     private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
         _caHolderTransactionIndexRepository;
 
+    private readonly IAElfIndexerClientEntityRepository<TransactionFeeChangedIndex, LogEventInfo>
+        transactionFeeRepository;
+    
+    
+
     private readonly IObjectMapper _objectMapper;
 
     const string holderBEmail = "testB@google.com";
@@ -1869,7 +1874,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
     {
         await HandleTokenCrossChainTransactionAsync_Test();
 
-        var result = await Query.CAHolderTransaction(_caHolderTransactionIndexRepository, _objectMapper,
+        var result = await Query.CAHolderTransaction(_caHolderTransactionIndexRepository, transactionFeeRepository,_objectMapper,
             new GetCAHolderTransactionDto
             {
                 SkipCount = 0,
@@ -1909,7 +1914,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
     {
         await HandleTokenCrossChainTransactionAsync_Test();
 
-        var result = await Query.CAHolderTransaction(_caHolderTransactionIndexRepository, _objectMapper,
+        var result = await Query.CAHolderTransaction(_caHolderTransactionIndexRepository, transactionFeeRepository, _objectMapper,
             new GetCAHolderTransactionDto
             {
                 SkipCount = 0,
