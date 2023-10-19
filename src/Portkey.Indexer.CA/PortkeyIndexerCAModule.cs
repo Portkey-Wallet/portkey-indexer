@@ -57,9 +57,13 @@ public class PortkeyIndexerCAModule:AElfIndexerClientPluginBaseModule<PortkeyInd
         serviceCollection.AddSingleton<IAElfLogEventProcessor<LogEventInfo>, TokenTransferredLogEventProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<LogEventInfo>, TransactionFeeChargedLogEventProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<LogEventInfo>, CAHolderSyncedProcessor>();
+        serviceCollection.AddSingleton<IAElfLogEventProcessor<LogEventInfo>, TransactionFeeChargedLogEventProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, BingoedProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, RegisteredProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, PlayedProcessor>();
+        serviceCollection.AddSingleton<IAElfLogEventProcessor<LogEventInfo>, TransferSecurityThresholdChangedLogEventProcessor>();
+        serviceCollection.AddSingleton<IAElfLogEventProcessor<LogEventInfo>, TransferLimitChangedLogEventProcessor>();
+        serviceCollection.AddSingleton<IAElfLogEventProcessor<LogEventInfo>, ManagerApprovedLogEventProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, BeangoTownBeanProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, BeangoTownGoProcessor>();
 
@@ -69,7 +73,7 @@ public class PortkeyIndexerCAModule:AElfIndexerClientPluginBaseModule<PortkeyInd
         Configure<SubscribersOptions>(configuration.GetSection("Subscribers"));
     }
 
-    protected override string ClientId => "Portkey_DID";
+    protected override string ClientId => "AElfIndexer_DApp";
     protected override string Version => "";
 
     

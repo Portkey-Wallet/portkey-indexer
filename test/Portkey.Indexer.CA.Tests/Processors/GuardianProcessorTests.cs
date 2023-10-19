@@ -16,27 +16,35 @@ using Xunit;
 
 namespace Portkey.Indexer.CA.Tests.Processors;
 
-public class GuardianProcessorTests: PortkeyIndexerCATestBase
+public class GuardianProcessorTests : PortkeyIndexerCATestBase
 {
     private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _caHolderIndexRepository;
 
     private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, LogEventInfo>
         _caHolderTransactionRepository;
+
+    private readonly IAElfIndexerClientEntityRepository<GuardianChangeRecordIndex, LogEventInfo>
+        _changeRecordRepository;
+
     private readonly IObjectMapper _objectMapper;
+
     public GuardianProcessorTests()
     {
-        _caHolderIndexRepository = GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo>>();
+        _caHolderIndexRepository =
+            GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo>>();
         _caHolderTransactionRepository =
             GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, LogEventInfo>>();
-        
+
         _objectMapper = GetRequiredService<IObjectMapper>();
+        _changeRecordRepository =
+            GetRequiredService<IAElfIndexerClientEntityRepository<GuardianChangeRecordIndex, LogEventInfo>>();
     }
-    
+
     [Fact]
     public async Task HandleGuardianAddedLogEventAsync_Test()
     {
         await CreateHolder();
-        
+
         //step1: create blockStateSet
         const string chainId = "AELF";
         const string blockHash = "3c7c267341e9f097b0886c8a1661bef73d6bb4c30464ad73be714fdf22b09bdd";
@@ -50,7 +58,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash
         };
-        
+
         var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
@@ -61,7 +69,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
 
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSetAdded, chainId);
         var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
-        
+
         //step2: create logEventInfo
         var guardianAdded = new GuardianAdded
         {
@@ -100,23 +108,26 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
         //step3: handle event and write result to blockStateSet
         var guardianAddedLogEventProcessor = GetRequiredService<GuardianAddedLogEventProcessor>();
         var guardianAddedProcessor = GetRequiredService<GuardianAddedProcessor>();
-        
+
         await guardianAddedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         await guardianAddedProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        
+
         guardianAddedLogEventProcessor.GetContractAddress(chainId);
         guardianAddedProcessor.GetContractAddress(chainId);
-        
+
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
         //step5: check result
-        var caHolderIndexData = await _caHolderIndexRepository.GetAsync(IdGenerateHelper.GetId(chainId, guardianAdded.CaAddress.ToBase58()));
+        var caHolderIndexData =
+            await _caHolderIndexRepository.GetAsync(IdGenerateHelper.GetId(chainId,
+                guardianAdded.CaAddress.ToBase58()));
         caHolderIndexData.Guardians.Count.ShouldBe(1);
         caHolderIndexData.Guardians.FirstOrDefault().IsLoginGuardian.ShouldBeFalse();
-        caHolderIndexData.Guardians.FirstOrDefault().IdentifierHash.ShouldBe(HashHelper.ComputeFrom("yangtze.cn").ToHex());
+        caHolderIndexData.Guardians.FirstOrDefault().IdentifierHash
+            .ShouldBe(HashHelper.ComputeFrom("yangtze.cn").ToHex());
         caHolderIndexData.Guardians.FirstOrDefault().VerifierId.ShouldBe(HashHelper.ComputeFrom("university").ToHex());
         caHolderIndexData.Guardians.FirstOrDefault().Type.ShouldBe((int)GuardianType.OfEmail);
     }
@@ -125,7 +136,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
     public async Task HandleGuardianRemovedLogEventAsync_Test()
     {
         await HandleGuardianAddedLogEventAsync_Test();
-        
+
         //step1: create blockStateSet
         const string chainId = "AELF";
         const string blockHash = "fd67a41d951c98b5364a0bd21de95b1ea11b56d834bd9f570b1a927223be394f";
@@ -139,7 +150,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash
         };
-        
+
         var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
@@ -147,10 +158,10 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash
         };
-        
+
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSetAdded, chainId);
         var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
-        
+
         //step2: create logEventInfo
         var guardianRemoved = new GuardianRemoved
         {
@@ -185,14 +196,14 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
             },
             BlockTime = DateTime.UtcNow
         };
-        
+
         //step3: handle event and write result to blockStateSet
         var guardianRemovedLogEventProcessor = GetRequiredService<GuardianRemovedLogEventProcessor>();
         var guardianRemovedProcessor = GetRequiredService<GuardianRemovedProcessor>();
-        
+
         await guardianRemovedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         await guardianRemovedProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        
+
         guardianRemovedLogEventProcessor.GetContractAddress(chainId);
         guardianRemovedProcessor.GetContractAddress(chainId);
 
@@ -202,7 +213,9 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
         await Task.Delay(2000);
 
         //step5: check result
-        var caHolderIndexData = await _caHolderIndexRepository.GetAsync(IdGenerateHelper.GetId(chainId, guardianRemoved.CaAddress.ToBase58()));
+        var caHolderIndexData =
+            await _caHolderIndexRepository.GetAsync(IdGenerateHelper.GetId(chainId,
+                guardianRemoved.CaAddress.ToBase58()));
         caHolderIndexData.Guardians.Count.ShouldBe(0);
     }
 
@@ -210,7 +223,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
     public async Task HandleGuardianUpdatedLogEventAsync_Test()
     {
         await HandleGuardianAddedLogEventAsync_Test();
-        
+
         //step1: create blockStateSet
         const string chainId = "AELF";
         const string blockHash = "13dc2be6a8518e4a0d7b4316742001efdd9ec001001788a40a741d773bf6638b";
@@ -231,16 +244,16 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash
         };
-        
+
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSetAdded, chainId);
         var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
-        
+
         //step2: create logEventInfo
         var guardianUpdated = new GuardianUpdated
         {
             CaHash = HashHelper.ComputeFrom("syb@google.com"),
             CaAddress = Address.FromPublicKey("AAA".HexToByteArray()),
-            GuardianUpdatedPre=new Portkey.Contracts.CA.Guardian()
+            GuardianUpdatedPre = new Portkey.Contracts.CA.Guardian()
             {
                 IdentifierHash = HashHelper.ComputeFrom("yangtze.cn"),
                 Type = GuardianType.OfEmail,
@@ -275,30 +288,33 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
             },
             BlockTime = DateTime.UtcNow
         };
-        
+
         //step3: handle event and write result to blockStateSet
         var guardianUpdatedLogEventProcessor = GetRequiredService<GuardianUpdatedLogEventProcessor>();
         var guardianUpdatedProcessor = GetRequiredService<GuardianUpdatedProcessor>();
-        
+
         await guardianUpdatedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         await guardianUpdatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        
+
         guardianUpdatedLogEventProcessor.GetContractAddress(chainId);
         guardianUpdatedProcessor.GetContractAddress(chainId);
-        
+
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
-        
+
         //step5: check result
-        var caHolderIndexData = await _caHolderIndexRepository.GetAsync(IdGenerateHelper.GetId(chainId, guardianUpdated.CaAddress.ToBase58()));
+        var caHolderIndexData =
+            await _caHolderIndexRepository.GetAsync(IdGenerateHelper.GetId(chainId,
+                guardianUpdated.CaAddress.ToBase58()));
         caHolderIndexData.Guardians.Count.ShouldBe(1);
-        caHolderIndexData.Guardians.FirstOrDefault().IdentifierHash.ShouldBe(HashHelper.ComputeFrom("yangtze.cn").ToHex());
+        caHolderIndexData.Guardians.FirstOrDefault().IdentifierHash
+            .ShouldBe(HashHelper.ComputeFrom("yangtze.cn").ToHex());
         caHolderIndexData.Guardians.First().VerifierId.ShouldBe(HashHelper.ComputeFrom("online").ToHex());
     }
-    
-    
+
+
     private async Task CreateHolder()
     {
         const string chainId = "AELF";
@@ -358,7 +374,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
         await Task.Delay(2000);
     }
-    
+
     [Fact]
     public async Task Query_GuardianAddedCAHolderInfo_Test()
     {
@@ -371,5 +387,21 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
         var result = await Query.GuardianAddedCAHolderInfo(_caHolderIndexRepository, _objectMapper, param);
         result.TotalRecordCount.ShouldBe(1);
         result.Data.FirstOrDefault().CAAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
+    }
+
+    [Fact]
+    public async Task Query_GuardianChangeRecordInfo_Test()
+    {
+        await HandleGuardianAddedLogEventAsync_Test();
+        await Task.Delay(1000);
+        var param = new GetGuardianChangeRecordDto()
+        {
+            ChainId = "AELF",
+            StartBlockHeight = 0,
+            EndBlockHeight = 100
+        };
+        var result = await Query.GuardianChangeRecordInfo(_changeRecordRepository, _objectMapper, param);
+        result.Count.ShouldBe(1);
+        result.FirstOrDefault().CAAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
     }
 }
