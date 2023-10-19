@@ -12,6 +12,7 @@ namespace Portkey.Indexer.CA.Processors;
 
 public class TokenIssuedLogEventProcessor : CAHolderTokenBalanceProcessorBase<Issued>
 {
+    private readonly ILogger<TokenIssuedLogEventProcessor> _logger;
     public TokenIssuedLogEventProcessor(ILogger<TokenIssuedLogEventProcessor> logger,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IOptionsSnapshot<SubscribersOptions> subscribersOptions,
@@ -32,6 +33,7 @@ public class TokenIssuedLogEventProcessor : CAHolderTokenBalanceProcessorBase<Is
         caHolderTokenBalanceIndexRepository, caHolderNFTCollectionBalanceIndexRepository,
         caHolderNFTBalanceIndexRepository, balanceChangeRecordRepository, objectMapper)
     {
+        _logger = logger;
     }
 
     public override string GetContractAddress(string chainId)
@@ -48,7 +50,7 @@ public class TokenIssuedLogEventProcessor : CAHolderTokenBalanceProcessorBase<Is
         }
 
         await AddBalanceRecordAsync(address, BalanceChangeType.TokenIssued, context);
-        Logger.LogInformation(
+        _logger.LogInformation(
             "In {processor}, caAddress:{address}, symbol:{symbol}, amount:{amount}, transactionId:{transactionId}",
             nameof(TokenIssuedLogEventProcessor), address, eventValue.Symbol, eventValue.Amount,
             context.TransactionId);
@@ -59,7 +61,7 @@ public class TokenIssuedLogEventProcessor : CAHolderTokenBalanceProcessorBase<Is
             eventValue.To.ToBase58()), context.ChainId);
         if (holder == null)
         {
-            Logger.LogError(
+            _logger.LogError(
                 "Holder is null, in {processor}, caAddress:{address}, symbol:{symbol}, amount:{amount}, transactionId:{transactionId}",
                 nameof(TokenIssuedLogEventProcessor), address, eventValue.Symbol, eventValue.Amount,
                 context.TransactionId);

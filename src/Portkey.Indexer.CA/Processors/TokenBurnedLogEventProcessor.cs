@@ -12,6 +12,7 @@ namespace Portkey.Indexer.CA.Processors;
 
 public class TokenBurnedLogEventProcessor : CAHolderTokenBalanceProcessorBase<Burned>
 {
+    private readonly ILogger<TokenBurnedLogEventProcessor> _logger;
     public TokenBurnedLogEventProcessor(ILogger<TokenBurnedLogEventProcessor> logger,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IOptionsSnapshot<SubscribersOptions> subscribersOptions,
@@ -32,6 +33,7 @@ public class TokenBurnedLogEventProcessor : CAHolderTokenBalanceProcessorBase<Bu
         caHolderTokenBalanceIndexRepository, caHolderNFTCollectionBalanceIndexRepository,
         caHolderNFTBalanceIndexRepository, balanceChangeRecordRepository, objectMapper)
     {
+        _logger = logger;
     }
 
     public override string GetContractAddress(string chainId)
@@ -49,7 +51,7 @@ public class TokenBurnedLogEventProcessor : CAHolderTokenBalanceProcessorBase<Bu
         }
 
         await AddBalanceRecordAsync(address, BalanceChangeType.TokenBurned, context);
-        Logger.LogInformation("In {processor}, caAddress:{address}, symbol:{symbol}, amount:{amount}",
+        _logger.LogInformation("In {processor}, caAddress:{address}, symbol:{symbol}, amount:{amount}",
             nameof(TokenBurnedLogEventProcessor), address, eventValue.Symbol, -eventValue.Amount);
 
         var holder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
@@ -57,7 +59,7 @@ public class TokenBurnedLogEventProcessor : CAHolderTokenBalanceProcessorBase<Bu
 
         if (holder == null)
         {
-            Logger.LogError("Holder is null, in {processor}, caAddress:{address}, symbol:{symbol}, amount:{amount}",
+            _logger.LogError("Holder is null, in {processor}, caAddress:{address}, symbol:{symbol}, amount:{amount}",
                 nameof(TokenBurnedLogEventProcessor), address, eventValue.Symbol, -eventValue.Amount);
             return;
         }

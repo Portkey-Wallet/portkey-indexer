@@ -38,7 +38,6 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
     protected readonly IObjectMapper ObjectMapper;
     protected readonly ContractInfoOptions ContractInfoOptions;
     protected readonly SubscribersOptions SubscribersOptions;
-    protected readonly ILogger<CAHolderTokenBalanceProcessorBase<TEvent>> Logger;
     protected const string Prefix = "balance";
 
     public CAHolderTokenBalanceProcessorBase(ILogger<CAHolderTokenBalanceProcessorBase<TEvent>> logger,
@@ -69,7 +68,6 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
         BalanceChangeRecordRepository = balanceChangeRecordRepository;
         ContractInfoOptions = contractInfoOptions.Value;
         SubscribersOptions = subscribersOptions.Value;
-        Logger = logger;
     }
 
     protected async Task ModifyBalanceAsync(string address, string symbol, long amount, LogEventContext context)
