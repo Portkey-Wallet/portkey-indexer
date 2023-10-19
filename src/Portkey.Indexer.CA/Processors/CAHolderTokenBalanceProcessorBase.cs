@@ -280,7 +280,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
     protected async Task AddOrUpdateBalanceRecordAsync(string address, string symbol, long amount,
         LogEventContext context)
     {
-        var id = IdGenerateHelper.GetId(Prefix, context.TransactionId);
+        var id = IdGenerateHelper.GetId(Prefix, address, context.TransactionId);
 
         var record = await BalanceChangeRecordRepository.GetFromBlockStateSetAsync(id, context.ChainId);
         if (record == null)
