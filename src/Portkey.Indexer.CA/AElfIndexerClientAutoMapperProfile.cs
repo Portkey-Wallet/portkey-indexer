@@ -102,6 +102,7 @@ public class TestGraphQLAutoMapperProfile : Profile
         CreateMap<LogEventContext, ManagerApprovedIndex>();
         CreateMap<GuardianChangeRecordIndex, GuardianChangeRecordDto>();
         CreateMap<BalanceChangeRecordIndex, CaHolderBalanceChangeRecordDto>();
+        CreateMap<LogEventContext, BalanceChangeRecordIndex>();
     }
 }
 

@@ -16,6 +16,7 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
         _transactionFeeChangedIndexRepository;
 
     private readonly IObjectMapper _objectMapper;
+    private readonly ILogger<TransactionFeeChargedLogEventProcessor> _logger;
 
     public TransactionFeeChargedLogEventProcessor(ILogger<TransactionFeeChargedLogEventProcessor> logger,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
@@ -41,6 +42,7 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
     {
         _transactionFeeChangedIndexRepository = transactionFeeChangedIndexRepository;
         _objectMapper = objectMapper;
+        _logger = logger;
     }
 
     public override string GetContractAddress(string chainId)
@@ -52,7 +54,7 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
     {
         if (eventValue.ChargingAddress == null)
         {
-            Logger.LogError("chargingAddress is null, transactionId:{transactionId}", context.TransactionId);
+            _logger.LogError("chargingAddress is null, transactionId:{transactionId}", context.TransactionId);
             return;
         }
 
@@ -72,7 +74,7 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
         _objectMapper.Map(context, transactionFeeChangedIndex);
 
         await AddBalanceRecordAsync(address,BalanceChangeType.TransactionFeeCharged, context);
-        Logger.LogInformation(
+        _logger.LogInformation(
             "In {processor}, caAddress:{address}, symbol:{symbol}, amount:{amount}, transactionId:{transactionId}",
             nameof(TransactionFeeChargedLogEventProcessor), address, eventValue.Symbol, -eventValue.Amount,
             context.TransactionId);
@@ -82,7 +84,7 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
 
         if (caHolderIndex == null)
         {
-            Logger.LogError(
+            _logger.LogError(
                 "Holder is null, in {processor}, caAddress:{address}, symbol:{symbol}, amount:{amount}, transactionId:{transactionId}",
                 nameof(TokenBurnedLogEventProcessor), address, eventValue.Symbol, -eventValue.Amount,
                 context.TransactionId);

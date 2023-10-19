@@ -12,6 +12,8 @@ namespace Portkey.Indexer.CA.Processors;
 
 public class TokenTransferredLogEventProcessor : CAHolderTokenBalanceProcessorBase<Transferred>
 {
+    private readonly ILogger<TokenTransferredLogEventProcessor> _logger;
+
     public TokenTransferredLogEventProcessor(ILogger<TokenTransferredLogEventProcessor> logger,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IOptionsSnapshot<SubscribersOptions> subscribersOptions,
@@ -32,6 +34,7 @@ public class TokenTransferredLogEventProcessor : CAHolderTokenBalanceProcessorBa
         caHolderTokenBalanceIndexRepository, caHolderNFTCollectionBalanceIndexRepository,
         caHolderNFTBalanceIndexRepository, balanceChangeRecordRepository, objectMapper)
     {
+        _logger = logger;
     }
 
     public override string GetContractAddress(string chainId)
@@ -58,7 +61,7 @@ public class TokenTransferredLogEventProcessor : CAHolderTokenBalanceProcessorBa
         }
 
         await AddBalanceRecordAsync(address, BalanceChangeType.TokenTransferred, context);
-        Logger.LogInformation(
+        _logger.LogInformation(
             "In {processor}, caAddress:{address}, symbol:{symbol}, amount:{amount}, transactionId:{transactionId}",
             nameof(TokenTransferredLogEventProcessor), address, eventValue.Symbol, amount,
             context.TransactionId);

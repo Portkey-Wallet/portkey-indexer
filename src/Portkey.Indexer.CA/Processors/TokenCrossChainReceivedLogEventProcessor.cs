@@ -12,6 +12,7 @@ namespace Portkey.Indexer.CA.Processors;
 
 public class TokenCrossChainReceivedLogEventProcessor : CAHolderTokenBalanceProcessorBase<CrossChainReceived>
 {
+    private readonly ILogger<TokenCrossChainReceivedLogEventProcessor> _logger;
     public TokenCrossChainReceivedLogEventProcessor(ILogger<TokenCrossChainReceivedLogEventProcessor> logger,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IOptionsSnapshot<SubscribersOptions> subscribersOptions,
@@ -32,6 +33,7 @@ public class TokenCrossChainReceivedLogEventProcessor : CAHolderTokenBalanceProc
         caHolderTokenBalanceIndexRepository, caHolderNFTCollectionBalanceIndexRepository,
         caHolderNFTBalanceIndexRepository, balanceChangeRecordRepository, objectMapper)
     {
+        _logger = logger;
     }
 
     public override string GetContractAddress(string chainId)
@@ -48,14 +50,14 @@ public class TokenCrossChainReceivedLogEventProcessor : CAHolderTokenBalanceProc
         }
 
         await AddBalanceRecordAsync(address, BalanceChangeType.TokenCrossChainReceived, context);
-        Logger.LogInformation("In {processor}, caAddress:{address}, symbol:{symbol}, amount:{amount}",
+        _logger.LogInformation("In {processor}, caAddress:{address}, symbol:{symbol}, amount:{amount}",
             nameof(TokenCrossChainReceivedLogEventProcessor), address, eventValue.Symbol, eventValue.Amount);
 
         var holder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
             eventValue.To.ToBase58()), context.ChainId);
         if (holder == null)
         {
-            Logger.LogError("Holder is null, in {processor}, caAddress:{address}, symbol:{symbol}, amount:{amount}",
+            _logger.LogError("Holder is null, in {processor}, caAddress:{address}, symbol:{symbol}, amount:{amount}",
                 nameof(TokenCrossChainReceivedLogEventProcessor), address, eventValue.Symbol, eventValue.Amount);
             return;
         }
