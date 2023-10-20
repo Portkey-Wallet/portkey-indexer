@@ -79,7 +79,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
         {
             return;
         }
-        
+
         Logger.LogInformation("in ModifyBalanceAsync ....address:{address}, amount:{amount}", address, amount);
         TokenType tokenType = TokenHelper.GetTokenType(symbol);
         if (tokenType == TokenType.Token)
@@ -293,7 +293,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
             Logger.LogError(
                 "in AddOrUpdateBalanceRecordAsync  record == null, address:{address}, amount:{amount}, transactionId:{transactionId}",
                 address, amount, context.TransactionId);
-            
+
             record = new BalanceChangeRecordIndex
             {
                 Id = recordId,
@@ -301,6 +301,10 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
             };
 
             ObjectMapper.Map(context, record);
+        }
+        else if (record.CaAddress != address)
+        {
+            return;
         }
 
         record.Amount = amount;
