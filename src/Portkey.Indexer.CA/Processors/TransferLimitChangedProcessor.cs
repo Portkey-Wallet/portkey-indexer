@@ -13,7 +13,7 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class TransferLimitChangedProcessor : CAHolderTransactionLogEventBase<TransferLimitChanged>
+public class TransferLimitChangedProcessor : CAHolderTransactionEventBase<TransferLimitChanged>
 {
     private readonly IAElfIndexerClientEntityRepository<TransferLimitIndex, TransactionInfo> _repository;
     private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> _caHolderTransactionIndexRepository;
