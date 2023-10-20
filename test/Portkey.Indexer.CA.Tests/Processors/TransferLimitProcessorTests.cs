@@ -50,7 +50,7 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
         const long defaultTransferLimit = 10000000;
         var caHash = HashHelper.ComputeFrom("test@google.com");
 
-        var tokenCreatedProcessor = GetRequiredService<TransferLimitChangedLogEventProcessor>();
+        var tokenCreatedProcessor = GetRequiredService<TransferLimitChangedProcessor>();
         tokenCreatedProcessor.GetContractAddress(chainId);
         var blockStateSet = new BlockStateSet<LogEventInfo>
         {
