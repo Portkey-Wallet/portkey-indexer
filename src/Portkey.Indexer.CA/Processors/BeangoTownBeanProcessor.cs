@@ -14,7 +14,7 @@ public class BeangoTownBeanProcessor : CAHolderTransactionProcessorBase<Bingoed>
 {
     private readonly IAElfIndexerClientEntityRepository<BeangoTownIndex, TransactionInfo> _bingoIndexRepository;
     private readonly string _methodName = "BeanGoTown-Bingo";
-    private readonly string _methodNameOrigin = "Bingo";
+    private readonly string _methodNameOrigin = "Play";
     private readonly ILogger<BeangoTownBeanProcessor> _logger;
 
     public BeangoTownBeanProcessor(ILogger<BeangoTownBeanProcessor> logger,
@@ -50,7 +50,7 @@ public class BeangoTownBeanProcessor : CAHolderTransactionProcessorBase<Bingoed>
             return;
         }
         // await ProcessCAHolderTransactionAsync(context, eventValue.PlayerAddress.ToBase58());
-        if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
+        //if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
         var holder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
             eventValue.PlayerAddress.ToBase58()), context.ChainId);
         if (holder == null) return;
