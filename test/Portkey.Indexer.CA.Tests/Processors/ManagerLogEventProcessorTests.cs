@@ -894,9 +894,15 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
             PreviousBlockHash = previousBlockHash,
         };
     
-    
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash,
+        };
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
-    
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
         //step2: create logEventInfo
         var managerInfoUpdated = new ManagerApproved()
         {
@@ -941,6 +947,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
     
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
     
         //step5: check result
