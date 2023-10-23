@@ -34,21 +34,20 @@ public class ManagerApprovedLogEventProcessor : AElfLogEventProcessorBase<Manage
 
     protected override async Task HandleEventAsync(ManagerApproved eventValue, LogEventContext context)
     {
-        var indexId = IdGenerateHelper.GetId(context.ChainId, context.TransactionId);
+        var indexId =
+            IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol, eventValue.Spender, context.TransactionId);
         var index = await _repository.GetFromBlockStateSetAsync(indexId, context.ChainId);
-        if (index == null)
+        index = new ManagerApprovedIndex
         {
-            index = new ManagerApprovedIndex
-            {
-                Id = indexId,
-                CaHash = eventValue.CaHash.ToHex(),
-                Spender = eventValue.Spender.ToBase58(),
-                Symbol = eventValue.Symbol,
-                Amount = eventValue.Amount,
-            };
-            _objectMapper.Map(context, index);
-            await _repository.AddOrUpdateAsync(index);
-        }
+            Id = indexId,
+            CaHash = eventValue.CaHash.ToHex(),
+            Spender = eventValue.Spender.ToBase58(),
+            Symbol = eventValue.Symbol,
+            Amount = eventValue.Amount,
+        };
+        _objectMapper.Map(context, index);
+        await _repository.AddOrUpdateAsync(index);
+
 
         _logger.LogDebug("[ManagerApproved]id: {id} transactionId: {transactionId}", indexId, context.TransactionId);
     }

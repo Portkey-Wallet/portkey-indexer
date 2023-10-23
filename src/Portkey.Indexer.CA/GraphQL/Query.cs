@@ -842,7 +842,7 @@ public class Query
     }
 
     [Name("caHolderTransferLimit")]
-    public static async Task<CAHolderTransferLimitResultDto> CAHolderTransferLimit(
+    public static async Task<CAHolderTransferLimitResultDto> CAHolderTransferLimitAsync(
         [FromServices] IAElfIndexerClientEntityRepository<TransferLimitIndex, LogEventInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetCAHolderTransferLimitDto dto)
     {
@@ -859,7 +859,7 @@ public class Query
     }
 
     [Name("caHolderManagerApproved")]
-    public static async Task<CAHolderManagerApprovedPageResultDto> CAHolderManagerApproved(
+    public static async Task<CAHolderManagerApprovedPageResultDto> CAHolderManagerApprovedAsync(
         [FromServices] IAElfIndexerClientEntityRepository<ManagerApprovedIndex, LogEventInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetCAHolderManagerApprovedDto dto)
     {
@@ -881,7 +881,7 @@ public class Query
     }
 
     [Name("transferSecurityThresholdList")]
-    public static async Task<TransferSecurityThresholdPageResultDto> TransferSecurityThresholdList(
+    public static async Task<TransferSecurityThresholdPageResultDto> TransferSecurityThresholdListAsync(
         [FromServices] IAElfIndexerClientEntityRepository<TransferSecurityThresholdIndex, LogEventInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetTransferSecurityThresholdChangedDto dto)
     {
@@ -916,7 +916,7 @@ public class Query
     }
 
     [Name("guardianAddedCAHolderInfo")]
-    public static async Task<GuardianAddedCAHolderInfoResultDto> GuardianAddedCAHolderInfo(
+    public static async Task<GuardianAddedCAHolderInfoResultDto> GuardianAddedCAHolderInfoAsync(
         [FromServices] IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetGuardianAddedCAHolderInfo dto)
     {
