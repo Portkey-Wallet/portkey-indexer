@@ -20,7 +20,7 @@ namespace Portkey.Indexer.CA.Tests.Processors;
 [Collection(ClusterCollection.Name)]
 public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
 {
-    private readonly IAElfIndexerClientEntityRepository<TransferLimitIndex, LogEventInfo>
+    private readonly IAElfIndexerClientEntityRepository<TransferLimitIndex, TransactionInfo>
         _transferLimitIndexRepository;
 
     private readonly IAElfIndexerClientEntityRepository<TransferSecurityThresholdIndex, LogEventInfo>
@@ -32,7 +32,7 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
     {
         _objectMapper = GetRequiredService<IObjectMapper>();
         _transferLimitIndexRepository =
-            GetRequiredService<IAElfIndexerClientEntityRepository<TransferLimitIndex, LogEventInfo>>();
+            GetRequiredService<IAElfIndexerClientEntityRepository<TransferLimitIndex, TransactionInfo>>();
         _transferSecurityThresholdIndexRepository =
             GetRequiredService<IAElfIndexerClientEntityRepository<TransferSecurityThresholdIndex, LogEventInfo>>();
     }

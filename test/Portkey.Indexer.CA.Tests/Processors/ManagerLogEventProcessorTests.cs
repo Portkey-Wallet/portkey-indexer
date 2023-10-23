@@ -31,7 +31,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
     private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, LogEventInfo>
         _caHolderTransactionAddressIndexRepository;
 
-    private readonly IAElfIndexerClientEntityRepository<ManagerApprovedIndex, LogEventInfo>
+    private readonly IAElfIndexerClientEntityRepository<ManagerApprovedIndex, TransactionInfo>
         _managerApprovedIndexRepository;
 
     private readonly IObjectMapper _objectMapper;
@@ -52,7 +52,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         _caHolderTransactionAddressIndexRepository =
             GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, LogEventInfo>>();
         _managerApprovedIndexRepository =
-            GetRequiredService<IAElfIndexerClientEntityRepository<ManagerApprovedIndex, LogEventInfo>>();
+            GetRequiredService<IAElfIndexerClientEntityRepository<ManagerApprovedIndex, TransactionInfo>>();
         _objectMapper = GetRequiredService<IObjectMapper>();
     }
 

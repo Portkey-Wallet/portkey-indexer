@@ -859,7 +859,7 @@ public class Query
 
     [Name("caHolderTransferLimit")]
     public static async Task<CAHolderTransferLimitResultDto> CAHolderTransferLimit(
-        [FromServices] IAElfIndexerClientEntityRepository<TransferLimitIndex, LogEventInfo> repository,
+        [FromServices] IAElfIndexerClientEntityRepository<TransferLimitIndex, TransactionInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetCAHolderTransferLimitDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<TransferLimitIndex>, QueryContainer>>();
@@ -876,7 +876,7 @@ public class Query
 
     [Name("caHolderManagerApproved")]
     public static async Task<CAHolderManagerApprovedPageResultDto> CAHolderManagerApproved(
-        [FromServices] IAElfIndexerClientEntityRepository<ManagerApprovedIndex, LogEventInfo> repository,
+        [FromServices] IAElfIndexerClientEntityRepository<ManagerApprovedIndex, TransactionInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetCAHolderManagerApprovedDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<ManagerApprovedIndex>, QueryContainer>>();
