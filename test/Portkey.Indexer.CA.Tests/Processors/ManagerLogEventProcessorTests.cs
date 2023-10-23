@@ -35,6 +35,11 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         _managerApprovedIndexRepository;
 
     private readonly IObjectMapper _objectMapper;
+    private static Dictionary<string, string> extraProperties = new Dictionary<string, string>
+    {
+        { "TransactionFee", "{\"ELF\":\"30000000\"}" },
+        { "ResourceFee", "{\"ELF\":\"30000000\"}" }
+    };
 
     public ManagerLogEventProcessorTests()
     {
@@ -878,8 +883,8 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         const long blockHeight = 100;
         Hash owner = HashHelper.ComputeFrom("test@google.com");
         Address spenderAddr = Address.FromPublicKey("AAA".HexToByteArray());
-        var managerApprovedLogEventProcessor = GetRequiredService<ManagerApprovedLogEventProcessor>();
-
+        var managerApprovedLogEventProcessor = GetRequiredService<ManagerApprovedProcessor>();
+    
         //step1: create blockStateSet
         var blockStateSet = new BlockStateSet<LogEventInfo>
         {
@@ -888,10 +893,10 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash,
         };
-
-
+    
+    
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
-
+    
         //step2: create logEventInfo
         var managerInfoUpdated = new ManagerApproved()
         {
@@ -919,21 +924,25 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         logEventInfo.TransactionId = transactionId;
         var logEventContext = new LogEventContext
         {
+            To = "CAAddress",
             ChainId = chainId,
             BlockHeight = blockHeight,
             BlockHash = blockHash,
             PreviousBlockHash = previousBlockHash,
-            TransactionId = transactionId
+            TransactionId = transactionId,
+            MethodName = "ManagerApprove",
+            BlockTime = DateTime.UtcNow,
+            ExtraProperties = extraProperties
         };
-
+    
         //step3: handle event and write result to blockStateSet
         await managerApprovedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         managerApprovedLogEventProcessor.GetContractAddress("AELF");
-
+    
         //step4: save blockStateSet into es
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
         await Task.Delay(2000);
-
+    
         //step5: check result
         var managerApprovedIndexData = await _managerApprovedIndexRepository.GetAsync(chainId + "-" + transactionId);
         managerApprovedIndexData.ChainId.ShouldBe(chainId);
@@ -1017,7 +1026,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
     public async Task QueryCAHolderManagerApprovedTests()
     {
         await ManagerApprovedTests();
-
+    
         var result = await Query.CAHolderManagerApproved(_managerApprovedIndexRepository,
             _objectMapper, new GetCAHolderManagerApprovedDto()
             {
