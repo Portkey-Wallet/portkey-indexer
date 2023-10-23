@@ -935,7 +935,8 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         await Task.Delay(2000);
 
         //step5: check result
-        var managerApprovedIndexData = await _managerApprovedIndexRepository.GetAsync(chainId + "-" + transactionId);
+        var id = IdGenerateHelper.GetId(chainId, "ELF", spenderAddr, transactionId);
+        var managerApprovedIndexData = await _managerApprovedIndexRepository.GetAsync(id);
         managerApprovedIndexData.ChainId.ShouldBe(chainId);
         managerApprovedIndexData.CaHash.ShouldBe(owner.ToHex());
         managerApprovedIndexData.Spender.ShouldBe(spenderAddr.ToBase58());
