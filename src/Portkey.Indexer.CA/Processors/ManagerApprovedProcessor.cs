@@ -14,7 +14,10 @@ namespace Portkey.Indexer.CA.Processors;
 public class ManagerApprovedProcessor : CAHolderTransactionEventBase<ManagerApproved>
 {
     private readonly IAElfIndexerClientEntityRepository<ManagerApprovedIndex, TransactionInfo> _repository;
-    private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> _caHolderTransactionIndexRepository;
+
+    private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
+        _caHolderTransactionIndexRepository;
+
     private readonly ContractInfoOptions _contractInfoOptions;
     private readonly IObjectMapper _objectMapper;
     private readonly ILogger<ManagerApprovedProcessor> _logger;
@@ -22,7 +25,8 @@ public class ManagerApprovedProcessor : CAHolderTransactionEventBase<ManagerAppr
     public ManagerApprovedProcessor(ILogger<ManagerApprovedProcessor> logger,
         IObjectMapper objectMapper, IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IAElfIndexerClientEntityRepository<ManagerApprovedIndex, TransactionInfo> repository,
-        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> caHolderTransactionIndexRepository) : base(logger)
+        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
+            caHolderTransactionIndexRepository) : base(logger)
     {
         _logger = logger;
         _objectMapper = objectMapper;
@@ -39,21 +43,18 @@ public class ManagerApprovedProcessor : CAHolderTransactionEventBase<ManagerAppr
     protected override async Task HandleEventAsync(ManagerApproved eventValue, LogEventContext context)
     {
         var indexId = IdGenerateHelper.GetId(context.ChainId, context.TransactionId);
-        var index = await _repository.GetFromBlockStateSetAsync(indexId, context.ChainId);
-        if (index == null)
+
+        var index = new ManagerApprovedIndex
         {
-            index = new ManagerApprovedIndex
-            {
-                Id = indexId,
-                CaHash = eventValue.CaHash.ToHex(),
-                Spender = eventValue.Spender.ToBase58(),
-                Symbol = eventValue.Symbol,
-                Amount = eventValue.Amount,
-            };
-            _objectMapper.Map(context, index);
-            await _repository.AddOrUpdateAsync(index);
-        }
-        
+            Id = indexId,
+            CaHash = eventValue.CaHash.ToHex(),
+            Spender = eventValue.Spender.ToBase58(),
+            Symbol = eventValue.Symbol,
+            Amount = eventValue.Amount,
+        };
+        _objectMapper.Map(context, index);
+        await _repository.AddOrUpdateAsync(index);
+
         var caAddress =
             ConvertVirtualAddressToContractAddress(eventValue.CaHash, GetContractAddress(context.ChainId).ToAddress());
         if (caAddress == null)
