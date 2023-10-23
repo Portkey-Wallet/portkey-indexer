@@ -398,7 +398,7 @@ public class GuardianProcessorTests : PortkeyIndexerCATestBase
         {
             ChainId = "AELF",
             StartBlockHeight = 0,
-            EndBlockHeight = 100
+            EndBlockHeight = 200
         };
         var result = await Query.GuardianChangeRecordInfo(_changeRecordRepository, _objectMapper, param);
         result.Count.ShouldBe(1);
