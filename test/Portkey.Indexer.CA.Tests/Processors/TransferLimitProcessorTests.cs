@@ -59,7 +59,16 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash,
         };
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash,
+        };
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
+
         var transferLimitChanged = new TransferLimitChanged()
         {
             CaHash = caHash,
@@ -85,6 +94,8 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
         await tokenCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
 
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
+
         await Task.Delay(2000);
         var tokenInfoIndexData =
             await _transferLimitIndexRepository.GetAsync(IdGenerateHelper.GetId(chainId, caHash.ToHex(),
