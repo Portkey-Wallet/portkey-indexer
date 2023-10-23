@@ -368,7 +368,7 @@ public class GuardianProcessorTests: PortkeyIndexerCATestBase
         {
             LoginGuardianIdentifierHash = HashHelper.ComputeFrom("yangtze.cn").ToHex()
         };
-        var result = await Query.GuardianAddedCAHolderInfoAsync(_caHolderIndexRepository, _objectMapper, param);
+        var result = await Query.GuardianAddedCAHolderInfo(_caHolderIndexRepository, _objectMapper, param);
         result.TotalRecordCount.ShouldBe(1);
         result.Data.FirstOrDefault().CAAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
     }
