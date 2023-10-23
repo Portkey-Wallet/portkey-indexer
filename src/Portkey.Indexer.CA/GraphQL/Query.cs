@@ -754,7 +754,7 @@ public class Query
             f.Bool(b => b.Must(mustQuery));
 
         var result = await repository.GetListAsync(Filter, sortExp: k => k.BlockHeight,
-            sortType: SortOrder.Ascending, skip: 0, limit: 10000);
+            sortType: SortOrder.Ascending, skip: IndexerConstant.DefaultSkip, limit: IndexerConstant.DefaultLimit);
         return objectMapper.Map<List<LoginGuardianChangeRecordIndex>, List<LoginGuardianChangeRecordDto>>(result.Item2);
     }
 
@@ -774,7 +774,7 @@ public class Query
             f.Bool(b => b.Must(mustQuery));
 
         var result = await repository.GetListAsync(Filter, sortExp: k => k.BlockHeight,
-            sortType: SortOrder.Ascending, skip: 0, limit: 10000);
+            sortType: SortOrder.Ascending, skip: IndexerConstant.DefaultSkip, limit: IndexerConstant.DefaultLimit);
         return objectMapper.Map<List<CAHolderManagerChangeRecordIndex>, List<CAHolderManagerChangeRecordDto>>(
             result.Item2);
     }
@@ -966,7 +966,7 @@ public class Query
             f.Bool(b => b.Must(mustQuery));
 
         var result = await repository.GetListAsync(Filter, sortExp: k => k.BlockHeight,
-            sortType: SortOrder.Ascending, skip: 0, limit: 10000);
+            sortType: SortOrder.Ascending, skip: IndexerConstant.DefaultSkip, limit: IndexerConstant.DefaultLimit);
         return objectMapper.Map<List<GuardianChangeRecordIndex>, List<GuardianChangeRecordDto>>(
             result.Item2);
     }
