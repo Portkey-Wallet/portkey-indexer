@@ -55,6 +55,8 @@ public class Query
     [Name("caHolderTransaction")]
     public static async Task<CAHolderTransactionPageResultDto> CAHolderTransaction(
         [FromServices] IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> repository,
+        [FromServices]
+        IAElfIndexerClientEntityRepository<TransactionFeeChangedIndex, LogEventInfo> transactionFeeRepository,
         [FromServices] IObjectMapper objectMapper, GetCAHolderTransactionDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>();
@@ -74,7 +76,7 @@ public class Query
         {
             mustQuery.Add(q => q.Range(i => i.Field(f => f.Timestamp).GreaterThanOrEquals(dto.StartTime)));
         }
-        
+
         if (dto.EndTime > 0)
         {
             mustQuery.Add(q => q.Range(i => i.Field(f => f.Timestamp).LessThanOrEquals(dto.EndTime)));
@@ -141,6 +143,20 @@ public class Query
         var result = await repository.GetListAsync(Filter, sortExp: k => k.Timestamp,
             sortType: SortOrder.Descending, skip: dto.SkipCount, limit: dto.MaxResultCount);
         var dataList = objectMapper.Map<List<CAHolderTransactionIndex>, List<CAHolderTransactionDto>>(result.Item2);
+
+        foreach (var transaction in dataList)
+        {
+            if (string.IsNullOrEmpty(transaction.TransactionId)) continue;
+            var query = new List<Func<QueryContainerDescriptor<TransactionFeeChangedIndex>, QueryContainer>>
+                { q => q.Term(i => i.Field(f => f.TransactionId).Value(transaction.TransactionId)) };
+
+            QueryContainer TransactionFeeFilter(QueryContainerDescriptor<TransactionFeeChangedIndex> f) =>
+                f.Bool(b => b.Must(query));
+
+            var transactionFee = await transactionFeeRepository.GetAsync(TransactionFeeFilter);
+            if (transactionFee == null || string.IsNullOrEmpty(transactionFee.CAAddress))
+                transaction.IsManagerConsumer = true;
+        }
 
         var pageResult = new CAHolderTransactionPageResultDto
         {
@@ -427,7 +443,34 @@ public class Query
         QueryContainer Filter(QueryContainerDescriptor<CAHolderIndex> f) => f.Bool(b => b.Must(mustQuery));
 
         var result = await repository.GetListAsync(Filter, skip: dto.SkipCount, limit: dto.MaxResultCount);
+
+        if (result.Item1 > 0)
+        {
+            await AddOriginChainIdIfNullAsync(result.Item2, repository);
+        }
+
         return objectMapper.Map<List<CAHolderIndex>, List<CAHolderInfoDto>>(result.Item2);
+    }
+
+    private static async Task AddOriginChainIdIfNullAsync(List<CAHolderIndex> holders,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository)
+    {
+        foreach (var holder in holders.Where(holder => holder.OriginChainId.IsNullOrWhiteSpace()))
+        {
+            holder.OriginChainId = await GetOriginChainIdAsync(holder.CAHash, repository);
+        }
+    }
+
+    private static async Task<string> GetOriginChainIdAsync(string caHash,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderIndex>, QueryContainer>>();
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.CAHash).Value(caHash)));
+        QueryContainer Filter(QueryContainerDescriptor<CAHolderIndex> f) => f.Bool(b => b.Must(mustQuery));
+
+        var result = await repository.GetListAsync(Filter);
+
+        return result.Item2.FirstOrDefault(t => !t.OriginChainId.IsNullOrWhiteSpace())?.OriginChainId;
     }
 
     public static async Task<List<LoginGuardianDto>> LoginGuardianInfo(
@@ -738,7 +781,7 @@ public class Query
             f.Bool(b => b.Must(mustQuery));
 
         var result = await repository.GetListAsync(Filter, sortExp: k => k.BlockHeight,
-            sortType: SortOrder.Ascending, skip: 0, limit: 10000);
+            sortType: SortOrder.Ascending, skip: IndexerConstant.DefaultSkip, limit: IndexerConstant.DefaultLimit);
         return objectMapper.Map<List<LoginGuardianChangeRecordIndex>, List<LoginGuardianChangeRecordDto>>(result.Item2);
     }
 
@@ -758,7 +801,7 @@ public class Query
             f.Bool(b => b.Must(mustQuery));
 
         var result = await repository.GetListAsync(Filter, sortExp: k => k.BlockHeight,
-            sortType: SortOrder.Ascending, skip: 0, limit: 10000);
+            sortType: SortOrder.Ascending, skip: IndexerConstant.DefaultSkip, limit: IndexerConstant.DefaultLimit);
         return objectMapper.Map<List<CAHolderManagerChangeRecordIndex>, List<CAHolderManagerChangeRecordDto>>(
             result.Item2);
     }
@@ -841,6 +884,64 @@ public class Query
         return pageResult;
     }
 
+    [Name("caHolderTransferLimit")]
+    public static async Task<CAHolderTransferLimitResultDto> CAHolderTransferLimit(
+        [FromServices] IAElfIndexerClientEntityRepository<TransferLimitIndex, TransactionInfo> repository,
+        [FromServices] IObjectMapper objectMapper, GetCAHolderTransferLimitDto dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<TransferLimitIndex>, QueryContainer>>();
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.CaHash).Value(dto.CAHash)));
+        QueryContainer Filter(QueryContainerDescriptor<TransferLimitIndex> f) => f.Bool(b => b.Must(mustQuery));
+        var (_, res) = await repository.GetListAsync(Filter);
+        var result = new CAHolderTransferLimitResultDto
+        {
+            TotalRecordCount = res.Count,
+            Data = objectMapper.Map<List<TransferLimitIndex>, List<CAHolderTransferlimitDto>>(res)
+        };
+        return result;
+    }
+
+    [Name("caHolderManagerApproved")]
+    public static async Task<CAHolderManagerApprovedPageResultDto> CAHolderManagerApproved(
+        [FromServices] IAElfIndexerClientEntityRepository<ManagerApprovedIndex, TransactionInfo> repository,
+        [FromServices] IObjectMapper objectMapper, GetCAHolderManagerApprovedDto dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<ManagerApprovedIndex>, QueryContainer>>();
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.ChainId).Value(dto.ChainId)));
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.CaHash).Value(dto.CAHash)));
+        if (!string.IsNullOrEmpty(dto.Spender))
+            mustQuery.Add(q => q.Term(i => i.Field(f => f.Spender).Value(dto.Spender)));
+        if (!string.IsNullOrEmpty(dto.Symbol))
+            mustQuery.Add(q => q.Term(i => i.Field(f => f.Symbol).Value(dto.Symbol)));
+        QueryContainer Filter(QueryContainerDescriptor<ManagerApprovedIndex> f) => f.Bool(b => b.Must(mustQuery));
+        var (_, res) = await repository.GetListAsync(Filter, skip: dto.SkipCount, limit: dto.MaxResultCount);
+        var result = new CAHolderManagerApprovedPageResultDto
+        {
+            TotalRecordCount = res.Count,
+            Data = objectMapper.Map<List<ManagerApprovedIndex>, List<CAHolderManagerApprovedDto>>(res)
+        };
+        return result;
+    }
+
+    [Name("transferSecurityThresholdList")]
+    public static async Task<TransferSecurityThresholdPageResultDto> TransferSecurityThresholdList(
+        [FromServices] IAElfIndexerClientEntityRepository<TransferSecurityThresholdIndex, LogEventInfo> repository,
+        [FromServices] IObjectMapper objectMapper, GetTransferSecurityThresholdChangedDto dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<TransferSecurityThresholdIndex>, QueryContainer>>();
+
+        QueryContainer Filter(QueryContainerDescriptor<TransferSecurityThresholdIndex> f) =>
+            f.Bool(b => b.Must(mustQuery));
+
+        var (_, res) = await repository.GetListAsync(Filter, skip: dto.SkipCount, limit: dto.MaxResultCount);
+        var result = new TransferSecurityThresholdPageResultDto
+        {
+            TotalRecordCount = res.Count,
+            Data = objectMapper.Map<List<TransferSecurityThresholdIndex>, List<TransferSecurityThresholdDto>>(res)
+        };
+        return result;
+    }
+
     public static async Task<SyncStateDto> SyncState(
         [FromServices] IClusterClient clusterClient, [FromServices] IAElfIndexerClientInfoProvider clientInfoProvider,
         [FromServices] IObjectMapper objectMapper, GetSyncStateDto dto)
@@ -868,11 +969,32 @@ public class Query
         QueryContainer Filter(QueryContainerDescriptor<CAHolderIndex> f) => f.Bool(b => b.Must(mustQuery));
 
         var holders = await repository.GetListAsync(Filter, skip: dto.SkipCount, limit: dto.MaxResultCount);
-        
+
         return new GuardianAddedCAHolderInfoResultDto()
         {
             TotalRecordCount = holders.Item1,
             Data = objectMapper.Map<List<CAHolderIndex>, List<CAHolderInfoDto>>(holders.Item2)
         };
+    }
+
+    [Name("guardianChangeRecordInfo")]
+    public static async Task<List<GuardianChangeRecordDto>> GuardianChangeRecordInfo(
+        [FromServices] IAElfIndexerClientEntityRepository<GuardianChangeRecordIndex, LogEventInfo> repository,
+        [FromServices] IObjectMapper objectMapper, GetGuardianChangeRecordDto dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<GuardianChangeRecordIndex>, QueryContainer>>();
+
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.ChainId).Value(dto.ChainId)));
+        // mustQuery.Add(q => q.Term(i => i.Field(f => f.CAAddress).Value(dto.CAHash)));
+        mustQuery.Add(q => q.Range(i => i.Field(f => f.BlockHeight).GreaterThanOrEquals(dto.StartBlockHeight)));
+        mustQuery.Add(q => q.Range(i => i.Field(f => f.BlockHeight).LessThanOrEquals(dto.EndBlockHeight)));
+
+        QueryContainer Filter(QueryContainerDescriptor<GuardianChangeRecordIndex> f) =>
+            f.Bool(b => b.Must(mustQuery));
+
+        var result = await repository.GetListAsync(Filter, sortExp: k => k.BlockHeight,
+            sortType: SortOrder.Ascending, skip: IndexerConstant.DefaultSkip, limit: IndexerConstant.DefaultLimit);
+        return objectMapper.Map<List<GuardianChangeRecordIndex>, List<GuardianChangeRecordDto>>(
+            result.Item2);
     }
 }

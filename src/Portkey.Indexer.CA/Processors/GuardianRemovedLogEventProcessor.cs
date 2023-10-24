@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using Portkey.Contracts.CA;
 using Portkey.Indexer.CA.Entities;
 using Volo.Abp.ObjectMapping;
+using Guardian = Portkey.Contracts.CA.Guardian;
 
 namespace Portkey.Indexer.CA.Processors;
 
@@ -13,8 +14,10 @@ public class GuardianRemovedLogEventProcessor : GuardianProcessorBase<GuardianRe
 {
     public GuardianRemovedLogEventProcessor(ILogger<GuardianRemovedLogEventProcessor> logger,
         IObjectMapper objectMapper, IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
-        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base(logger, objectMapper, repository,
-        contractInfoOptions)
+        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
+        IAElfIndexerClientEntityRepository<GuardianChangeRecordIndex, LogEventInfo> changeRecordRepository) : base(
+        logger, objectMapper, repository,
+        contractInfoOptions, changeRecordRepository)
     {
     }
 
@@ -42,5 +45,8 @@ public class GuardianRemovedLogEventProcessor : GuardianProcessorBase<GuardianRe
 
         ObjectMapper.Map(context, caHolderIndex);
         await Repository.AddOrUpdateAsync(caHolderIndex);
+
+        await AddChangeRecordAsync(eventValue.CaAddress.ToBase58(), eventValue.CaHash.ToHex(), nameof(GuardianRemoved),
+            ObjectMapper.Map<Guardian, Entities.Guardian>(eventValue.GuardianRemoved_), context);
     }
 }
