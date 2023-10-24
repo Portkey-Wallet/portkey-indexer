@@ -172,9 +172,7 @@ public class CAHolderSyncedProcessor: AElfLogEventProcessorBase<CAHolderSynced,L
         }
 
         // TODO When deploy new CA contract, remove this part
-        var managerInfosRemoved = eventValue.ManagerInfosRemoved.ManagerInfosRemoved.Count > 0
-            ? eventValue.ManagerInfosRemoved.ManagerInfosRemoved
-            : eventValue.ManagerInfosRemoved.ManagerInfos;
+        var managerInfosRemoved = eventValue.ManagerInfosRemoved.ManagerInfos;
 
         //Remove manager
         if (managerInfosRemoved.Count > 0)
