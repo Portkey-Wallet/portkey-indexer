@@ -20,7 +20,7 @@ namespace Portkey.Indexer.CA.Tests.Processors;
 [Collection(ClusterCollection.Name)]
 public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
 {
-    private readonly IAElfIndexerClientEntityRepository<TransferLimitIndex, LogEventInfo>
+    private readonly IAElfIndexerClientEntityRepository<TransferLimitIndex, TransactionInfo>
         _transferLimitIndexRepository;
 
     private readonly IAElfIndexerClientEntityRepository<TransferSecurityThresholdIndex, LogEventInfo>
@@ -32,7 +32,7 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
     {
         _objectMapper = GetRequiredService<IObjectMapper>();
         _transferLimitIndexRepository =
-            GetRequiredService<IAElfIndexerClientEntityRepository<TransferLimitIndex, LogEventInfo>>();
+            GetRequiredService<IAElfIndexerClientEntityRepository<TransferLimitIndex, TransactionInfo>>();
         _transferSecurityThresholdIndexRepository =
             GetRequiredService<IAElfIndexerClientEntityRepository<TransferSecurityThresholdIndex, LogEventInfo>>();
     }
@@ -50,7 +50,7 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
         const long defaultTransferLimit = 10000000;
         var caHash = HashHelper.ComputeFrom("test@google.com");
 
-        var tokenCreatedProcessor = GetRequiredService<TransferLimitChangedLogEventProcessor>();
+        var tokenCreatedProcessor = GetRequiredService<TransferLimitChangedProcessor>();
         tokenCreatedProcessor.GetContractAddress(chainId);
         var blockStateSet = new BlockStateSet<LogEventInfo>
         {
@@ -59,7 +59,16 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash,
         };
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash,
+        };
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
+
         var transferLimitChanged = new TransferLimitChanged()
         {
             CaHash = caHash,
@@ -85,6 +94,8 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
         await tokenCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
 
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
+
         await Task.Delay(2000);
         var tokenInfoIndexData =
             await _transferLimitIndexRepository.GetAsync(IdGenerateHelper.GetId(chainId, caHash.ToHex(),

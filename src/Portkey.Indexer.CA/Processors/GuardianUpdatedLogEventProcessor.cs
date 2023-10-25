@@ -14,8 +14,10 @@ public class GuardianUpdatedLogEventProcessor : GuardianProcessorBase<GuardianUp
 {
     public GuardianUpdatedLogEventProcessor(ILogger<GuardianUpdatedLogEventProcessor> logger,
         IObjectMapper objectMapper, IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
-        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base(logger, objectMapper, repository,
-        contractInfoOptions)
+        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
+        IAElfIndexerClientEntityRepository<GuardianChangeRecordIndex, LogEventInfo> changeRecordRepository) : base(
+        logger, objectMapper, repository,
+        contractInfoOptions, changeRecordRepository)
     {
     }
 
@@ -43,5 +45,8 @@ public class GuardianUpdatedLogEventProcessor : GuardianProcessorBase<GuardianUp
 
         ObjectMapper.Map(context, caHolderIndex);
         await Repository.AddOrUpdateAsync(caHolderIndex);
+
+        await AddChangeRecordAsync(eventValue.CaAddress.ToBase58(), eventValue.CaHash.ToHex(), nameof(GuardianUpdated),
+            ObjectMapper.Map<Guardian, Entities.Guardian>(eventValue.GuardianUpdatedNew), context);
     }
 }
