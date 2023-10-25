@@ -400,7 +400,7 @@ public class GuardianProcessorTests : PortkeyIndexerCATestBase
             StartBlockHeight = 0,
             EndBlockHeight = 200
         };
-        var result = await Query.GuardianChangeRecordInfo(_changeRecordRepository, _objectMapper, param);
+        var result = await Query.GuardianAddedCAHolderInfoAsync(_changeRecordRepository, _objectMapper, param);
         result.Count.ShouldBe(1);
         result.FirstOrDefault().CAAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
     }
