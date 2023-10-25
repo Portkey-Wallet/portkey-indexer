@@ -1034,7 +1034,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
     {
         await ManagerApprovedTests();
     
-        var result = await Query.CAHolderManagerApproved(_managerApprovedIndexRepository,
+        var result = await Query.CAHolderManagerApprovedAsync(_managerApprovedIndexRepository,
             _objectMapper, new GetCAHolderManagerApprovedDto()
             {
                 ChainId = "AELF",

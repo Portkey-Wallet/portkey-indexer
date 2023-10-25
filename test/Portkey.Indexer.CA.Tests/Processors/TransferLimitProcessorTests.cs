@@ -169,7 +169,7 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
     {
         await TransferLimitChangedAsync_Test();
 
-        var result = await Query.CAHolderTransferLimit(_transferLimitIndexRepository, _objectMapper,
+        var result = await Query.CAHolderTransferLimitAsync(_transferLimitIndexRepository, _objectMapper,
             new GetCAHolderTransferLimitDto
             {
                 CAHash = HashHelper.ComputeFrom("test@google.com").ToHex(),
@@ -183,7 +183,7 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
     {
         await TransferSecurityThresholdChangedAsync_Test();
 
-        var result = await Query.TransferSecurityThresholdList(_transferSecurityThresholdIndexRepository, _objectMapper,
+        var result = await Query.TransferSecurityThresholdListAsync(_transferSecurityThresholdIndexRepository, _objectMapper,
             new GetTransferSecurityThresholdChangedDto());
         result.TotalRecordCount.ShouldBe(1);
         result.Data.Count.ShouldBe(1);
