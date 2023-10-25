@@ -71,8 +71,8 @@ public class PortkeyIndexerCAModule:AElfIndexerClientPluginBaseModule<PortkeyInd
         Configure<CAHolderTransactionInfoOptions>(configuration.GetSection("CAHolderTransactionInfo"));
     }
 
-    protected override string ClientId => "Portkey_DID";
-    protected override string Version => "";
+    protected override string ClientId => "Dapp_ClientId";
+    protected override string Version => "Dapp_Version";
 
     
 }
