@@ -121,15 +121,9 @@ public class CAHolderSyncedProcessor : AElfLogEventProcessorBase<CAHolderSynced,
             ManagerInfos = managerList
         };
 
-        if (eventValue.CreateChainId == 0)
-        {
-            var originChainId = await GetOriginChainIdAsync(eventValue.CaHash.ToHex());
-            caHolderIndex.OriginChainId = originChainId;
-        }
-        else
-        {
-            caHolderIndex.OriginChainId = ChainHelper.ConvertChainIdToBase58(eventValue.CreateChainId);
-        }
+        caHolderIndex.OriginChainId = eventValue.CreateChainId == 0
+            ? await GetOriginChainIdAsync(eventValue.CaHash.ToHex())
+            : ChainHelper.ConvertChainIdToBase58(eventValue.CreateChainId);
 
         _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
         await _caHolderIndexRepository.AddOrUpdateAsync(caHolderIndex);
@@ -222,17 +216,9 @@ public class CAHolderSyncedProcessor : AElfLogEventProcessorBase<CAHolderSynced,
         }
 
         if (caHolderIndex.OriginChainId.IsNullOrWhiteSpace())
-        {
-            if (eventValue.CreateChainId == 0)
-            {
-                var originChainId = await GetOriginChainIdAsync(eventValue.CaHash.ToHex());
-                caHolderIndex.OriginChainId = originChainId;
-            }
-            else
-            {
-                caHolderIndex.OriginChainId = ChainHelper.ConvertChainIdToBase58(eventValue.CreateChainId);
-            }
-        }
+            caHolderIndex.OriginChainId = eventValue.CreateChainId == 0
+                ? await GetOriginChainIdAsync(eventValue.CaHash.ToHex())
+                : ChainHelper.ConvertChainIdToBase58(eventValue.CreateChainId);
 
         _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
         await _caHolderIndexRepository.AddOrUpdateAsync(caHolderIndex);
