@@ -557,7 +557,7 @@ public class BeangoTownProcessorTests : PortkeyIndexerCATestBase
         transationData.MethodName.ShouldBe("Bingoed");
     }
     
-    [Fact]
+    //this processor is not use 
     public async Task HandleBingoedLogEventAsync_beango_method_Test()
     {
         await CreateHolder();

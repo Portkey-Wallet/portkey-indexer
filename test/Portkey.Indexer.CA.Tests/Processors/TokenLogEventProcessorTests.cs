@@ -95,7 +95,8 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
             GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderSearchTokenNFTIndex, LogEventInfo>>();
         _caHolderTransactionIndexRepository =
             GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>>();
-
+        transactionFeeRepository =
+            GetRequiredService<IAElfIndexerClientEntityRepository<TransactionFeeChangedIndex, LogEventInfo>>();
         _objectMapper = GetRequiredService<IObjectMapper>();
     }
 
