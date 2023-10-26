@@ -47,7 +47,6 @@ public class ManagerApprovedLogEventProcessor : AElfLogEventProcessorBase<Manage
         _objectMapper.Map(context, index);
         await _repository.AddOrUpdateAsync(index);
 
-
         _logger.LogDebug("[ManagerApproved]id: {id} transactionId: {transactionId}", indexId, context.TransactionId);
     }
 }

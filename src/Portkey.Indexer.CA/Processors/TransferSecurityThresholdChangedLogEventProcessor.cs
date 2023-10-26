@@ -37,8 +37,7 @@ public class TransferSecurityThresholdChangedLogEventProcessor : AElfLogEventPro
     {
         var indexId =
             IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol, nameof(TransferSecurityThresholdChanged));
-        var index = await _repository.GetFromBlockStateSetAsync(indexId, context.ChainId);
-        index = new TransferSecurityThresholdIndex
+        var  index = new TransferSecurityThresholdIndex
         {
             Id = indexId,
             Symbol = eventValue.Symbol,
