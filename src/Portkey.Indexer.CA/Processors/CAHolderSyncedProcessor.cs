@@ -121,7 +121,15 @@ public class CAHolderSyncedProcessor : AElfLogEventProcessorBase<CAHolderSynced,
             ManagerInfos = managerList
         };
 
-        caHolderIndex.OriginChainId = ChainHelper.ConvertChainIdToBase58(eventValue.CreateChainId);
+        if (eventValue.CreateChainId == 0)
+        {
+            var originChainId = await GetOriginChainIdAsync(eventValue.CaHash.ToHex());
+            caHolderIndex.OriginChainId = originChainId;
+        }
+        else
+        {
+            caHolderIndex.OriginChainId = ChainHelper.ConvertChainIdToBase58(eventValue.CreateChainId);
+        }
 
         _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
         await _caHolderIndexRepository.AddOrUpdateAsync(caHolderIndex);
@@ -215,7 +223,15 @@ public class CAHolderSyncedProcessor : AElfLogEventProcessorBase<CAHolderSynced,
 
         if (caHolderIndex.OriginChainId.IsNullOrWhiteSpace())
         {
-            caHolderIndex.OriginChainId = ChainHelper.ConvertChainIdToBase58(eventValue.CreateChainId);
+            if (eventValue.CreateChainId == 0)
+            {
+                var originChainId = await GetOriginChainIdAsync(eventValue.CaHash.ToHex());
+                caHolderIndex.OriginChainId = originChainId;
+            }
+            else
+            {
+                caHolderIndex.OriginChainId = ChainHelper.ConvertChainIdToBase58(eventValue.CreateChainId);
+            }
         }
 
         _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
@@ -280,5 +296,16 @@ public class CAHolderSyncedProcessor : AElfLogEventProcessorBase<CAHolderSynced,
                 await _loginGuardianRepository.DeleteAsync(loginGuardianIndex);
             }
         }
+    }
+
+    private async Task<string> GetOriginChainIdAsync(string caHash)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderIndex>, QueryContainer>>();
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.CAHash).Value(caHash)));
+        QueryContainer Filter(QueryContainerDescriptor<CAHolderIndex> f) => f.Bool(b => b.Must(mustQuery));
+
+        var result = await _caHolderIndexRepository.GetListAsync(Filter);
+
+        return result.Item2.FirstOrDefault(t => t != null && !t.OriginChainId.IsNullOrWhiteSpace())?.OriginChainId;
     }
 }
