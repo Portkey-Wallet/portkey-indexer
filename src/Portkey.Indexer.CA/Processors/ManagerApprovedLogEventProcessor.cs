@@ -36,8 +36,7 @@ public class ManagerApprovedLogEventProcessor : AElfLogEventProcessorBase<Manage
     {
         var indexId =
             IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol, eventValue.Spender, context.TransactionId);
-        var index = await _repository.GetFromBlockStateSetAsync(indexId, context.ChainId);
-        index = new ManagerApprovedIndex
+        var index = new ManagerApprovedIndex
         {
             Id = indexId,
             CaHash = eventValue.CaHash.ToHex(),
