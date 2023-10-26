@@ -9,7 +9,7 @@ public class BalanceChangeRecordIndex : AElfIndexerClientEntity<string>, IIndexB
     [Keyword] public override string Id { get; set; }
     [Keyword] public string CaAddress { get; set; }
     [Keyword] public string TransactionId { get; set; }
-    public long TransactionTime { get; set; }
+    public long Timestamp { get; set; }
     [Keyword] public string OperatorType { get; set; }
     public TokenBasicInfo TokenInfo { get; set; }
     [Keyword] public string BalanceChangeType { get; set; }

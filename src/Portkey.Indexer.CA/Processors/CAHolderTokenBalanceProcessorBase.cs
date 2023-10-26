@@ -2,6 +2,7 @@ using AElf.CSharp.Core;
 using AElfIndexer.Client;
 using AElfIndexer.Client.Handlers;
 using AElfIndexer.Grains.State.Client;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Portkey.Indexer.CA.Entities;
@@ -331,7 +332,8 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
         {
             Id = id,
             CaAddress = address,
-            BalanceChangeType = balanceChangeType.ToString()
+            BalanceChangeType = balanceChangeType.ToString(),
+            Timestamp = context.BlockTime.ToTimestamp().Seconds,
         };
 
         ObjectMapper.Map(context, record);

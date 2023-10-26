@@ -52,30 +52,33 @@ public class TokenTransferredLogEventProcessor : CAHolderTokenBalanceProcessorBa
             return;
         }
 
-        var address = addressFrom;
-        var amount = -eventValue.Amount;
-        if (!CheckHelper.CheckNeedModifyBalance(address, SubscribersOptions))
-        {
-            address = addressTo;
-            amount = eventValue.Amount;
-        }
-
-        var recordId = await AddBalanceRecordAsync(address, BalanceChangeType.TokenTransferred, context);
         _logger.LogInformation(
-            "In {processor}, caAddress:{address}, symbol:{symbol}, amount:{amount}, transactionId:{transactionId}",
-            nameof(TokenTransferredLogEventProcessor), address, eventValue.Symbol, amount,
-            context.TransactionId);
+            "In {processor}, symbol:{symbol}, amount:{amount}, transactionId:{transactionId}, from:{from}, to:{to}, chainId:{chainId}",
+            nameof(TokenTransferredLogEventProcessor), eventValue.Symbol, eventValue.Amount,
+            context.TransactionId, eventValue.From.ToBase58(), eventValue.To.ToBase58(), context.ChainId);
 
         var from = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
             eventValue.From.ToBase58()), context.ChainId);
+        
         if (from != null)
         {
-            await ModifyBalanceAsync(from.CAAddress, eventValue.Symbol, -eventValue.Amount, context, recordId);
+            if (CheckHelper.CheckNeedRecordBalance(from.CAAddress, SubscribersOptions, eventValue.Symbol))
+            {
+                var recordId = await AddBalanceRecordAsync(from.CAAddress, BalanceChangeType.TokenTransferred, context);
+                await ModifyBalanceAsync(from.CAAddress, eventValue.Symbol, -eventValue.Amount, context, recordId);
+            }
         }
 
         var to = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
             eventValue.To.ToBase58()), context.ChainId);
-        if (to == null) return;
-        await ModifyBalanceAsync(to.CAAddress, eventValue.Symbol, eventValue.Amount, context, recordId);
+        
+        if (to != null)
+        {
+            if (CheckHelper.CheckNeedRecordBalance(to.CAAddress, SubscribersOptions, eventValue.Symbol))
+            {
+                var recordId = await AddBalanceRecordAsync(to.CAAddress, BalanceChangeType.TokenTransferred, context);
+                await ModifyBalanceAsync(to.CAAddress, eventValue.Symbol, eventValue.Amount, context, recordId);
+            }
+        }
     }
 }
