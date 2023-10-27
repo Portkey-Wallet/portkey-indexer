@@ -1,3 +1,4 @@
+using AElf;
 using AElf.Types;
 using AElfIndexer.Client;
 using AElfIndexer.Client.Handlers;
@@ -13,15 +14,19 @@ using ManagerInfo = Portkey.Indexer.CA.Entities.ManagerInfo;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class CAHolderSyncedProcessor: AElfLogEventProcessorBase<CAHolderSynced,LogEventInfo>
+public class CAHolderSyncedProcessor : AElfLogEventProcessorBase<CAHolderSynced, LogEventInfo>
 {
     private readonly IObjectMapper _objectMapper;
     private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _caHolderIndexRepository;
-    private readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> _caHolderManagerIndexRepository;
+
+    private readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo>
+        _caHolderManagerIndexRepository;
+
     private readonly IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo>
         _loginGuardianRepository;
+
     private readonly ContractInfoOptions _contractInfoOptions;
-    
+
     public CAHolderSyncedProcessor(ILogger<CAHolderSyncedProcessor> logger, IObjectMapper objectMapper,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
@@ -34,10 +39,10 @@ public class CAHolderSyncedProcessor: AElfLogEventProcessorBase<CAHolderSynced,L
         _loginGuardianRepository = loginGuardianRepository;
         _contractInfoOptions = contractInfoOptions.Value;
     }
-    
+
     public override string GetContractAddress(string chainId)
     {
-        return _contractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).CAContractAddress;
+        return _contractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress;
     }
 
     protected override async Task HandleEventAsync(CAHolderSynced eventValue, LogEventContext context)
@@ -55,13 +60,12 @@ public class CAHolderSyncedProcessor: AElfLogEventProcessorBase<CAHolderSynced,L
             //Add or Remove manager
             await AddOrRemoveManager(caHolderIndex, eventValue, context);
         }
-        
+
         //Add LoginGuardians
         await AddLoginGuardians(eventValue, context);
-        
+
         //Unbound LoginGuardians
         await UnboundLoginGuardians(eventValue, context);
-
     }
 
     private async Task CreateCAHolderAysnc(CAHolderSynced eventValue,
@@ -116,8 +120,10 @@ public class CAHolderSyncedProcessor: AElfLogEventProcessorBase<CAHolderSynced,L
             Creator = eventValue.Creator.ToBase58(),
             ManagerInfos = managerList
         };
-        var originChainId = await GetOriginChainIdAsync(eventValue.CaHash.ToHex());
-        caHolderIndex.OriginChainId = originChainId;
+
+        caHolderIndex.OriginChainId = eventValue.CreateChainId == 0
+            ? await GetOriginChainIdAsync(eventValue.CaHash.ToHex())
+            : ChainHelper.ConvertChainIdToBase58(eventValue.CreateChainId);
 
         _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
         await _caHolderIndexRepository.AddOrUpdateAsync(caHolderIndex);
@@ -168,7 +174,6 @@ public class CAHolderSyncedProcessor: AElfLogEventProcessorBase<CAHolderSynced,L
                 _objectMapper.Map<LogEventContext, CAHolderManagerIndex>(context, caHolderManagerIndex);
                 await _caHolderManagerIndexRepository.AddOrUpdateAsync(caHolderManagerIndex);
             }
-
         }
 
         // TODO When deploy new CA contract, remove this part
@@ -211,10 +216,9 @@ public class CAHolderSyncedProcessor: AElfLogEventProcessorBase<CAHolderSynced,L
         }
 
         if (caHolderIndex.OriginChainId.IsNullOrWhiteSpace())
-        {
-            var originChainId = await GetOriginChainIdAsync(eventValue.CaHash.ToHex());
-            caHolderIndex.OriginChainId = originChainId;
-        }
+            caHolderIndex.OriginChainId = eventValue.CreateChainId == 0
+                ? await GetOriginChainIdAsync(eventValue.CaHash.ToHex())
+                : ChainHelper.ConvertChainIdToBase58(eventValue.CreateChainId);
 
         _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
         await _caHolderIndexRepository.AddOrUpdateAsync(caHolderIndex);
@@ -229,11 +233,13 @@ public class CAHolderSyncedProcessor: AElfLogEventProcessorBase<CAHolderSynced,L
             {
                 var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.CaAddress.ToBase58(),
                     item, Hash.Empty.ToHex());
-                var loginGuardianIndex = await _loginGuardianRepository.GetFromBlockStateSetAsync(indexId, context.ChainId);
+                var loginGuardianIndex =
+                    await _loginGuardianRepository.GetFromBlockStateSetAsync(indexId, context.ChainId);
                 if (loginGuardianIndex != null)
                 {
                     continue;
                 }
+
                 loginGuardianIndex = new LoginGuardianIndex
                 {
                     Id = indexId,
@@ -254,7 +260,6 @@ public class CAHolderSyncedProcessor: AElfLogEventProcessorBase<CAHolderSynced,L
                 _objectMapper.Map(context, loginGuardianIndex);
                 await _loginGuardianRepository.AddOrUpdateAsync(loginGuardianIndex);
             }
-            
         }
     }
 
@@ -272,7 +277,7 @@ public class CAHolderSyncedProcessor: AElfLogEventProcessorBase<CAHolderSynced,L
                 {
                     continue;
                 }
-        
+
                 _objectMapper.Map(context, loginGuardianIndex);
                 await _loginGuardianRepository.DeleteAsync(loginGuardianIndex);
             }
@@ -286,7 +291,7 @@ public class CAHolderSyncedProcessor: AElfLogEventProcessorBase<CAHolderSynced,L
         QueryContainer Filter(QueryContainerDescriptor<CAHolderIndex> f) => f.Bool(b => b.Must(mustQuery));
 
         var result = await _caHolderIndexRepository.GetListAsync(Filter);
-        
+
         return result.Item2.FirstOrDefault(t => t != null && !t.OriginChainId.IsNullOrWhiteSpace())?.OriginChainId;
     }
 }

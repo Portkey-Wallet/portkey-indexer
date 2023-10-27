@@ -16,7 +16,10 @@ namespace Portkey.Indexer.CA.Processors;
 public class TransferLimitChangedProcessor : CAHolderTransactionEventBase<TransferLimitChanged>
 {
     private readonly IAElfIndexerClientEntityRepository<TransferLimitIndex, TransactionInfo> _repository;
-    private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> _caHolderTransactionIndexRepository;
+
+    private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
+        _caHolderTransactionIndexRepository;
+
     private readonly ContractInfoOptions _contractInfoOptions;
     private readonly IObjectMapper _objectMapper;
     private readonly ILogger<TransferLimitChangedProcessor> _processorLogger;
@@ -24,7 +27,8 @@ public class TransferLimitChangedProcessor : CAHolderTransactionEventBase<Transf
     public TransferLimitChangedProcessor(ILogger<TransferLimitChangedProcessor> logger,
         IObjectMapper objectMapper, IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IAElfIndexerClientEntityRepository<TransferLimitIndex, TransactionInfo> repository,
-        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> caHolderTransactionIndexRepository) : base(logger)
+        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
+            caHolderTransactionIndexRepository) : base(logger)
     {
         _objectMapper = objectMapper;
         _repository = repository;
@@ -42,8 +46,7 @@ public class TransferLimitChangedProcessor : CAHolderTransactionEventBase<Transf
     {
         var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.CaHash.ToHex(), nameof(TransferLimitChanged),
             eventValue.Symbol);
-        var index = await _repository.GetFromBlockStateSetAsync(indexId, context.ChainId);
-        index = new TransferLimitIndex
+        var index = new TransferLimitIndex
         {
             Id = indexId,
             CaHash = eventValue.CaHash.ToHex(),
@@ -63,21 +66,13 @@ public class TransferLimitChangedProcessor : CAHolderTransactionEventBase<Transf
         {
             return;
         }
-        
+
         var transIndex = new CAHolderTransactionIndex
         {
             Id = IdGenerateHelper.GetId(context.BlockHash, context.TransactionId),
             Timestamp = context.BlockTime.ToTimestamp().Seconds,
             FromAddress = caAddress.ToBase58(),
             TransactionFee = GetTransactionFee(context.ExtraProperties),
-            TransferInfo = new TransferInfo
-            {
-                FromAddress = context.From,
-                ToAddress = context.To,
-                Amount = 0,
-                FromChainId = context.ChainId,
-                ToChainId = context.ChainId,
-            },
         };
         _objectMapper.Map(context, transIndex);
         transIndex.MethodName = context.MethodName;

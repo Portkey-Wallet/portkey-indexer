@@ -43,7 +43,6 @@ public class ManagerApprovedProcessor : CAHolderTransactionEventBase<ManagerAppr
     protected override async Task HandleEventAsync(ManagerApproved eventValue, LogEventContext context)
     {
         var indexId = IdGenerateHelper.GetId(context.ChainId, context.TransactionId);
-
         var index = new ManagerApprovedIndex
         {
             Id = indexId,
@@ -67,15 +66,7 @@ public class ManagerApprovedProcessor : CAHolderTransactionEventBase<ManagerAppr
             Id = IdGenerateHelper.GetId(context.BlockHash, context.TransactionId),
             Timestamp = context.BlockTime.ToTimestamp().Seconds,
             FromAddress = caAddress.ToBase58(),
-            TransactionFee = GetTransactionFee(context.ExtraProperties),
-            TransferInfo = new TransferInfo
-            {
-                FromAddress = context.From,
-                ToAddress = context.To,
-                Amount = 0,
-                FromChainId = context.ChainId,
-                ToChainId = context.ChainId,
-            },
+            TransactionFee = GetTransactionFee(context.ExtraProperties)
         };
         _objectMapper.Map(context, transIndex);
         transIndex.MethodName = context.MethodName;
