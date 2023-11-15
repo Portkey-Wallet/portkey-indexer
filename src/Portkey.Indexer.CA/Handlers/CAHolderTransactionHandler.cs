@@ -18,7 +18,12 @@ public class CAHolderTransactionHandler : TransactionDataHandler
     {
     }
 
-    protected override Task ProcessTransactionsAsync(List<TransactionInfo> transactions)
+    // protected override Task ProcessTransactionsAsync(List<TransactionInfo> transactions)
+    // {
+    //     return Task.CompletedTask;
+    // }
+
+    protected override Task ProcessTransactionAsync(TransactionInfo transaction)
     {
         return Task.CompletedTask;
     }
