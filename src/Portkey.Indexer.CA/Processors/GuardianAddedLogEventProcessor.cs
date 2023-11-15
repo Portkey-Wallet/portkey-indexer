@@ -40,8 +40,9 @@ public class GuardianAddedLogEventProcessor : GuardianProcessorBase<GuardianAdde
 
         if (guardian != null) return;
 
-        caHolderIndex.Guardians.Add(
-            ObjectMapper.Map<Guardian, Entities.Guardian>(eventValue.GuardianAdded_));
+        var guardianInfo = ObjectMapper.Map<Guardian, Entities.Guardian>(eventValue.GuardianAdded_);
+        guardianInfo.TransactionId = context.TransactionId;
+        caHolderIndex.Guardians.Add(guardianInfo);
 
         ObjectMapper.Map(context, caHolderIndex);
         await Repository.AddOrUpdateAsync(caHolderIndex);
