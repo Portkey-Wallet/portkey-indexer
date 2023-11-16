@@ -70,10 +70,16 @@ public class CAHolderTransactionHandler : TransactionDataHandler
             var holder = await _caHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(transactionInfo.ChainId,
                 caAddress), transactionInfo.ChainId);
             if (holder == null) return;
-
-            var transIndex = new CAHolderTransactionIndex
+            var id = IdGenerateHelper.GetId(transactionInfo.BlockHash, transactionInfo.TransactionId);
+            var transIndex = await _caHolderTransactionIndexRepository.GetFromBlockStateSetAsync(id, transactionInfo.ChainId);
+            if (transIndex != null)
             {
-                Id = IdGenerateHelper.GetId(transactionInfo.BlockHash, transactionInfo.TransactionId),
+                return;
+            }
+
+            transIndex = new CAHolderTransactionIndex
+            {
+                Id = id,
                 Timestamp = transactionInfo.BlockTime.ToTimestamp().Seconds,
                 FromAddress = caAddress,
                 TransactionFee = GetTransactionFee(transactionInfo.ExtraProperties),
