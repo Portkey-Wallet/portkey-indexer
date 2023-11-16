@@ -42,24 +42,24 @@ public class TokenTransferredProcessor : CAHolderTransactionProcessorBase<Transf
 
     protected override async Task HandleEventAsync(Transferred eventValue, LogEventContext context)
     {
-        _logger.LogInformation("in TokenTransferredProcessor, eventValue: {eventValue}",
+        _logger.LogInformation("[TokenTransferredProcessor] in TokenTransferredProcessor, eventValue: {eventValue}",
             JsonConvert.SerializeObject(eventValue));
 
         if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
 
-        _logger.LogInformation("before from, chainId:{chainId}, from:{from}, txid:{txid}", context.ChainId,
+        _logger.LogInformation("[TokenTransferredProcessor] before from, chainId:{chainId}, from:{from}, txid:{txid}", context.ChainId,
             eventValue.From.ToBase58(), context.TransactionId);
         var from = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
             eventValue.From.ToBase58()), context.ChainId);
 
-        _logger.LogInformation("before tokenInfoIndex, chainId:{chainId}, symbol:{symbol}, txid:{txid}",
+        _logger.LogInformation("[TokenTransferredProcessor] before tokenInfoIndex, chainId:{chainId}, symbol:{symbol}, txid:{txid}",
             context.ChainId,
             eventValue.Symbol, context.TransactionId);
         var tokenInfoIndex =
             await TokenInfoIndexRepository.GetFromBlockStateSetAsync(
                 IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol), context.ChainId);
 
-        _logger.LogInformation("before nftInfoIndex, chainId:{chainId}, symbol:{symbol}, txid:{txid}", context.ChainId,
+        _logger.LogInformation("[TokenTransferredProcessor] before nftInfoIndex, chainId:{chainId}, symbol:{symbol}, txid:{txid}", context.ChainId,
             eventValue.Symbol, context.TransactionId);
         var nftInfoIndex =
             await NFTInfoIndexRepository.GetFromBlockStateSetAsync(
@@ -73,7 +73,7 @@ public class TokenTransferredProcessor : CAHolderTransactionProcessorBase<Transf
                 context));
         }
 
-        _logger.LogInformation("before to, chainId:{chainId}, to:{to}, txid:{txid}", context.ChainId,
+        _logger.LogInformation("[TokenTransferredProcessor] before to, chainId:{chainId}, to:{to}, txid:{txid}", context.ChainId,
             eventValue.To.ToBase58(), context.TransactionId);
         var to = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
             eventValue.To.ToBase58()), context.ChainId);

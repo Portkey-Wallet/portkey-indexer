@@ -6,6 +6,7 @@ using AElfIndexer.Grains.State.Client;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Portkey.Indexer.CA.Entities;
 using Volo.Abp.ObjectMapping;
 
@@ -13,6 +14,7 @@ namespace Portkey.Indexer.CA.Processors;
 
 public class TokenCrossChainReceivedProcessor : CAHolderTransactionProcessorBase<CrossChainReceived>
 {
+    private readonly ILogger<TokenCrossChainReceivedProcessor> _logger;
     public TokenCrossChainReceivedProcessor(ILogger<TokenCrossChainReceivedProcessor> logger,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
@@ -26,6 +28,7 @@ public class TokenCrossChainReceivedProcessor : CAHolderTransactionProcessorBase
         base(logger, caHolderIndexRepository,caHolderManagerIndexRepository, caHolderTransactionIndexRepository, tokenInfoIndexRepository,
             nftInfoIndexRepository,caHolderTransactionAddressIndexRepository, contractInfoOptions, caHolderTransactionInfoOptions, objectMapper)
     {
+        _logger = logger;
     }
 
     public override string GetContractAddress(string chainId)
@@ -35,17 +38,33 @@ public class TokenCrossChainReceivedProcessor : CAHolderTransactionProcessorBase
 
     protected override async Task HandleEventAsync(CrossChainReceived eventValue, LogEventContext context)
     {
+        _logger.LogInformation("[TokenCrossChainReceivedProcessor] in TokenCrossChainReceivedProcessor, eventValue: {eventValue}",
+            JsonConvert.SerializeObject(eventValue));
+        
         if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
         
+        _logger.LogInformation("[TokenCrossChainReceivedProcessor] before tokenInfoIndex, chainId:{chainId}, symbol:{symbol}, txid:{txid}",
+            context.ChainId,
+            eventValue.Symbol, context.TransactionId);
         var tokenInfoIndex =
             await TokenInfoIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol),context.ChainId);
+        
+        _logger.LogInformation("[TokenCrossChainReceivedProcessor] before nftInfoIndex, chainId:{chainId}, symbol:{symbol}, txid:{txid}", context.ChainId,
+            eventValue.Symbol, context.TransactionId);
         var nftInfoIndex =
             await NFTInfoIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol),context.ChainId);
+        
+        _logger.LogInformation("[TokenCrossChainReceivedProcessor] before from_manager, chainId:{chainId}, from:{from}, txid:{txid}", context.ChainId,
+            eventValue.From.ToBase58(), context.TransactionId);
         var from_manager = await CAHolderManagerIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
             eventValue.From.ToBase58()),context.ChainId);
+        
         string fromManagerCAAddress = from_manager == null ? "" : from_manager.CAAddresses.FirstOrDefault();
         await CAHolderTransactionIndexRepository.AddOrUpdateAsync(GetCaHolderTransactionIndex(eventValue, tokenInfoIndex,nftInfoIndex,
             fromManagerCAAddress,context));
+        
+        _logger.LogInformation("[TokenCrossChainReceivedProcessor] before to_ca, chainId:{chainId}, to:{to}, txid:{txid}", context.ChainId,
+            eventValue.To.ToBase58(), context.TransactionId);
         
         var to_ca = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
             eventValue.To.ToBase58()),context.ChainId);
@@ -56,6 +75,8 @@ public class TokenCrossChainReceivedProcessor : CAHolderTransactionProcessorBase
         }
         else
         {
+            _logger.LogInformation("[TokenCrossChainReceivedProcessor] before to_manager, chainId:{chainId}, to:{to}, txid:{txid}", context.ChainId,
+                eventValue.To.ToBase58(), context.TransactionId);
             var to_manager = await CAHolderManagerIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
                 eventValue.To.ToBase58()),context.ChainId);
             if (to_manager != null)
