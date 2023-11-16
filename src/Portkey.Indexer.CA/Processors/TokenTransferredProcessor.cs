@@ -5,6 +5,7 @@ using AElfIndexer.Grains.State.Client;
 using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Portkey.Indexer.CA.Entities;
 using Volo.Abp.ObjectMapping;
 
@@ -12,6 +13,8 @@ namespace Portkey.Indexer.CA.Processors;
 
 public class TokenTransferredProcessor : CAHolderTransactionProcessorBase<Transferred>
 {
+    private readonly ILogger<TokenTransferredProcessor> _logger;
+
     public TokenTransferredProcessor(ILogger<TokenTransferredProcessor> logger,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
@@ -21,46 +24,68 @@ public class TokenTransferredProcessor : CAHolderTransactionProcessorBase<Transf
         IObjectMapper objectMapper,
         IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
             caHolderTransactionIndexRepository,
-        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions, IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo> caHolderTransactionAddressIndexRepository) :
-        base(logger, caHolderIndexRepository,caHolderManagerIndexRepository, caHolderTransactionIndexRepository, tokenInfoIndexRepository,
-            nftInfoIndexRepository,caHolderTransactionAddressIndexRepository,
+        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo>
+            caHolderTransactionAddressIndexRepository) :
+        base(logger, caHolderIndexRepository, caHolderManagerIndexRepository, caHolderTransactionIndexRepository,
+            tokenInfoIndexRepository,
+            nftInfoIndexRepository, caHolderTransactionAddressIndexRepository,
             contractInfoOptions, caHolderTransactionInfoOptions, objectMapper)
     {
+        _logger = logger;
     }
 
     public override string GetContractAddress(string chainId)
     {
-        return ContractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).TokenContractAddress;
+        return ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).TokenContractAddress;
     }
 
     protected override async Task HandleEventAsync(Transferred eventValue, LogEventContext context)
     {
+        _logger.LogInformation("in TokenTransferredProcessor, eventValue: {eventValue}",
+            JsonConvert.SerializeObject(eventValue));
+
         if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
 
+        _logger.LogInformation("before from, chainId:{chainId}, from:{from}, txid:{txid}", context.ChainId,
+            eventValue.From.ToBase58(), context.TransactionId);
         var from = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
-            eventValue.From.ToBase58()),context.ChainId);
+            eventValue.From.ToBase58()), context.ChainId);
+
+        _logger.LogInformation("before tokenInfoIndex, chainId:{chainId}, symbol:{symbol}, txid:{txid}",
+            context.ChainId,
+            eventValue.Symbol, context.TransactionId);
         var tokenInfoIndex =
-            await TokenInfoIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol),context.ChainId);
+            await TokenInfoIndexRepository.GetFromBlockStateSetAsync(
+                IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol), context.ChainId);
+
+        _logger.LogInformation("before nftInfoIndex, chainId:{chainId}, symbol:{symbol}, txid:{txid}", context.ChainId,
+            eventValue.Symbol, context.TransactionId);
         var nftInfoIndex =
-            await NFTInfoIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol),context.ChainId);
+            await NFTInfoIndexRepository.GetFromBlockStateSetAsync(
+                IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol), context.ChainId);
         if (from != null)
         {
             await AddCAHolderTransactionAddressAsync(from.CAAddress, eventValue.To.ToBase58(), context.ChainId,
                 context);
-            await CAHolderTransactionIndexRepository.AddOrUpdateAsync(GetCaHolderTransactionIndex(eventValue, tokenInfoIndex,nftInfoIndex,
+            await CAHolderTransactionIndexRepository.AddOrUpdateAsync(GetCaHolderTransactionIndex(eventValue,
+                tokenInfoIndex, nftInfoIndex,
                 context));
         }
 
+        _logger.LogInformation("before to, chainId:{chainId}, to:{to}, txid:{txid}", context.ChainId,
+            eventValue.To.ToBase58(), context.TransactionId);
         var to = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
-            eventValue.To.ToBase58()),context.ChainId);
+            eventValue.To.ToBase58()), context.ChainId);
+        
         if (to == null) return;
         await AddCAHolderTransactionAddressAsync(to.CAAddress, eventValue.From.ToBase58(), context.ChainId, context);
         if (from != null) return;
         await CAHolderTransactionIndexRepository.AddOrUpdateAsync(GetCaHolderTransactionIndex(eventValue,
-            tokenInfoIndex,nftInfoIndex, context));
+            tokenInfoIndex, nftInfoIndex, context));
     }
-    
-    private CAHolderTransactionIndex GetCaHolderTransactionIndex(Transferred transferred, TokenInfoIndex tokenInfoIndex, 
+
+    private CAHolderTransactionIndex GetCaHolderTransactionIndex(Transferred transferred, TokenInfoIndex tokenInfoIndex,
         NFTInfoIndex nftInfoIndex, LogEventContext context)
     {
         var index = new CAHolderTransactionIndex
