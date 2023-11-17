@@ -50,17 +50,17 @@ public class CAHolderSyncedProcessor: AElfLogEventProcessorBase<CAHolderSynced,L
             //CaHolder Create
             await CreateCAHolderAysnc(eventValue, context);
         }
-        else
-        {
-            //Add or Remove manager
-            await AddOrRemoveManager(caHolderIndex, eventValue, context);
-        }
-        
-        //Add LoginGuardians
-        await AddLoginGuardians(eventValue, context);
-        
-        //Unbound LoginGuardians
-        await UnboundLoginGuardians(eventValue, context);
+        // else
+        // {
+        //     //Add or Remove manager
+        //     await AddOrRemoveManager(caHolderIndex, eventValue, context);
+        // }
+        //
+        // //Add LoginGuardians
+        // await AddLoginGuardians(eventValue, context);
+        //
+        // //Unbound LoginGuardians
+        // await UnboundLoginGuardians(eventValue, context);
 
     }
 
@@ -68,45 +68,45 @@ public class CAHolderSyncedProcessor: AElfLogEventProcessorBase<CAHolderSynced,L
         LogEventContext context)
     {
         var managerList = new List<ManagerInfo>();
-        if (eventValue.ManagerInfosAdded.ManagerInfos.Count > 0)
-        {
-            foreach (var item in eventValue.ManagerInfosAdded.ManagerInfos)
-            {
-                //check manager is already exist in caHolderManagerIndex
-                var managerIndexId = IdGenerateHelper.GetId(context.ChainId, item.Address.ToBase58());
-                var caHolderManagerIndex =
-                    await _caHolderManagerIndexRepository.GetFromBlockStateSetAsync(managerIndexId, context.ChainId);
-                if (caHolderManagerIndex == null)
-                {
-                    caHolderManagerIndex = new CAHolderManagerIndex
-                    {
-                        Id = managerIndexId,
-                        Manager = item.Address.ToBase58(),
-                        CAAddresses = new List<string>()
-                        {
-                            eventValue.CaAddress.ToBase58()
-                        }
-                    };
-                }
-                else
-                {
-                    if (!caHolderManagerIndex.CAAddresses.Contains(eventValue.CaAddress.ToBase58()))
-                    {
-                        caHolderManagerIndex.CAAddresses.Add(eventValue.CaAddress.ToBase58());
-                    }
-                }
-
-                _objectMapper.Map<LogEventContext, CAHolderManagerIndex>(context, caHolderManagerIndex);
-                await _caHolderManagerIndexRepository.AddOrUpdateAsync(caHolderManagerIndex);
-
-                //add manager info to manager list
-                managerList.Add(new ManagerInfo
-                {
-                    Address = item.Address.ToBase58(),
-                    ExtraData = item.ExtraData
-                });
-            }
-        }
+        // if (eventValue.ManagerInfosAdded.ManagerInfos.Count > 0)
+        // {
+        //     foreach (var item in eventValue.ManagerInfosAdded.ManagerInfos)
+        //     {
+        //         //check manager is already exist in caHolderManagerIndex
+        //         var managerIndexId = IdGenerateHelper.GetId(context.ChainId, item.Address.ToBase58());
+        //         var caHolderManagerIndex =
+        //             await _caHolderManagerIndexRepository.GetFromBlockStateSetAsync(managerIndexId, context.ChainId);
+        //         if (caHolderManagerIndex == null)
+        //         {
+        //             caHolderManagerIndex = new CAHolderManagerIndex
+        //             {
+        //                 Id = managerIndexId,
+        //                 Manager = item.Address.ToBase58(),
+        //                 CAAddresses = new List<string>()
+        //                 {
+        //                     eventValue.CaAddress.ToBase58()
+        //                 }
+        //             };
+        //         }
+        //         else
+        //         {
+        //             if (!caHolderManagerIndex.CAAddresses.Contains(eventValue.CaAddress.ToBase58()))
+        //             {
+        //                 caHolderManagerIndex.CAAddresses.Add(eventValue.CaAddress.ToBase58());
+        //             }
+        //         }
+        //
+        //         _objectMapper.Map<LogEventContext, CAHolderManagerIndex>(context, caHolderManagerIndex);
+        //         await _caHolderManagerIndexRepository.AddOrUpdateAsync(caHolderManagerIndex);
+        //
+        //         //add manager info to manager list
+        //         managerList.Add(new ManagerInfo
+        //         {
+        //             Address = item.Address.ToBase58(),
+        //             ExtraData = item.ExtraData
+        //         });
+        //     }
+        // }
 
         var caHolderIndex = new CAHolderIndex
         {

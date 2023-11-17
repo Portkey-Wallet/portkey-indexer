@@ -16,16 +16,16 @@ namespace Portkey.Indexer.CA.Processors;
 public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventProcessorBase<TEvent, TransactionInfo>
     where TEvent : IEvent<TEvent>, new()
 {
-    protected readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> CAHolderIndexRepository;
+    protected readonly IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> CAHolderIndexRepository;
 
-    protected readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo>
+    protected readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo>
         CAHolderManagerIndexRepository;
 
     protected readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
         CAHolderTransactionIndexRepository;
 
-    protected readonly IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> TokenInfoIndexRepository;
-    protected readonly IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> NFTInfoIndexRepository;
+    protected readonly IAElfIndexerClientEntityRepository<TokenInfoIndex, TransactionInfo> TokenInfoIndexRepository;
+    protected readonly IAElfIndexerClientEntityRepository<NFTInfoIndex, TransactionInfo> NFTInfoIndexRepository;
 
     protected readonly IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo>
         CAHolderTransactionAddressIndexRepository;
@@ -37,12 +37,12 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
     private const char FullAddressSeparator = '_';
 
     protected CAHolderTransactionProcessorBase(ILogger<CAHolderTransactionProcessorBase<TEvent>> logger,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> caHolderIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo> caHolderManagerIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
             caHolderTransactionIndexRepository,
-        IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
-        IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> nftInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<TokenInfoIndex, TransactionInfo> tokenInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<NFTInfoIndex, TransactionInfo> nftInfoIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo>
             caHolderTransactionAddressIndexRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,

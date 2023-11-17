@@ -5,6 +5,7 @@ using AElfIndexer.Grains.State.Client;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Portkey.Indexer.CA.Entities;
+using Portkey.Indexer.CA.Options;
 using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
@@ -15,9 +16,11 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
         _transactionFeeChangedIndexRepository;
 
     private readonly IObjectMapper _objectMapper;
+    private readonly ILogger<TransactionFeeChargedLogEventProcessor> _logger;
 
     public TransactionFeeChargedLogEventProcessor(ILogger<TransactionFeeChargedLogEventProcessor> logger,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
+        IOptionsSnapshot<SubscribersOptions> subscribersOptions,
         IAElfIndexerClientEntityRepository<TransactionFeeChangedIndex, LogEventInfo>
             transactionFeeChangedIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
@@ -30,14 +33,16 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
         IAElfIndexerClientEntityRepository<CAHolderNFTCollectionBalanceIndex, LogEventInfo>
             caHolderNFTCollectionBalanceIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, LogEventInfo> caHolderNFTBalanceIndexRepository,
-        IObjectMapper objectMapper) : base(logger, contractInfoOptions,
+        IAElfIndexerClientEntityRepository<BalanceChangeRecordIndex, LogEventInfo> balanceChangeRecordRepository,
+        IObjectMapper objectMapper) : base(logger, contractInfoOptions, subscribersOptions,
         caHolderIndexRepository, tokenInfoIndexRepository, nftCollectionInfoRepository, nftInfoRepository,
         caHolderSearchTokenNFTRepository,
         caHolderTokenBalanceIndexRepository, caHolderNFTCollectionBalanceIndexRepository,
-        caHolderNFTBalanceIndexRepository, objectMapper)
+        caHolderNFTBalanceIndexRepository, balanceChangeRecordRepository, objectMapper)
     {
         _transactionFeeChangedIndexRepository = transactionFeeChangedIndexRepository;
         _objectMapper = objectMapper;
+        _logger = logger;
     }
 
     public override string GetContractAddress(string chainId)
@@ -47,7 +52,17 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
 
     protected override async Task HandleEventAsync(TransactionFeeCharged eventValue, LogEventContext context)
     {
-        if (eventValue.ChargingAddress == null) return;
+        if (eventValue.ChargingAddress == null)
+        {
+            _logger.LogError("chargingAddress is null, transactionId:{transactionId}", context.TransactionId);
+            return;
+        }
+
+        var address = eventValue.ChargingAddress.ToBase58();
+        if (!CheckHelper.CheckNeedRecordBalance(address, SubscribersOptions, eventValue.Symbol))
+        {
+            return;
+        }
 
         var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.ChargingAddress, context.BlockHash);
         var transactionFeeChangedIndex = new TransactionFeeChangedIndex
@@ -58,12 +73,27 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
         _objectMapper.Map(eventValue, transactionFeeChangedIndex);
         _objectMapper.Map(context, transactionFeeChangedIndex);
 
+        var recordId = await AddBalanceRecordAsync(address, BalanceChangeType.TransactionFeeCharged, context);
+        _logger.LogInformation(
+            "In {processor}, caAddress:{address}, symbol:{symbol}, amount:{amount}, transactionId:{transactionId}",
+            nameof(TransactionFeeChargedLogEventProcessor), address, eventValue.Symbol, -eventValue.Amount,
+            context.TransactionId);
+
         var caHolderIndex = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(
             context.ChainId, eventValue.ChargingAddress.ToBase58()), context.ChainId);
+
+        if (caHolderIndex == null)
+        {
+            _logger.LogError(
+                "Holder is null, in {processor}, caAddress:{address}, symbol:{symbol}, amount:{amount}, transactionId:{transactionId}",
+                nameof(TokenBurnedLogEventProcessor), address, eventValue.Symbol, -eventValue.Amount,
+                context.TransactionId);
+        }
+
         if (caHolderIndex != null)
         {
             transactionFeeChangedIndex.CAAddress = caHolderIndex.CAAddress;
-            await ModifyBalanceAsync(caHolderIndex.CAAddress, eventValue.Symbol, -eventValue.Amount, context);
+            await ModifyBalanceAsync(caHolderIndex.CAAddress, eventValue.Symbol, -eventValue.Amount, context, recordId);
         }
 
         await _transactionFeeChangedIndexRepository.AddOrUpdateAsync(transactionFeeChangedIndex);
