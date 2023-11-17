@@ -12,7 +12,7 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class TokenCrossChainReceivedProcessor : CAHolderTransactionProcessorBase1<CrossChainReceived>
+public class TokenCrossChainReceivedProcessor : CAHolderTransactionProcessorBase<CrossChainReceived>
 {
     private readonly ILogger<TokenCrossChainReceivedProcessor> _logger;
     public TokenCrossChainReceivedProcessor(ILogger<TokenCrossChainReceivedProcessor> logger,

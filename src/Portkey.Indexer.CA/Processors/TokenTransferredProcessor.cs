@@ -11,7 +11,7 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class TokenTransferredProcessor : CAHolderTransactionProcessorBase1<Transferred>
+public class TokenTransferredProcessor : CAHolderTransactionProcessorBase<Transferred>
 {
     private readonly ILogger<TokenTransferredProcessor> _logger;
 

@@ -22,13 +22,13 @@ public class BeangoTownGoProcessor : CAHolderTransactionProcessorBase<Played>
     private readonly ILogger<BeangoTownGoProcessor> _logger;
     
     public BeangoTownGoProcessor(ILogger<BeangoTownGoProcessor> logger,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> caHolderIndexRepository,
         IAElfIndexerClientEntityRepository<BeangoTownIndex, TransactionInfo> bingoIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo> caHolderManagerIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
             caHolderTransactionIndexRepository,
-        IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
-        IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> nftInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<TokenInfoIndex, TransactionInfo> tokenInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<NFTInfoIndex, TransactionInfo> nftInfoIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo>
             caHolderTransactionAddressIndexRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
