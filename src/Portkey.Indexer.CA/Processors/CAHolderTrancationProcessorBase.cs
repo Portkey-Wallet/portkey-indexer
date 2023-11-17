@@ -178,3 +178,172 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
         return string.Join(FullAddressSeparator, FullAddressPrefix, address, chainId);
     }
 }
+
+
+
+
+public abstract class CAHolderTransactionProcessorBase1<TEvent> : AElfLogEventProcessorBase<TEvent, TransactionInfo>
+    where TEvent : IEvent<TEvent>, new()
+{
+    protected readonly IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> CAHolderIndexRepository;
+
+    protected readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo>
+        CAHolderManagerIndexRepository;
+
+    protected readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
+        CAHolderTransactionIndexRepository;
+
+    protected readonly IAElfIndexerClientEntityRepository<TokenInfoIndex, TransactionInfo> TokenInfoIndexRepository;
+    protected readonly IAElfIndexerClientEntityRepository<NFTInfoIndex, TransactionInfo> NFTInfoIndexRepository;
+
+    protected readonly IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo>
+        CAHolderTransactionAddressIndexRepository;
+
+    protected readonly ContractInfoOptions ContractInfoOptions;
+    protected readonly CAHolderTransactionInfoOptions CAHolderTransactionInfoOptions;
+    protected readonly IObjectMapper ObjectMapper;
+    private const string FullAddressPrefix = "ELF";
+    private const char FullAddressSeparator = '_';
+
+    protected CAHolderTransactionProcessorBase1(ILogger<CAHolderTransactionProcessorBase1<TEvent>> logger,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> caHolderIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo> caHolderManagerIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
+            caHolderTransactionIndexRepository,
+        IAElfIndexerClientEntityRepository<TokenInfoIndex, TransactionInfo> tokenInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<NFTInfoIndex, TransactionInfo> nftInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo>
+            caHolderTransactionAddressIndexRepository,
+        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
+        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions,
+        IObjectMapper objectMapper) : base(logger)
+    {
+        CAHolderIndexRepository = caHolderIndexRepository;
+        CAHolderManagerIndexRepository = caHolderManagerIndexRepository;
+        CAHolderTransactionIndexRepository = caHolderTransactionIndexRepository;
+        NFTInfoIndexRepository = nftInfoIndexRepository;
+        TokenInfoIndexRepository = tokenInfoIndexRepository;
+        ContractInfoOptions = contractInfoOptions.Value;
+        CAHolderTransactionInfoOptions = caHolderTransactionInfoOptions.Value;
+        ObjectMapper = objectMapper;
+        CAHolderTransactionAddressIndexRepository = caHolderTransactionAddressIndexRepository;
+    }
+
+    protected bool IsValidTransaction(string chainId, string to, string methodName, string parameter)
+    {
+        if (!CAHolderTransactionInfoOptions.CAHolderTransactionInfos.Where(t => t.ChainId == chainId).Any(t =>
+                t.ContractAddress == to && t.MethodName == methodName &&
+                t.EventNames.Contains(GetEventName()))) return false;
+        if (methodName == "ManagerForwardCall" &&
+            !IsValidManagerForwardCallTransaction(chainId, to, methodName, parameter)) return false;
+        return true;
+    }
+
+    private bool IsValidManagerForwardCallTransaction(string chainId, string to, string methodName, string parameter)
+    {
+        if (methodName != "ManagerForwardCall") return false;
+        if (to != ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress) return false;
+        var managerForwardCallInput = ManagerForwardCallInput.Parser.ParseFrom(ByteString.FromBase64(parameter));
+        return IsValidTransaction(chainId, managerForwardCallInput.ContractAddress.ToBase58(),
+            managerForwardCallInput.MethodName, managerForwardCallInput.Args.ToBase64());
+    }
+
+    protected string GetMethodName(string methodName, string parameter)
+    {
+        if (methodName == "ManagerTransfer") return "Transfer";
+        if (methodName != "ManagerForwardCall") return methodName;
+        var managerForwardCallInput = ManagerForwardCallInput.Parser.ParseFrom(ByteString.FromBase64(parameter));
+        return GetMethodName(managerForwardCallInput.MethodName, managerForwardCallInput.Args.ToBase64());
+    }
+
+    protected Dictionary<string, long> GetTransactionFee(Dictionary<string, string> extraProperties)
+    {
+        var feeMap = new Dictionary<string, long>();
+        if (extraProperties.TryGetValue("TransactionFee", out var transactionFee))
+        {
+            feeMap = JsonConvert.DeserializeObject<Dictionary<string, long>>(transactionFee) ??
+                     new Dictionary<string, long>();
+        }
+
+        if (extraProperties.TryGetValue("ResourceFee", out var resourceFee))
+        {
+            var resourceFeeMap = JsonConvert.DeserializeObject<Dictionary<string, long>>(resourceFee) ??
+                                 new Dictionary<string, long>();
+            foreach (var (symbol, fee) in resourceFeeMap)
+            {
+                if (feeMap.TryGetValue(symbol, out _))
+                {
+                    feeMap[symbol] += fee;
+                }
+                else
+                {
+                    feeMap[symbol] = fee;
+                }
+            }
+        }
+
+        return feeMap;
+    }
+
+    protected async Task AddCAHolderTransactionAddressAsync(string caAddress, string address, string addressChainId,
+        LogEventContext context)
+    {
+        var id = IdGenerateHelper.GetId(context.ChainId, caAddress, address, addressChainId);
+        var caHolderTransactionAddressIndex =
+            await CAHolderTransactionAddressIndexRepository.GetFromBlockStateSetAsync(id, context.ChainId);
+        if (caHolderTransactionAddressIndex == null)
+        {
+            caHolderTransactionAddressIndex = new CAHolderTransactionAddressIndex
+            {
+                Id = id,
+                CAAddress = caAddress,
+                Address = address,
+                AddressChainId = addressChainId
+            };
+        }
+
+        var transactionTime = context.BlockTime.ToTimestamp().Seconds;
+        if (caHolderTransactionAddressIndex.TransactionTime >= transactionTime) return;
+        caHolderTransactionAddressIndex.TransactionTime = transactionTime;
+        ObjectMapper.Map(context, caHolderTransactionAddressIndex);
+        await CAHolderTransactionAddressIndexRepository.AddOrUpdateAsync(caHolderTransactionAddressIndex);
+    }
+
+    protected async Task<string> ProcessCAHolderTransactionAsync(LogEventContext context, string caAddress)
+    {
+        if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return null;
+        var holder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
+            caAddress), context.ChainId);
+        if (holder == null) return null;
+
+        var index = new CAHolderTransactionIndex
+        {
+            Id = IdGenerateHelper.GetId(context.BlockHash, context.TransactionId),
+            Timestamp = context.BlockTime.ToTimestamp().Seconds,
+            FromAddress = caAddress,
+            TransactionFee = GetTransactionFee(context.ExtraProperties)
+        };
+        ObjectMapper.Map(context, index);
+        index.MethodName = GetMethodName(context.MethodName, context.Params);
+
+        await CAHolderTransactionIndexRepository.AddOrUpdateAsync(index);
+
+        return holder.CAAddress;
+    }
+    
+    protected long GetFeeAmount(Dictionary<string, string> extraProperties)
+    {
+        var feeMap = GetTransactionFee(extraProperties);
+        if (feeMap.TryGetValue("ELF", out var value))
+        {
+            return value;
+        }
+
+        return 0;
+    }
+    
+    public static string ToFullAddress(string address, string chainId)
+    {
+        return string.Join(FullAddressSeparator, FullAddressPrefix, address, chainId);
+    }
+}

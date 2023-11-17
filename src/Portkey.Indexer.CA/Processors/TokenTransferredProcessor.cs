@@ -11,16 +11,16 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class TokenTransferredProcessor : CAHolderTransactionProcessorBase<Transferred>
+public class TokenTransferredProcessor : CAHolderTransactionProcessorBase1<Transferred>
 {
     private readonly ILogger<TokenTransferredProcessor> _logger;
 
     public TokenTransferredProcessor(ILogger<TokenTransferredProcessor> logger,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> caHolderIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo> caHolderManagerIndexRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
-        IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
-        IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> nftInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<TokenInfoIndex, TransactionInfo> tokenInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<NFTInfoIndex, TransactionInfo> nftInfoIndexRepository,
         IObjectMapper objectMapper,
         IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
             caHolderTransactionIndexRepository,
