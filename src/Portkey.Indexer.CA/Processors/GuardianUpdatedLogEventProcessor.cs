@@ -42,6 +42,7 @@ public class GuardianUpdatedLogEventProcessor : GuardianProcessorBase<GuardianUp
         if (guardian == null || guardian.VerifierId == eventValue.GuardianUpdatedNew.VerifierId.ToHex()) return;
 
         guardian.VerifierId = eventValue.GuardianUpdatedNew.VerifierId.ToHex();
+        guardian.TransactionId = context.TransactionId;
 
         ObjectMapper.Map(context, caHolderIndex);
         await Repository.AddOrUpdateAsync(caHolderIndex);

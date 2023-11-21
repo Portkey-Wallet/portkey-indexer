@@ -43,6 +43,7 @@ public class GuardianAddedLogEventProcessor : GuardianProcessorBase<GuardianAdde
         if (guardian != null) return;
 
         var guardianAdded = ObjectMapper.Map<Guardian, Entities.Guardian>(eventValue.GuardianAdded_);
+        guardianAdded.TransactionId = context.TransactionId;
         caHolderIndex.Guardians.Add(guardianAdded);
 
         ObjectMapper.Map(context, caHolderIndex);

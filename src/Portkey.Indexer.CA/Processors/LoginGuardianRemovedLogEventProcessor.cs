@@ -55,6 +55,7 @@ public class LoginGuardianRemovedLogEventProcessor : LoginGuardianProcessorBase<
         if (guardian == null || !guardian.IsLoginGuardian) return;
 
         guardian.IsLoginGuardian = false;
+        guardian.TransactionId = context.TransactionId;
 
         ObjectMapper.Map(context, caHolderIndex);
         await CaHolderRepository.AddOrUpdateAsync(caHolderIndex);
