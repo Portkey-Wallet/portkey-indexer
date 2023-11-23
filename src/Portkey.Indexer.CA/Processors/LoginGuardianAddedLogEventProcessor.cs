@@ -75,7 +75,9 @@ public class LoginGuardianAddedLogEventProcessor : LoginGuardianProcessorBase<Lo
 
         if (guardian == null)
         {
-            caHolderIndex.Guardians.Add(ObjectMapper.Map<Guardian, Entities.Guardian>(eventValue.LoginGuardian));
+            guardian = ObjectMapper.Map<Guardian, Entities.Guardian>(eventValue.LoginGuardian);
+            guardian.TransactionId = context.TransactionId;
+            caHolderIndex.Guardians.Add(guardian);
         }
         else
         {

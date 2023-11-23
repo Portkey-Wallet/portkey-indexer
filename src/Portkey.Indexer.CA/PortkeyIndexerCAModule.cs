@@ -61,12 +61,17 @@ public class PortkeyIndexerCAModule:AElfIndexerClientPluginBaseModule<PortkeyInd
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, RegisteredProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, PlayedProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, VirtualTransactionCreatedProcessor>();
+        serviceCollection.AddSingleton<IAElfLogEventProcessor<LogEventInfo>, TransferSecurityThresholdChangedLogEventProcessor>();
+        serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, TransferLimitChangedProcessor>();
+        serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, ManagerApprovedProcessor>();
 
         Configure<ContractInfoOptions>(configuration.GetSection("ContractInfo"));
         Configure<InitialInfoOptions>(configuration.GetSection("InitialInfo"));
         Configure<CAHolderTransactionInfoOptions>(configuration.GetSection("CAHolderTransactionInfo"));
     }
 
-    protected override string ClientId => "AElfIndexer_DApp";
-    protected override string Version => "d6cea5a7619d4749824785a84eb63986";
+    protected override string ClientId => "Portkey_DID";
+    protected override string Version => "";
+
+    
 }
