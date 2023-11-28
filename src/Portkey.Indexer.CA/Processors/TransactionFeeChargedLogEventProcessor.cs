@@ -11,8 +11,15 @@ namespace Portkey.Indexer.CA.Processors;
 
 public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProcessorBase<TransactionFeeCharged>
 {
+    private readonly IAElfIndexerClientEntityRepository<TransactionFeeChangedIndex, LogEventInfo>
+        _transactionFeeChangedIndexRepository;
+
+    private readonly IObjectMapper _objectMapper;
+
     public TransactionFeeChargedLogEventProcessor(ILogger<TransactionFeeChargedLogEventProcessor> logger,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
+        IAElfIndexerClientEntityRepository<TransactionFeeChangedIndex, LogEventInfo>
+            transactionFeeChangedIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
         IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
         IAElfIndexerClientEntityRepository<NFTCollectionInfoIndex, LogEventInfo> nftCollectionInfoRepository,
@@ -20,12 +27,17 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
         IAElfIndexerClientEntityRepository<CAHolderSearchTokenNFTIndex, LogEventInfo> caHolderSearchTokenNFTRepository,
         IAElfIndexerClientEntityRepository<CAHolderTokenBalanceIndex, LogEventInfo>
             caHolderTokenBalanceIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderNFTCollectionBalanceIndex, LogEventInfo> caHolderNFTCollectionBalanceIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderNFTCollectionBalanceIndex, LogEventInfo>
+            caHolderNFTCollectionBalanceIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, LogEventInfo> caHolderNFTBalanceIndexRepository,
-        IObjectMapper objectMapper) : base(logger, contractInfoOptions, 
-        caHolderIndexRepository, tokenInfoIndexRepository,nftCollectionInfoRepository,nftInfoRepository, caHolderSearchTokenNFTRepository,
-        caHolderTokenBalanceIndexRepository,caHolderNFTCollectionBalanceIndexRepository, caHolderNFTBalanceIndexRepository,  objectMapper)
+        IObjectMapper objectMapper) : base(logger, contractInfoOptions,
+        caHolderIndexRepository, tokenInfoIndexRepository, nftCollectionInfoRepository, nftInfoRepository,
+        caHolderSearchTokenNFTRepository,
+        caHolderTokenBalanceIndexRepository, caHolderNFTCollectionBalanceIndexRepository,
+        caHolderNFTBalanceIndexRepository, objectMapper)
     {
+        _transactionFeeChangedIndexRepository = transactionFeeChangedIndexRepository;
+        _objectMapper = objectMapper;
     }
 
     public override string GetContractAddress(string chainId)
@@ -36,11 +48,24 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
     protected override async Task HandleEventAsync(TransactionFeeCharged eventValue, LogEventContext context)
     {
         if (eventValue.ChargingAddress == null) return;
-        var caHolderIndex = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
-            eventValue.ChargingAddress.ToBase58()),context.ChainId);
+
+        var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.ChargingAddress, context.BlockHash);
+        var transactionFeeChangedIndex = new TransactionFeeChangedIndex
+        {
+            Id = indexId,
+            ConsumerAddress = eventValue.ChargingAddress.ToBase58(),
+        };
+        _objectMapper.Map(eventValue, transactionFeeChangedIndex);
+        _objectMapper.Map(context, transactionFeeChangedIndex);
+
+        var caHolderIndex = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(
+            context.ChainId, eventValue.ChargingAddress.ToBase58()), context.ChainId);
         if (caHolderIndex != null)
         {
+            transactionFeeChangedIndex.CAAddress = caHolderIndex.CAAddress;
             await ModifyBalanceAsync(caHolderIndex.CAAddress, eventValue.Symbol, -eventValue.Amount, context);
         }
+
+        await _transactionFeeChangedIndexRepository.AddOrUpdateAsync(transactionFeeChangedIndex);
     }
 }

@@ -33,7 +33,7 @@ public class TokenInfoBase: AElfIndexerClientEntity<string>
     
     // public TokenExternalInfo TokenExternalInfo { get; set; }
 
-    public Dictionary<string, string> ExternalInfoDictionary { get; set; }
+    public Dictionary<string, string> ExternalInfoDictionary { get; set; } = new();
 }
 
 public enum TokenType
