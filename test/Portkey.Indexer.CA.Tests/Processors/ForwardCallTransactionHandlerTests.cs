@@ -156,6 +156,7 @@ public class ForwardCallTransactionHandlerTests : PortkeyIndexerCATestBase
             transactionInfo.BlockHash, transactionInfo.TransactionId));
         caTransactionIndex.FromAddress.ShouldBe(caAddress);
         caTransactionIndex.Timestamp.ShouldBe(transactionInfo.BlockTime.ToTimestamp().Seconds);
+        caTransactionIndex.MethodName.ShouldBe("BingoTown");
 
         managerForwardCallInput.MethodName = "Play";
         transactionInfo.Params = ByteString.CopyFrom(managerForwardCallInput.ToByteArray()).ToBase64();
@@ -166,7 +167,9 @@ public class ForwardCallTransactionHandlerTests : PortkeyIndexerCATestBase
         
         caTransactionIndex = await _caTransactionIndexRepository.GetAsync(IdGenerateHelper.GetId(
             transactionInfo.BlockHash, transactionInfo.TransactionId));
-        caTransactionIndex.ShouldBeNull();
+        caTransactionIndex.FromAddress.ShouldBe(caAddress);
+        caTransactionIndex.Timestamp.ShouldBe(transactionInfo.BlockTime.ToTimestamp().Seconds);
+        caTransactionIndex.MethodName.ShouldBe("Play");
     }
     
     private Address ConvertVirtualAddressToContractAddress(

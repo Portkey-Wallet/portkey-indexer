@@ -287,22 +287,12 @@ public class PortkeyIndexerCATestModule : AbpModule
                 new ()
                 {
                     ChainId = "AELF",
-                    CAContractAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToString(),
+                    CAContractAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(),
                 },
                 new ()
                 {
                     ChainId = "tDVV",
-                    CAContractAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToString(),
-                }
-            };
-            options.CATransactionInfos = new List<CATransactionInfo>
-            {
-                new ()
-                {
-                    ChainId = "AELF",
-                    ContractAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(),
-                    MethodName = "ManagerForwardCall",
-                    BlackMethodNames = new List<string>{"Play"}
+                    CAContractAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(),
                 }
             };
         });

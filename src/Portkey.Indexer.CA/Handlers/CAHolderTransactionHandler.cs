@@ -50,23 +50,21 @@ public class CAHolderTransactionHandler : TransactionDataHandler
 
     private async Task ProcessTransactionsAsync(TransactionInfo transactionInfo)
     {
-        var transactionInfoOption = _contractInfoOptions.CATransactionInfos.FirstOrDefault(t => t.ChainId == transactionInfo.ChainId &&
-            t.ContractAddress == transactionInfo.To && t.MethodName == transactionInfo.MethodName);
+        Logger.LogInformation("TransactionInfo begin: chainId {chainId} txId {txId}, to {to}", transactionInfo.ChainId, transactionInfo.TransactionId, transactionInfo.To);
+        var transactionInfoOption = _contractInfoOptions.ContractInfos.FirstOrDefault(t => t.ChainId == transactionInfo.ChainId &&
+            t.CAContractAddress == transactionInfo.To);
         if (transactionInfoOption == null)
         {
             return;
         }
 
+        Logger.LogInformation("TransactionInfo: {TransactionInfo}", JsonConvert.SerializeObject(transactionInfo));
         if (transactionInfo.MethodName == "ManagerForwardCall")
         {
             var managerForwardCallInput = ManagerForwardCallInput.Parser.ParseFrom(ByteString.FromBase64(transactionInfo.Params));
-            if (transactionInfoOption.BlackMethodNames.Contains(managerForwardCallInput.MethodName))
-            {
-                return;
-            }
-
             var caAddress = ConvertVirtualAddressToContractAddress(managerForwardCallInput.CaHash,
                 Address.FromBase58(transactionInfo.To)).ToBase58();
+            Logger.LogInformation("managerForwardCallInput: {input}, caAddress {caAddress}", JsonConvert.SerializeObject(managerForwardCallInput), caAddress);
             var holder = await _caHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(transactionInfo.ChainId,
                 caAddress), transactionInfo.ChainId);
             if (holder == null) return;
