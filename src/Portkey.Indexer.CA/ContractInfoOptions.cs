@@ -3,7 +3,6 @@ namespace Portkey.Indexer.CA;
 public class ContractInfoOptions
 {
     public List<ContractInfo> ContractInfos { get; set; }
-    public List<CATransactionInfo> CATransactionInfos { get; set; }
 }
 
 public class ContractInfo
@@ -15,14 +14,4 @@ public class ContractInfo
     public string TokenContractAddress { get; set; }
     
     public string NFTContractAddress { get; set; }
-}
-
-public class CATransactionInfo
-{
-    public string ChainId { get; set; }
-    
-    public string ContractAddress { get; set; }
-
-    public string MethodName { get; set; }
-    public List<string> BlackMethodNames { get; set; }
 }
