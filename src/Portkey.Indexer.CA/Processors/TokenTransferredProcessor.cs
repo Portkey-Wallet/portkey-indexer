@@ -63,9 +63,12 @@ public class TokenTransferredProcessor : CAHolderTransactionProcessorBase<Transf
     private CAHolderTransactionIndex GetCaHolderTransactionIndex(Transferred transferred, TokenInfoIndex tokenInfoIndex, 
         NFTInfoIndex nftInfoIndex, LogEventContext context)
     {
+        var id = IsMultiTransaction(context.ChainId, context.To, context.MethodName)
+            ? IdGenerateHelper.GetId(context.BlockHash, context.TransactionId, transferred.To.ToBase58()) :
+            IdGenerateHelper.GetId(context.BlockHash, context.TransactionId);
         var index = new CAHolderTransactionIndex
         {
-            Id = IdGenerateHelper.GetId(context.BlockHash, context.TransactionId),
+            Id = id,
             Timestamp = context.BlockTime.ToTimestamp().Seconds,
             FromAddress = context.From,
             // TokenInfo = new Entities.TokenInfo

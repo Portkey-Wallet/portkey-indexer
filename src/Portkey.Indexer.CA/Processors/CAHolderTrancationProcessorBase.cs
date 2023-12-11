@@ -70,6 +70,14 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
         return true;
     }
 
+    protected bool IsMultiTransaction(string chainId, string to, string methodName)
+    {
+        var  caHolderTransactionInfo = CAHolderTransactionInfoOptions.CAHolderTransactionInfos.FirstOrDefault(t => t.ChainId == chainId &&
+                t.ContractAddress == to && t.MethodName == methodName &&
+                t.EventNames.Contains(GetEventName()));
+        return caHolderTransactionInfo?.MultiTransaction ?? false;
+    }
+
     private bool IsValidManagerForwardCallTransaction(string chainId, string to, string methodName, string parameter)
     {
         if (methodName != "ManagerForwardCall") return false;
