@@ -14,4 +14,5 @@ public class CAHolderTransactionInfo
     public string MethodName { get; set; }
     
     public List<string> EventNames { get; set; }
+    public bool MultiTransaction { get; set; }
 }
