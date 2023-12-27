@@ -34,8 +34,15 @@ public class VirtualTransactionCreatedProcessor : CAHolderTransactionProcessorBa
         return ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress;
     }
 
+    private readonly List<string> _skipMethodNames = new(){"transfer", "transferfrom", "approve"};
+
     protected override async Task HandleEventAsync(VirtualTransactionCreated eventValue, LogEventContext context)
     {
+        if (_skipMethodNames.Contains(eventValue.MethodName.ToLower()))
+        {
+            return;
+        }
+
         var holder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
             eventValue.From.ToBase58()), context.ChainId);
         if (holder == null) return;

@@ -300,6 +300,70 @@ public class VirtualTransactionCreatedProcessorTests : PortkeyIndexerCATestBase
             chainId, virtualTransactionCreated.From.ToBase58()));
         caHolder.ShouldBe(null);
     }
+    
+    [Fact]
+    public async Task CreateVirtualTransactionSkipMethodName()
+    {
+        const string chainId = "AELF";
+        const string blockHash = "dac5cd67a2783d0a3d843426c2d45f1178f4d052235a907a0d796ae4659103b1";
+        const string previousBlockHash = "e38c4fb1cf6af05878657cb3f7b5fc8a5fcfb2eec19cd76b73abb831973fbf4e";
+        const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da3";
+        const long blockHeight = 100;
+        var virtualTransactionCreatedProcessor = GetRequiredService<VirtualTransactionCreatedProcessor>();
+
+        //step1: create blockStateSet
+        var blockStateSet = new BlockStateSet<TransactionInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash,
+        };
+        var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
+
+        //step2: create logEventInfo
+        var virtualTransactionCreated = new VirtualTransactionCreated()
+        {
+            VirtualHash = HashHelper.ComputeFrom("test@google.com"),
+            MethodName = "Transfer"
+        };
+        virtualTransactionCreated.From = ConvertVirtualAddressToContractAddress(virtualTransactionCreated.VirtualHash,
+            Address.FromPublicKey("DDD".HexToByteArray()));
+        var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(virtualTransactionCreated.ToLogEvent());
+        logEventInfo.BlockHeight = blockHeight;
+        logEventInfo.ChainId = chainId;
+        logEventInfo.BlockHash = blockHash;
+        logEventInfo.TransactionId = transactionId;
+        var logEventContext = new LogEventContext
+        {
+            ChainId = chainId,
+            BlockHeight = blockHeight,
+            BlockHash = blockHash,
+            PreviousBlockHash = previousBlockHash,
+            TransactionId = transactionId,
+            Params = "{ \"to\": \"ca\", \"symbol\": \"ELF\", \"amount\": \"100000000000\" }",
+            To = "CAAddress",
+            MethodName = "ManagerTransfer",
+            ExtraProperties = new Dictionary<string, string>
+            {
+                { "TransactionFee", "{\"ELF\":\"30000000\"}" },
+                { "ResourceFee", "{\"ELF\":\"30000000\"}" }
+            },
+            BlockTime = DateTime.UtcNow
+        };
+
+        //step3: handle event and write result to blockStateSet
+        await virtualTransactionCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
+
+        //step4: save blockStateSet into es
+        // await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await Task.Delay(2000);
+
+        var count = await _caTransactionIndexRepository.CountAsync(c => c.Term(i => i.Field(f => f.Id)
+            .Value(IdGenerateHelper.GetId(
+                logEventContext.BlockHash, logEventContext.TransactionId))));
+        count.Count.ShouldBe(0);
+    }
 
     private Address ConvertVirtualAddressToContractAddress(
         Hash virtualAddress,
