@@ -7,13 +7,15 @@ using Volo.Abp.Data;
 using Volo.Abp.Modularity;
 using Volo.Abp.Threading;
 using Volo.Abp.DependencyInjection;
+using Volo.Abp.EventBus;
 
 namespace Portkey.Indexer.TestBase;
 
 [DependsOn(
     typeof(AbpAutofacModule),
     typeof(AbpAutoMapperModule),
-    typeof(AbpTestBaseModule)
+    typeof(AbpTestBaseModule),
+    typeof(AbpEventBusModule)
     )]
 public class PortkeyIndexerTestBaseModule:AbpModule
 {

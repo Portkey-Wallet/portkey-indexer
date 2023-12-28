@@ -16,7 +16,7 @@ using ManagerInfo = Portkey.Contracts.CA.ManagerInfo;
 
 namespace Portkey.Indexer.CA.Tests.Processors;
 
-public class CAHolderSyncedProcessorTests:PortkeyIndexerCATestBase
+public class CAHolderSyncedProcessorTests : PortkeyIndexerCATestBase
 {
     private readonly IObjectMapper _objectMapper;
     private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _caHolderIndexRepository;
@@ -198,11 +198,11 @@ public class CAHolderSyncedProcessorTests:PortkeyIndexerCATestBase
             },
             ManagerInfosRemoved = new ManagerInfoList()
             {
-                ManagerInfosRemoved =
+                ManagerInfos =
                 {
                     new List<ManagerInfo>()
                     {
-                        new ManagerInfo()
+                        new ManagerInfo
                         {
                             Address = Address.FromPublicKey("CCC".HexToByteArray()),
                             ExtraData = "ExtraData_add_manager1"
