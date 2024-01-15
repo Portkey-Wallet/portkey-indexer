@@ -9,9 +9,9 @@ using Volo.Abp.Modularity;
 
 namespace Portkey.Indexer.CA;
 
-
 [DependsOn(typeof(AElfIndexerClientModule))]
-public class PortkeyIndexerCAModule:AElfIndexerClientPluginBaseModule<PortkeyIndexerCAModule, PortKeyIndexerCASchema, Query>
+public class
+    PortkeyIndexerCAModule : AElfIndexerClientPluginBaseModule<PortkeyIndexerCAModule, PortKeyIndexerCASchema, Query>
 {
     protected override void ConfigureServices(IServiceCollection serviceCollection)
     {
@@ -51,7 +51,8 @@ public class PortkeyIndexerCAModule:AElfIndexerClientPluginBaseModule<PortkeyInd
         // serviceCollection.AddSingleton<IAElfLogEventProcessor<LogEventInfo>, NFTTransferredLogEventProcessor>();
         // serviceCollection.AddSingleton<IAElfLogEventProcessor<LogEventInfo>, NFTBurnedProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<LogEventInfo>, TokenBurnedLogEventProcessor>();
-        serviceCollection.AddSingleton<IAElfLogEventProcessor<LogEventInfo>, TokenCrossChainReceivedLogEventProcessor>();
+        serviceCollection
+            .AddSingleton<IAElfLogEventProcessor<LogEventInfo>, TokenCrossChainReceivedLogEventProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<LogEventInfo>, TokenIssuedLogEventProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<LogEventInfo>, TokenTransferredLogEventProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<LogEventInfo>, TransactionFeeChargedLogEventProcessor>();
@@ -61,9 +62,12 @@ public class PortkeyIndexerCAModule:AElfIndexerClientPluginBaseModule<PortkeyInd
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, RegisteredProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, PlayedProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, VirtualTransactionCreatedProcessor>();
-        serviceCollection.AddSingleton<IAElfLogEventProcessor<LogEventInfo>, TransferSecurityThresholdChangedLogEventProcessor>();
+        serviceCollection
+            .AddSingleton<IAElfLogEventProcessor<LogEventInfo>, TransferSecurityThresholdChangedLogEventProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, TransferLimitChangedProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, ManagerApprovedProcessor>();
+
+        serviceCollection.AddHostedService<TokenAndNftInitService>();
 
         Configure<ContractInfoOptions>(configuration.GetSection("ContractInfo"));
         Configure<InitialInfoOptions>(configuration.GetSection("InitialInfo"));
@@ -72,6 +76,4 @@ public class PortkeyIndexerCAModule:AElfIndexerClientPluginBaseModule<PortkeyInd
 
     protected override string ClientId => "Portkey_DID";
     protected override string Version => "";
-
-    
 }
