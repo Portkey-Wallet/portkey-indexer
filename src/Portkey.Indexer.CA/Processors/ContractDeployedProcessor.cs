@@ -4,18 +4,23 @@ using AElfIndexer.Client.Handlers;
 using AElfIndexer.Grains.State.Client;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Portkey.Indexer.CA.Entities;
 using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class ContractDeployedProcessor : AElfLogEventProcessorBase<ContractDeployed,LogEventInfo>
+public class ContractDeployedProcessor : AElfLogEventProcessorBase<ContractDeployed, LogEventInfo>
 {
     private readonly IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> _tokenInfoIndexRepository;
-    private readonly IAElfIndexerClientEntityRepository<NFTCollectionInfoIndex, LogEventInfo> _nftProtocolInfoIndexRepository;
+
+    private readonly IAElfIndexerClientEntityRepository<NFTCollectionInfoIndex, LogEventInfo>
+        _nftProtocolInfoIndexRepository;
+
     private readonly InitialInfoOptions _initialInfoOptions;
     private readonly ContractInfoOptions _contractInfoOptions;
     private readonly IObjectMapper _objectMapper;
+    private readonly ILogger<ContractDeployedProcessor> _contractDeployedLogger;
 
     public ContractDeployedProcessor(ILogger<ContractDeployedProcessor> logger,
         IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
@@ -29,17 +34,20 @@ public class ContractDeployedProcessor : AElfLogEventProcessorBase<ContractDeplo
         _objectMapper = objectMapper;
         _contractInfoOptions = contractInfoOptions.Value;
         _initialInfoOptions = initialInfoOptions.Value;
+        _contractDeployedLogger = logger;
     }
 
     public override string GetContractAddress(string chainId)
     {
-        return _contractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).GenesisContractAddress;
+        return _contractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).GenesisContractAddress;
     }
 
     protected override async Task HandleEventAsync(ContractDeployed eventValue, LogEventContext context)
     {
-        if (eventValue.Address.ToBase58() != _contractInfoOptions.ContractInfos.First(c=>c.ChainId == context.ChainId).CAContractAddress) return;
-        var nftProtocolInfoList = _initialInfoOptions.NFTProtocolInfoList.Where(n => n.ChainId == context.ChainId).ToList();
+        if (eventValue.Address.ToBase58() != _contractInfoOptions.ContractInfos.First(c => c.ChainId == context.ChainId)
+                .CAContractAddress) return;
+        var nftProtocolInfoList =
+            _initialInfoOptions.NFTProtocolInfoList.Where(n => n.ChainId == context.ChainId).ToList();
         foreach (var nftProtocolInfo in nftProtocolInfoList)
         {
             var nftProtocolInfoIndex = _objectMapper.Map<NFTProtocolInfo, NFTCollectionInfoIndex>(nftProtocolInfo);
@@ -48,6 +56,9 @@ public class ContractDeployedProcessor : AElfLogEventProcessorBase<ContractDeplo
             nftProtocolInfoIndex.BlockHeight = context.BlockHeight;
             nftProtocolInfoIndex.PreviousBlockHash = context.PreviousBlockHash;
             await _nftProtocolInfoIndexRepository.AddOrUpdateAsync(nftProtocolInfoIndex);
+
+            _contractDeployedLogger.LogInformation("add nft success, data:{data}",
+                JsonConvert.SerializeObject(nftProtocolInfoIndex));
         }
 
         var tokenInfoList = _initialInfoOptions.TokenInfoList.Where(n => n.ChainId == context.ChainId).ToList();
