@@ -392,27 +392,6 @@ namespace Portkey.Contracts.CA {
     }
   }
 
-  public partial class RemovedToCurrentVerifierIdMapperAdded : aelf::IEvent<RemovedToCurrentVerifierIdMapperAdded>
-  {
-    public global::System.Collections.Generic.IEnumerable<RemovedToCurrentVerifierIdMapperAdded> GetIndexed()
-    {
-      return new List<RemovedToCurrentVerifierIdMapperAdded>
-      {
-      new RemovedToCurrentVerifierIdMapperAdded
-      {
-        MapperList = MapperList
-      },
-      };
-    }
-
-    public RemovedToCurrentVerifierIdMapperAdded GetNonIndexed()
-    {
-      return new RemovedToCurrentVerifierIdMapperAdded
-      {
-      };
-    }
-  }
-
   public partial class CAServerAdded : aelf::IEvent<CAServerAdded>
   {
     public global::System.Collections.Generic.IEnumerable<CAServerAdded> GetIndexed()
@@ -607,6 +586,28 @@ namespace Portkey.Contracts.CA {
     {
       return new AdminChanged
       {
+      };
+    }
+  }
+
+  public partial class Invited : aelf::IEvent<Invited>
+  {
+    public global::System.Collections.Generic.IEnumerable<Invited> GetIndexed()
+    {
+      return new List<Invited>
+      {
+      };
+    }
+
+    public Invited GetNonIndexed()
+    {
+      return new Invited
+      {
+        CaHash = CaHash,
+        ContractAddress = ContractAddress,
+        MethodName = MethodName,
+        ReferralCode = ReferralCode,
+        ProjectCode = ProjectCode,
       };
     }
   }

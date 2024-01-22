@@ -103,6 +103,8 @@ public class TestGraphQLAutoMapperProfile : Profile
         CreateMap<ManagerApprovedIndex, CAHolderManagerApprovedDto>();
         CreateMap<LogEventContext, ManagerApprovedIndex>();
         CreateMap<GuardianChangeRecordIndex, GuardianChangeRecordDto>();
+        CreateMap<LogEventContext, InviteIndex>();
+        CreateMap<InviteIndex, ReferralInfoDto>();
     }
 }
 
