@@ -72,16 +72,18 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
 
     protected bool IsMultiTransaction(string chainId, string to, string methodName)
     {
-        var  caHolderTransactionInfo = CAHolderTransactionInfoOptions.CAHolderTransactionInfos.FirstOrDefault(t => t.ChainId == chainId &&
-                t.ContractAddress == to && t.MethodName == methodName &&
-                t.EventNames.Contains(GetEventName()));
+        var caHolderTransactionInfo = CAHolderTransactionInfoOptions.CAHolderTransactionInfos.FirstOrDefault(t =>
+            t.ChainId == chainId &&
+            t.ContractAddress == to && t.MethodName == methodName &&
+            t.EventNames.Contains(GetEventName()));
         return caHolderTransactionInfo?.MultiTransaction ?? false;
     }
 
     private bool IsValidManagerForwardCallTransaction(string chainId, string to, string methodName, string parameter)
     {
         if (methodName != "ManagerForwardCall") return false;
-        if (to != ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress) return false;
+        if (to != ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress && to !=
+            ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).AnotherCAContractAddress) return false;
         var managerForwardCallInput = ManagerForwardCallInput.Parser.ParseFrom(ByteString.FromBase64(parameter));
         return IsValidTransaction(chainId, managerForwardCallInput.ContractAddress.ToBase58(),
             managerForwardCallInput.MethodName, managerForwardCallInput.Args.ToBase64());
@@ -169,7 +171,7 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
 
         return holder.CAAddress;
     }
-    
+
     protected long GetFeeAmount(Dictionary<string, string> extraProperties)
     {
         var feeMap = GetTransactionFee(extraProperties);
@@ -180,7 +182,7 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
 
         return 0;
     }
-    
+
     public static string ToFullAddress(string address, string chainId)
     {
         return string.Join(FullAddressSeparator, FullAddressPrefix, address, chainId);

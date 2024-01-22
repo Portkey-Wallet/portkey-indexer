@@ -10,7 +10,7 @@ public class InitialInfoOptions
 
 public class NFTProtocolInfo : NFTProtocolInfoBase
 {
-    
+    public string TokenName { get; set; }
 }
 
 public class TokenInfo : TokenInfoBase
