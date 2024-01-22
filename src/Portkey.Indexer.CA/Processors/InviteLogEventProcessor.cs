@@ -36,7 +36,17 @@ public class InviteLogEventProcessor : AElfLogEventProcessorBase<Invited, LogEve
             return;
         }
 
-        var indexId = IdGenerateHelper.GetId(eventValue.MethodName, eventValue.ProjectCode, eventValue.CaHash.ToHex());
+        var indexId = string.Empty;
+        if (eventValue.MethodName == "CreateCAHolder")
+        {
+            indexId = IdGenerateHelper.GetId(eventValue.MethodName, eventValue.ProjectCode, eventValue.CaHash.ToHex());
+        }
+        else
+        {
+            indexId = IdGenerateHelper.GetId(eventValue.MethodName, eventValue.ProjectCode, eventValue.ReferralCode,
+                eventValue.CaHash.ToHex());
+        }
+
         var inviteIndex = await _repository.GetFromBlockStateSetAsync(indexId, context.ChainId);
         if (inviteIndex != null)
         {
