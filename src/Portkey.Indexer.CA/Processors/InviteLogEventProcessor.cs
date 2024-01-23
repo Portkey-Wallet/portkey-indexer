@@ -57,11 +57,12 @@ public class InviteLogEventProcessor : AElfLogEventProcessorBase<Invited, LogEve
         {
             Id = indexId,
             CaHash = eventValue.CaHash.ToHex(),
-            MethodName = eventValue.MethodName,
             ProjectCode = eventValue.ProjectCode,
             ReferralCode = eventValue.ReferralCode
         };
         _objectMapper.Map<LogEventContext, InviteIndex>(context, inviteIndex);
+
+        inviteIndex.MethodName = eventValue.MethodName;
         await _repository.AddOrUpdateAsync(inviteIndex);
     }
 }

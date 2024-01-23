@@ -1004,10 +1004,18 @@ public class Query
         [FromServices] IObjectMapper objectMapper, GetReferralInfoDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<InviteIndex>, QueryContainer>>();
-        mustQuery.Add(q => q.Term(i => i.Field(f => f.CaHash).Value(dto.CaHash)));
-        mustQuery.Add(q => q.Term(i => i.Field(f => f.ProjectCode).Value(dto.ProjectCode)));
-        mustQuery.Add(q => q.Term(i => i.Field(f => f.ReferralCode).Value(dto.ReferralCode)));
 
+        if (!dto.CaHashes.IsNullOrEmpty())
+        {
+            mustQuery.Add(q => q.Terms(i => i.Field(f => f.CaHash).Terms(dto.CaHashes)));
+        }
+        
+        if (!dto.ReferralCodes.IsNullOrEmpty())
+        {
+            mustQuery.Add(q => q.Terms(i => i.Field(f => f.ReferralCode).Terms(dto.ReferralCodes)));
+        }
+
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.ProjectCode).Value(dto.ProjectCode)));
         if (!dto.MethodNames.IsNullOrEmpty())
         {
             var methodNameShouldQuery =
