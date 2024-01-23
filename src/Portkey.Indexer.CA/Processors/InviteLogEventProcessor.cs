@@ -1,6 +1,7 @@
 using AElfIndexer.Client;
 using AElfIndexer.Client.Handlers;
 using AElfIndexer.Grains.State.Client;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Portkey.Contracts.CA;
@@ -58,9 +59,10 @@ public class InviteLogEventProcessor : AElfLogEventProcessorBase<Invited, LogEve
             Id = indexId,
             CaHash = eventValue.CaHash.ToHex(),
             ProjectCode = eventValue.ProjectCode,
-            ReferralCode = eventValue.ReferralCode
+            ReferralCode = eventValue.ReferralCode,
+            Timestamp = context.BlockTime.ToTimestamp().Seconds,
         };
-        _objectMapper.Map<LogEventContext, InviteIndex>(context, inviteIndex);
+        _objectMapper.Map(context, inviteIndex);
 
         inviteIndex.MethodName = eventValue.MethodName;
         await _repository.AddOrUpdateAsync(inviteIndex);
