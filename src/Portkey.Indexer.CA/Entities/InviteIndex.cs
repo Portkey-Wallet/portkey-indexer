@@ -11,5 +11,5 @@ public class InviteIndex : AElfIndexerClientEntity<string>, IIndexBuild
     [Keyword] public string MethodName { get; set; }
     [Keyword] public string ReferralCode { get; set; }
     [Keyword] public string ProjectCode { get; set; }
-    public DateTime BlockTime { get; set; }
+    public long Timestamp { get; set; }
 }
