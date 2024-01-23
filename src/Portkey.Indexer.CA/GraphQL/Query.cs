@@ -1037,4 +1037,113 @@ public class Query
         return objectMapper.Map<List<InviteIndex>, List<ReferralInfoDto>>(
             result.Item2);
     }
+    
+    
+        [Name("crossChainTransferInfo")]
+    public static async Task<CAHolderTransactionPageResultDto> GetCrossChainTransferInfoAsync(
+        [FromServices] IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> repository,
+        [FromServices] IObjectMapper objectMapper, GetCAHolderTransactionDto dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>();
+        
+        if (dto.StartBlockHeight > 0)
+        {
+            mustQuery.Add(q => q.Range(i => i.Field(f => f.BlockHeight).GreaterThanOrEquals(dto.StartBlockHeight)));
+        }
+
+        if (dto.EndBlockHeight > 0)
+        {
+            mustQuery.Add(q => q.Range(i => i.Field(f => f.BlockHeight).LessThanOrEquals(dto.EndBlockHeight)));
+        }
+
+        if (dto.StartTime > 0)
+        {
+            mustQuery.Add(q => q.Range(i => i.Field(f => f.Timestamp).GreaterThanOrEquals(dto.StartTime)));
+        }
+
+        if (dto.EndTime > 0)
+        {
+            mustQuery.Add(q => q.Range(i => i.Field(f => f.Timestamp).LessThanOrEquals(dto.EndTime)));
+        }
+
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.TokenInfo.Symbol).Value(dto.Symbol)));
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.BlockHash).Value(dto.BlockHash)));
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.TransactionId).Value(dto.TransactionId)));
+        mustQuery.Add(q =>
+            q.Term(i => i.Field(f => f.TransferInfo.TransferTransactionId).Value(dto.TransferTransactionId)));
+        if (dto.MethodNames != null)
+        {
+            var methodNameShouldQuery =
+                new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>();
+            foreach (var methodName in dto.MethodNames)
+            {
+                methodNameShouldQuery.Add(s =>
+                    s.Match(i => i.Field(f => f.MethodName).Query(methodName)));
+            }
+
+            mustQuery.Add(q => q.Bool(b => b.Should(methodNameShouldQuery)));
+        }
+
+        if (dto.CAAddressInfos != null)
+        {
+            var shouldQuery = new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>();
+            foreach (var info in dto.CAAddressInfos)
+            {
+                var mustQueryFromAddressInfo =
+                    new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
+                    {
+                        q => q.Term(i => i.Field(f => f.FromAddress).Value(info.CAAddress)),
+                        q => q.Term(i => i.Field(f => f.ChainId).Value(info.ChainId))
+                    };
+                shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryFromAddressInfo)));
+                var mustQueryTransferFromAddressInfo =
+                    new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
+                    {
+                        q => q.Term(i => i.Field(f => f.TransferInfo.FromAddress).Value(info.CAAddress)),
+                        q => q.Term(i => i.Field(f => f.TransferInfo.FromChainId).Value(info.ChainId))
+                    };
+                shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryTransferFromAddressInfo)));
+                var mustQueryTransferFromCAAddressInfo =
+                    new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
+                    {
+                        q => q.Term(i => i.Field(f => f.TransferInfo.FromCAAddress).Value(info.CAAddress)),
+                        q => q.Term(i => i.Field(f => f.TransferInfo.FromChainId).Value(info.ChainId))
+                    };
+                shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryTransferFromCAAddressInfo)));
+                var mustQueryTransferToAddressInfo =
+                    new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
+                    {
+                        q => q.Term(i => i.Field(f => f.TransferInfo.ToAddress).Value(info.CAAddress)),
+                        q => q.Term(i => i.Field(f => f.TransferInfo.ToChainId).Value(info.ChainId))
+                    };
+                shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryTransferToAddressInfo)));
+            }
+
+            mustQuery.Add(q => q.Bool(b => b.Should(shouldQuery)));
+        }
+
+        QueryContainer Filter(QueryContainerDescriptor<CAHolderTransactionIndex> f) => f.Bool(b => b.Must(mustQuery));
+
+        var result = await repository.GetListAsync(Filter, sortExp: k => k.Timestamp,
+            sortType: SortOrder.Descending, skip: dto.SkipCount, limit: dto.MaxResultCount);
+        var dataList = objectMapper.Map<List<CAHolderTransactionIndex>, List<CAHolderTransactionDto>>(result.Item2);
+
+        foreach (var transaction in dataList)
+        {
+            if (string.IsNullOrEmpty(transaction.TransactionId)) continue;
+            var query = new List<Func<QueryContainerDescriptor<TransactionFeeChangedIndex>, QueryContainer>>
+                { q => q.Term(i => i.Field(f => f.TransactionId).Value(transaction.TransactionId)) };
+
+            QueryContainer TransactionFeeFilter(QueryContainerDescriptor<TransactionFeeChangedIndex> f) =>
+                f.Bool(b => b.Must(query));
+            
+        }
+
+        var pageResult = new CAHolderTransactionPageResultDto
+        {
+            TotalRecordCount = result.Item1,
+            Data = dataList
+        };
+        return pageResult;
+    }
 }
