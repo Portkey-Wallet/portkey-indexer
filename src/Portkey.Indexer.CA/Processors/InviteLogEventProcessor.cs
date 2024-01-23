@@ -38,7 +38,7 @@ public class InviteLogEventProcessor : AElfLogEventProcessorBase<Invited, LogEve
         }
 
         var indexId = string.Empty;
-        if (eventValue.MethodName == "CreateCAHolder")
+        if (eventValue.MethodName == CommonConstant.CreateCAHolder)
         {
             indexId = IdGenerateHelper.GetId(eventValue.MethodName, eventValue.ProjectCode, eventValue.CaHash.ToHex());
         }
