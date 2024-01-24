@@ -1039,32 +1039,19 @@ public class Query
     }
     
     
-    [Name("crossChainTransferInfo")]
-    public static async Task<CAHolderTransactionPageResultDto> GetCrossChainTransferInfoAsync(
+    [Name("autoReceiveTransaction")]
+    public static async Task<CAHolderTransactionPageResultDto> GetAutoReceiveTransactionAsync(
         [FromServices] IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> repository,
-        [FromServices] IObjectMapper objectMapper, GetCrossChainTransferInfoDto dto)
+        [FromServices] IObjectMapper objectMapper, GetAutoReceiveTransactionDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>();
-        
         mustQuery.Add(q =>
             q.Terms(i => i.Field(f => f.TransferInfo.TransferTransactionId).Terms(dto.TransferTransactionIds)));
-
         QueryContainer Filter(QueryContainerDescriptor<CAHolderTransactionIndex> f) => f.Bool(b => b.Must(mustQuery));
 
         var result = await repository.GetListAsync(Filter, sortExp: k => k.Timestamp,
-            sortType: SortOrder.Descending);
+            sortType: SortOrder.Descending, skip: dto.SkipCount, limit: dto.MaxResultCount);
         var dataList = objectMapper.Map<List<CAHolderTransactionIndex>, List<CAHolderTransactionDto>>(result.Item2);
-
-        foreach (var transaction in dataList)
-        {
-            if (string.IsNullOrEmpty(transaction.TransactionId)) continue;
-            var query = new List<Func<QueryContainerDescriptor<TransactionFeeChangedIndex>, QueryContainer>>
-                { q => q.Term(i => i.Field(f => f.TransactionId).Value(transaction.TransactionId)) };
-
-            QueryContainer TransactionFeeFilter(QueryContainerDescriptor<TransactionFeeChangedIndex> f) =>
-                f.Bool(b => b.Must(query));
-            
-        }
 
         var pageResult = new CAHolderTransactionPageResultDto
         {
