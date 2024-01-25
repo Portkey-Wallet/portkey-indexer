@@ -997,4 +997,44 @@ public class Query
         return objectMapper.Map<List<GuardianChangeRecordIndex>, List<GuardianChangeRecordDto>>(
             result.Item2);
     }
+
+    [Name("referralInfo")]
+    public static async Task<List<ReferralInfoDto>> GetReferralInfoAsync(
+        [FromServices] IAElfIndexerClientEntityRepository<InviteIndex, LogEventInfo> repository,
+        [FromServices] IObjectMapper objectMapper, GetReferralInfoDto dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<InviteIndex>, QueryContainer>>();
+
+        if (!dto.CaHashes.IsNullOrEmpty())
+        {
+            mustQuery.Add(q => q.Terms(i => i.Field(f => f.CaHash).Terms(dto.CaHashes)));
+        }
+        
+        if (!dto.ReferralCodes.IsNullOrEmpty())
+        {
+            mustQuery.Add(q => q.Terms(i => i.Field(f => f.ReferralCode).Terms(dto.ReferralCodes)));
+        }
+
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.ProjectCode).Value(dto.ProjectCode)));
+        if (!dto.MethodNames.IsNullOrEmpty())
+        {
+            var methodNameShouldQuery =
+                new List<Func<QueryContainerDescriptor<InviteIndex>, QueryContainer>>();
+            foreach (var methodName in dto.MethodNames)
+            {
+                methodNameShouldQuery.Add(s =>
+                    s.Match(i => i.Field(f => f.MethodName).Query(methodName)));
+            }
+
+            mustQuery.Add(q => q.Bool(b => b.Should(methodNameShouldQuery)));
+        }
+
+        QueryContainer Filter(QueryContainerDescriptor<InviteIndex> f) =>
+            f.Bool(b => b.Must(mustQuery));
+
+        var result = await repository.GetListAsync(Filter, sortExp: k => k.BlockHeight,
+            sortType: SortOrder.Ascending, skip: IndexerConstant.DefaultSkip, limit: IndexerConstant.DefaultLimit);
+        return objectMapper.Map<List<InviteIndex>, List<ReferralInfoDto>>(
+            result.Item2);
+    }
 }
