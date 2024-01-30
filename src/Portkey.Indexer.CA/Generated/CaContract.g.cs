@@ -27,187 +27,204 @@ namespace Portkey.Contracts.CA {
             "ChFjYV9jb250cmFjdC5wcm90bxICY2EaD2FlbGYvY29yZS5wcm90bxoSYWVs",
             "Zi9vcHRpb25zLnByb3RvGhtnb29nbGUvcHJvdG9idWYvZW1wdHkucHJvdG8a",
             "H2dvb2dsZS9wcm90b2J1Zi90aW1lc3RhbXAucHJvdG8aFGF1dGhvcml0eV9p",
-            "bmZvLnByb3RvGgthY3MxMi5wcm90byLMAQoKSG9sZGVySW5mbxImCg9jcmVh",
-            "dG9yX2FkZHJlc3MYASABKAsyDS5hZWxmLkFkZHJlc3MSJgoNbWFuYWdlcl9p",
-            "bmZvcxgCIAMoCzIPLmNhLk1hbmFnZXJJbmZvEicKDWd1YXJkaWFuX2xpc3QY",
-            "AyABKAsyEC5jYS5HdWFyZGlhbkxpc3QSLAoSanVkZ2VtZW50X3N0cmF0ZWd5",
-            "GAQgASgLMhAuY2EuU3RyYXRlZ3lOb2RlEhcKD2NyZWF0ZV9jaGFpbl9pZBgF",
-            "IAEoBSJBCgtNYW5hZ2VySW5mbxIeCgdhZGRyZXNzGAEgASgLMg0uYWVsZi5B",
-            "ZGRyZXNzEhIKCmV4dHJhX2RhdGEYAiABKAkiLwoMR3VhcmRpYW5MaXN0Eh8K",
-            "CWd1YXJkaWFucxgBIAMoCzIMLmNhLkd1YXJkaWFuIpkBCghHdWFyZGlhbhIe",
-            "CgR0eXBlGAEgASgOMhAuY2EuR3VhcmRpYW5UeXBlEh8KC3ZlcmlmaWVyX2lk",
-            "GAIgASgLMgouYWVsZi5IYXNoEiMKD2lkZW50aWZpZXJfaGFzaBgDIAEoCzIK",
-            "LmFlbGYuSGFzaBIMCgRzYWx0GAQgASgJEhkKEWlzX2xvZ2luX2d1YXJkaWFu",
-            "GAUgASgIIogBCg5WZXJpZmllclNlcnZlchIWCgJpZBgBIAEoCzIKLmFlbGYu",
-            "SGFzaBIMCgRuYW1lGAIgASgJEhEKCWltYWdlX3VybBgDIAEoCRISCgplbmRf",
-            "cG9pbnRzGAQgAygJEikKEnZlcmlmaWVyX2FkZHJlc3NlcxgFIAMoCzINLmFl",
-            "bGYuQWRkcmVzcyIrCghDQVNlcnZlchIMCgRuYW1lGAEgASgJEhEKCWVuZF9w",
-            "b2ludBgCIAEoCSJCChJWZXJpZmllclNlcnZlckxpc3QSLAoQdmVyaWZpZXJf",
-            "c2VydmVycxgBIAMoCzISLmNhLlZlcmlmaWVyU2VydmVyIjAKDENBU2VydmVy",
-            "TGlzdBIgCgpjYV9zZXJ2ZXJzGAEgAygLMgwuY2EuQ0FTZXJ2ZXIiNAoOQ29u",
-            "dHJvbGxlckxpc3QSIgoLY29udHJvbGxlcnMYASADKAsyDS5hZWxmLkFkZHJl",
-            "c3MiOQoPTWFuYWdlckluZm9MaXN0EiYKDW1hbmFnZXJfaW5mb3MYASADKAsy",
-            "Dy5jYS5NYW5hZ2VySW5mbyI4ChFMb2dpbkd1YXJkaWFuTGlzdBIjCg9sb2dp",
-            "bl9ndWFyZGlhbnMYASADKAsyCi5hZWxmLkhhc2giOAoPSW5pdGlhbGl6ZUlu",
-            "cHV0EiUKDmNvbnRyYWN0X2FkbWluGAEgASgLMg0uYWVsZi5BZGRyZXNzIjEK",
-            "D0NvbnRyb2xsZXJJbnB1dBIeCgdhZGRyZXNzGAEgASgLMg0uYWVsZi5BZGRy",
-            "ZXNzIjQKEENvbnRyb2xsZXJPdXRwdXQSIAoJYWRkcmVzc2VzGAEgAygLMg0u",
-            "YWVsZi5BZGRyZXNzIiwKCkFkbWluSW5wdXQSHgoHYWRkcmVzcxgBIAEoCzIN",
-            "LmFlbGYuQWRkcmVzcyItCgtBZG1pbk91dHB1dBIeCgdhZGRyZXNzGAEgASgL",
-            "Mg0uYWVsZi5BZGRyZXNzImUKKEFkZFJlbW92ZWRUb0N1cnJlbnRWZXJpZmll",
-            "cklkTWFwcGVySW5wdXQSOQoHbWFwcGVycxgBIAMoCzIoLmNhLlJlbW92ZWRU",
-            "b0N1cnJlbnRWZXJpZmllcklkTWFwcGVySW5mbyJmCiRSZW1vdmVkVG9DdXJy",
-            "ZW50VmVyaWZpZXJJZE1hcHBlckluZm8SHgoKcmVtb3ZlZF9pZBgBIAEoCzIK",
-            "LmFlbGYuSGFzaBIeCgpjdXJyZW50X2lkGAIgASgLMgouYWVsZi5IYXNoIpcB",
-            "ChNDcmVhdGVDQUhvbGRlcklucHV0EisKEWd1YXJkaWFuX2FwcHJvdmVkGAEg",
-            "ASgLMhAuY2EuR3VhcmRpYW5JbmZvEiUKDG1hbmFnZXJfaW5mbxgCIAEoCzIP",
-            "LmNhLk1hbmFnZXJJbmZvEiwKEmp1ZGdlbWVudF9zdHJhdGVneRgDIAEoCzIQ",
-            "LmNhLlN0cmF0ZWd5Tm9kZSKEAQoMR3VhcmRpYW5JbmZvEh4KBHR5cGUYASAB",
-            "KA4yEC5jYS5HdWFyZGlhblR5cGUSIwoPaWRlbnRpZmllcl9oYXNoGAIgASgL",
-            "MgouYWVsZi5IYXNoEi8KEXZlcmlmaWNhdGlvbl9pbmZvGAMgASgLMhQuY2Eu",
-            "VmVyaWZpY2F0aW9uSW5mbyJXChBWZXJpZmljYXRpb25JbmZvEhYKAmlkGAEg",
-            "ASgLMgouYWVsZi5IYXNoEhEKCXNpZ25hdHVyZRgCIAEoDBIYChB2ZXJpZmlj",
-            "YXRpb25fZG9jGAMgASgJImIKDFN0cmF0ZWd5Tm9kZRIeCgRuYW1lGAEgASgO",
-            "MhAuY2EuU3RyYXRlZ3lOYW1lEiMKBHR5cGUYAiADKA4yFS5jYS5TdHJhdGVn",
-            "eVZhbHVlVHlwZRINCgV2YWx1ZRgDIAMoDCIkChNTdHJhdGVneUxvbmdXcmFw",
-            "cGVyEg0KBXZhbHVlGAEgASgDIiYKFVN0cmF0ZWd5U3RyaW5nV3JhcHBlchIN",
-            "CgV2YWx1ZRgBIAEoCSInChVDb250cmFjdERlbGVnYXRpb25GZWUSDgoGYW1v",
-            "dW50GAEgASgDIlIKHVNldENvbnRyYWN0RGVsZWdhdGlvbkZlZUlucHV0EjEK",
-            "DmRlbGVnYXRpb25fZmVlGAEgASgLMhkuY2EuQ29udHJhY3REZWxlZ2F0aW9u",
-            "RmVlIlMKHkdldENvbnRyYWN0RGVsZWdhdGlvbkZlZU91dHB1dBIxCg5kZWxl",
-            "Z2F0aW9uX2ZlZRgBIAEoCzIZLmNhLkNvbnRyYWN0RGVsZWdhdGlvbkZlZSKI",
-            "AQoQQWRkR3VhcmRpYW5JbnB1dBIbCgdjYV9oYXNoGAEgASgLMgouYWVsZi5I",
-            "YXNoEikKD2d1YXJkaWFuX3RvX2FkZBgCIAEoCzIQLmNhLkd1YXJkaWFuSW5m",
-            "bxIsChJndWFyZGlhbnNfYXBwcm92ZWQYAyADKAsyEC5jYS5HdWFyZGlhbklu",
-            "Zm8ijgEKE1JlbW92ZUd1YXJkaWFuSW5wdXQSGwoHY2FfaGFzaBgBIAEoCzIK",
-            "LmFlbGYuSGFzaBIsChJndWFyZGlhbl90b19yZW1vdmUYAiABKAsyEC5jYS5H",
-            "dWFyZGlhbkluZm8SLAoSZ3VhcmRpYW5zX2FwcHJvdmVkGAMgAygLMhAuY2Eu",
-            "R3VhcmRpYW5JbmZvIsQBChNVcGRhdGVHdWFyZGlhbklucHV0EhsKB2NhX2hh",
-            "c2gYASABKAsyCi5hZWxmLkhhc2gSMAoWZ3VhcmRpYW5fdG9fdXBkYXRlX3By",
-            "ZRgCIAEoCzIQLmNhLkd1YXJkaWFuSW5mbxIwChZndWFyZGlhbl90b191cGRh",
-            "dGVfbmV3GAMgASgLMhAuY2EuR3VhcmRpYW5JbmZvEiwKEmd1YXJkaWFuc19h",
-            "cHByb3ZlZBgEIAMoCzIQLmNhLkd1YXJkaWFuSW5mbyJXChhTZXRHdWFyZGlh",
-            "bkZvckxvZ2luSW5wdXQSGwoHY2FfaGFzaBgBIAEoCzIKLmFlbGYuSGFzaBIe",
-            "CghndWFyZGlhbhgCIAEoCzIMLmNhLkd1YXJkaWFuIlkKGlVuc2V0R3VhcmRp",
-            "YW5Gb3JMb2dpbklucHV0EhsKB2NhX2hhc2gYASABKAsyCi5hZWxmLkhhc2gS",
-            "HgoIZ3VhcmRpYW4YAiABKAsyDC5jYS5HdWFyZGlhbiKCAQoXTWFuYWdlckZv",
-            "cndhcmRDYWxsSW5wdXQSGwoHY2FfaGFzaBgBIAEoCzIKLmFlbGYuSGFzaBIn",
-            "ChBjb250cmFjdF9hZGRyZXNzGAIgASgLMg0uYWVsZi5BZGRyZXNzEhMKC21l",
-            "dGhvZF9uYW1lGAMgASgJEgwKBGFyZ3MYBCABKAwifAoUTWFuYWdlclRyYW5z",
-            "ZmVySW5wdXQSGwoHY2FfaGFzaBgBIAEoCzIKLmFlbGYuSGFzaBIZCgJ0bxgC",
-            "IAEoCzINLmFlbGYuQWRkcmVzcxIOCgZzeW1ib2wYAyABKAkSDgoGYW1vdW50",
-            "GAQgASgDEgwKBG1lbW8YBSABKAkinQEKGE1hbmFnZXJUcmFuc2ZlckZyb21J",
-            "bnB1dBIbCgdjYV9oYXNoGAEgASgLMgouYWVsZi5IYXNoEhsKBGZyb20YAiAB",
-            "KAsyDS5hZWxmLkFkZHJlc3MSGQoCdG8YAyABKAsyDS5hZWxmLkFkZHJlc3MS",
-            "DgoGc3ltYm9sGAQgASgJEg4KBmFtb3VudBgFIAEoAxIMCgRtZW1vGAYgASgJ",
-            "ImUKEkdldEhvbGRlckluZm9JbnB1dBIbCgdjYV9oYXNoGAEgASgLMgouYWVs",
-            "Zi5IYXNoEjIKHmxvZ2luX2d1YXJkaWFuX2lkZW50aWZpZXJfaGFzaBgCIAEo",
-            "CzIKLmFlbGYuSGFzaCK/AQoTR2V0SG9sZGVySW5mb091dHB1dBIbCgdjYV9o",
-            "YXNoGAEgASgLMgouYWVsZi5IYXNoEiEKCmNhX2FkZHJlc3MYAiABKAsyDS5h",
-            "ZWxmLkFkZHJlc3MSJwoNZ3VhcmRpYW5fbGlzdBgDIAEoCzIQLmNhLkd1YXJk",
-            "aWFuTGlzdBImCg1tYW5hZ2VyX2luZm9zGAQgAygLMg8uY2EuTWFuYWdlcklu",
-            "Zm8SFwoPY3JlYXRlX2NoYWluX2lkGAUgASgFIp4BChNTb2NpYWxSZWNvdmVy",
-            "eUlucHV0EjIKHmxvZ2luX2d1YXJkaWFuX2lkZW50aWZpZXJfaGFzaBgBIAEo",
-            "CzIKLmFlbGYuSGFzaBIsChJndWFyZGlhbnNfYXBwcm92ZWQYAiADKAsyEC5j",
-            "YS5HdWFyZGlhbkluZm8SJQoMbWFuYWdlcl9pbmZvGAMgASgLMg8uY2EuTWFu",
-            "YWdlckluZm8iWQoTQWRkTWFuYWdlckluZm9JbnB1dBIbCgdjYV9oYXNoGAEg",
-            "ASgLMgouYWVsZi5IYXNoEiUKDG1hbmFnZXJfaW5mbxgCIAEoCzIPLmNhLk1h",
-            "bmFnZXJJbmZvIjUKFlJlbW92ZU1hbmFnZXJJbmZvSW5wdXQSGwoHY2FfaGFz",
-            "aBgBIAEoCzIKLmFlbGYuSGFzaCKPAQobUmVtb3ZlT3RoZXJNYW5hZ2VySW5m",
-            "b0lucHV0EhsKB2NhX2hhc2gYASABKAsyCi5hZWxmLkhhc2gSJQoMbWFuYWdl",
-            "cl9pbmZvGAIgASgLMg8uY2EuTWFuYWdlckluZm8SLAoSZ3VhcmRpYW5zX2Fw",
-            "cHJvdmVkGAMgAygLMhAuY2EuR3VhcmRpYW5JbmZvIl4KF1VwZGF0ZU1hbmFn",
-            "ZXJJbmZvc0lucHV0EhsKB2NhX2hhc2gYASABKAsyCi5hZWxmLkhhc2gSJgoN",
-            "bWFuYWdlcl9pbmZvcxgCIAMoCzIPLmNhLk1hbmFnZXJJbmZvIqUBCh9BZGRW",
-            "ZXJpZmllclNlcnZlckVuZFBvaW50c0lucHV0EgwKBG5hbWUYASABKAkSEQoJ",
-            "aW1hZ2VfdXJsGAIgASgJEhIKCmVuZF9wb2ludHMYAyADKAkSLAoVdmVyaWZp",
-            "ZXJfYWRkcmVzc19saXN0GAQgAygLMg0uYWVsZi5BZGRyZXNzEh8KC3Zlcmlm",
-            "aWVyX2lkGAUgASgLMgouYWVsZi5IYXNoIjMKGVJlbW92ZVZlcmlmaWVyU2Vy",
-            "dmVySW5wdXQSFgoCaWQYASABKAsyCi5hZWxmLkhhc2giUAoiUmVtb3ZlVmVy",
-            "aWZpZXJTZXJ2ZXJFbmRQb2ludHNJbnB1dBIWCgJpZBgBIAEoCzIKLmFlbGYu",
-            "SGFzaBISCgplbmRfcG9pbnRzGAIgAygJIjQKEEFkZENBU2VydmVySW5wdXQS",
-            "DAoEbmFtZRgBIAEoCRISCgplbmRfcG9pbnRzGAIgASgJIiMKE1JlbW92ZUNB",
-            "U2VydmVySW5wdXQSDAoEbmFtZRgBIAEoCSJIChhHZXRWZXJpZmllclNlcnZl",
-            "cnNPdXRwdXQSLAoQdmVyaWZpZXJfc2VydmVycxgBIAMoCzISLmNhLlZlcmlm",
-            "aWVyU2VydmVyImUKKUdldFJlbW92ZWRUb0N1cnJlbnRWZXJpZmllcklkTWFw",
-            "cGVyT3V0cHV0EjgKBm1hcHBlchgBIAEoCzIoLmNhLlJlbW92ZWRUb0N1cnJl",
-            "bnRWZXJpZmllcklkTWFwcGVySW5mbyI2ChJHZXRDQVNlcnZlcnNPdXRwdXQS",
-            "IAoKY2Ffc2VydmVycxgBIAMoCzIMLmNhLkNBU2VydmVyIoYCCi9WYWxpZGF0",
-            "ZUNBSG9sZGVySW5mb1dpdGhNYW5hZ2VySW5mb3NFeGlzdHNJbnB1dBIbCgdj",
-            "YV9oYXNoGAEgASgLMgouYWVsZi5IYXNoEiYKDW1hbmFnZXJfaW5mb3MYAiAD",
-            "KAsyDy5jYS5NYW5hZ2VySW5mbxIjCg9sb2dpbl9ndWFyZGlhbnMYAyADKAsy",
-            "Ci5hZWxmLkhhc2gSJwoTbm90X2xvZ2luX2d1YXJkaWFucxgEIAMoCzIKLmFl",
-            "bGYuSGFzaBInCg1ndWFyZGlhbl9saXN0GAUgASgLMhAuY2EuR3VhcmRpYW5M",
-            "aXN0EhcKD2NyZWF0ZV9jaGFpbl9pZBgGIAEoBSKTAQobVmVyaWZpY2F0aW9u",
-            "VHJhbnNhY3Rpb25JbmZvEhUKDWZyb21fY2hhaW5faWQYASABKAUSGwoTcGFy",
-            "ZW50X2NoYWluX2hlaWdodBgCIAEoAxIZChF0cmFuc2FjdGlvbl9ieXRlcxgD",
-            "IAEoDBIlCgttZXJrbGVfcGF0aBgEIAEoCzIQLmFlbGYuTWVya2xlUGF0aCJd",
-            "ChNTeW5jSG9sZGVySW5mb0lucHV0EkYKHXZlcmlmaWNhdGlvbl90cmFuc2Fj",
-            "dGlvbl9pbmZvGAEgASgLMh8uY2EuVmVyaWZpY2F0aW9uVHJhbnNhY3Rpb25J",
-            "bmZvIq8BChVWYWxpZGF0ZVN0cmF0ZWd5SW5wdXQSJwoNc3RyYXRlZ3lfbm9k",
-            "ZRgBIAEoCzIQLmNhLlN0cmF0ZWd5Tm9kZRI7Cgl2YXJpYWJsZXMYAiADKAsy",
-            "KC5jYS5WYWxpZGF0ZVN0cmF0ZWd5SW5wdXQuVmFyaWFibGVzRW50cnkaMAoO",
-            "VmFyaWFibGVzRW50cnkSCwoDa2V5GAEgASgJEg0KBXZhbHVlGAIgASgDOgI4",
-            "ASJVCiZTZXRDaGVja0NoYWluSWRJblNpZ25hdHVyZUVuYWJsZWRJbnB1dBIr",
-            "CiNjaGVja19jaGFpbl9pZF9pbl9zaWduYXR1cmVfZW5hYmxlZBgBIAEoCCJW",
-            "CidHZXRDaGVja0NoYWluSWRJblNpZ25hdHVyZUVuYWJsZWRPdXRwdXQSKwoj",
-            "Y2hlY2tfY2hhaW5faWRfaW5fc2lnbmF0dXJlX2VuYWJsZWQYASABKAgibgoW",
-            "VmFsaWRhdGVTdHJhdGVneU91dHB1dBITCgtib29sX3Jlc3VsdBgBIAEoCBIU",
-            "CgxpbnQ2NF9yZXN1bHQYAiABKAMSKQoPc3RyYXRlZ3lfb3V0cHV0GAMgASgL",
-            "MhAuY2EuU3RyYXRlZ3lOb2RlIscBCg9DQUhvbGRlckNyZWF0ZWQSJQoHY3Jl",
-            "YXRvchgBIAEoCzINLmFlbGYuQWRkcmVzc0IFiI/1AQESIgoHY2FfaGFzaBgC",
-            "IAEoCzIKLmFlbGYuSGFzaEIFiI/1AQESKAoKY2FfYWRkcmVzcxgDIAEoCzIN",
-            "LmFlbGYuQWRkcmVzc0IFiI/1AQESJQoHbWFuYWdlchgEIAEoCzINLmFlbGYu",
-            "QWRkcmVzc0IFiI/1AQESEgoKZXh0cmFfZGF0YRgFIAEoCToEoLsYASKCAQoN",
-            "R3VhcmRpYW5BZGRlZBIiCgdjYV9oYXNoGAEgASgLMgouYWVsZi5IYXNoQgWI",
-            "j/UBARIhCgpjYV9hZGRyZXNzGAIgASgLMg0uYWVsZi5BZGRyZXNzEiQKDmd1",
-            "YXJkaWFuX2FkZGVkGAMgASgLMgwuY2EuR3VhcmRpYW46BKC7GAEihgEKD0d1",
-            "YXJkaWFuUmVtb3ZlZBIiCgdjYV9oYXNoGAEgASgLMgouYWVsZi5IYXNoQgWI",
-            "j/UBARIhCgpjYV9hZGRyZXNzGAIgASgLMg0uYWVsZi5BZGRyZXNzEiYKEGd1",
-            "YXJkaWFuX3JlbW92ZWQYAyABKAsyDC5jYS5HdWFyZGlhbjoEoLsYASK2AQoP",
-            "R3VhcmRpYW5VcGRhdGVkEiIKB2NhX2hhc2gYASABKAsyCi5hZWxmLkhhc2hC",
-            "BYiP9QEBEiEKCmNhX2FkZHJlc3MYAiABKAsyDS5hZWxmLkFkZHJlc3MSKgoU",
-            "Z3VhcmRpYW5fdXBkYXRlZF9wcmUYAyABKAsyDC5jYS5HdWFyZGlhbhIqChRn",
-            "dWFyZGlhbl91cGRhdGVkX25ldxgEIAEoCzIMLmNhLkd1YXJkaWFuOgSguxgB",
-            "Is8BChJMb2dpbkd1YXJkaWFuQWRkZWQSIgoHY2FfaGFzaBgBIAEoCzIKLmFl",
-            "bGYuSGFzaEIFiI/1AQESIQoKY2FfYWRkcmVzcxgCIAEoCzINLmFlbGYuQWRk",
-            "cmVzcxIlCgdtYW5hZ2VyGAMgASgLMg0uYWVsZi5BZGRyZXNzQgWIj/UBARIr",
-            "Cg5sb2dpbl9ndWFyZGlhbhgEIAEoCzIMLmNhLkd1YXJkaWFuQgWIj/UBARIY",
-            "ChBpc19jcmVhdGVfaG9sZGVyGAUgASgIOgSguxgBIqsBChpNYW5hZ2VySW5m",
-            "b1NvY2lhbFJlY292ZXJlZBIiCgdjYV9oYXNoGAEgASgLMgouYWVsZi5IYXNo",
+            "bmZvLnByb3RvGgthY3MxMi5wcm90bxoKYWNzMi5wcm90byLMAQoKSG9sZGVy",
+            "SW5mbxImCg9jcmVhdG9yX2FkZHJlc3MYASABKAsyDS5hZWxmLkFkZHJlc3MS",
+            "JgoNbWFuYWdlcl9pbmZvcxgCIAMoCzIPLmNhLk1hbmFnZXJJbmZvEicKDWd1",
+            "YXJkaWFuX2xpc3QYAyABKAsyEC5jYS5HdWFyZGlhbkxpc3QSLAoSanVkZ2Vt",
+            "ZW50X3N0cmF0ZWd5GAQgASgLMhAuY2EuU3RyYXRlZ3lOb2RlEhcKD2NyZWF0",
+            "ZV9jaGFpbl9pZBgFIAEoBSLOAgoMRGVsZWdhdGVJbmZvEhAKCGNoYWluX2lk",
+            "GAEgASgFEiAKDHByb2plY3RfaGFzaBgCIAEoCzIKLmFlbGYuSGFzaBIjCg9p",
+            "ZGVudGlmaWVyX2hhc2gYAyABKAsyCi5hZWxmLkhhc2gSLQoJdGltZXN0YW1w",
+            "GAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIXCg9leHBpcmF0",
+            "aW9uX3RpbWUYBSABKAUSNgoLZGVsZWdhdGlvbnMYBiADKAsyIS5jYS5EZWxl",
+            "Z2F0ZUluZm8uRGVsZWdhdGlvbnNFbnRyeRIdChVpc191bmxpbWl0ZWRfZGVs",
+            "ZWdhdGUYByABKAgSEgoJc2lnbmF0dXJlGOgHIAEoCRoyChBEZWxlZ2F0aW9u",
+            "c0VudHJ5EgsKA2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoAzoCOAEiQQoLTWFu",
+            "YWdlckluZm8SHgoHYWRkcmVzcxgBIAEoCzINLmFlbGYuQWRkcmVzcxISCgpl",
+            "eHRyYV9kYXRhGAIgASgJIi8KDEd1YXJkaWFuTGlzdBIfCglndWFyZGlhbnMY",
+            "ASADKAsyDC5jYS5HdWFyZGlhbiKZAQoIR3VhcmRpYW4SHgoEdHlwZRgBIAEo",
+            "DjIQLmNhLkd1YXJkaWFuVHlwZRIfCgt2ZXJpZmllcl9pZBgCIAEoCzIKLmFl",
+            "bGYuSGFzaBIjCg9pZGVudGlmaWVyX2hhc2gYAyABKAsyCi5hZWxmLkhhc2gS",
+            "DAoEc2FsdBgEIAEoCRIZChFpc19sb2dpbl9ndWFyZGlhbhgFIAEoCCKIAQoO",
+            "VmVyaWZpZXJTZXJ2ZXISFgoCaWQYASABKAsyCi5hZWxmLkhhc2gSDAoEbmFt",
+            "ZRgCIAEoCRIRCglpbWFnZV91cmwYAyABKAkSEgoKZW5kX3BvaW50cxgEIAMo",
+            "CRIpChJ2ZXJpZmllcl9hZGRyZXNzZXMYBSADKAsyDS5hZWxmLkFkZHJlc3Mi",
+            "KwoIQ0FTZXJ2ZXISDAoEbmFtZRgBIAEoCRIRCgllbmRfcG9pbnQYAiABKAki",
+            "QgoSVmVyaWZpZXJTZXJ2ZXJMaXN0EiwKEHZlcmlmaWVyX3NlcnZlcnMYASAD",
+            "KAsyEi5jYS5WZXJpZmllclNlcnZlciIwCgxDQVNlcnZlckxpc3QSIAoKY2Ff",
+            "c2VydmVycxgBIAMoCzIMLmNhLkNBU2VydmVyIjQKDkNvbnRyb2xsZXJMaXN0",
+            "EiIKC2NvbnRyb2xsZXJzGAEgAygLMg0uYWVsZi5BZGRyZXNzIjkKD01hbmFn",
+            "ZXJJbmZvTGlzdBImCg1tYW5hZ2VyX2luZm9zGAEgAygLMg8uY2EuTWFuYWdl",
+            "ckluZm8iOAoRTG9naW5HdWFyZGlhbkxpc3QSIwoPbG9naW5fZ3VhcmRpYW5z",
+            "GAEgAygLMgouYWVsZi5IYXNoIjgKD0luaXRpYWxpemVJbnB1dBIlCg5jb250",
+            "cmFjdF9hZG1pbhgBIAEoCzINLmFlbGYuQWRkcmVzcyIxCg9Db250cm9sbGVy",
+            "SW5wdXQSHgoHYWRkcmVzcxgBIAEoCzINLmFlbGYuQWRkcmVzcyI0ChBDb250",
+            "cm9sbGVyT3V0cHV0EiAKCWFkZHJlc3NlcxgBIAMoCzINLmFlbGYuQWRkcmVz",
+            "cyIsCgpBZG1pbklucHV0Eh4KB2FkZHJlc3MYASABKAsyDS5hZWxmLkFkZHJl",
+            "c3MiLQoLQWRtaW5PdXRwdXQSHgoHYWRkcmVzcxgBIAEoCzINLmFlbGYuQWRk",
+            "cmVzcyLtAQoTQ3JlYXRlQ0FIb2xkZXJJbnB1dBIrChFndWFyZGlhbl9hcHBy",
+            "b3ZlZBgBIAEoCzIQLmNhLkd1YXJkaWFuSW5mbxIlCgxtYW5hZ2VyX2luZm8Y",
+            "AiABKAsyDy5jYS5NYW5hZ2VySW5mbxIsChJqdWRnZW1lbnRfc3RyYXRlZ3kY",
+            "AyABKAsyEC5jYS5TdHJhdGVneU5vZGUSFQoNcmVmZXJyYWxfY29kZRgEIAEo",
+            "CRIUCgxwcm9qZWN0X2NvZGUYBSABKAkSJwoNZGVsZWdhdGVfaW5mbxgGIAEo",
+            "CzIQLmNhLkRlbGVnYXRlSW5mbyLdAQojQ3JlYXRlQ0FIb2xkZXJPbk5vbkNy",
+            "ZWF0ZUNoYWluSW5wdXQSKwoRZ3VhcmRpYW5fYXBwcm92ZWQYASABKAsyEC5j",
+            "YS5HdWFyZGlhbkluZm8SJQoMbWFuYWdlcl9pbmZvGAIgASgLMg8uY2EuTWFu",
+            "YWdlckluZm8SLAoSanVkZ2VtZW50X3N0cmF0ZWd5GAMgASgLMhAuY2EuU3Ry",
+            "YXRlZ3lOb2RlEhsKB2NhX2hhc2gYBCABKAsyCi5hZWxmLkhhc2gSFwoPY3Jl",
+            "YXRlX2NoYWluX2lkGAUgASgFIoQBCgxHdWFyZGlhbkluZm8SHgoEdHlwZRgB",
+            "IAEoDjIQLmNhLkd1YXJkaWFuVHlwZRIjCg9pZGVudGlmaWVyX2hhc2gYAiAB",
+            "KAsyCi5hZWxmLkhhc2gSLwoRdmVyaWZpY2F0aW9uX2luZm8YAyABKAsyFC5j",
+            "YS5WZXJpZmljYXRpb25JbmZvIlcKEFZlcmlmaWNhdGlvbkluZm8SFgoCaWQY",
+            "ASABKAsyCi5hZWxmLkhhc2gSEQoJc2lnbmF0dXJlGAIgASgMEhgKEHZlcmlm",
+            "aWNhdGlvbl9kb2MYAyABKAkiYgoMU3RyYXRlZ3lOb2RlEh4KBG5hbWUYASAB",
+            "KA4yEC5jYS5TdHJhdGVneU5hbWUSIwoEdHlwZRgCIAMoDjIVLmNhLlN0cmF0",
+            "ZWd5VmFsdWVUeXBlEg0KBXZhbHVlGAMgAygMIiQKE1N0cmF0ZWd5TG9uZ1dy",
+            "YXBwZXISDQoFdmFsdWUYASABKAMiJgoVU3RyYXRlZ3lTdHJpbmdXcmFwcGVy",
+            "Eg0KBXZhbHVlGAEgASgJIicKFUNvbnRyYWN0RGVsZWdhdGlvbkZlZRIOCgZh",
+            "bW91bnQYASABKAMiiAEKEEFkZEd1YXJkaWFuSW5wdXQSGwoHY2FfaGFzaBgB",
+            "IAEoCzIKLmFlbGYuSGFzaBIpCg9ndWFyZGlhbl90b19hZGQYAiABKAsyEC5j",
+            "YS5HdWFyZGlhbkluZm8SLAoSZ3VhcmRpYW5zX2FwcHJvdmVkGAMgAygLMhAu",
+            "Y2EuR3VhcmRpYW5JbmZvIo4BChNSZW1vdmVHdWFyZGlhbklucHV0EhsKB2Nh",
+            "X2hhc2gYASABKAsyCi5hZWxmLkhhc2gSLAoSZ3VhcmRpYW5fdG9fcmVtb3Zl",
+            "GAIgASgLMhAuY2EuR3VhcmRpYW5JbmZvEiwKEmd1YXJkaWFuc19hcHByb3Zl",
+            "ZBgDIAMoCzIQLmNhLkd1YXJkaWFuSW5mbyLEAQoTVXBkYXRlR3VhcmRpYW5J",
+            "bnB1dBIbCgdjYV9oYXNoGAEgASgLMgouYWVsZi5IYXNoEjAKFmd1YXJkaWFu",
+            "X3RvX3VwZGF0ZV9wcmUYAiABKAsyEC5jYS5HdWFyZGlhbkluZm8SMAoWZ3Vh",
+            "cmRpYW5fdG9fdXBkYXRlX25ldxgDIAEoCzIQLmNhLkd1YXJkaWFuSW5mbxIs",
+            "ChJndWFyZGlhbnNfYXBwcm92ZWQYBCADKAsyEC5jYS5HdWFyZGlhbkluZm8i",
+            "tgEKGFNldEd1YXJkaWFuRm9yTG9naW5JbnB1dBIbCgdjYV9oYXNoGAEgASgL",
+            "MgouYWVsZi5IYXNoEh4KCGd1YXJkaWFuGAIgASgLMgwuY2EuR3VhcmRpYW4S",
+            "LwoVZ3VhcmRpYW5fdG9fc2V0X2xvZ2luGAMgASgLMhAuY2EuR3VhcmRpYW5J",
+            "bmZvEiwKEmd1YXJkaWFuc19hcHByb3ZlZBgEIAMoCzIQLmNhLkd1YXJkaWFu",
+            "SW5mbyK6AQoaVW5zZXRHdWFyZGlhbkZvckxvZ2luSW5wdXQSGwoHY2FfaGFz",
+            "aBgBIAEoCzIKLmFlbGYuSGFzaBIeCghndWFyZGlhbhgCIAEoCzIMLmNhLkd1",
+            "YXJkaWFuEjEKF2d1YXJkaWFuX3RvX3Vuc2V0X2xvZ2luGAMgASgLMhAuY2Eu",
+            "R3VhcmRpYW5JbmZvEiwKEmd1YXJkaWFuc19hcHByb3ZlZBgEIAMoCzIQLmNh",
+            "Lkd1YXJkaWFuSW5mbyKwAQoXTWFuYWdlckZvcndhcmRDYWxsSW5wdXQSGwoH",
+            "Y2FfaGFzaBgBIAEoCzIKLmFlbGYuSGFzaBInChBjb250cmFjdF9hZGRyZXNz",
+            "GAIgASgLMg0uYWVsZi5BZGRyZXNzEhMKC21ldGhvZF9uYW1lGAMgASgJEgwK",
+            "BGFyZ3MYBCABKAwSLAoSZ3VhcmRpYW5zX2FwcHJvdmVkGAUgAygLMhAuY2Eu",
+            "R3VhcmRpYW5JbmZvIqoBChRNYW5hZ2VyVHJhbnNmZXJJbnB1dBIbCgdjYV9o",
+            "YXNoGAEgASgLMgouYWVsZi5IYXNoEhkKAnRvGAIgASgLMg0uYWVsZi5BZGRy",
+            "ZXNzEg4KBnN5bWJvbBgDIAEoCRIOCgZhbW91bnQYBCABKAMSDAoEbWVtbxgF",
+            "IAEoCRIsChJndWFyZGlhbnNfYXBwcm92ZWQYBiADKAsyEC5jYS5HdWFyZGlh",
+            "bkluZm8inQEKGE1hbmFnZXJUcmFuc2ZlckZyb21JbnB1dBIbCgdjYV9oYXNo",
+            "GAEgASgLMgouYWVsZi5IYXNoEhsKBGZyb20YAiABKAsyDS5hZWxmLkFkZHJl",
+            "c3MSGQoCdG8YAyABKAsyDS5hZWxmLkFkZHJlc3MSDgoGc3ltYm9sGAQgASgJ",
+            "Eg4KBmFtb3VudBgFIAEoAxIMCgRtZW1vGAYgASgJImUKEkdldEhvbGRlcklu",
+            "Zm9JbnB1dBIbCgdjYV9oYXNoGAEgASgLMgouYWVsZi5IYXNoEjIKHmxvZ2lu",
+            "X2d1YXJkaWFuX2lkZW50aWZpZXJfaGFzaBgCIAEoCzIKLmFlbGYuSGFzaCK/",
+            "AQoTR2V0SG9sZGVySW5mb091dHB1dBIbCgdjYV9oYXNoGAEgASgLMgouYWVs",
+            "Zi5IYXNoEiEKCmNhX2FkZHJlc3MYAiABKAsyDS5hZWxmLkFkZHJlc3MSJwoN",
+            "Z3VhcmRpYW5fbGlzdBgDIAEoCzIQLmNhLkd1YXJkaWFuTGlzdBImCg1tYW5h",
+            "Z2VyX2luZm9zGAQgAygLMg8uY2EuTWFuYWdlckluZm8SFwoPY3JlYXRlX2No",
+            "YWluX2lkGAUgASgFIssBChNTb2NpYWxSZWNvdmVyeUlucHV0EjIKHmxvZ2lu",
+            "X2d1YXJkaWFuX2lkZW50aWZpZXJfaGFzaBgBIAEoCzIKLmFlbGYuSGFzaBIs",
+            "ChJndWFyZGlhbnNfYXBwcm92ZWQYAiADKAsyEC5jYS5HdWFyZGlhbkluZm8S",
+            "JQoMbWFuYWdlcl9pbmZvGAMgASgLMg8uY2EuTWFuYWdlckluZm8SFQoNcmVm",
+            "ZXJyYWxfY29kZRgEIAEoCRIUCgxwcm9qZWN0X2NvZGUYBSABKAkiWQoTQWRk",
+            "TWFuYWdlckluZm9JbnB1dBIbCgdjYV9oYXNoGAEgASgLMgouYWVsZi5IYXNo",
+            "EiUKDG1hbmFnZXJfaW5mbxgCIAEoCzIPLmNhLk1hbmFnZXJJbmZvIjUKFlJl",
+            "bW92ZU1hbmFnZXJJbmZvSW5wdXQSGwoHY2FfaGFzaBgBIAEoCzIKLmFlbGYu",
+            "SGFzaCKPAQobUmVtb3ZlT3RoZXJNYW5hZ2VySW5mb0lucHV0EhsKB2NhX2hh",
+            "c2gYASABKAsyCi5hZWxmLkhhc2gSJQoMbWFuYWdlcl9pbmZvGAIgASgLMg8u",
+            "Y2EuTWFuYWdlckluZm8SLAoSZ3VhcmRpYW5zX2FwcHJvdmVkGAMgAygLMhAu",
+            "Y2EuR3VhcmRpYW5JbmZvIl4KF1VwZGF0ZU1hbmFnZXJJbmZvc0lucHV0EhsK",
+            "B2NhX2hhc2gYASABKAsyCi5hZWxmLkhhc2gSJgoNbWFuYWdlcl9pbmZvcxgC",
+            "IAMoCzIPLmNhLk1hbmFnZXJJbmZvIqUBCh9BZGRWZXJpZmllclNlcnZlckVu",
+            "ZFBvaW50c0lucHV0EgwKBG5hbWUYASABKAkSEQoJaW1hZ2VfdXJsGAIgASgJ",
+            "EhIKCmVuZF9wb2ludHMYAyADKAkSLAoVdmVyaWZpZXJfYWRkcmVzc19saXN0",
+            "GAQgAygLMg0uYWVsZi5BZGRyZXNzEh8KC3ZlcmlmaWVyX2lkGAUgASgLMgou",
+            "YWVsZi5IYXNoIjMKGVJlbW92ZVZlcmlmaWVyU2VydmVySW5wdXQSFgoCaWQY",
+            "ASABKAsyCi5hZWxmLkhhc2giUAoiUmVtb3ZlVmVyaWZpZXJTZXJ2ZXJFbmRQ",
+            "b2ludHNJbnB1dBIWCgJpZBgBIAEoCzIKLmFlbGYuSGFzaBISCgplbmRfcG9p",
+            "bnRzGAIgAygJIjQKEEFkZENBU2VydmVySW5wdXQSDAoEbmFtZRgBIAEoCRIS",
+            "CgplbmRfcG9pbnRzGAIgASgJIiMKE1JlbW92ZUNBU2VydmVySW5wdXQSDAoE",
+            "bmFtZRgBIAEoCSJIChhHZXRWZXJpZmllclNlcnZlcnNPdXRwdXQSLAoQdmVy",
+            "aWZpZXJfc2VydmVycxgBIAMoCzISLmNhLlZlcmlmaWVyU2VydmVyIjYKEkdl",
+            "dENBU2VydmVyc091dHB1dBIgCgpjYV9zZXJ2ZXJzGAEgAygLMgwuY2EuQ0FT",
+            "ZXJ2ZXIihgIKL1ZhbGlkYXRlQ0FIb2xkZXJJbmZvV2l0aE1hbmFnZXJJbmZv",
+            "c0V4aXN0c0lucHV0EhsKB2NhX2hhc2gYASABKAsyCi5hZWxmLkhhc2gSJgoN",
+            "bWFuYWdlcl9pbmZvcxgCIAMoCzIPLmNhLk1hbmFnZXJJbmZvEiMKD2xvZ2lu",
+            "X2d1YXJkaWFucxgDIAMoCzIKLmFlbGYuSGFzaBInChNub3RfbG9naW5fZ3Vh",
+            "cmRpYW5zGAQgAygLMgouYWVsZi5IYXNoEicKDWd1YXJkaWFuX2xpc3QYBSAB",
+            "KAsyEC5jYS5HdWFyZGlhbkxpc3QSFwoPY3JlYXRlX2NoYWluX2lkGAYgASgF",
+            "IpMBChtWZXJpZmljYXRpb25UcmFuc2FjdGlvbkluZm8SFQoNZnJvbV9jaGFp",
+            "bl9pZBgBIAEoBRIbChNwYXJlbnRfY2hhaW5faGVpZ2h0GAIgASgDEhkKEXRy",
+            "YW5zYWN0aW9uX2J5dGVzGAMgASgMEiUKC21lcmtsZV9wYXRoGAQgASgLMhAu",
+            "YWVsZi5NZXJrbGVQYXRoIl0KE1N5bmNIb2xkZXJJbmZvSW5wdXQSRgoddmVy",
+            "aWZpY2F0aW9uX3RyYW5zYWN0aW9uX2luZm8YASABKAsyHy5jYS5WZXJpZmlj",
+            "YXRpb25UcmFuc2FjdGlvbkluZm8iXwoUU3luY0hvbGRlckluZm9zSW5wdXQS",
+            "RwoedmVyaWZpY2F0aW9uX3RyYW5zYWN0aW9uX2luZm9zGAEgAygLMh8uY2Eu",
+            "VmVyaWZpY2F0aW9uVHJhbnNhY3Rpb25JbmZvIq8BChVWYWxpZGF0ZVN0cmF0",
+            "ZWd5SW5wdXQSJwoNc3RyYXRlZ3lfbm9kZRgBIAEoCzIQLmNhLlN0cmF0ZWd5",
+            "Tm9kZRI7Cgl2YXJpYWJsZXMYAiADKAsyKC5jYS5WYWxpZGF0ZVN0cmF0ZWd5",
+            "SW5wdXQuVmFyaWFibGVzRW50cnkaMAoOVmFyaWFibGVzRW50cnkSCwoDa2V5",
+            "GAEgASgJEg0KBXZhbHVlGAIgASgDOgI4ASJuChZWYWxpZGF0ZVN0cmF0ZWd5",
+            "T3V0cHV0EhMKC2Jvb2xfcmVzdWx0GAEgASgIEhQKDGludDY0X3Jlc3VsdBgC",
+            "IAEoAxIpCg9zdHJhdGVneV9vdXRwdXQYAyABKAsyEC5jYS5TdHJhdGVneU5v",
+            "ZGUiJgoUUHJvamVjdERlbGVnYXRpb25GZWUSDgoGYW1vdW50GAEgASgDIlAK",
+            "HFNldFByb2plY3REZWxlZ2F0aW9uRmVlSW5wdXQSMAoOZGVsZWdhdGlvbl9m",
+            "ZWUYASABKAsyGC5jYS5Qcm9qZWN0RGVsZWdhdGlvbkZlZSJaCi9TZXRDaGVj",
+            "a09wZXJhdGlvbkRldGFpbHNJblNpZ25hdHVyZUVuYWJsZWRJbnB1dBInCh9j",
+            "aGVja19vcGVyYXRpb25fZGV0YWlsc19lbmFibGVkGAEgASgIIlsKMEdldENo",
+            "ZWNrT3BlcmF0aW9uRGV0YWlsc0luU2lnbmF0dXJlRW5hYmxlZE91dHB1dBIn",
+            "Ch9jaGVja19vcGVyYXRpb25fZGV0YWlsc19lbmFibGVkGAEgASgIIscBCg9D",
+            "QUhvbGRlckNyZWF0ZWQSJQoHY3JlYXRvchgBIAEoCzINLmFlbGYuQWRkcmVz",
+            "c0IFiI/1AQESIgoHY2FfaGFzaBgCIAEoCzIKLmFlbGYuSGFzaEIFiI/1AQES",
+            "KAoKY2FfYWRkcmVzcxgDIAEoCzINLmFlbGYuQWRkcmVzc0IFiI/1AQESJQoH",
+            "bWFuYWdlchgEIAEoCzINLmFlbGYuQWRkcmVzc0IFiI/1AQESEgoKZXh0cmFf",
+            "ZGF0YRgFIAEoCToEoLsYASL1AQodTm9uQ3JlYXRlQ2hhaW5DQUhvbGRlckNy",
+            "ZWF0ZWQSJQoHY3JlYXRvchgBIAEoCzINLmFlbGYuQWRkcmVzc0IFiI/1AQES",
+            "IgoHY2FfaGFzaBgCIAEoCzIKLmFlbGYuSGFzaEIFiI/1AQESKAoKY2FfYWRk",
+            "cmVzcxgDIAEoCzINLmFlbGYuQWRkcmVzc0IFiI/1AQESJQoHbWFuYWdlchgE",
+            "IAEoCzINLmFlbGYuQWRkcmVzc0IFiI/1AQESEgoKZXh0cmFfZGF0YRgFIAEo",
+            "CRIeCg9jcmVhdGVfY2hhaW5faWQYBiABKAVCBYiP9QEBOgSguxgBIoIBCg1H",
+            "dWFyZGlhbkFkZGVkEiIKB2NhX2hhc2gYASABKAsyCi5hZWxmLkhhc2hCBYiP",
+            "9QEBEiEKCmNhX2FkZHJlc3MYAiABKAsyDS5hZWxmLkFkZHJlc3MSJAoOZ3Vh",
+            "cmRpYW5fYWRkZWQYAyABKAsyDC5jYS5HdWFyZGlhbjoEoLsYASKGAQoPR3Vh",
+            "cmRpYW5SZW1vdmVkEiIKB2NhX2hhc2gYASABKAsyCi5hZWxmLkhhc2hCBYiP",
+            "9QEBEiEKCmNhX2FkZHJlc3MYAiABKAsyDS5hZWxmLkFkZHJlc3MSJgoQZ3Vh",
+            "cmRpYW5fcmVtb3ZlZBgDIAEoCzIMLmNhLkd1YXJkaWFuOgSguxgBIrYBCg9H",
+            "dWFyZGlhblVwZGF0ZWQSIgoHY2FfaGFzaBgBIAEoCzIKLmFlbGYuSGFzaEIF",
+            "iI/1AQESIQoKY2FfYWRkcmVzcxgCIAEoCzINLmFlbGYuQWRkcmVzcxIqChRn",
+            "dWFyZGlhbl91cGRhdGVkX3ByZRgDIAEoCzIMLmNhLkd1YXJkaWFuEioKFGd1",
+            "YXJkaWFuX3VwZGF0ZWRfbmV3GAQgASgLMgwuY2EuR3VhcmRpYW46BKC7GAEi",
+            "zwEKEkxvZ2luR3VhcmRpYW5BZGRlZBIiCgdjYV9oYXNoGAEgASgLMgouYWVs",
+            "Zi5IYXNoQgWIj/UBARIhCgpjYV9hZGRyZXNzGAIgASgLMg0uYWVsZi5BZGRy",
+            "ZXNzEiUKB21hbmFnZXIYAyABKAsyDS5hZWxmLkFkZHJlc3NCBYiP9QEBEisK",
+            "DmxvZ2luX2d1YXJkaWFuGAQgASgLMgwuY2EuR3VhcmRpYW5CBYiP9QEBEhgK",
+            "EGlzX2NyZWF0ZV9ob2xkZXIYBSABKAg6BKC7GAEiqwEKGk1hbmFnZXJJbmZv",
+            "U29jaWFsUmVjb3ZlcmVkEiIKB2NhX2hhc2gYASABKAsyCi5hZWxmLkhhc2hC",
+            "BYiP9QEBEigKCmNhX2FkZHJlc3MYAiABKAsyDS5hZWxmLkFkZHJlc3NCBYiP",
+            "9QEBEiUKB21hbmFnZXIYAyABKAsyDS5hZWxmLkFkZHJlc3NCBYiP9QEBEhIK",
+            "CmV4dHJhX2RhdGEYBCABKAk6BKC7GAEioQEKEE1hbmFnZXJJbmZvQWRkZWQS",
+            "IgoHY2FfaGFzaBgBIAEoCzIKLmFlbGYuSGFzaEIFiI/1AQESKAoKY2FfYWRk",
+            "cmVzcxgCIAEoCzINLmFlbGYuQWRkcmVzc0IFiI/1AQESJQoHbWFuYWdlchgD",
+            "IAEoCzINLmFlbGYuQWRkcmVzc0IFiI/1AQESEgoKZXh0cmFfZGF0YRgEIAEo",
+            "CToEoLsYASKjAQoSTWFuYWdlckluZm9SZW1vdmVkEiIKB2NhX2hhc2gYASAB",
+            "KAsyCi5hZWxmLkhhc2hCBYiP9QEBEigKCmNhX2FkZHJlc3MYAiABKAsyDS5h",
+            "ZWxmLkFkZHJlc3NCBYiP9QEBEiUKB21hbmFnZXIYAyABKAsyDS5hZWxmLkFk",
+            "ZHJlc3NCBYiP9QEBEhIKCmV4dHJhX2RhdGEYBCABKAk6BKC7GAEiowEKEk1h",
+            "bmFnZXJJbmZvVXBkYXRlZBIiCgdjYV9oYXNoGAEgASgLMgouYWVsZi5IYXNo",
             "QgWIj/UBARIoCgpjYV9hZGRyZXNzGAIgASgLMg0uYWVsZi5BZGRyZXNzQgWI",
             "j/UBARIlCgdtYW5hZ2VyGAMgASgLMg0uYWVsZi5BZGRyZXNzQgWIj/UBARIS",
-            "CgpleHRyYV9kYXRhGAQgASgJOgSguxgBIqEBChBNYW5hZ2VySW5mb0FkZGVk",
-            "EiIKB2NhX2hhc2gYASABKAsyCi5hZWxmLkhhc2hCBYiP9QEBEigKCmNhX2Fk",
-            "ZHJlc3MYAiABKAsyDS5hZWxmLkFkZHJlc3NCBYiP9QEBEiUKB21hbmFnZXIY",
-            "AyABKAsyDS5hZWxmLkFkZHJlc3NCBYiP9QEBEhIKCmV4dHJhX2RhdGEYBCAB",
-            "KAk6BKC7GAEiowEKEk1hbmFnZXJJbmZvUmVtb3ZlZBIiCgdjYV9oYXNoGAEg",
-            "ASgLMgouYWVsZi5IYXNoQgWIj/UBARIoCgpjYV9hZGRyZXNzGAIgASgLMg0u",
-            "YWVsZi5BZGRyZXNzQgWIj/UBARIlCgdtYW5hZ2VyGAMgASgLMg0uYWVsZi5B",
-            "ZGRyZXNzQgWIj/UBARISCgpleHRyYV9kYXRhGAQgASgJOgSguxgBIqMBChJN",
-            "YW5hZ2VySW5mb1VwZGF0ZWQSIgoHY2FfaGFzaBgBIAEoCzIKLmFlbGYuSGFz",
-            "aEIFiI/1AQESKAoKY2FfYWRkcmVzcxgCIAEoCzINLmFlbGYuQWRkcmVzc0IF",
-            "iI/1AQESJQoHbWFuYWdlchgDIAEoCzINLmFlbGYuQWRkcmVzc0IFiI/1AQES",
-            "EgoKZXh0cmFfZGF0YRgEIAEoCToEoLsYASLFAQoUTG9naW5HdWFyZGlhblVu",
-            "Ym91bmQSIgoHY2FfaGFzaBgBIAEoCzIKLmFlbGYuSGFzaEIFiI/1AQESIQoK",
-            "Y2FfYWRkcmVzcxgCIAEoCzINLmFlbGYuQWRkcmVzcxIlCgdtYW5hZ2VyGAMg",
-            "ASgLMg0uYWVsZi5BZGRyZXNzQgWIj/UBARI5Ch5sb2dpbl9ndWFyZGlhbl9p",
-            "ZGVudGlmaWVyX2hhc2gYBCABKAsyCi5hZWxmLkhhc2hCBYiP9QEBOgSguxgB",
-            "IrcBChRMb2dpbkd1YXJkaWFuUmVtb3ZlZBIiCgdjYV9oYXNoGAEgASgLMgou",
-            "YWVsZi5IYXNoQgWIj/UBARIhCgpjYV9hZGRyZXNzGAIgASgLMg0uYWVsZi5B",
-            "ZGRyZXNzEiUKB21hbmFnZXIYAyABKAsyDS5hZWxmLkFkZHJlc3NCBYiP9QEB",
-            "EisKDmxvZ2luX2d1YXJkaWFuGAQgASgLMgwuY2EuR3VhcmRpYW5CBYiP9QEB",
-            "OgSguxgBIlgKHFZlcmlmaWVyU2VydmVyRW5kUG9pbnRzQWRkZWQSMgoPdmVy",
-            "aWZpZXJfc2VydmVyGAEgASgLMhIuY2EuVmVyaWZpZXJTZXJ2ZXJCBYiP9QEB",
-            "OgSguxgBIloKHlZlcmlmaWVyU2VydmVyRW5kUG9pbnRzUmVtb3ZlZBIyCg92",
-            "ZXJpZmllcl9zZXJ2ZXIYASABKAsyEi5jYS5WZXJpZmllclNlcnZlckIFiI/1",
-            "AQE6BKC7GAEiUQoVVmVyaWZpZXJTZXJ2ZXJSZW1vdmVkEjIKD3ZlcmlmaWVy",
-            "X3NlcnZlchgBIAEoCzISLmNhLlZlcmlmaWVyU2VydmVyQgWIj/UBAToEoLsY",
-            "ASJ3CiVSZW1vdmVkVG9DdXJyZW50VmVyaWZpZXJJZE1hcHBlckFkZGVkEkgK",
-            "C21hcHBlcl9saXN0GAEgASgLMiwuY2EuUmVtb3ZlZFRvQ3VycmVudFZlcmlm",
-            "aWVySWRNYXBwZXJJbmZvTGlzdEIFiI/1AQE6BKC7GAEiZQooUmVtb3ZlZFRv",
-            "Q3VycmVudFZlcmlmaWVySWRNYXBwZXJJbmZvTGlzdBI5CgdtYXBwZXJzGAEg",
-            "AygLMiguY2EuUmVtb3ZlZFRvQ3VycmVudFZlcmlmaWVySWRNYXBwZXJJbmZv",
+            "CgpleHRyYV9kYXRhGAQgASgJOgSguxgBIsUBChRMb2dpbkd1YXJkaWFuVW5i",
+            "b3VuZBIiCgdjYV9oYXNoGAEgASgLMgouYWVsZi5IYXNoQgWIj/UBARIhCgpj",
+            "YV9hZGRyZXNzGAIgASgLMg0uYWVsZi5BZGRyZXNzEiUKB21hbmFnZXIYAyAB",
+            "KAsyDS5hZWxmLkFkZHJlc3NCBYiP9QEBEjkKHmxvZ2luX2d1YXJkaWFuX2lk",
+            "ZW50aWZpZXJfaGFzaBgEIAEoCzIKLmFlbGYuSGFzaEIFiI/1AQE6BKC7GAEi",
+            "twEKFExvZ2luR3VhcmRpYW5SZW1vdmVkEiIKB2NhX2hhc2gYASABKAsyCi5h",
+            "ZWxmLkhhc2hCBYiP9QEBEiEKCmNhX2FkZHJlc3MYAiABKAsyDS5hZWxmLkFk",
+            "ZHJlc3MSJQoHbWFuYWdlchgDIAEoCzINLmFlbGYuQWRkcmVzc0IFiI/1AQES",
+            "KwoObG9naW5fZ3VhcmRpYW4YBCABKAsyDC5jYS5HdWFyZGlhbkIFiI/1AQE6",
+            "BKC7GAEiWAocVmVyaWZpZXJTZXJ2ZXJFbmRQb2ludHNBZGRlZBIyCg92ZXJp",
+            "Zmllcl9zZXJ2ZXIYASABKAsyEi5jYS5WZXJpZmllclNlcnZlckIFiI/1AQE6",
+            "BKC7GAEiWgoeVmVyaWZpZXJTZXJ2ZXJFbmRQb2ludHNSZW1vdmVkEjIKD3Zl",
+            "cmlmaWVyX3NlcnZlchgBIAEoCzISLmNhLlZlcmlmaWVyU2VydmVyQgWIj/UB",
+            "AToEoLsYASJRChVWZXJpZmllclNlcnZlclJlbW92ZWQSMgoPdmVyaWZpZXJf",
+            "c2VydmVyGAEgASgLMhIuY2EuVmVyaWZpZXJTZXJ2ZXJCBYiP9QEBOgSguxgB",
             "IjsKDUNBU2VydmVyQWRkZWQSJAoOY2Ffc2V2ZXJfYWRkZWQYASABKAsyDC5j",
             "YS5DQVNlcnZlcjoEoLsYASJACg9DQVNlcnZlclJlbW92ZWQSJwoRY2Ffc2Vy",
             "dmVyX3JlbW92ZWQYASABKAsyDC5jYS5DQVNlcnZlcjoEoLsYASKBBAoOQ0FI",
@@ -230,100 +247,103 @@ namespace Portkey.Contracts.CA {
             "GAEiRgoXU2VydmVyQ29udHJvbGxlclJlbW92ZWQSJQoHYWRkcmVzcxgBIAEo",
             "CzINLmFlbGYuQWRkcmVzc0IFiI/1AQE6BKC7GAEiOwoMQWRtaW5DaGFuZ2Vk",
             "EiUKB2FkZHJlc3MYASABKAsyDS5hZWxmLkFkZHJlc3NCBYiP9QEBOgSguxgB",
-            "IlMKG1NldENBQ29udHJhY3RBZGRyZXNzZXNJbnB1dBI0ChVjYV9jb250cmFj",
-            "dF9hZGRyZXNzZXMYASADKAsyFS5jYS5DQUNvbnRyYWN0QWRkcmVzcyJFChFD",
-            "QUNvbnRyYWN0QWRkcmVzcxIeCgdhZGRyZXNzGAEgASgLMg0uYWVsZi5BZGRy",
-            "ZXNzEhAKCGNoYWluX2lkGAIgASgFKn8KDEd1YXJkaWFuVHlwZRIaChZHVUFS",
-            "RElBTl9UWVBFX09GX0VNQUlMEAASGgoWR1VBUkRJQU5fVFlQRV9PRl9QSE9O",
-            "RRABEhsKF0dVQVJESUFOX1RZUEVfT0ZfR09PR0xFEAISGgoWR1VBUkRJQU5f",
-            "VFlQRV9PRl9BUFBMRRADKjkKEVN0cmF0ZWd5VmFsdWVUeXBlEgwKCFNUUkFU",
-            "RUdZEAASCAoETE9ORxABEgwKCFZBUklBQkxFEAIqpwEKDFN0cmF0ZWd5TmFt",
-            "ZRIHCgNBbmQQABIGCgJPchABEgcKA05vdBACEgoKBklmRWxzZRADEg4KCkxh",
-            "cmdlclRoYW4QBBIRCg1Ob3RMYXJnZXJUaGFuEAUSDAoITGVzc1RoYW4QBhIP",
-            "CgtOb3RMZXNzVGhhbhAHEgkKBUVxdWFsEAgSDAoITm90RXF1YWwQCRIWChJS",
-            "YXRpb0J5VGVuVGhvdXNhbmQQCirUAQoNT3BlcmF0aW9uVHlwZRILCgdVbmtu",
-            "b3duEAASEgoOQ3JlYXRlQ0FIb2xkZXIQARISCg5Tb2NpYWxSZWNvdmVyeRAC",
-            "Eg8KC0FkZEd1YXJkaWFuEAMSEgoOUmVtb3ZlR3VhcmRpYW4QBBISCg5VcGRh",
-            "dGVHdWFyZGlhbhAFEhoKFlJlbW92ZU90aGVyTWFuYWdlckluZm8QBhITCg9T",
-            "ZXRMb2dpbkFjY291bnQQBxILCgdBcHByb3ZlEAgSFwoTTW9kaWZ5VHJhbnNm",
-            "ZXJMaW1pdBAJMssZCgpDQUNvbnRyYWN0EjsKCkluaXRpYWxpemUSEy5jYS5J",
-            "bml0aWFsaXplSW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJDCg5D",
-            "cmVhdGVDQUhvbGRlchIXLmNhLkNyZWF0ZUNBSG9sZGVySW5wdXQaFi5nb29n",
-            "bGUucHJvdG9idWYuRW1wdHkiABI9CgtBZGRHdWFyZGlhbhIULmNhLkFkZEd1",
-            "YXJkaWFuSW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJDCg5SZW1v",
-            "dmVHdWFyZGlhbhIXLmNhLlJlbW92ZUd1YXJkaWFuSW5wdXQaFi5nb29nbGUu",
-            "cHJvdG9idWYuRW1wdHkiABJDCg5VcGRhdGVHdWFyZGlhbhIXLmNhLlVwZGF0",
-            "ZUd1YXJkaWFuSW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJNChNT",
-            "ZXRHdWFyZGlhbkZvckxvZ2luEhwuY2EuU2V0R3VhcmRpYW5Gb3JMb2dpbklu",
-            "cHV0GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgASUQoVVW5zZXRHdWFyZGlh",
-            "bkZvckxvZ2luEh4uY2EuVW5zZXRHdWFyZGlhbkZvckxvZ2luSW5wdXQaFi5n",
-            "b29nbGUucHJvdG9idWYuRW1wdHkiABJLChJNYW5hZ2VyRm9yd2FyZENhbGwS",
-            "Gy5jYS5NYW5hZ2VyRm9yd2FyZENhbGxJbnB1dBoWLmdvb2dsZS5wcm90b2J1",
-            "Zi5FbXB0eSIAEkUKD01hbmFnZXJUcmFuc2ZlchIYLmNhLk1hbmFnZXJUcmFu",
-            "c2ZlcklucHV0GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgASTQoTTWFuYWdl",
-            "clRyYW5zZmVyRnJvbRIcLmNhLk1hbmFnZXJUcmFuc2ZlckZyb21JbnB1dBoW",
-            "Lmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIAEkMKDlNvY2lhbFJlY292ZXJ5Ehcu",
-            "Y2EuU29jaWFsUmVjb3ZlcnlJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0",
-            "eSIAEkMKDkFkZE1hbmFnZXJJbmZvEhcuY2EuQWRkTWFuYWdlckluZm9JbnB1",
-            "dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIAEkkKEVJlbW92ZU1hbmFnZXJJ",
-            "bmZvEhouY2EuUmVtb3ZlTWFuYWdlckluZm9JbnB1dBoWLmdvb2dsZS5wcm90",
-            "b2J1Zi5FbXB0eSIAElMKFlJlbW92ZU90aGVyTWFuYWdlckluZm8SHy5jYS5S",
-            "ZW1vdmVPdGhlck1hbmFnZXJJbmZvSW5wdXQaFi5nb29nbGUucHJvdG9idWYu",
-            "RW1wdHkiABJLChJVcGRhdGVNYW5hZ2VySW5mb3MSGy5jYS5VcGRhdGVNYW5h",
-            "Z2VySW5mb3NJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIAElsKGkFk",
-            "ZFZlcmlmaWVyU2VydmVyRW5kUG9pbnRzEiMuY2EuQWRkVmVyaWZpZXJTZXJ2",
-            "ZXJFbmRQb2ludHNJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIAEmEK",
-            "HVJlbW92ZVZlcmlmaWVyU2VydmVyRW5kUG9pbnRzEiYuY2EuUmVtb3ZlVmVy",
-            "aWZpZXJTZXJ2ZXJFbmRQb2ludHNJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5F",
-            "bXB0eSIAEk8KFFJlbW92ZVZlcmlmaWVyU2VydmVyEh0uY2EuUmVtb3ZlVmVy",
-            "aWZpZXJTZXJ2ZXJJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIAEj0K",
-            "C0FkZENBU2VydmVyEhQuY2EuQWRkQ0FTZXJ2ZXJJbnB1dBoWLmdvb2dsZS5w",
-            "cm90b2J1Zi5FbXB0eSIAEkMKDlJlbW92ZUNBU2VydmVyEhcuY2EuUmVtb3Zl",
-            "Q0FTZXJ2ZXJJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIAEmkKIVNl",
-            "dENoZWNrQ2hhaW5JZEluU2lnbmF0dXJlRW5hYmxlZBIqLmNhLlNldENoZWNr",
-            "Q2hhaW5JZEluU2lnbmF0dXJlRW5hYmxlZElucHV0GhYuZ29vZ2xlLnByb3Rv",
-            "YnVmLkVtcHR5IgASRwoNR2V0SG9sZGVySW5mbxIWLmNhLkdldEhvbGRlcklu",
-            "Zm9JbnB1dBoXLmNhLkdldEhvbGRlckluZm9PdXRwdXQiBYiJ9wEBElEKEkdl",
-            "dFZlcmlmaWVyU2VydmVycxIWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eRocLmNh",
-            "LkdldFZlcmlmaWVyU2VydmVyc091dHB1dCIFiIn3AQESZwojR2V0UmVtb3Zl",
-            "ZFRvQ3VycmVudFZlcmlmaWVySWRNYXBwZXISCi5hZWxmLkhhc2gaLS5jYS5H",
-            "ZXRSZW1vdmVkVG9DdXJyZW50VmVyaWZpZXJJZE1hcHBlck91dHB1dCIFiIn3",
-            "AQESRQoMR2V0Q0FTZXJ2ZXJzEhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5GhYu",
-            "Y2EuR2V0Q0FTZXJ2ZXJzT3V0cHV0IgWIifcBARJvCiFHZXRDaGVja0NoYWlu",
-            "SWRJblNpZ25hdHVyZUVuYWJsZWQSFi5nb29nbGUucHJvdG9idWYuRW1wdHka",
-            "Ky5jYS5HZXRDaGVja0NoYWluSWRJblNpZ25hdHVyZUVuYWJsZWRPdXRwdXQi",
-            "BYiJ9wEBEnsKKlZhbGlkYXRlQ0FIb2xkZXJJbmZvV2l0aE1hbmFnZXJJbmZv",
-            "c0V4aXN0cxIzLmNhLlZhbGlkYXRlQ0FIb2xkZXJJbmZvV2l0aE1hbmFnZXJJ",
-            "bmZvc0V4aXN0c0lucHV0GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgASQwoO",
-            "U3luY0hvbGRlckluZm8SFy5jYS5TeW5jSG9sZGVySW5mb0lucHV0GhYuZ29v",
-            "Z2xlLnByb3RvYnVmLkVtcHR5IgASUAoQVmFsaWRhdGVTdHJhdGVneRIZLmNh",
-            "LlZhbGlkYXRlU3RyYXRlZ3lJbnB1dBoaLmNhLlZhbGlkYXRlU3RyYXRlZ3lP",
-            "dXRwdXQiBYiJ9wEBElcKGFNldENvbnRyYWN0RGVsZWdhdGlvbkZlZRIhLmNh",
-            "LlNldENvbnRyYWN0RGVsZWdhdGlvbkZlZUlucHV0GhYuZ29vZ2xlLnByb3Rv",
-            "YnVmLkVtcHR5IgASWAoYR2V0Q29udHJhY3REZWxlZ2F0aW9uRmVlEhYuZ29v",
-            "Z2xlLnByb3RvYnVmLkVtcHR5GiIuY2EuR2V0Q29udHJhY3REZWxlZ2F0aW9u",
-            "RmVlT3V0cHV0IgASRQoUQWRkQ3JlYXRvckNvbnRyb2xsZXISEy5jYS5Db250",
-            "cm9sbGVySW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJIChdSZW1v",
-            "dmVDcmVhdG9yQ29udHJvbGxlchITLmNhLkNvbnRyb2xsZXJJbnB1dBoWLmdv",
-            "b2dsZS5wcm90b2J1Zi5FbXB0eSIAEkwKFUdldENyZWF0b3JDb250cm9sbGVy",
-            "cxIWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eRoULmNhLkNvbnRyb2xsZXJPdXRw",
-            "dXQiBYiJ9wEBEkQKE0FkZFNlcnZlckNvbnRyb2xsZXISEy5jYS5Db250cm9s",
-            "bGVySW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJHChZSZW1vdmVT",
-            "ZXJ2ZXJDb250cm9sbGVyEhMuY2EuQ29udHJvbGxlcklucHV0GhYuZ29vZ2xl",
-            "LnByb3RvYnVmLkVtcHR5IgASSwoUR2V0U2VydmVyQ29udHJvbGxlcnMSFi5n",
-            "b29nbGUucHJvdG9idWYuRW1wdHkaFC5jYS5Db250cm9sbGVyT3V0cHV0IgWI",
-            "ifcBARI3CgtDaGFuZ2VBZG1pbhIOLmNhLkFkbWluSW5wdXQaFi5nb29nbGUu",
-            "cHJvdG9idWYuRW1wdHkiABI6CghHZXRBZG1pbhIWLmdvb2dsZS5wcm90b2J1",
-            "Zi5FbXB0eRoPLmNhLkFkbWluT3V0cHV0IgWIifcBARJTChZTZXRDQUNvbnRy",
-            "YWN0QWRkcmVzc2VzEh8uY2EuU2V0Q0FDb250cmFjdEFkZHJlc3Nlc0lucHV0",
-            "GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgASbQojQWRkUmVtb3ZlZFRvQ3Vy",
-            "cmVudFZlcmlmaWVySWRNYXBwZXISLC5jYS5BZGRSZW1vdmVkVG9DdXJyZW50",
-            "VmVyaWZpZXJJZE1hcHBlcklucHV0GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5",
-            "IgBCF6oCFFBvcnRrZXkuQ29udHJhY3RzLkNBYgZwcm90bzM="));
+            "IpcBCgdJbnZpdGVkEhsKB2NhX2hhc2gYASABKAsyCi5hZWxmLkhhc2gSJwoQ",
+            "Y29udHJhY3RfYWRkcmVzcxgCIAEoCzINLmFlbGYuQWRkcmVzcxITCgttZXRo",
+            "b2RfbmFtZRgDIAEoCRIVCg1yZWZlcnJhbF9jb2RlGAQgASgJEhQKDHByb2pl",
+            "Y3RfY29kZRgFIAEoCToEoLsYASrbAQoMR3VhcmRpYW5UeXBlEhoKFkdVQVJE",
+            "SUFOX1RZUEVfT0ZfRU1BSUwQABIaChZHVUFSRElBTl9UWVBFX09GX1BIT05F",
+            "EAESGwoXR1VBUkRJQU5fVFlQRV9PRl9HT09HTEUQAhIaChZHVUFSRElBTl9U",
+            "WVBFX09GX0FQUExFEAMSHQoZR1VBUkRJQU5fVFlQRV9PRl9URUxFR1JBTRAE",
+            "Eh0KGUdVQVJESUFOX1RZUEVfT0ZfRkFDRUJPT0sQBRIcChhHVUFSRElBTl9U",
+            "WVBFX09GX1RXSVRURVIQBio5ChFTdHJhdGVneVZhbHVlVHlwZRIMCghTVFJB",
+            "VEVHWRAAEggKBExPTkcQARIMCghWQVJJQUJMRRACKqcBCgxTdHJhdGVneU5h",
+            "bWUSBwoDQW5kEAASBgoCT3IQARIHCgNOb3QQAhIKCgZJZkVsc2UQAxIOCgpM",
+            "YXJnZXJUaGFuEAQSEQoNTm90TGFyZ2VyVGhhbhAFEgwKCExlc3NUaGFuEAYS",
+            "DwoLTm90TGVzc1RoYW4QBxIJCgVFcXVhbBAIEgwKCE5vdEVxdWFsEAkSFgoS",
+            "UmF0aW9CeVRlblRob3VzYW5kEAoqiAIKDU9wZXJhdGlvblR5cGUSCwoHVW5r",
+            "bm93bhAAEhIKDkNyZWF0ZUNBSG9sZGVyEAESEgoOU29jaWFsUmVjb3ZlcnkQ",
+            "AhIPCgtBZGRHdWFyZGlhbhADEhIKDlJlbW92ZUd1YXJkaWFuEAQSEgoOVXBk",
+            "YXRlR3VhcmRpYW4QBRIaChZSZW1vdmVPdGhlck1hbmFnZXJJbmZvEAYSEwoP",
+            "U2V0TG9naW5BY2NvdW50EAcSCwoHQXBwcm92ZRAIEhcKE01vZGlmeVRyYW5z",
+            "ZmVyTGltaXQQCRIbChdHdWFyZGlhbkFwcHJvdmVUcmFuc2ZlchAKEhUKEVVu",
+            "U2V0TG9naW5BY2NvdW50EAsy+BgKCkNBQ29udHJhY3QSOwoKSW5pdGlhbGl6",
+            "ZRITLmNhLkluaXRpYWxpemVJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0",
+            "eSIAEkMKDkNyZWF0ZUNBSG9sZGVyEhcuY2EuQ3JlYXRlQ0FIb2xkZXJJbnB1",
+            "dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIAEmMKHkNyZWF0ZUNBSG9sZGVy",
+            "T25Ob25DcmVhdGVDaGFpbhInLmNhLkNyZWF0ZUNBSG9sZGVyT25Ob25DcmVh",
+            "dGVDaGFpbklucHV0GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgASPQoLQWRk",
+            "R3VhcmRpYW4SFC5jYS5BZGRHdWFyZGlhbklucHV0GhYuZ29vZ2xlLnByb3Rv",
+            "YnVmLkVtcHR5IgASQwoOUmVtb3ZlR3VhcmRpYW4SFy5jYS5SZW1vdmVHdWFy",
+            "ZGlhbklucHV0GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgASQwoOVXBkYXRl",
+            "R3VhcmRpYW4SFy5jYS5VcGRhdGVHdWFyZGlhbklucHV0GhYuZ29vZ2xlLnBy",
+            "b3RvYnVmLkVtcHR5IgASTQoTU2V0R3VhcmRpYW5Gb3JMb2dpbhIcLmNhLlNl",
+            "dEd1YXJkaWFuRm9yTG9naW5JbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0",
+            "eSIAElEKFVVuc2V0R3VhcmRpYW5Gb3JMb2dpbhIeLmNhLlVuc2V0R3VhcmRp",
+            "YW5Gb3JMb2dpbklucHV0GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgASSwoS",
+            "TWFuYWdlckZvcndhcmRDYWxsEhsuY2EuTWFuYWdlckZvcndhcmRDYWxsSW5w",
+            "dXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJFCg9NYW5hZ2VyVHJhbnNm",
+            "ZXISGC5jYS5NYW5hZ2VyVHJhbnNmZXJJbnB1dBoWLmdvb2dsZS5wcm90b2J1",
+            "Zi5FbXB0eSIAEk0KE01hbmFnZXJUcmFuc2ZlckZyb20SHC5jYS5NYW5hZ2Vy",
+            "VHJhbnNmZXJGcm9tSW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJD",
+            "Cg5Tb2NpYWxSZWNvdmVyeRIXLmNhLlNvY2lhbFJlY292ZXJ5SW5wdXQaFi5n",
+            "b29nbGUucHJvdG9idWYuRW1wdHkiABJDCg5BZGRNYW5hZ2VySW5mbxIXLmNh",
+            "LkFkZE1hbmFnZXJJbmZvSW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHki",
+            "ABJJChFSZW1vdmVNYW5hZ2VySW5mbxIaLmNhLlJlbW92ZU1hbmFnZXJJbmZv",
+            "SW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJTChZSZW1vdmVPdGhl",
+            "ck1hbmFnZXJJbmZvEh8uY2EuUmVtb3ZlT3RoZXJNYW5hZ2VySW5mb0lucHV0",
+            "GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgASSwoSVXBkYXRlTWFuYWdlcklu",
+            "Zm9zEhsuY2EuVXBkYXRlTWFuYWdlckluZm9zSW5wdXQaFi5nb29nbGUucHJv",
+            "dG9idWYuRW1wdHkiABJbChpBZGRWZXJpZmllclNlcnZlckVuZFBvaW50cxIj",
+            "LmNhLkFkZFZlcmlmaWVyU2VydmVyRW5kUG9pbnRzSW5wdXQaFi5nb29nbGUu",
+            "cHJvdG9idWYuRW1wdHkiABJhCh1SZW1vdmVWZXJpZmllclNlcnZlckVuZFBv",
+            "aW50cxImLmNhLlJlbW92ZVZlcmlmaWVyU2VydmVyRW5kUG9pbnRzSW5wdXQa",
+            "Fi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJPChRSZW1vdmVWZXJpZmllclNl",
+            "cnZlchIdLmNhLlJlbW92ZVZlcmlmaWVyU2VydmVySW5wdXQaFi5nb29nbGUu",
+            "cHJvdG9idWYuRW1wdHkiABI9CgtBZGRDQVNlcnZlchIULmNhLkFkZENBU2Vy",
+            "dmVySW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJDCg5SZW1vdmVD",
+            "QVNlcnZlchIXLmNhLlJlbW92ZUNBU2VydmVySW5wdXQaFi5nb29nbGUucHJv",
+            "dG9idWYuRW1wdHkiABJHCg1HZXRIb2xkZXJJbmZvEhYuY2EuR2V0SG9sZGVy",
+            "SW5mb0lucHV0GhcuY2EuR2V0SG9sZGVySW5mb091dHB1dCIFiIn3AQESUQoS",
+            "R2V0VmVyaWZpZXJTZXJ2ZXJzEhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5Ghwu",
+            "Y2EuR2V0VmVyaWZpZXJTZXJ2ZXJzT3V0cHV0IgWIifcBARJFCgxHZXRDQVNl",
+            "cnZlcnMSFi5nb29nbGUucHJvdG9idWYuRW1wdHkaFi5jYS5HZXRDQVNlcnZl",
+            "cnNPdXRwdXQiBYiJ9wEBEnsKKlZhbGlkYXRlQ0FIb2xkZXJJbmZvV2l0aE1h",
+            "bmFnZXJJbmZvc0V4aXN0cxIzLmNhLlZhbGlkYXRlQ0FIb2xkZXJJbmZvV2l0",
+            "aE1hbmFnZXJJbmZvc0V4aXN0c0lucHV0GhYuZ29vZ2xlLnByb3RvYnVmLkVt",
+            "cHR5IgASQwoOU3luY0hvbGRlckluZm8SFy5jYS5TeW5jSG9sZGVySW5mb0lu",
+            "cHV0GhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5IgASRQoPU3luY0hvbGRlcklu",
+            "Zm9zEhguY2EuU3luY0hvbGRlckluZm9zSW5wdXQaFi5nb29nbGUucHJvdG9i",
+            "dWYuRW1wdHkiABJQChBWYWxpZGF0ZVN0cmF0ZWd5EhkuY2EuVmFsaWRhdGVT",
+            "dHJhdGVneUlucHV0GhouY2EuVmFsaWRhdGVTdHJhdGVneU91dHB1dCIFiIn3",
+            "AQESRQoUQWRkQ3JlYXRvckNvbnRyb2xsZXISEy5jYS5Db250cm9sbGVySW5w",
+            "dXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJIChdSZW1vdmVDcmVhdG9y",
+            "Q29udHJvbGxlchITLmNhLkNvbnRyb2xsZXJJbnB1dBoWLmdvb2dsZS5wcm90",
+            "b2J1Zi5FbXB0eSIAEkwKFUdldENyZWF0b3JDb250cm9sbGVycxIWLmdvb2ds",
+            "ZS5wcm90b2J1Zi5FbXB0eRoULmNhLkNvbnRyb2xsZXJPdXRwdXQiBYiJ9wEB",
+            "EkQKE0FkZFNlcnZlckNvbnRyb2xsZXISEy5jYS5Db250cm9sbGVySW5wdXQa",
+            "Fi5nb29nbGUucHJvdG9idWYuRW1wdHkiABJHChZSZW1vdmVTZXJ2ZXJDb250",
+            "cm9sbGVyEhMuY2EuQ29udHJvbGxlcklucHV0GhYuZ29vZ2xlLnByb3RvYnVm",
+            "LkVtcHR5IgASSwoUR2V0U2VydmVyQ29udHJvbGxlcnMSFi5nb29nbGUucHJv",
+            "dG9idWYuRW1wdHkaFC5jYS5Db250cm9sbGVyT3V0cHV0IgWIifcBARI3CgtD",
+            "aGFuZ2VBZG1pbhIOLmNhLkFkbWluSW5wdXQaFi5nb29nbGUucHJvdG9idWYu",
+            "RW1wdHkiABI6CghHZXRBZG1pbhIWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eRoP",
+            "LmNhLkFkbWluT3V0cHV0IgWIifcBARJVChdTZXRQcm9qZWN0RGVsZWdhdGlv",
+            "bkZlZRIgLmNhLlNldFByb2plY3REZWxlZ2F0aW9uRmVlSW5wdXQaFi5nb29n",
+            "bGUucHJvdG9idWYuRW1wdHkiABJSChdHZXRQcm9qZWN0RGVsZWdhdGlvbkZl",
+            "ZRIWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eRoYLmNhLlByb2plY3REZWxlZ2F0",
+            "aW9uRmVlIgWIifcBARJ7CipTZXRDaGVja09wZXJhdGlvbkRldGFpbHNJblNp",
+            "Z25hdHVyZUVuYWJsZWQSMy5jYS5TZXRDaGVja09wZXJhdGlvbkRldGFpbHNJ",
+            "blNpZ25hdHVyZUVuYWJsZWRJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0",
+            "eSIAEoEBCipHZXRDaGVja09wZXJhdGlvbkRldGFpbHNJblNpZ25hdHVyZUVu",
+            "YWJsZWQSFi5nb29nbGUucHJvdG9idWYuRW1wdHkaNC5jYS5HZXRDaGVja09w",
+            "ZXJhdGlvbkRldGFpbHNJblNpZ25hdHVyZUVuYWJsZWRPdXRwdXQiBYiJ9wEB",
+            "Gg/KyvYBCmFjczIucHJvdG9CF6oCFFBvcnRrZXkuQ29udHJhY3RzLkNBYgZw",
+            "cm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::AElf.Types.CoreReflection.Descriptor, global::AElf.OptionsReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, global::AuthorityInfoReflection.Descriptor, global::AElf.Standards.ACS12.Acs12Reflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::AElf.Types.CoreReflection.Descriptor, global::AElf.OptionsReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, global::AuthorityInfoReflection.Descriptor, global::AElf.Standards.ACS12.Acs12Reflection.Descriptor, global::AElf.Standards.ACS2.Acs2Reflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Portkey.Contracts.CA.GuardianType), typeof(global::Portkey.Contracts.CA.StrategyValueType), typeof(global::Portkey.Contracts.CA.StrategyName), typeof(global::Portkey.Contracts.CA.OperationType), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.HolderInfo), global::Portkey.Contracts.CA.HolderInfo.Parser, new[]{ "CreatorAddress", "ManagerInfos", "GuardianList", "JudgementStrategy", "CreateChainId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.DelegateInfo), global::Portkey.Contracts.CA.DelegateInfo.Parser, new[]{ "ChainId", "ProjectHash", "IdentifierHash", "Timestamp", "ExpirationTime", "Delegations", "IsUnlimitedDelegate", "Signature" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.ManagerInfo), global::Portkey.Contracts.CA.ManagerInfo.Parser, new[]{ "Address", "ExtraData" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.GuardianList), global::Portkey.Contracts.CA.GuardianList.Parser, new[]{ "Guardians" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.Guardian), global::Portkey.Contracts.CA.Guardian.Parser, new[]{ "Type", "VerifierId", "IdentifierHash", "Salt", "IsLoginGuardian" }, null, null, null, null),
@@ -339,28 +359,25 @@ namespace Portkey.Contracts.CA {
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.ControllerOutput), global::Portkey.Contracts.CA.ControllerOutput.Parser, new[]{ "Addresses" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.AdminInput), global::Portkey.Contracts.CA.AdminInput.Parser, new[]{ "Address" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.AdminOutput), global::Portkey.Contracts.CA.AdminOutput.Parser, new[]{ "Address" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.AddRemovedToCurrentVerifierIdMapperInput), global::Portkey.Contracts.CA.AddRemovedToCurrentVerifierIdMapperInput.Parser, new[]{ "Mappers" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfo), global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfo.Parser, new[]{ "RemovedId", "CurrentId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.CreateCAHolderInput), global::Portkey.Contracts.CA.CreateCAHolderInput.Parser, new[]{ "GuardianApproved", "ManagerInfo", "JudgementStrategy" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.CreateCAHolderInput), global::Portkey.Contracts.CA.CreateCAHolderInput.Parser, new[]{ "GuardianApproved", "ManagerInfo", "JudgementStrategy", "ReferralCode", "ProjectCode", "DelegateInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.CreateCAHolderOnNonCreateChainInput), global::Portkey.Contracts.CA.CreateCAHolderOnNonCreateChainInput.Parser, new[]{ "GuardianApproved", "ManagerInfo", "JudgementStrategy", "CaHash", "CreateChainId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.GuardianInfo), global::Portkey.Contracts.CA.GuardianInfo.Parser, new[]{ "Type", "IdentifierHash", "VerificationInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.VerificationInfo), global::Portkey.Contracts.CA.VerificationInfo.Parser, new[]{ "Id", "Signature", "VerificationDoc" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.StrategyNode), global::Portkey.Contracts.CA.StrategyNode.Parser, new[]{ "Name", "Type", "Value" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.StrategyLongWrapper), global::Portkey.Contracts.CA.StrategyLongWrapper.Parser, new[]{ "Value" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.StrategyStringWrapper), global::Portkey.Contracts.CA.StrategyStringWrapper.Parser, new[]{ "Value" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.ContractDelegationFee), global::Portkey.Contracts.CA.ContractDelegationFee.Parser, new[]{ "Amount" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.SetContractDelegationFeeInput), global::Portkey.Contracts.CA.SetContractDelegationFeeInput.Parser, new[]{ "DelegationFee" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.GetContractDelegationFeeOutput), global::Portkey.Contracts.CA.GetContractDelegationFeeOutput.Parser, new[]{ "DelegationFee" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.AddGuardianInput), global::Portkey.Contracts.CA.AddGuardianInput.Parser, new[]{ "CaHash", "GuardianToAdd", "GuardiansApproved" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.RemoveGuardianInput), global::Portkey.Contracts.CA.RemoveGuardianInput.Parser, new[]{ "CaHash", "GuardianToRemove", "GuardiansApproved" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.UpdateGuardianInput), global::Portkey.Contracts.CA.UpdateGuardianInput.Parser, new[]{ "CaHash", "GuardianToUpdatePre", "GuardianToUpdateNew", "GuardiansApproved" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.SetGuardianForLoginInput), global::Portkey.Contracts.CA.SetGuardianForLoginInput.Parser, new[]{ "CaHash", "Guardian" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.UnsetGuardianForLoginInput), global::Portkey.Contracts.CA.UnsetGuardianForLoginInput.Parser, new[]{ "CaHash", "Guardian" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.ManagerForwardCallInput), global::Portkey.Contracts.CA.ManagerForwardCallInput.Parser, new[]{ "CaHash", "ContractAddress", "MethodName", "Args" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.ManagerTransferInput), global::Portkey.Contracts.CA.ManagerTransferInput.Parser, new[]{ "CaHash", "To", "Symbol", "Amount", "Memo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.SetGuardianForLoginInput), global::Portkey.Contracts.CA.SetGuardianForLoginInput.Parser, new[]{ "CaHash", "Guardian", "GuardianToSetLogin", "GuardiansApproved" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.UnsetGuardianForLoginInput), global::Portkey.Contracts.CA.UnsetGuardianForLoginInput.Parser, new[]{ "CaHash", "Guardian", "GuardianToUnsetLogin", "GuardiansApproved" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.ManagerForwardCallInput), global::Portkey.Contracts.CA.ManagerForwardCallInput.Parser, new[]{ "CaHash", "ContractAddress", "MethodName", "Args", "GuardiansApproved" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.ManagerTransferInput), global::Portkey.Contracts.CA.ManagerTransferInput.Parser, new[]{ "CaHash", "To", "Symbol", "Amount", "Memo", "GuardiansApproved" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.ManagerTransferFromInput), global::Portkey.Contracts.CA.ManagerTransferFromInput.Parser, new[]{ "CaHash", "From", "To", "Symbol", "Amount", "Memo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.GetHolderInfoInput), global::Portkey.Contracts.CA.GetHolderInfoInput.Parser, new[]{ "CaHash", "LoginGuardianIdentifierHash" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.GetHolderInfoOutput), global::Portkey.Contracts.CA.GetHolderInfoOutput.Parser, new[]{ "CaHash", "CaAddress", "GuardianList", "ManagerInfos", "CreateChainId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.SocialRecoveryInput), global::Portkey.Contracts.CA.SocialRecoveryInput.Parser, new[]{ "LoginGuardianIdentifierHash", "GuardiansApproved", "ManagerInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.SocialRecoveryInput), global::Portkey.Contracts.CA.SocialRecoveryInput.Parser, new[]{ "LoginGuardianIdentifierHash", "GuardiansApproved", "ManagerInfo", "ReferralCode", "ProjectCode" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.AddManagerInfoInput), global::Portkey.Contracts.CA.AddManagerInfoInput.Parser, new[]{ "CaHash", "ManagerInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.RemoveManagerInfoInput), global::Portkey.Contracts.CA.RemoveManagerInfoInput.Parser, new[]{ "CaHash" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.RemoveOtherManagerInfoInput), global::Portkey.Contracts.CA.RemoveOtherManagerInfoInput.Parser, new[]{ "CaHash", "ManagerInfo", "GuardiansApproved" }, null, null, null, null),
@@ -371,16 +388,19 @@ namespace Portkey.Contracts.CA {
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.AddCAServerInput), global::Portkey.Contracts.CA.AddCAServerInput.Parser, new[]{ "Name", "EndPoints" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.RemoveCAServerInput), global::Portkey.Contracts.CA.RemoveCAServerInput.Parser, new[]{ "Name" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.GetVerifierServersOutput), global::Portkey.Contracts.CA.GetVerifierServersOutput.Parser, new[]{ "VerifierServers" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.GetRemovedToCurrentVerifierIdMapperOutput), global::Portkey.Contracts.CA.GetRemovedToCurrentVerifierIdMapperOutput.Parser, new[]{ "Mapper" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.GetCAServersOutput), global::Portkey.Contracts.CA.GetCAServersOutput.Parser, new[]{ "CaServers" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.ValidateCAHolderInfoWithManagerInfosExistsInput), global::Portkey.Contracts.CA.ValidateCAHolderInfoWithManagerInfosExistsInput.Parser, new[]{ "CaHash", "ManagerInfos", "LoginGuardians", "NotLoginGuardians", "GuardianList", "CreateChainId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.VerificationTransactionInfo), global::Portkey.Contracts.CA.VerificationTransactionInfo.Parser, new[]{ "FromChainId", "ParentChainHeight", "TransactionBytes", "MerklePath" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.SyncHolderInfoInput), global::Portkey.Contracts.CA.SyncHolderInfoInput.Parser, new[]{ "VerificationTransactionInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.SyncHolderInfosInput), global::Portkey.Contracts.CA.SyncHolderInfosInput.Parser, new[]{ "VerificationTransactionInfos" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.ValidateStrategyInput), global::Portkey.Contracts.CA.ValidateStrategyInput.Parser, new[]{ "StrategyNode", "Variables" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.SetCheckChainIdInSignatureEnabledInput), global::Portkey.Contracts.CA.SetCheckChainIdInSignatureEnabledInput.Parser, new[]{ "CheckChainIdInSignatureEnabled" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.GetCheckChainIdInSignatureEnabledOutput), global::Portkey.Contracts.CA.GetCheckChainIdInSignatureEnabledOutput.Parser, new[]{ "CheckChainIdInSignatureEnabled" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.ValidateStrategyOutput), global::Portkey.Contracts.CA.ValidateStrategyOutput.Parser, new[]{ "BoolResult", "Int64Result", "StrategyOutput" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.ProjectDelegationFee), global::Portkey.Contracts.CA.ProjectDelegationFee.Parser, new[]{ "Amount" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.SetProjectDelegationFeeInput), global::Portkey.Contracts.CA.SetProjectDelegationFeeInput.Parser, new[]{ "DelegationFee" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.SetCheckOperationDetailsInSignatureEnabledInput), global::Portkey.Contracts.CA.SetCheckOperationDetailsInSignatureEnabledInput.Parser, new[]{ "CheckOperationDetailsEnabled" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.GetCheckOperationDetailsInSignatureEnabledOutput), global::Portkey.Contracts.CA.GetCheckOperationDetailsInSignatureEnabledOutput.Parser, new[]{ "CheckOperationDetailsEnabled" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.CAHolderCreated), global::Portkey.Contracts.CA.CAHolderCreated.Parser, new[]{ "Creator", "CaHash", "CaAddress", "Manager", "ExtraData" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.NonCreateChainCAHolderCreated), global::Portkey.Contracts.CA.NonCreateChainCAHolderCreated.Parser, new[]{ "Creator", "CaHash", "CaAddress", "Manager", "ExtraData", "CreateChainId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.GuardianAdded), global::Portkey.Contracts.CA.GuardianAdded.Parser, new[]{ "CaHash", "CaAddress", "GuardianAdded_" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.GuardianRemoved), global::Portkey.Contracts.CA.GuardianRemoved.Parser, new[]{ "CaHash", "CaAddress", "GuardianRemoved_" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.GuardianUpdated), global::Portkey.Contracts.CA.GuardianUpdated.Parser, new[]{ "CaHash", "CaAddress", "GuardianUpdatedPre", "GuardianUpdatedNew" }, null, null, null, null),
@@ -394,8 +414,6 @@ namespace Portkey.Contracts.CA {
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.VerifierServerEndPointsAdded), global::Portkey.Contracts.CA.VerifierServerEndPointsAdded.Parser, new[]{ "VerifierServer" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.VerifierServerEndPointsRemoved), global::Portkey.Contracts.CA.VerifierServerEndPointsRemoved.Parser, new[]{ "VerifierServer" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.VerifierServerRemoved), global::Portkey.Contracts.CA.VerifierServerRemoved.Parser, new[]{ "VerifierServer" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperAdded), global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperAdded.Parser, new[]{ "MapperList" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfoList), global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfoList.Parser, new[]{ "Mappers" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.CAServerAdded), global::Portkey.Contracts.CA.CAServerAdded.Parser, new[]{ "CaSeverAdded" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.CAServerRemoved), global::Portkey.Contracts.CA.CAServerRemoved.Parser, new[]{ "CaServerRemoved" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.CAHolderSynced), global::Portkey.Contracts.CA.CAHolderSynced.Parser, new[]{ "Creator", "CaHash", "CaAddress", "ManagerInfosAdded", "ManagerInfosRemoved", "LoginGuardiansAdded", "LoginGuardiansUnbound", "GuardiansAdded", "GuardiansRemoved", "CreateChainId" }, null, null, null, null),
@@ -404,8 +422,7 @@ namespace Portkey.Contracts.CA {
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.ServerControllerAdded), global::Portkey.Contracts.CA.ServerControllerAdded.Parser, new[]{ "Address" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.ServerControllerRemoved), global::Portkey.Contracts.CA.ServerControllerRemoved.Parser, new[]{ "Address" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.AdminChanged), global::Portkey.Contracts.CA.AdminChanged.Parser, new[]{ "Address" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.SetCAContractAddressesInput), global::Portkey.Contracts.CA.SetCAContractAddressesInput.Parser, new[]{ "CaContractAddresses" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.CAContractAddress), global::Portkey.Contracts.CA.CAContractAddress.Parser, new[]{ "Address", "ChainId" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Portkey.Contracts.CA.Invited), global::Portkey.Contracts.CA.Invited.Parser, new[]{ "CaHash", "ContractAddress", "MethodName", "ReferralCode", "ProjectCode" }, null, null, null, null)
           }));
     }
     #endregion
@@ -417,6 +434,9 @@ namespace Portkey.Contracts.CA {
     [pbr::OriginalName("GUARDIAN_TYPE_OF_PHONE")] OfPhone = 1,
     [pbr::OriginalName("GUARDIAN_TYPE_OF_GOOGLE")] OfGoogle = 2,
     [pbr::OriginalName("GUARDIAN_TYPE_OF_APPLE")] OfApple = 3,
+    [pbr::OriginalName("GUARDIAN_TYPE_OF_TELEGRAM")] OfTelegram = 4,
+    [pbr::OriginalName("GUARDIAN_TYPE_OF_FACEBOOK")] OfFacebook = 5,
+    [pbr::OriginalName("GUARDIAN_TYPE_OF_TWITTER")] OfTwitter = 6,
   }
 
   public enum StrategyValueType {
@@ -450,6 +470,8 @@ namespace Portkey.Contracts.CA {
     [pbr::OriginalName("SetLoginAccount")] SetLoginAccount = 7,
     [pbr::OriginalName("Approve")] Approve = 8,
     [pbr::OriginalName("ModifyTransferLimit")] ModifyTransferLimit = 9,
+    [pbr::OriginalName("GuardianApproveTransfer")] GuardianApproveTransfer = 10,
+    [pbr::OriginalName("UnSetLoginAccount")] UnSetLoginAccount = 11,
   }
 
   #endregion
@@ -811,6 +833,476 @@ namespace Portkey.Contracts.CA {
 
   }
 
+  public sealed partial class DelegateInfo : pb::IMessage<DelegateInfo>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<DelegateInfo> _parser = new pb::MessageParser<DelegateInfo>(() => new DelegateInfo());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<DelegateInfo> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DelegateInfo() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DelegateInfo(DelegateInfo other) : this() {
+      chainId_ = other.chainId_;
+      projectHash_ = other.projectHash_ != null ? other.projectHash_.Clone() : null;
+      identifierHash_ = other.identifierHash_ != null ? other.identifierHash_.Clone() : null;
+      timestamp_ = other.timestamp_ != null ? other.timestamp_.Clone() : null;
+      expirationTime_ = other.expirationTime_;
+      delegations_ = other.delegations_.Clone();
+      isUnlimitedDelegate_ = other.isUnlimitedDelegate_;
+      signature_ = other.signature_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public DelegateInfo Clone() {
+      return new DelegateInfo(this);
+    }
+
+    /// <summary>Field number for the "chain_id" field.</summary>
+    public const int ChainIdFieldNumber = 1;
+    private int chainId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int ChainId {
+      get { return chainId_; }
+      set {
+        chainId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "project_hash" field.</summary>
+    public const int ProjectHashFieldNumber = 2;
+    private global::AElf.Types.Hash projectHash_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::AElf.Types.Hash ProjectHash {
+      get { return projectHash_; }
+      set {
+        projectHash_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "identifier_hash" field.</summary>
+    public const int IdentifierHashFieldNumber = 3;
+    private global::AElf.Types.Hash identifierHash_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::AElf.Types.Hash IdentifierHash {
+      get { return identifierHash_; }
+      set {
+        identifierHash_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "timestamp" field.</summary>
+    public const int TimestampFieldNumber = 4;
+    private global::Google.Protobuf.WellKnownTypes.Timestamp timestamp_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Google.Protobuf.WellKnownTypes.Timestamp Timestamp {
+      get { return timestamp_; }
+      set {
+        timestamp_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "expiration_time" field.</summary>
+    public const int ExpirationTimeFieldNumber = 5;
+    private int expirationTime_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int ExpirationTime {
+      get { return expirationTime_; }
+      set {
+        expirationTime_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "delegations" field.</summary>
+    public const int DelegationsFieldNumber = 6;
+    private static readonly pbc::MapField<string, long>.Codec _map_delegations_codec
+        = new pbc::MapField<string, long>.Codec(pb::FieldCodec.ForString(10, ""), pb::FieldCodec.ForInt64(16, 0L), 50);
+    private readonly pbc::MapField<string, long> delegations_ = new pbc::MapField<string, long>();
+    /// <summary>
+    /// symbol -> delegate fee
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::MapField<string, long> Delegations {
+      get { return delegations_; }
+    }
+
+    /// <summary>Field number for the "is_unlimited_delegate" field.</summary>
+    public const int IsUnlimitedDelegateFieldNumber = 7;
+    private bool isUnlimitedDelegate_;
+    /// <summary>
+    ///Whether to pay transaction fee continuously
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool IsUnlimitedDelegate {
+      get { return isUnlimitedDelegate_; }
+      set {
+        isUnlimitedDelegate_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "signature" field.</summary>
+    public const int SignatureFieldNumber = 1000;
+    private string signature_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Signature {
+      get { return signature_; }
+      set {
+        signature_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as DelegateInfo);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(DelegateInfo other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (ChainId != other.ChainId) return false;
+      if (!object.Equals(ProjectHash, other.ProjectHash)) return false;
+      if (!object.Equals(IdentifierHash, other.IdentifierHash)) return false;
+      if (!object.Equals(Timestamp, other.Timestamp)) return false;
+      if (ExpirationTime != other.ExpirationTime) return false;
+      if (!Delegations.Equals(other.Delegations)) return false;
+      if (IsUnlimitedDelegate != other.IsUnlimitedDelegate) return false;
+      if (Signature != other.Signature) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (ChainId != 0) hash ^= ChainId.GetHashCode();
+      if (projectHash_ != null) hash ^= ProjectHash.GetHashCode();
+      if (identifierHash_ != null) hash ^= IdentifierHash.GetHashCode();
+      if (timestamp_ != null) hash ^= Timestamp.GetHashCode();
+      if (ExpirationTime != 0) hash ^= ExpirationTime.GetHashCode();
+      hash ^= Delegations.GetHashCode();
+      if (IsUnlimitedDelegate != false) hash ^= IsUnlimitedDelegate.GetHashCode();
+      if (Signature.Length != 0) hash ^= Signature.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (ChainId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(ChainId);
+      }
+      if (projectHash_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(ProjectHash);
+      }
+      if (identifierHash_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(IdentifierHash);
+      }
+      if (timestamp_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(Timestamp);
+      }
+      if (ExpirationTime != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(ExpirationTime);
+      }
+      delegations_.WriteTo(output, _map_delegations_codec);
+      if (IsUnlimitedDelegate != false) {
+        output.WriteRawTag(56);
+        output.WriteBool(IsUnlimitedDelegate);
+      }
+      if (Signature.Length != 0) {
+        output.WriteRawTag(194, 62);
+        output.WriteString(Signature);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (ChainId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(ChainId);
+      }
+      if (projectHash_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(ProjectHash);
+      }
+      if (identifierHash_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(IdentifierHash);
+      }
+      if (timestamp_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(Timestamp);
+      }
+      if (ExpirationTime != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(ExpirationTime);
+      }
+      delegations_.WriteTo(ref output, _map_delegations_codec);
+      if (IsUnlimitedDelegate != false) {
+        output.WriteRawTag(56);
+        output.WriteBool(IsUnlimitedDelegate);
+      }
+      if (Signature.Length != 0) {
+        output.WriteRawTag(194, 62);
+        output.WriteString(Signature);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (ChainId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ChainId);
+      }
+      if (projectHash_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(ProjectHash);
+      }
+      if (identifierHash_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(IdentifierHash);
+      }
+      if (timestamp_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Timestamp);
+      }
+      if (ExpirationTime != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ExpirationTime);
+      }
+      size += delegations_.CalculateSize(_map_delegations_codec);
+      if (IsUnlimitedDelegate != false) {
+        size += 1 + 1;
+      }
+      if (Signature.Length != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeStringSize(Signature);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(DelegateInfo other) {
+      if (other == null) {
+        return;
+      }
+      if (other.ChainId != 0) {
+        ChainId = other.ChainId;
+      }
+      if (other.projectHash_ != null) {
+        if (projectHash_ == null) {
+          ProjectHash = new global::AElf.Types.Hash();
+        }
+        ProjectHash.MergeFrom(other.ProjectHash);
+      }
+      if (other.identifierHash_ != null) {
+        if (identifierHash_ == null) {
+          IdentifierHash = new global::AElf.Types.Hash();
+        }
+        IdentifierHash.MergeFrom(other.IdentifierHash);
+      }
+      if (other.timestamp_ != null) {
+        if (timestamp_ == null) {
+          Timestamp = new global::Google.Protobuf.WellKnownTypes.Timestamp();
+        }
+        Timestamp.MergeFrom(other.Timestamp);
+      }
+      if (other.ExpirationTime != 0) {
+        ExpirationTime = other.ExpirationTime;
+      }
+      delegations_.Add(other.delegations_);
+      if (other.IsUnlimitedDelegate != false) {
+        IsUnlimitedDelegate = other.IsUnlimitedDelegate;
+      }
+      if (other.Signature.Length != 0) {
+        Signature = other.Signature;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            ChainId = input.ReadInt32();
+            break;
+          }
+          case 18: {
+            if (projectHash_ == null) {
+              ProjectHash = new global::AElf.Types.Hash();
+            }
+            input.ReadMessage(ProjectHash);
+            break;
+          }
+          case 26: {
+            if (identifierHash_ == null) {
+              IdentifierHash = new global::AElf.Types.Hash();
+            }
+            input.ReadMessage(IdentifierHash);
+            break;
+          }
+          case 34: {
+            if (timestamp_ == null) {
+              Timestamp = new global::Google.Protobuf.WellKnownTypes.Timestamp();
+            }
+            input.ReadMessage(Timestamp);
+            break;
+          }
+          case 40: {
+            ExpirationTime = input.ReadInt32();
+            break;
+          }
+          case 50: {
+            delegations_.AddEntriesFrom(input, _map_delegations_codec);
+            break;
+          }
+          case 56: {
+            IsUnlimitedDelegate = input.ReadBool();
+            break;
+          }
+          case 8002: {
+            Signature = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            ChainId = input.ReadInt32();
+            break;
+          }
+          case 18: {
+            if (projectHash_ == null) {
+              ProjectHash = new global::AElf.Types.Hash();
+            }
+            input.ReadMessage(ProjectHash);
+            break;
+          }
+          case 26: {
+            if (identifierHash_ == null) {
+              IdentifierHash = new global::AElf.Types.Hash();
+            }
+            input.ReadMessage(IdentifierHash);
+            break;
+          }
+          case 34: {
+            if (timestamp_ == null) {
+              Timestamp = new global::Google.Protobuf.WellKnownTypes.Timestamp();
+            }
+            input.ReadMessage(Timestamp);
+            break;
+          }
+          case 40: {
+            ExpirationTime = input.ReadInt32();
+            break;
+          }
+          case 50: {
+            delegations_.AddEntriesFrom(ref input, _map_delegations_codec);
+            break;
+          }
+          case 56: {
+            IsUnlimitedDelegate = input.ReadBool();
+            break;
+          }
+          case 8002: {
+            Signature = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
   public sealed partial class ManagerInfo : pb::IMessage<ManagerInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -825,7 +1317,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1060,7 +1552,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[2]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1238,7 +1730,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[3]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1593,7 +2085,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1917,7 +2409,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[5]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2143,7 +2635,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[6]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2321,7 +2813,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[7]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2499,7 +2991,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[8]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2677,7 +3169,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[9]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2855,7 +3347,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[10]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[11]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3036,7 +3528,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[11]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[12]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3234,7 +3726,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[12]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[13]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3432,7 +3924,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[13]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[14]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3610,7 +4102,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[14]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[15]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3808,7 +4300,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[15]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[16]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3992,428 +4484,6 @@ namespace Portkey.Contracts.CA {
 
   }
 
-  public sealed partial class AddRemovedToCurrentVerifierIdMapperInput : pb::IMessage<AddRemovedToCurrentVerifierIdMapperInput>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<AddRemovedToCurrentVerifierIdMapperInput> _parser = new pb::MessageParser<AddRemovedToCurrentVerifierIdMapperInput>(() => new AddRemovedToCurrentVerifierIdMapperInput());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<AddRemovedToCurrentVerifierIdMapperInput> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[16]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public AddRemovedToCurrentVerifierIdMapperInput() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public AddRemovedToCurrentVerifierIdMapperInput(AddRemovedToCurrentVerifierIdMapperInput other) : this() {
-      mappers_ = other.mappers_.Clone();
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public AddRemovedToCurrentVerifierIdMapperInput Clone() {
-      return new AddRemovedToCurrentVerifierIdMapperInput(this);
-    }
-
-    /// <summary>Field number for the "mappers" field.</summary>
-    public const int MappersFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfo> _repeated_mappers_codec
-        = pb::FieldCodec.ForMessage(10, global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfo.Parser);
-    private readonly pbc::RepeatedField<global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfo> mappers_ = new pbc::RepeatedField<global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfo>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfo> Mappers {
-      get { return mappers_; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as AddRemovedToCurrentVerifierIdMapperInput);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(AddRemovedToCurrentVerifierIdMapperInput other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if(!mappers_.Equals(other.mappers_)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      hash ^= mappers_.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      mappers_.WriteTo(output, _repeated_mappers_codec);
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      mappers_.WriteTo(ref output, _repeated_mappers_codec);
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      size += mappers_.CalculateSize(_repeated_mappers_codec);
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(AddRemovedToCurrentVerifierIdMapperInput other) {
-      if (other == null) {
-        return;
-      }
-      mappers_.Add(other.mappers_);
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            mappers_.AddEntriesFrom(input, _repeated_mappers_codec);
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            mappers_.AddEntriesFrom(ref input, _repeated_mappers_codec);
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  public sealed partial class RemovedToCurrentVerifierIdMapperInfo : pb::IMessage<RemovedToCurrentVerifierIdMapperInfo>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<RemovedToCurrentVerifierIdMapperInfo> _parser = new pb::MessageParser<RemovedToCurrentVerifierIdMapperInfo>(() => new RemovedToCurrentVerifierIdMapperInfo());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<RemovedToCurrentVerifierIdMapperInfo> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[17]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RemovedToCurrentVerifierIdMapperInfo() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RemovedToCurrentVerifierIdMapperInfo(RemovedToCurrentVerifierIdMapperInfo other) : this() {
-      removedId_ = other.removedId_ != null ? other.removedId_.Clone() : null;
-      currentId_ = other.currentId_ != null ? other.currentId_.Clone() : null;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RemovedToCurrentVerifierIdMapperInfo Clone() {
-      return new RemovedToCurrentVerifierIdMapperInfo(this);
-    }
-
-    /// <summary>Field number for the "removed_id" field.</summary>
-    public const int RemovedIdFieldNumber = 1;
-    private global::AElf.Types.Hash removedId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::AElf.Types.Hash RemovedId {
-      get { return removedId_; }
-      set {
-        removedId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "current_id" field.</summary>
-    public const int CurrentIdFieldNumber = 2;
-    private global::AElf.Types.Hash currentId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::AElf.Types.Hash CurrentId {
-      get { return currentId_; }
-      set {
-        currentId_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as RemovedToCurrentVerifierIdMapperInfo);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(RemovedToCurrentVerifierIdMapperInfo other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (!object.Equals(RemovedId, other.RemovedId)) return false;
-      if (!object.Equals(CurrentId, other.CurrentId)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (removedId_ != null) hash ^= RemovedId.GetHashCode();
-      if (currentId_ != null) hash ^= CurrentId.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (removedId_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(RemovedId);
-      }
-      if (currentId_ != null) {
-        output.WriteRawTag(18);
-        output.WriteMessage(CurrentId);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (removedId_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(RemovedId);
-      }
-      if (currentId_ != null) {
-        output.WriteRawTag(18);
-        output.WriteMessage(CurrentId);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (removedId_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(RemovedId);
-      }
-      if (currentId_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(CurrentId);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(RemovedToCurrentVerifierIdMapperInfo other) {
-      if (other == null) {
-        return;
-      }
-      if (other.removedId_ != null) {
-        if (removedId_ == null) {
-          RemovedId = new global::AElf.Types.Hash();
-        }
-        RemovedId.MergeFrom(other.RemovedId);
-      }
-      if (other.currentId_ != null) {
-        if (currentId_ == null) {
-          CurrentId = new global::AElf.Types.Hash();
-        }
-        CurrentId.MergeFrom(other.CurrentId);
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            if (removedId_ == null) {
-              RemovedId = new global::AElf.Types.Hash();
-            }
-            input.ReadMessage(RemovedId);
-            break;
-          }
-          case 18: {
-            if (currentId_ == null) {
-              CurrentId = new global::AElf.Types.Hash();
-            }
-            input.ReadMessage(CurrentId);
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            if (removedId_ == null) {
-              RemovedId = new global::AElf.Types.Hash();
-            }
-            input.ReadMessage(RemovedId);
-            break;
-          }
-          case 18: {
-            if (currentId_ == null) {
-              CurrentId = new global::AElf.Types.Hash();
-            }
-            input.ReadMessage(CurrentId);
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
   public sealed partial class CreateCAHolderInput : pb::IMessage<CreateCAHolderInput>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -4428,7 +4498,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[18]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[17]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4451,6 +4521,9 @@ namespace Portkey.Contracts.CA {
       guardianApproved_ = other.guardianApproved_ != null ? other.guardianApproved_.Clone() : null;
       managerInfo_ = other.managerInfo_ != null ? other.managerInfo_.Clone() : null;
       judgementStrategy_ = other.judgementStrategy_ != null ? other.judgementStrategy_.Clone() : null;
+      referralCode_ = other.referralCode_;
+      projectCode_ = other.projectCode_;
+      delegateInfo_ = other.delegateInfo_ != null ? other.delegateInfo_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -4496,6 +4569,42 @@ namespace Portkey.Contracts.CA {
       }
     }
 
+    /// <summary>Field number for the "referral_code" field.</summary>
+    public const int ReferralCodeFieldNumber = 4;
+    private string referralCode_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string ReferralCode {
+      get { return referralCode_; }
+      set {
+        referralCode_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "project_code" field.</summary>
+    public const int ProjectCodeFieldNumber = 5;
+    private string projectCode_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string ProjectCode {
+      get { return projectCode_; }
+      set {
+        projectCode_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "delegate_info" field.</summary>
+    public const int DelegateInfoFieldNumber = 6;
+    private global::Portkey.Contracts.CA.DelegateInfo delegateInfo_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Portkey.Contracts.CA.DelegateInfo DelegateInfo {
+      get { return delegateInfo_; }
+      set {
+        delegateInfo_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -4514,6 +4623,9 @@ namespace Portkey.Contracts.CA {
       if (!object.Equals(GuardianApproved, other.GuardianApproved)) return false;
       if (!object.Equals(ManagerInfo, other.ManagerInfo)) return false;
       if (!object.Equals(JudgementStrategy, other.JudgementStrategy)) return false;
+      if (ReferralCode != other.ReferralCode) return false;
+      if (ProjectCode != other.ProjectCode) return false;
+      if (!object.Equals(DelegateInfo, other.DelegateInfo)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -4524,6 +4636,9 @@ namespace Portkey.Contracts.CA {
       if (guardianApproved_ != null) hash ^= GuardianApproved.GetHashCode();
       if (managerInfo_ != null) hash ^= ManagerInfo.GetHashCode();
       if (judgementStrategy_ != null) hash ^= JudgementStrategy.GetHashCode();
+      if (ReferralCode.Length != 0) hash ^= ReferralCode.GetHashCode();
+      if (ProjectCode.Length != 0) hash ^= ProjectCode.GetHashCode();
+      if (delegateInfo_ != null) hash ^= DelegateInfo.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -4554,6 +4669,18 @@ namespace Portkey.Contracts.CA {
         output.WriteRawTag(26);
         output.WriteMessage(JudgementStrategy);
       }
+      if (ReferralCode.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(ReferralCode);
+      }
+      if (ProjectCode.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(ProjectCode);
+      }
+      if (delegateInfo_ != null) {
+        output.WriteRawTag(50);
+        output.WriteMessage(DelegateInfo);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -4576,6 +4703,18 @@ namespace Portkey.Contracts.CA {
         output.WriteRawTag(26);
         output.WriteMessage(JudgementStrategy);
       }
+      if (ReferralCode.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(ReferralCode);
+      }
+      if (ProjectCode.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(ProjectCode);
+      }
+      if (delegateInfo_ != null) {
+        output.WriteRawTag(50);
+        output.WriteMessage(DelegateInfo);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -4594,6 +4733,15 @@ namespace Portkey.Contracts.CA {
       }
       if (judgementStrategy_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(JudgementStrategy);
+      }
+      if (ReferralCode.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ReferralCode);
+      }
+      if (ProjectCode.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ProjectCode);
+      }
+      if (delegateInfo_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(DelegateInfo);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -4624,6 +4772,18 @@ namespace Portkey.Contracts.CA {
           JudgementStrategy = new global::Portkey.Contracts.CA.StrategyNode();
         }
         JudgementStrategy.MergeFrom(other.JudgementStrategy);
+      }
+      if (other.ReferralCode.Length != 0) {
+        ReferralCode = other.ReferralCode;
+      }
+      if (other.ProjectCode.Length != 0) {
+        ProjectCode = other.ProjectCode;
+      }
+      if (other.delegateInfo_ != null) {
+        if (delegateInfo_ == null) {
+          DelegateInfo = new global::Portkey.Contracts.CA.DelegateInfo();
+        }
+        DelegateInfo.MergeFrom(other.DelegateInfo);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -4661,6 +4821,21 @@ namespace Portkey.Contracts.CA {
             input.ReadMessage(JudgementStrategy);
             break;
           }
+          case 34: {
+            ReferralCode = input.ReadString();
+            break;
+          }
+          case 42: {
+            ProjectCode = input.ReadString();
+            break;
+          }
+          case 50: {
+            if (delegateInfo_ == null) {
+              DelegateInfo = new global::Portkey.Contracts.CA.DelegateInfo();
+            }
+            input.ReadMessage(DelegateInfo);
+            break;
+          }
         }
       }
     #endif
@@ -4695,6 +4870,394 @@ namespace Portkey.Contracts.CA {
               JudgementStrategy = new global::Portkey.Contracts.CA.StrategyNode();
             }
             input.ReadMessage(JudgementStrategy);
+            break;
+          }
+          case 34: {
+            ReferralCode = input.ReadString();
+            break;
+          }
+          case 42: {
+            ProjectCode = input.ReadString();
+            break;
+          }
+          case 50: {
+            if (delegateInfo_ == null) {
+              DelegateInfo = new global::Portkey.Contracts.CA.DelegateInfo();
+            }
+            input.ReadMessage(DelegateInfo);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class CreateCAHolderOnNonCreateChainInput : pb::IMessage<CreateCAHolderOnNonCreateChainInput>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<CreateCAHolderOnNonCreateChainInput> _parser = new pb::MessageParser<CreateCAHolderOnNonCreateChainInput>(() => new CreateCAHolderOnNonCreateChainInput());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<CreateCAHolderOnNonCreateChainInput> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[18]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CreateCAHolderOnNonCreateChainInput() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CreateCAHolderOnNonCreateChainInput(CreateCAHolderOnNonCreateChainInput other) : this() {
+      guardianApproved_ = other.guardianApproved_ != null ? other.guardianApproved_.Clone() : null;
+      managerInfo_ = other.managerInfo_ != null ? other.managerInfo_.Clone() : null;
+      judgementStrategy_ = other.judgementStrategy_ != null ? other.judgementStrategy_.Clone() : null;
+      caHash_ = other.caHash_ != null ? other.caHash_.Clone() : null;
+      createChainId_ = other.createChainId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CreateCAHolderOnNonCreateChainInput Clone() {
+      return new CreateCAHolderOnNonCreateChainInput(this);
+    }
+
+    /// <summary>Field number for the "guardian_approved" field.</summary>
+    public const int GuardianApprovedFieldNumber = 1;
+    private global::Portkey.Contracts.CA.GuardianInfo guardianApproved_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Portkey.Contracts.CA.GuardianInfo GuardianApproved {
+      get { return guardianApproved_; }
+      set {
+        guardianApproved_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "manager_info" field.</summary>
+    public const int ManagerInfoFieldNumber = 2;
+    private global::Portkey.Contracts.CA.ManagerInfo managerInfo_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Portkey.Contracts.CA.ManagerInfo ManagerInfo {
+      get { return managerInfo_; }
+      set {
+        managerInfo_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "judgement_strategy" field.</summary>
+    public const int JudgementStrategyFieldNumber = 3;
+    private global::Portkey.Contracts.CA.StrategyNode judgementStrategy_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Portkey.Contracts.CA.StrategyNode JudgementStrategy {
+      get { return judgementStrategy_; }
+      set {
+        judgementStrategy_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ca_hash" field.</summary>
+    public const int CaHashFieldNumber = 4;
+    private global::AElf.Types.Hash caHash_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::AElf.Types.Hash CaHash {
+      get { return caHash_; }
+      set {
+        caHash_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "create_chain_id" field.</summary>
+    public const int CreateChainIdFieldNumber = 5;
+    private int createChainId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CreateChainId {
+      get { return createChainId_; }
+      set {
+        createChainId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as CreateCAHolderOnNonCreateChainInput);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(CreateCAHolderOnNonCreateChainInput other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(GuardianApproved, other.GuardianApproved)) return false;
+      if (!object.Equals(ManagerInfo, other.ManagerInfo)) return false;
+      if (!object.Equals(JudgementStrategy, other.JudgementStrategy)) return false;
+      if (!object.Equals(CaHash, other.CaHash)) return false;
+      if (CreateChainId != other.CreateChainId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (guardianApproved_ != null) hash ^= GuardianApproved.GetHashCode();
+      if (managerInfo_ != null) hash ^= ManagerInfo.GetHashCode();
+      if (judgementStrategy_ != null) hash ^= JudgementStrategy.GetHashCode();
+      if (caHash_ != null) hash ^= CaHash.GetHashCode();
+      if (CreateChainId != 0) hash ^= CreateChainId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (guardianApproved_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(GuardianApproved);
+      }
+      if (managerInfo_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(ManagerInfo);
+      }
+      if (judgementStrategy_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(JudgementStrategy);
+      }
+      if (caHash_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(CaHash);
+      }
+      if (CreateChainId != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(CreateChainId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (guardianApproved_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(GuardianApproved);
+      }
+      if (managerInfo_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(ManagerInfo);
+      }
+      if (judgementStrategy_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(JudgementStrategy);
+      }
+      if (caHash_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(CaHash);
+      }
+      if (CreateChainId != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(CreateChainId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (guardianApproved_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GuardianApproved);
+      }
+      if (managerInfo_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(ManagerInfo);
+      }
+      if (judgementStrategy_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(JudgementStrategy);
+      }
+      if (caHash_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(CaHash);
+      }
+      if (CreateChainId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CreateChainId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(CreateCAHolderOnNonCreateChainInput other) {
+      if (other == null) {
+        return;
+      }
+      if (other.guardianApproved_ != null) {
+        if (guardianApproved_ == null) {
+          GuardianApproved = new global::Portkey.Contracts.CA.GuardianInfo();
+        }
+        GuardianApproved.MergeFrom(other.GuardianApproved);
+      }
+      if (other.managerInfo_ != null) {
+        if (managerInfo_ == null) {
+          ManagerInfo = new global::Portkey.Contracts.CA.ManagerInfo();
+        }
+        ManagerInfo.MergeFrom(other.ManagerInfo);
+      }
+      if (other.judgementStrategy_ != null) {
+        if (judgementStrategy_ == null) {
+          JudgementStrategy = new global::Portkey.Contracts.CA.StrategyNode();
+        }
+        JudgementStrategy.MergeFrom(other.JudgementStrategy);
+      }
+      if (other.caHash_ != null) {
+        if (caHash_ == null) {
+          CaHash = new global::AElf.Types.Hash();
+        }
+        CaHash.MergeFrom(other.CaHash);
+      }
+      if (other.CreateChainId != 0) {
+        CreateChainId = other.CreateChainId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (guardianApproved_ == null) {
+              GuardianApproved = new global::Portkey.Contracts.CA.GuardianInfo();
+            }
+            input.ReadMessage(GuardianApproved);
+            break;
+          }
+          case 18: {
+            if (managerInfo_ == null) {
+              ManagerInfo = new global::Portkey.Contracts.CA.ManagerInfo();
+            }
+            input.ReadMessage(ManagerInfo);
+            break;
+          }
+          case 26: {
+            if (judgementStrategy_ == null) {
+              JudgementStrategy = new global::Portkey.Contracts.CA.StrategyNode();
+            }
+            input.ReadMessage(JudgementStrategy);
+            break;
+          }
+          case 34: {
+            if (caHash_ == null) {
+              CaHash = new global::AElf.Types.Hash();
+            }
+            input.ReadMessage(CaHash);
+            break;
+          }
+          case 40: {
+            CreateChainId = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            if (guardianApproved_ == null) {
+              GuardianApproved = new global::Portkey.Contracts.CA.GuardianInfo();
+            }
+            input.ReadMessage(GuardianApproved);
+            break;
+          }
+          case 18: {
+            if (managerInfo_ == null) {
+              ManagerInfo = new global::Portkey.Contracts.CA.ManagerInfo();
+            }
+            input.ReadMessage(ManagerInfo);
+            break;
+          }
+          case 26: {
+            if (judgementStrategy_ == null) {
+              JudgementStrategy = new global::Portkey.Contracts.CA.StrategyNode();
+            }
+            input.ReadMessage(JudgementStrategy);
+            break;
+          }
+          case 34: {
+            if (caHash_ == null) {
+              CaHash = new global::AElf.Types.Hash();
+            }
+            input.ReadMessage(CaHash);
+            break;
+          }
+          case 40: {
+            CreateChainId = input.ReadInt32();
             break;
           }
         }
@@ -6067,402 +6630,6 @@ namespace Portkey.Contracts.CA {
 
   }
 
-  public sealed partial class SetContractDelegationFeeInput : pb::IMessage<SetContractDelegationFeeInput>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<SetContractDelegationFeeInput> _parser = new pb::MessageParser<SetContractDelegationFeeInput>(() => new SetContractDelegationFeeInput());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<SetContractDelegationFeeInput> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[25]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public SetContractDelegationFeeInput() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public SetContractDelegationFeeInput(SetContractDelegationFeeInput other) : this() {
-      delegationFee_ = other.delegationFee_ != null ? other.delegationFee_.Clone() : null;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public SetContractDelegationFeeInput Clone() {
-      return new SetContractDelegationFeeInput(this);
-    }
-
-    /// <summary>Field number for the "delegation_fee" field.</summary>
-    public const int DelegationFeeFieldNumber = 1;
-    private global::Portkey.Contracts.CA.ContractDelegationFee delegationFee_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Portkey.Contracts.CA.ContractDelegationFee DelegationFee {
-      get { return delegationFee_; }
-      set {
-        delegationFee_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as SetContractDelegationFeeInput);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(SetContractDelegationFeeInput other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (!object.Equals(DelegationFee, other.DelegationFee)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (delegationFee_ != null) hash ^= DelegationFee.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (delegationFee_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(DelegationFee);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (delegationFee_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(DelegationFee);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (delegationFee_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(DelegationFee);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(SetContractDelegationFeeInput other) {
-      if (other == null) {
-        return;
-      }
-      if (other.delegationFee_ != null) {
-        if (delegationFee_ == null) {
-          DelegationFee = new global::Portkey.Contracts.CA.ContractDelegationFee();
-        }
-        DelegationFee.MergeFrom(other.DelegationFee);
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            if (delegationFee_ == null) {
-              DelegationFee = new global::Portkey.Contracts.CA.ContractDelegationFee();
-            }
-            input.ReadMessage(DelegationFee);
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            if (delegationFee_ == null) {
-              DelegationFee = new global::Portkey.Contracts.CA.ContractDelegationFee();
-            }
-            input.ReadMessage(DelegationFee);
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  public sealed partial class GetContractDelegationFeeOutput : pb::IMessage<GetContractDelegationFeeOutput>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<GetContractDelegationFeeOutput> _parser = new pb::MessageParser<GetContractDelegationFeeOutput>(() => new GetContractDelegationFeeOutput());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GetContractDelegationFeeOutput> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[26]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetContractDelegationFeeOutput() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetContractDelegationFeeOutput(GetContractDelegationFeeOutput other) : this() {
-      delegationFee_ = other.delegationFee_ != null ? other.delegationFee_.Clone() : null;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetContractDelegationFeeOutput Clone() {
-      return new GetContractDelegationFeeOutput(this);
-    }
-
-    /// <summary>Field number for the "delegation_fee" field.</summary>
-    public const int DelegationFeeFieldNumber = 1;
-    private global::Portkey.Contracts.CA.ContractDelegationFee delegationFee_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Portkey.Contracts.CA.ContractDelegationFee DelegationFee {
-      get { return delegationFee_; }
-      set {
-        delegationFee_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as GetContractDelegationFeeOutput);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GetContractDelegationFeeOutput other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (!object.Equals(DelegationFee, other.DelegationFee)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (delegationFee_ != null) hash ^= DelegationFee.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (delegationFee_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(DelegationFee);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (delegationFee_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(DelegationFee);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (delegationFee_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(DelegationFee);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GetContractDelegationFeeOutput other) {
-      if (other == null) {
-        return;
-      }
-      if (other.delegationFee_ != null) {
-        if (delegationFee_ == null) {
-          DelegationFee = new global::Portkey.Contracts.CA.ContractDelegationFee();
-        }
-        DelegationFee.MergeFrom(other.DelegationFee);
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            if (delegationFee_ == null) {
-              DelegationFee = new global::Portkey.Contracts.CA.ContractDelegationFee();
-            }
-            input.ReadMessage(DelegationFee);
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            if (delegationFee_ == null) {
-              DelegationFee = new global::Portkey.Contracts.CA.ContractDelegationFee();
-            }
-            input.ReadMessage(DelegationFee);
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
   public sealed partial class AddGuardianInput : pb::IMessage<AddGuardianInput>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -6477,7 +6644,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[27]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[25]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -6747,7 +6914,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[28]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[26]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -7017,7 +7184,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[29]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[27]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -7333,7 +7500,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[30]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[28]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -7355,6 +7522,8 @@ namespace Portkey.Contracts.CA {
     public SetGuardianForLoginInput(SetGuardianForLoginInput other) : this() {
       caHash_ = other.caHash_ != null ? other.caHash_.Clone() : null;
       guardian_ = other.guardian_ != null ? other.guardian_.Clone() : null;
+      guardianToSetLogin_ = other.guardianToSetLogin_ != null ? other.guardianToSetLogin_.Clone() : null;
+      guardiansApproved_ = other.guardiansApproved_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -7388,6 +7557,29 @@ namespace Portkey.Contracts.CA {
       }
     }
 
+    /// <summary>Field number for the "guardian_to_set_login" field.</summary>
+    public const int GuardianToSetLoginFieldNumber = 3;
+    private global::Portkey.Contracts.CA.GuardianInfo guardianToSetLogin_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Portkey.Contracts.CA.GuardianInfo GuardianToSetLogin {
+      get { return guardianToSetLogin_; }
+      set {
+        guardianToSetLogin_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "guardians_approved" field.</summary>
+    public const int GuardiansApprovedFieldNumber = 4;
+    private static readonly pb::FieldCodec<global::Portkey.Contracts.CA.GuardianInfo> _repeated_guardiansApproved_codec
+        = pb::FieldCodec.ForMessage(34, global::Portkey.Contracts.CA.GuardianInfo.Parser);
+    private readonly pbc::RepeatedField<global::Portkey.Contracts.CA.GuardianInfo> guardiansApproved_ = new pbc::RepeatedField<global::Portkey.Contracts.CA.GuardianInfo>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::Portkey.Contracts.CA.GuardianInfo> GuardiansApproved {
+      get { return guardiansApproved_; }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -7405,6 +7597,8 @@ namespace Portkey.Contracts.CA {
       }
       if (!object.Equals(CaHash, other.CaHash)) return false;
       if (!object.Equals(Guardian, other.Guardian)) return false;
+      if (!object.Equals(GuardianToSetLogin, other.GuardianToSetLogin)) return false;
+      if(!guardiansApproved_.Equals(other.guardiansApproved_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -7414,6 +7608,8 @@ namespace Portkey.Contracts.CA {
       int hash = 1;
       if (caHash_ != null) hash ^= CaHash.GetHashCode();
       if (guardian_ != null) hash ^= Guardian.GetHashCode();
+      if (guardianToSetLogin_ != null) hash ^= GuardianToSetLogin.GetHashCode();
+      hash ^= guardiansApproved_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -7440,6 +7636,11 @@ namespace Portkey.Contracts.CA {
         output.WriteRawTag(18);
         output.WriteMessage(Guardian);
       }
+      if (guardianToSetLogin_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(GuardianToSetLogin);
+      }
+      guardiansApproved_.WriteTo(output, _repeated_guardiansApproved_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -7458,6 +7659,11 @@ namespace Portkey.Contracts.CA {
         output.WriteRawTag(18);
         output.WriteMessage(Guardian);
       }
+      if (guardianToSetLogin_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(GuardianToSetLogin);
+      }
+      guardiansApproved_.WriteTo(ref output, _repeated_guardiansApproved_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -7474,6 +7680,10 @@ namespace Portkey.Contracts.CA {
       if (guardian_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Guardian);
       }
+      if (guardianToSetLogin_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GuardianToSetLogin);
+      }
+      size += guardiansApproved_.CalculateSize(_repeated_guardiansApproved_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -7498,6 +7708,13 @@ namespace Portkey.Contracts.CA {
         }
         Guardian.MergeFrom(other.Guardian);
       }
+      if (other.guardianToSetLogin_ != null) {
+        if (guardianToSetLogin_ == null) {
+          GuardianToSetLogin = new global::Portkey.Contracts.CA.GuardianInfo();
+        }
+        GuardianToSetLogin.MergeFrom(other.GuardianToSetLogin);
+      }
+      guardiansApproved_.Add(other.guardiansApproved_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -7525,6 +7742,17 @@ namespace Portkey.Contracts.CA {
               Guardian = new global::Portkey.Contracts.CA.Guardian();
             }
             input.ReadMessage(Guardian);
+            break;
+          }
+          case 26: {
+            if (guardianToSetLogin_ == null) {
+              GuardianToSetLogin = new global::Portkey.Contracts.CA.GuardianInfo();
+            }
+            input.ReadMessage(GuardianToSetLogin);
+            break;
+          }
+          case 34: {
+            guardiansApproved_.AddEntriesFrom(input, _repeated_guardiansApproved_codec);
             break;
           }
         }
@@ -7556,6 +7784,17 @@ namespace Portkey.Contracts.CA {
             input.ReadMessage(Guardian);
             break;
           }
+          case 26: {
+            if (guardianToSetLogin_ == null) {
+              GuardianToSetLogin = new global::Portkey.Contracts.CA.GuardianInfo();
+            }
+            input.ReadMessage(GuardianToSetLogin);
+            break;
+          }
+          case 34: {
+            guardiansApproved_.AddEntriesFrom(ref input, _repeated_guardiansApproved_codec);
+            break;
+          }
         }
       }
     }
@@ -7577,7 +7816,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[31]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[29]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -7599,6 +7838,8 @@ namespace Portkey.Contracts.CA {
     public UnsetGuardianForLoginInput(UnsetGuardianForLoginInput other) : this() {
       caHash_ = other.caHash_ != null ? other.caHash_.Clone() : null;
       guardian_ = other.guardian_ != null ? other.guardian_.Clone() : null;
+      guardianToUnsetLogin_ = other.guardianToUnsetLogin_ != null ? other.guardianToUnsetLogin_.Clone() : null;
+      guardiansApproved_ = other.guardiansApproved_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -7632,6 +7873,29 @@ namespace Portkey.Contracts.CA {
       }
     }
 
+    /// <summary>Field number for the "guardian_to_unset_login" field.</summary>
+    public const int GuardianToUnsetLoginFieldNumber = 3;
+    private global::Portkey.Contracts.CA.GuardianInfo guardianToUnsetLogin_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Portkey.Contracts.CA.GuardianInfo GuardianToUnsetLogin {
+      get { return guardianToUnsetLogin_; }
+      set {
+        guardianToUnsetLogin_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "guardians_approved" field.</summary>
+    public const int GuardiansApprovedFieldNumber = 4;
+    private static readonly pb::FieldCodec<global::Portkey.Contracts.CA.GuardianInfo> _repeated_guardiansApproved_codec
+        = pb::FieldCodec.ForMessage(34, global::Portkey.Contracts.CA.GuardianInfo.Parser);
+    private readonly pbc::RepeatedField<global::Portkey.Contracts.CA.GuardianInfo> guardiansApproved_ = new pbc::RepeatedField<global::Portkey.Contracts.CA.GuardianInfo>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::Portkey.Contracts.CA.GuardianInfo> GuardiansApproved {
+      get { return guardiansApproved_; }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -7649,6 +7913,8 @@ namespace Portkey.Contracts.CA {
       }
       if (!object.Equals(CaHash, other.CaHash)) return false;
       if (!object.Equals(Guardian, other.Guardian)) return false;
+      if (!object.Equals(GuardianToUnsetLogin, other.GuardianToUnsetLogin)) return false;
+      if(!guardiansApproved_.Equals(other.guardiansApproved_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -7658,6 +7924,8 @@ namespace Portkey.Contracts.CA {
       int hash = 1;
       if (caHash_ != null) hash ^= CaHash.GetHashCode();
       if (guardian_ != null) hash ^= Guardian.GetHashCode();
+      if (guardianToUnsetLogin_ != null) hash ^= GuardianToUnsetLogin.GetHashCode();
+      hash ^= guardiansApproved_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -7684,6 +7952,11 @@ namespace Portkey.Contracts.CA {
         output.WriteRawTag(18);
         output.WriteMessage(Guardian);
       }
+      if (guardianToUnsetLogin_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(GuardianToUnsetLogin);
+      }
+      guardiansApproved_.WriteTo(output, _repeated_guardiansApproved_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -7702,6 +7975,11 @@ namespace Portkey.Contracts.CA {
         output.WriteRawTag(18);
         output.WriteMessage(Guardian);
       }
+      if (guardianToUnsetLogin_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(GuardianToUnsetLogin);
+      }
+      guardiansApproved_.WriteTo(ref output, _repeated_guardiansApproved_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -7718,6 +7996,10 @@ namespace Portkey.Contracts.CA {
       if (guardian_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Guardian);
       }
+      if (guardianToUnsetLogin_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(GuardianToUnsetLogin);
+      }
+      size += guardiansApproved_.CalculateSize(_repeated_guardiansApproved_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -7742,6 +8024,13 @@ namespace Portkey.Contracts.CA {
         }
         Guardian.MergeFrom(other.Guardian);
       }
+      if (other.guardianToUnsetLogin_ != null) {
+        if (guardianToUnsetLogin_ == null) {
+          GuardianToUnsetLogin = new global::Portkey.Contracts.CA.GuardianInfo();
+        }
+        GuardianToUnsetLogin.MergeFrom(other.GuardianToUnsetLogin);
+      }
+      guardiansApproved_.Add(other.guardiansApproved_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -7769,6 +8058,17 @@ namespace Portkey.Contracts.CA {
               Guardian = new global::Portkey.Contracts.CA.Guardian();
             }
             input.ReadMessage(Guardian);
+            break;
+          }
+          case 26: {
+            if (guardianToUnsetLogin_ == null) {
+              GuardianToUnsetLogin = new global::Portkey.Contracts.CA.GuardianInfo();
+            }
+            input.ReadMessage(GuardianToUnsetLogin);
+            break;
+          }
+          case 34: {
+            guardiansApproved_.AddEntriesFrom(input, _repeated_guardiansApproved_codec);
             break;
           }
         }
@@ -7800,6 +8100,17 @@ namespace Portkey.Contracts.CA {
             input.ReadMessage(Guardian);
             break;
           }
+          case 26: {
+            if (guardianToUnsetLogin_ == null) {
+              GuardianToUnsetLogin = new global::Portkey.Contracts.CA.GuardianInfo();
+            }
+            input.ReadMessage(GuardianToUnsetLogin);
+            break;
+          }
+          case 34: {
+            guardiansApproved_.AddEntriesFrom(ref input, _repeated_guardiansApproved_codec);
+            break;
+          }
         }
       }
     }
@@ -7821,7 +8132,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[32]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[30]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -7845,6 +8156,7 @@ namespace Portkey.Contracts.CA {
       contractAddress_ = other.contractAddress_ != null ? other.contractAddress_.Clone() : null;
       methodName_ = other.methodName_;
       args_ = other.args_;
+      guardiansApproved_ = other.guardiansApproved_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -7902,6 +8214,17 @@ namespace Portkey.Contracts.CA {
       }
     }
 
+    /// <summary>Field number for the "guardians_approved" field.</summary>
+    public const int GuardiansApprovedFieldNumber = 5;
+    private static readonly pb::FieldCodec<global::Portkey.Contracts.CA.GuardianInfo> _repeated_guardiansApproved_codec
+        = pb::FieldCodec.ForMessage(42, global::Portkey.Contracts.CA.GuardianInfo.Parser);
+    private readonly pbc::RepeatedField<global::Portkey.Contracts.CA.GuardianInfo> guardiansApproved_ = new pbc::RepeatedField<global::Portkey.Contracts.CA.GuardianInfo>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::Portkey.Contracts.CA.GuardianInfo> GuardiansApproved {
+      get { return guardiansApproved_; }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -7921,6 +8244,7 @@ namespace Portkey.Contracts.CA {
       if (!object.Equals(ContractAddress, other.ContractAddress)) return false;
       if (MethodName != other.MethodName) return false;
       if (Args != other.Args) return false;
+      if(!guardiansApproved_.Equals(other.guardiansApproved_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -7932,6 +8256,7 @@ namespace Portkey.Contracts.CA {
       if (contractAddress_ != null) hash ^= ContractAddress.GetHashCode();
       if (MethodName.Length != 0) hash ^= MethodName.GetHashCode();
       if (Args.Length != 0) hash ^= Args.GetHashCode();
+      hash ^= guardiansApproved_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -7966,6 +8291,7 @@ namespace Portkey.Contracts.CA {
         output.WriteRawTag(34);
         output.WriteBytes(Args);
       }
+      guardiansApproved_.WriteTo(output, _repeated_guardiansApproved_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -7992,6 +8318,7 @@ namespace Portkey.Contracts.CA {
         output.WriteRawTag(34);
         output.WriteBytes(Args);
       }
+      guardiansApproved_.WriteTo(ref output, _repeated_guardiansApproved_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -8014,6 +8341,7 @@ namespace Portkey.Contracts.CA {
       if (Args.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeBytesSize(Args);
       }
+      size += guardiansApproved_.CalculateSize(_repeated_guardiansApproved_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -8044,6 +8372,7 @@ namespace Portkey.Contracts.CA {
       if (other.Args.Length != 0) {
         Args = other.Args;
       }
+      guardiansApproved_.Add(other.guardiansApproved_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -8079,6 +8408,10 @@ namespace Portkey.Contracts.CA {
           }
           case 34: {
             Args = input.ReadBytes();
+            break;
+          }
+          case 42: {
+            guardiansApproved_.AddEntriesFrom(input, _repeated_guardiansApproved_codec);
             break;
           }
         }
@@ -8118,6 +8451,10 @@ namespace Portkey.Contracts.CA {
             Args = input.ReadBytes();
             break;
           }
+          case 42: {
+            guardiansApproved_.AddEntriesFrom(ref input, _repeated_guardiansApproved_codec);
+            break;
+          }
         }
       }
     }
@@ -8139,7 +8476,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[33]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[31]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -8164,6 +8501,7 @@ namespace Portkey.Contracts.CA {
       symbol_ = other.symbol_;
       amount_ = other.amount_;
       memo_ = other.memo_;
+      guardiansApproved_ = other.guardiansApproved_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -8245,6 +8583,17 @@ namespace Portkey.Contracts.CA {
       }
     }
 
+    /// <summary>Field number for the "guardians_approved" field.</summary>
+    public const int GuardiansApprovedFieldNumber = 6;
+    private static readonly pb::FieldCodec<global::Portkey.Contracts.CA.GuardianInfo> _repeated_guardiansApproved_codec
+        = pb::FieldCodec.ForMessage(50, global::Portkey.Contracts.CA.GuardianInfo.Parser);
+    private readonly pbc::RepeatedField<global::Portkey.Contracts.CA.GuardianInfo> guardiansApproved_ = new pbc::RepeatedField<global::Portkey.Contracts.CA.GuardianInfo>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::Portkey.Contracts.CA.GuardianInfo> GuardiansApproved {
+      get { return guardiansApproved_; }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -8265,6 +8614,7 @@ namespace Portkey.Contracts.CA {
       if (Symbol != other.Symbol) return false;
       if (Amount != other.Amount) return false;
       if (Memo != other.Memo) return false;
+      if(!guardiansApproved_.Equals(other.guardiansApproved_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -8277,6 +8627,7 @@ namespace Portkey.Contracts.CA {
       if (Symbol.Length != 0) hash ^= Symbol.GetHashCode();
       if (Amount != 0L) hash ^= Amount.GetHashCode();
       if (Memo.Length != 0) hash ^= Memo.GetHashCode();
+      hash ^= guardiansApproved_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -8315,6 +8666,7 @@ namespace Portkey.Contracts.CA {
         output.WriteRawTag(42);
         output.WriteString(Memo);
       }
+      guardiansApproved_.WriteTo(output, _repeated_guardiansApproved_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -8345,6 +8697,7 @@ namespace Portkey.Contracts.CA {
         output.WriteRawTag(42);
         output.WriteString(Memo);
       }
+      guardiansApproved_.WriteTo(ref output, _repeated_guardiansApproved_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -8370,6 +8723,7 @@ namespace Portkey.Contracts.CA {
       if (Memo.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Memo);
       }
+      size += guardiansApproved_.CalculateSize(_repeated_guardiansApproved_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -8403,6 +8757,7 @@ namespace Portkey.Contracts.CA {
       if (other.Memo.Length != 0) {
         Memo = other.Memo;
       }
+      guardiansApproved_.Add(other.guardiansApproved_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -8442,6 +8797,10 @@ namespace Portkey.Contracts.CA {
           }
           case 42: {
             Memo = input.ReadString();
+            break;
+          }
+          case 50: {
+            guardiansApproved_.AddEntriesFrom(input, _repeated_guardiansApproved_codec);
             break;
           }
         }
@@ -8485,6 +8844,10 @@ namespace Portkey.Contracts.CA {
             Memo = input.ReadString();
             break;
           }
+          case 50: {
+            guardiansApproved_.AddEntriesFrom(ref input, _repeated_guardiansApproved_codec);
+            break;
+          }
         }
       }
     }
@@ -8506,7 +8869,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[34]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[32]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -8922,7 +9285,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[35]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[33]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -9166,7 +9529,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[36]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[34]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -9519,7 +9882,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[37]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[35]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -9542,6 +9905,8 @@ namespace Portkey.Contracts.CA {
       loginGuardianIdentifierHash_ = other.loginGuardianIdentifierHash_ != null ? other.loginGuardianIdentifierHash_.Clone() : null;
       guardiansApproved_ = other.guardiansApproved_.Clone();
       managerInfo_ = other.managerInfo_ != null ? other.managerInfo_.Clone() : null;
+      referralCode_ = other.referralCode_;
+      projectCode_ = other.projectCode_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -9586,6 +9951,30 @@ namespace Portkey.Contracts.CA {
       }
     }
 
+    /// <summary>Field number for the "referral_code" field.</summary>
+    public const int ReferralCodeFieldNumber = 4;
+    private string referralCode_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string ReferralCode {
+      get { return referralCode_; }
+      set {
+        referralCode_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "project_code" field.</summary>
+    public const int ProjectCodeFieldNumber = 5;
+    private string projectCode_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string ProjectCode {
+      get { return projectCode_; }
+      set {
+        projectCode_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -9604,6 +9993,8 @@ namespace Portkey.Contracts.CA {
       if (!object.Equals(LoginGuardianIdentifierHash, other.LoginGuardianIdentifierHash)) return false;
       if(!guardiansApproved_.Equals(other.guardiansApproved_)) return false;
       if (!object.Equals(ManagerInfo, other.ManagerInfo)) return false;
+      if (ReferralCode != other.ReferralCode) return false;
+      if (ProjectCode != other.ProjectCode) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -9614,6 +10005,8 @@ namespace Portkey.Contracts.CA {
       if (loginGuardianIdentifierHash_ != null) hash ^= LoginGuardianIdentifierHash.GetHashCode();
       hash ^= guardiansApproved_.GetHashCode();
       if (managerInfo_ != null) hash ^= ManagerInfo.GetHashCode();
+      if (ReferralCode.Length != 0) hash ^= ReferralCode.GetHashCode();
+      if (ProjectCode.Length != 0) hash ^= ProjectCode.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -9641,6 +10034,14 @@ namespace Portkey.Contracts.CA {
         output.WriteRawTag(26);
         output.WriteMessage(ManagerInfo);
       }
+      if (ReferralCode.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(ReferralCode);
+      }
+      if (ProjectCode.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(ProjectCode);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -9660,6 +10061,14 @@ namespace Portkey.Contracts.CA {
         output.WriteRawTag(26);
         output.WriteMessage(ManagerInfo);
       }
+      if (ReferralCode.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(ReferralCode);
+      }
+      if (ProjectCode.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(ProjectCode);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -9676,6 +10085,12 @@ namespace Portkey.Contracts.CA {
       size += guardiansApproved_.CalculateSize(_repeated_guardiansApproved_codec);
       if (managerInfo_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(ManagerInfo);
+      }
+      if (ReferralCode.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ReferralCode);
+      }
+      if (ProjectCode.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ProjectCode);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -9701,6 +10116,12 @@ namespace Portkey.Contracts.CA {
           ManagerInfo = new global::Portkey.Contracts.CA.ManagerInfo();
         }
         ManagerInfo.MergeFrom(other.ManagerInfo);
+      }
+      if (other.ReferralCode.Length != 0) {
+        ReferralCode = other.ReferralCode;
+      }
+      if (other.ProjectCode.Length != 0) {
+        ProjectCode = other.ProjectCode;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -9733,6 +10154,14 @@ namespace Portkey.Contracts.CA {
               ManagerInfo = new global::Portkey.Contracts.CA.ManagerInfo();
             }
             input.ReadMessage(ManagerInfo);
+            break;
+          }
+          case 34: {
+            ReferralCode = input.ReadString();
+            break;
+          }
+          case 42: {
+            ProjectCode = input.ReadString();
             break;
           }
         }
@@ -9768,6 +10197,14 @@ namespace Portkey.Contracts.CA {
             input.ReadMessage(ManagerInfo);
             break;
           }
+          case 34: {
+            ReferralCode = input.ReadString();
+            break;
+          }
+          case 42: {
+            ProjectCode = input.ReadString();
+            break;
+          }
         }
       }
     }
@@ -9789,7 +10226,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[38]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[36]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -10033,7 +10470,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[39]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[37]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -10231,7 +10668,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[40]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[38]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -10501,7 +10938,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[41]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[39]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -10725,7 +11162,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[42]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[40]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -11055,7 +11492,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[43]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[41]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -11256,7 +11693,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[44]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[42]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -11486,7 +11923,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[45]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[43]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -11712,7 +12149,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[46]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[44]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -11901,7 +12338,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[47]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[45]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -12065,204 +12502,6 @@ namespace Portkey.Contracts.CA {
 
   }
 
-  public sealed partial class GetRemovedToCurrentVerifierIdMapperOutput : pb::IMessage<GetRemovedToCurrentVerifierIdMapperOutput>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<GetRemovedToCurrentVerifierIdMapperOutput> _parser = new pb::MessageParser<GetRemovedToCurrentVerifierIdMapperOutput>(() => new GetRemovedToCurrentVerifierIdMapperOutput());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GetRemovedToCurrentVerifierIdMapperOutput> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[48]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetRemovedToCurrentVerifierIdMapperOutput() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetRemovedToCurrentVerifierIdMapperOutput(GetRemovedToCurrentVerifierIdMapperOutput other) : this() {
-      mapper_ = other.mapper_ != null ? other.mapper_.Clone() : null;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetRemovedToCurrentVerifierIdMapperOutput Clone() {
-      return new GetRemovedToCurrentVerifierIdMapperOutput(this);
-    }
-
-    /// <summary>Field number for the "mapper" field.</summary>
-    public const int MapperFieldNumber = 1;
-    private global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfo mapper_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfo Mapper {
-      get { return mapper_; }
-      set {
-        mapper_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as GetRemovedToCurrentVerifierIdMapperOutput);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GetRemovedToCurrentVerifierIdMapperOutput other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (!object.Equals(Mapper, other.Mapper)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (mapper_ != null) hash ^= Mapper.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (mapper_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(Mapper);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (mapper_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(Mapper);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (mapper_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Mapper);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GetRemovedToCurrentVerifierIdMapperOutput other) {
-      if (other == null) {
-        return;
-      }
-      if (other.mapper_ != null) {
-        if (mapper_ == null) {
-          Mapper = new global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfo();
-        }
-        Mapper.MergeFrom(other.Mapper);
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            if (mapper_ == null) {
-              Mapper = new global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfo();
-            }
-            input.ReadMessage(Mapper);
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            if (mapper_ == null) {
-              Mapper = new global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfo();
-            }
-            input.ReadMessage(Mapper);
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
   public sealed partial class GetCAServersOutput : pb::IMessage<GetCAServersOutput>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -12277,7 +12516,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[49]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[46]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -12455,7 +12694,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[50]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[47]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -12814,7 +13053,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[51]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[48]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -13123,7 +13362,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[52]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[49]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -13307,6 +13546,184 @@ namespace Portkey.Contracts.CA {
 
   }
 
+  public sealed partial class SyncHolderInfosInput : pb::IMessage<SyncHolderInfosInput>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<SyncHolderInfosInput> _parser = new pb::MessageParser<SyncHolderInfosInput>(() => new SyncHolderInfosInput());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<SyncHolderInfosInput> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[50]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public SyncHolderInfosInput() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public SyncHolderInfosInput(SyncHolderInfosInput other) : this() {
+      verificationTransactionInfos_ = other.verificationTransactionInfos_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public SyncHolderInfosInput Clone() {
+      return new SyncHolderInfosInput(this);
+    }
+
+    /// <summary>Field number for the "verification_transaction_infos" field.</summary>
+    public const int VerificationTransactionInfosFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::Portkey.Contracts.CA.VerificationTransactionInfo> _repeated_verificationTransactionInfos_codec
+        = pb::FieldCodec.ForMessage(10, global::Portkey.Contracts.CA.VerificationTransactionInfo.Parser);
+    private readonly pbc::RepeatedField<global::Portkey.Contracts.CA.VerificationTransactionInfo> verificationTransactionInfos_ = new pbc::RepeatedField<global::Portkey.Contracts.CA.VerificationTransactionInfo>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::Portkey.Contracts.CA.VerificationTransactionInfo> VerificationTransactionInfos {
+      get { return verificationTransactionInfos_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as SyncHolderInfosInput);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(SyncHolderInfosInput other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!verificationTransactionInfos_.Equals(other.verificationTransactionInfos_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= verificationTransactionInfos_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      verificationTransactionInfos_.WriteTo(output, _repeated_verificationTransactionInfos_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      verificationTransactionInfos_.WriteTo(ref output, _repeated_verificationTransactionInfos_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      size += verificationTransactionInfos_.CalculateSize(_repeated_verificationTransactionInfos_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(SyncHolderInfosInput other) {
+      if (other == null) {
+        return;
+      }
+      verificationTransactionInfos_.Add(other.verificationTransactionInfos_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            verificationTransactionInfos_.AddEntriesFrom(input, _repeated_verificationTransactionInfos_codec);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            verificationTransactionInfos_.AddEntriesFrom(ref input, _repeated_verificationTransactionInfos_codec);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
   public sealed partial class ValidateStrategyInput : pb::IMessage<ValidateStrategyInput>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -13321,7 +13738,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[53]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[51]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -13531,384 +13948,6 @@ namespace Portkey.Contracts.CA {
 
   }
 
-  public sealed partial class SetCheckChainIdInSignatureEnabledInput : pb::IMessage<SetCheckChainIdInSignatureEnabledInput>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<SetCheckChainIdInSignatureEnabledInput> _parser = new pb::MessageParser<SetCheckChainIdInSignatureEnabledInput>(() => new SetCheckChainIdInSignatureEnabledInput());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<SetCheckChainIdInSignatureEnabledInput> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[54]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public SetCheckChainIdInSignatureEnabledInput() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public SetCheckChainIdInSignatureEnabledInput(SetCheckChainIdInSignatureEnabledInput other) : this() {
-      checkChainIdInSignatureEnabled_ = other.checkChainIdInSignatureEnabled_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public SetCheckChainIdInSignatureEnabledInput Clone() {
-      return new SetCheckChainIdInSignatureEnabledInput(this);
-    }
-
-    /// <summary>Field number for the "check_chain_id_in_signature_enabled" field.</summary>
-    public const int CheckChainIdInSignatureEnabledFieldNumber = 1;
-    private bool checkChainIdInSignatureEnabled_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool CheckChainIdInSignatureEnabled {
-      get { return checkChainIdInSignatureEnabled_; }
-      set {
-        checkChainIdInSignatureEnabled_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as SetCheckChainIdInSignatureEnabledInput);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(SetCheckChainIdInSignatureEnabledInput other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (CheckChainIdInSignatureEnabled != other.CheckChainIdInSignatureEnabled) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (CheckChainIdInSignatureEnabled != false) hash ^= CheckChainIdInSignatureEnabled.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (CheckChainIdInSignatureEnabled != false) {
-        output.WriteRawTag(8);
-        output.WriteBool(CheckChainIdInSignatureEnabled);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (CheckChainIdInSignatureEnabled != false) {
-        output.WriteRawTag(8);
-        output.WriteBool(CheckChainIdInSignatureEnabled);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (CheckChainIdInSignatureEnabled != false) {
-        size += 1 + 1;
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(SetCheckChainIdInSignatureEnabledInput other) {
-      if (other == null) {
-        return;
-      }
-      if (other.CheckChainIdInSignatureEnabled != false) {
-        CheckChainIdInSignatureEnabled = other.CheckChainIdInSignatureEnabled;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 8: {
-            CheckChainIdInSignatureEnabled = input.ReadBool();
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 8: {
-            CheckChainIdInSignatureEnabled = input.ReadBool();
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  public sealed partial class GetCheckChainIdInSignatureEnabledOutput : pb::IMessage<GetCheckChainIdInSignatureEnabledOutput>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<GetCheckChainIdInSignatureEnabledOutput> _parser = new pb::MessageParser<GetCheckChainIdInSignatureEnabledOutput>(() => new GetCheckChainIdInSignatureEnabledOutput());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<GetCheckChainIdInSignatureEnabledOutput> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[55]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetCheckChainIdInSignatureEnabledOutput() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetCheckChainIdInSignatureEnabledOutput(GetCheckChainIdInSignatureEnabledOutput other) : this() {
-      checkChainIdInSignatureEnabled_ = other.checkChainIdInSignatureEnabled_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public GetCheckChainIdInSignatureEnabledOutput Clone() {
-      return new GetCheckChainIdInSignatureEnabledOutput(this);
-    }
-
-    /// <summary>Field number for the "check_chain_id_in_signature_enabled" field.</summary>
-    public const int CheckChainIdInSignatureEnabledFieldNumber = 1;
-    private bool checkChainIdInSignatureEnabled_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool CheckChainIdInSignatureEnabled {
-      get { return checkChainIdInSignatureEnabled_; }
-      set {
-        checkChainIdInSignatureEnabled_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as GetCheckChainIdInSignatureEnabledOutput);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(GetCheckChainIdInSignatureEnabledOutput other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (CheckChainIdInSignatureEnabled != other.CheckChainIdInSignatureEnabled) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (CheckChainIdInSignatureEnabled != false) hash ^= CheckChainIdInSignatureEnabled.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (CheckChainIdInSignatureEnabled != false) {
-        output.WriteRawTag(8);
-        output.WriteBool(CheckChainIdInSignatureEnabled);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (CheckChainIdInSignatureEnabled != false) {
-        output.WriteRawTag(8);
-        output.WriteBool(CheckChainIdInSignatureEnabled);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (CheckChainIdInSignatureEnabled != false) {
-        size += 1 + 1;
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GetCheckChainIdInSignatureEnabledOutput other) {
-      if (other == null) {
-        return;
-      }
-      if (other.CheckChainIdInSignatureEnabled != false) {
-        CheckChainIdInSignatureEnabled = other.CheckChainIdInSignatureEnabled;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 8: {
-            CheckChainIdInSignatureEnabled = input.ReadBool();
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 8: {
-            CheckChainIdInSignatureEnabled = input.ReadBool();
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
   public sealed partial class ValidateStrategyOutput : pb::IMessage<ValidateStrategyOutput>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -13923,7 +13962,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[56]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[52]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -14172,6 +14211,771 @@ namespace Portkey.Contracts.CA {
               StrategyOutput = new global::Portkey.Contracts.CA.StrategyNode();
             }
             input.ReadMessage(StrategyOutput);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class ProjectDelegationFee : pb::IMessage<ProjectDelegationFee>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<ProjectDelegationFee> _parser = new pb::MessageParser<ProjectDelegationFee>(() => new ProjectDelegationFee());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<ProjectDelegationFee> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[53]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ProjectDelegationFee() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ProjectDelegationFee(ProjectDelegationFee other) : this() {
+      amount_ = other.amount_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ProjectDelegationFee Clone() {
+      return new ProjectDelegationFee(this);
+    }
+
+    /// <summary>Field number for the "amount" field.</summary>
+    public const int AmountFieldNumber = 1;
+    private long amount_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public long Amount {
+      get { return amount_; }
+      set {
+        amount_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as ProjectDelegationFee);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(ProjectDelegationFee other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Amount != other.Amount) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Amount != 0L) hash ^= Amount.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Amount != 0L) {
+        output.WriteRawTag(8);
+        output.WriteInt64(Amount);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Amount != 0L) {
+        output.WriteRawTag(8);
+        output.WriteInt64(Amount);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Amount != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Amount);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(ProjectDelegationFee other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Amount != 0L) {
+        Amount = other.Amount;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Amount = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            Amount = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class SetProjectDelegationFeeInput : pb::IMessage<SetProjectDelegationFeeInput>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<SetProjectDelegationFeeInput> _parser = new pb::MessageParser<SetProjectDelegationFeeInput>(() => new SetProjectDelegationFeeInput());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<SetProjectDelegationFeeInput> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[54]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public SetProjectDelegationFeeInput() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public SetProjectDelegationFeeInput(SetProjectDelegationFeeInput other) : this() {
+      delegationFee_ = other.delegationFee_ != null ? other.delegationFee_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public SetProjectDelegationFeeInput Clone() {
+      return new SetProjectDelegationFeeInput(this);
+    }
+
+    /// <summary>Field number for the "delegation_fee" field.</summary>
+    public const int DelegationFeeFieldNumber = 1;
+    private global::Portkey.Contracts.CA.ProjectDelegationFee delegationFee_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Portkey.Contracts.CA.ProjectDelegationFee DelegationFee {
+      get { return delegationFee_; }
+      set {
+        delegationFee_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as SetProjectDelegationFeeInput);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(SetProjectDelegationFeeInput other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(DelegationFee, other.DelegationFee)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (delegationFee_ != null) hash ^= DelegationFee.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (delegationFee_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(DelegationFee);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (delegationFee_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(DelegationFee);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (delegationFee_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(DelegationFee);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(SetProjectDelegationFeeInput other) {
+      if (other == null) {
+        return;
+      }
+      if (other.delegationFee_ != null) {
+        if (delegationFee_ == null) {
+          DelegationFee = new global::Portkey.Contracts.CA.ProjectDelegationFee();
+        }
+        DelegationFee.MergeFrom(other.DelegationFee);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (delegationFee_ == null) {
+              DelegationFee = new global::Portkey.Contracts.CA.ProjectDelegationFee();
+            }
+            input.ReadMessage(DelegationFee);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            if (delegationFee_ == null) {
+              DelegationFee = new global::Portkey.Contracts.CA.ProjectDelegationFee();
+            }
+            input.ReadMessage(DelegationFee);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class SetCheckOperationDetailsInSignatureEnabledInput : pb::IMessage<SetCheckOperationDetailsInSignatureEnabledInput>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<SetCheckOperationDetailsInSignatureEnabledInput> _parser = new pb::MessageParser<SetCheckOperationDetailsInSignatureEnabledInput>(() => new SetCheckOperationDetailsInSignatureEnabledInput());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<SetCheckOperationDetailsInSignatureEnabledInput> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[55]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public SetCheckOperationDetailsInSignatureEnabledInput() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public SetCheckOperationDetailsInSignatureEnabledInput(SetCheckOperationDetailsInSignatureEnabledInput other) : this() {
+      checkOperationDetailsEnabled_ = other.checkOperationDetailsEnabled_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public SetCheckOperationDetailsInSignatureEnabledInput Clone() {
+      return new SetCheckOperationDetailsInSignatureEnabledInput(this);
+    }
+
+    /// <summary>Field number for the "check_operation_details_enabled" field.</summary>
+    public const int CheckOperationDetailsEnabledFieldNumber = 1;
+    private bool checkOperationDetailsEnabled_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool CheckOperationDetailsEnabled {
+      get { return checkOperationDetailsEnabled_; }
+      set {
+        checkOperationDetailsEnabled_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as SetCheckOperationDetailsInSignatureEnabledInput);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(SetCheckOperationDetailsInSignatureEnabledInput other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (CheckOperationDetailsEnabled != other.CheckOperationDetailsEnabled) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (CheckOperationDetailsEnabled != false) hash ^= CheckOperationDetailsEnabled.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (CheckOperationDetailsEnabled != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(CheckOperationDetailsEnabled);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (CheckOperationDetailsEnabled != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(CheckOperationDetailsEnabled);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (CheckOperationDetailsEnabled != false) {
+        size += 1 + 1;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(SetCheckOperationDetailsInSignatureEnabledInput other) {
+      if (other == null) {
+        return;
+      }
+      if (other.CheckOperationDetailsEnabled != false) {
+        CheckOperationDetailsEnabled = other.CheckOperationDetailsEnabled;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            CheckOperationDetailsEnabled = input.ReadBool();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            CheckOperationDetailsEnabled = input.ReadBool();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class GetCheckOperationDetailsInSignatureEnabledOutput : pb::IMessage<GetCheckOperationDetailsInSignatureEnabledOutput>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<GetCheckOperationDetailsInSignatureEnabledOutput> _parser = new pb::MessageParser<GetCheckOperationDetailsInSignatureEnabledOutput>(() => new GetCheckOperationDetailsInSignatureEnabledOutput());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<GetCheckOperationDetailsInSignatureEnabledOutput> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[56]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetCheckOperationDetailsInSignatureEnabledOutput() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetCheckOperationDetailsInSignatureEnabledOutput(GetCheckOperationDetailsInSignatureEnabledOutput other) : this() {
+      checkOperationDetailsEnabled_ = other.checkOperationDetailsEnabled_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GetCheckOperationDetailsInSignatureEnabledOutput Clone() {
+      return new GetCheckOperationDetailsInSignatureEnabledOutput(this);
+    }
+
+    /// <summary>Field number for the "check_operation_details_enabled" field.</summary>
+    public const int CheckOperationDetailsEnabledFieldNumber = 1;
+    private bool checkOperationDetailsEnabled_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool CheckOperationDetailsEnabled {
+      get { return checkOperationDetailsEnabled_; }
+      set {
+        checkOperationDetailsEnabled_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as GetCheckOperationDetailsInSignatureEnabledOutput);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(GetCheckOperationDetailsInSignatureEnabledOutput other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (CheckOperationDetailsEnabled != other.CheckOperationDetailsEnabled) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (CheckOperationDetailsEnabled != false) hash ^= CheckOperationDetailsEnabled.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (CheckOperationDetailsEnabled != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(CheckOperationDetailsEnabled);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (CheckOperationDetailsEnabled != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(CheckOperationDetailsEnabled);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (CheckOperationDetailsEnabled != false) {
+        size += 1 + 1;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(GetCheckOperationDetailsInSignatureEnabledOutput other) {
+      if (other == null) {
+        return;
+      }
+      if (other.CheckOperationDetailsEnabled != false) {
+        CheckOperationDetailsEnabled = other.CheckOperationDetailsEnabled;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            CheckOperationDetailsEnabled = input.ReadBool();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            CheckOperationDetailsEnabled = input.ReadBool();
             break;
           }
         }
@@ -14558,6 +15362,416 @@ namespace Portkey.Contracts.CA {
 
   }
 
+  public sealed partial class NonCreateChainCAHolderCreated : pb::IMessage<NonCreateChainCAHolderCreated>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<NonCreateChainCAHolderCreated> _parser = new pb::MessageParser<NonCreateChainCAHolderCreated>(() => new NonCreateChainCAHolderCreated());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<NonCreateChainCAHolderCreated> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[58]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public NonCreateChainCAHolderCreated() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public NonCreateChainCAHolderCreated(NonCreateChainCAHolderCreated other) : this() {
+      creator_ = other.creator_ != null ? other.creator_.Clone() : null;
+      caHash_ = other.caHash_ != null ? other.caHash_.Clone() : null;
+      caAddress_ = other.caAddress_ != null ? other.caAddress_.Clone() : null;
+      manager_ = other.manager_ != null ? other.manager_.Clone() : null;
+      extraData_ = other.extraData_;
+      createChainId_ = other.createChainId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public NonCreateChainCAHolderCreated Clone() {
+      return new NonCreateChainCAHolderCreated(this);
+    }
+
+    /// <summary>Field number for the "creator" field.</summary>
+    public const int CreatorFieldNumber = 1;
+    private global::AElf.Types.Address creator_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::AElf.Types.Address Creator {
+      get { return creator_; }
+      set {
+        creator_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ca_hash" field.</summary>
+    public const int CaHashFieldNumber = 2;
+    private global::AElf.Types.Hash caHash_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::AElf.Types.Hash CaHash {
+      get { return caHash_; }
+      set {
+        caHash_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ca_address" field.</summary>
+    public const int CaAddressFieldNumber = 3;
+    private global::AElf.Types.Address caAddress_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::AElf.Types.Address CaAddress {
+      get { return caAddress_; }
+      set {
+        caAddress_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "manager" field.</summary>
+    public const int ManagerFieldNumber = 4;
+    private global::AElf.Types.Address manager_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::AElf.Types.Address Manager {
+      get { return manager_; }
+      set {
+        manager_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "extra_data" field.</summary>
+    public const int ExtraDataFieldNumber = 5;
+    private string extraData_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string ExtraData {
+      get { return extraData_; }
+      set {
+        extraData_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "create_chain_id" field.</summary>
+    public const int CreateChainIdFieldNumber = 6;
+    private int createChainId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CreateChainId {
+      get { return createChainId_; }
+      set {
+        createChainId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as NonCreateChainCAHolderCreated);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(NonCreateChainCAHolderCreated other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(Creator, other.Creator)) return false;
+      if (!object.Equals(CaHash, other.CaHash)) return false;
+      if (!object.Equals(CaAddress, other.CaAddress)) return false;
+      if (!object.Equals(Manager, other.Manager)) return false;
+      if (ExtraData != other.ExtraData) return false;
+      if (CreateChainId != other.CreateChainId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (creator_ != null) hash ^= Creator.GetHashCode();
+      if (caHash_ != null) hash ^= CaHash.GetHashCode();
+      if (caAddress_ != null) hash ^= CaAddress.GetHashCode();
+      if (manager_ != null) hash ^= Manager.GetHashCode();
+      if (ExtraData.Length != 0) hash ^= ExtraData.GetHashCode();
+      if (CreateChainId != 0) hash ^= CreateChainId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (creator_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Creator);
+      }
+      if (caHash_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(CaHash);
+      }
+      if (caAddress_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(CaAddress);
+      }
+      if (manager_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(Manager);
+      }
+      if (ExtraData.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(ExtraData);
+      }
+      if (CreateChainId != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(CreateChainId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (creator_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Creator);
+      }
+      if (caHash_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(CaHash);
+      }
+      if (caAddress_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(CaAddress);
+      }
+      if (manager_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(Manager);
+      }
+      if (ExtraData.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(ExtraData);
+      }
+      if (CreateChainId != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(CreateChainId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (creator_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Creator);
+      }
+      if (caHash_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(CaHash);
+      }
+      if (caAddress_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(CaAddress);
+      }
+      if (manager_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Manager);
+      }
+      if (ExtraData.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ExtraData);
+      }
+      if (CreateChainId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CreateChainId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(NonCreateChainCAHolderCreated other) {
+      if (other == null) {
+        return;
+      }
+      if (other.creator_ != null) {
+        if (creator_ == null) {
+          Creator = new global::AElf.Types.Address();
+        }
+        Creator.MergeFrom(other.Creator);
+      }
+      if (other.caHash_ != null) {
+        if (caHash_ == null) {
+          CaHash = new global::AElf.Types.Hash();
+        }
+        CaHash.MergeFrom(other.CaHash);
+      }
+      if (other.caAddress_ != null) {
+        if (caAddress_ == null) {
+          CaAddress = new global::AElf.Types.Address();
+        }
+        CaAddress.MergeFrom(other.CaAddress);
+      }
+      if (other.manager_ != null) {
+        if (manager_ == null) {
+          Manager = new global::AElf.Types.Address();
+        }
+        Manager.MergeFrom(other.Manager);
+      }
+      if (other.ExtraData.Length != 0) {
+        ExtraData = other.ExtraData;
+      }
+      if (other.CreateChainId != 0) {
+        CreateChainId = other.CreateChainId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (creator_ == null) {
+              Creator = new global::AElf.Types.Address();
+            }
+            input.ReadMessage(Creator);
+            break;
+          }
+          case 18: {
+            if (caHash_ == null) {
+              CaHash = new global::AElf.Types.Hash();
+            }
+            input.ReadMessage(CaHash);
+            break;
+          }
+          case 26: {
+            if (caAddress_ == null) {
+              CaAddress = new global::AElf.Types.Address();
+            }
+            input.ReadMessage(CaAddress);
+            break;
+          }
+          case 34: {
+            if (manager_ == null) {
+              Manager = new global::AElf.Types.Address();
+            }
+            input.ReadMessage(Manager);
+            break;
+          }
+          case 42: {
+            ExtraData = input.ReadString();
+            break;
+          }
+          case 48: {
+            CreateChainId = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            if (creator_ == null) {
+              Creator = new global::AElf.Types.Address();
+            }
+            input.ReadMessage(Creator);
+            break;
+          }
+          case 18: {
+            if (caHash_ == null) {
+              CaHash = new global::AElf.Types.Hash();
+            }
+            input.ReadMessage(CaHash);
+            break;
+          }
+          case 26: {
+            if (caAddress_ == null) {
+              CaAddress = new global::AElf.Types.Address();
+            }
+            input.ReadMessage(CaAddress);
+            break;
+          }
+          case 34: {
+            if (manager_ == null) {
+              Manager = new global::AElf.Types.Address();
+            }
+            input.ReadMessage(Manager);
+            break;
+          }
+          case 42: {
+            ExtraData = input.ReadString();
+            break;
+          }
+          case 48: {
+            CreateChainId = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
   /// <summary>
   ///Guardian added
   /// </summary>
@@ -14575,7 +15789,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[58]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[59]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -14868,7 +16082,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[59]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[60]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -15161,7 +16375,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[60]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[61]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -15500,7 +16714,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[61]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[62]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -15876,7 +17090,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[62]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[63]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -16206,7 +17420,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[63]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[64]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -16536,7 +17750,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[64]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[65]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -16866,7 +18080,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[65]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[66]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -17196,7 +18410,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[66]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[67]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -17535,7 +18749,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[67]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[68]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -17874,7 +19088,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[68]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[69]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -18075,7 +19289,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[69]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[70]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -18276,7 +19490,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[70]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[71]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -18460,382 +19674,6 @@ namespace Portkey.Contracts.CA {
 
   }
 
-  public sealed partial class RemovedToCurrentVerifierIdMapperAdded : pb::IMessage<RemovedToCurrentVerifierIdMapperAdded>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<RemovedToCurrentVerifierIdMapperAdded> _parser = new pb::MessageParser<RemovedToCurrentVerifierIdMapperAdded>(() => new RemovedToCurrentVerifierIdMapperAdded());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<RemovedToCurrentVerifierIdMapperAdded> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[71]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RemovedToCurrentVerifierIdMapperAdded() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RemovedToCurrentVerifierIdMapperAdded(RemovedToCurrentVerifierIdMapperAdded other) : this() {
-      mapperList_ = other.mapperList_ != null ? other.mapperList_.Clone() : null;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RemovedToCurrentVerifierIdMapperAdded Clone() {
-      return new RemovedToCurrentVerifierIdMapperAdded(this);
-    }
-
-    /// <summary>Field number for the "mapper_list" field.</summary>
-    public const int MapperListFieldNumber = 1;
-    private global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfoList mapperList_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfoList MapperList {
-      get { return mapperList_; }
-      set {
-        mapperList_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as RemovedToCurrentVerifierIdMapperAdded);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(RemovedToCurrentVerifierIdMapperAdded other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (!object.Equals(MapperList, other.MapperList)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (mapperList_ != null) hash ^= MapperList.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (mapperList_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(MapperList);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (mapperList_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(MapperList);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (mapperList_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MapperList);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(RemovedToCurrentVerifierIdMapperAdded other) {
-      if (other == null) {
-        return;
-      }
-      if (other.mapperList_ != null) {
-        if (mapperList_ == null) {
-          MapperList = new global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfoList();
-        }
-        MapperList.MergeFrom(other.MapperList);
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            if (mapperList_ == null) {
-              MapperList = new global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfoList();
-            }
-            input.ReadMessage(MapperList);
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            if (mapperList_ == null) {
-              MapperList = new global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfoList();
-            }
-            input.ReadMessage(MapperList);
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  public sealed partial class RemovedToCurrentVerifierIdMapperInfoList : pb::IMessage<RemovedToCurrentVerifierIdMapperInfoList>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<RemovedToCurrentVerifierIdMapperInfoList> _parser = new pb::MessageParser<RemovedToCurrentVerifierIdMapperInfoList>(() => new RemovedToCurrentVerifierIdMapperInfoList());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<RemovedToCurrentVerifierIdMapperInfoList> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[72]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RemovedToCurrentVerifierIdMapperInfoList() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RemovedToCurrentVerifierIdMapperInfoList(RemovedToCurrentVerifierIdMapperInfoList other) : this() {
-      mappers_ = other.mappers_.Clone();
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public RemovedToCurrentVerifierIdMapperInfoList Clone() {
-      return new RemovedToCurrentVerifierIdMapperInfoList(this);
-    }
-
-    /// <summary>Field number for the "mappers" field.</summary>
-    public const int MappersFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfo> _repeated_mappers_codec
-        = pb::FieldCodec.ForMessage(10, global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfo.Parser);
-    private readonly pbc::RepeatedField<global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfo> mappers_ = new pbc::RepeatedField<global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfo>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Portkey.Contracts.CA.RemovedToCurrentVerifierIdMapperInfo> Mappers {
-      get { return mappers_; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as RemovedToCurrentVerifierIdMapperInfoList);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(RemovedToCurrentVerifierIdMapperInfoList other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if(!mappers_.Equals(other.mappers_)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      hash ^= mappers_.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      mappers_.WriteTo(output, _repeated_mappers_codec);
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      mappers_.WriteTo(ref output, _repeated_mappers_codec);
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      size += mappers_.CalculateSize(_repeated_mappers_codec);
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(RemovedToCurrentVerifierIdMapperInfoList other) {
-      if (other == null) {
-        return;
-      }
-      mappers_.Add(other.mappers_);
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            mappers_.AddEntriesFrom(input, _repeated_mappers_codec);
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            mappers_.AddEntriesFrom(ref input, _repeated_mappers_codec);
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
   public sealed partial class CAServerAdded : pb::IMessage<CAServerAdded>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -18850,7 +19688,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[73]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[72]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -19048,7 +19886,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[74]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[73]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -19246,7 +20084,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[75]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[74]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -19849,7 +20687,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[76]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[75]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -20047,7 +20885,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[77]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[76]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -20245,7 +21083,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[78]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[77]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -20443,7 +21281,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[79]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[78]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -20641,7 +21479,7 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[80]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[79]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -20825,21 +21663,21 @@ namespace Portkey.Contracts.CA {
 
   }
 
-  public sealed partial class SetCAContractAddressesInput : pb::IMessage<SetCAContractAddressesInput>
+  public sealed partial class Invited : pb::IMessage<Invited>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<SetCAContractAddressesInput> _parser = new pb::MessageParser<SetCAContractAddressesInput>(() => new SetCAContractAddressesInput());
+    private static readonly pb::MessageParser<Invited> _parser = new pb::MessageParser<Invited>(() => new Invited());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<SetCAContractAddressesInput> Parser { get { return _parser; } }
+    public static pb::MessageParser<Invited> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[81]; }
+      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[80]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -20850,7 +21688,7 @@ namespace Portkey.Contracts.CA {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public SetCAContractAddressesInput() {
+    public Invited() {
       OnConstruction();
     }
 
@@ -20858,44 +21696,101 @@ namespace Portkey.Contracts.CA {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public SetCAContractAddressesInput(SetCAContractAddressesInput other) : this() {
-      caContractAddresses_ = other.caContractAddresses_.Clone();
+    public Invited(Invited other) : this() {
+      caHash_ = other.caHash_ != null ? other.caHash_.Clone() : null;
+      contractAddress_ = other.contractAddress_ != null ? other.contractAddress_.Clone() : null;
+      methodName_ = other.methodName_;
+      referralCode_ = other.referralCode_;
+      projectCode_ = other.projectCode_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public SetCAContractAddressesInput Clone() {
-      return new SetCAContractAddressesInput(this);
+    public Invited Clone() {
+      return new Invited(this);
     }
 
-    /// <summary>Field number for the "ca_contract_addresses" field.</summary>
-    public const int CaContractAddressesFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::Portkey.Contracts.CA.CAContractAddress> _repeated_caContractAddresses_codec
-        = pb::FieldCodec.ForMessage(10, global::Portkey.Contracts.CA.CAContractAddress.Parser);
-    private readonly pbc::RepeatedField<global::Portkey.Contracts.CA.CAContractAddress> caContractAddresses_ = new pbc::RepeatedField<global::Portkey.Contracts.CA.CAContractAddress>();
+    /// <summary>Field number for the "ca_hash" field.</summary>
+    public const int CaHashFieldNumber = 1;
+    private global::AElf.Types.Hash caHash_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Portkey.Contracts.CA.CAContractAddress> CaContractAddresses {
-      get { return caContractAddresses_; }
+    public global::AElf.Types.Hash CaHash {
+      get { return caHash_; }
+      set {
+        caHash_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "contract_address" field.</summary>
+    public const int ContractAddressFieldNumber = 2;
+    private global::AElf.Types.Address contractAddress_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::AElf.Types.Address ContractAddress {
+      get { return contractAddress_; }
+      set {
+        contractAddress_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "method_name" field.</summary>
+    public const int MethodNameFieldNumber = 3;
+    private string methodName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string MethodName {
+      get { return methodName_; }
+      set {
+        methodName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "referral_code" field.</summary>
+    public const int ReferralCodeFieldNumber = 4;
+    private string referralCode_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string ReferralCode {
+      get { return referralCode_; }
+      set {
+        referralCode_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "project_code" field.</summary>
+    public const int ProjectCodeFieldNumber = 5;
+    private string projectCode_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string ProjectCode {
+      get { return projectCode_; }
+      set {
+        projectCode_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as SetCAContractAddressesInput);
+      return Equals(other as Invited);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(SetCAContractAddressesInput other) {
+    public bool Equals(Invited other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if(!caContractAddresses_.Equals(other.caContractAddresses_)) return false;
+      if (!object.Equals(CaHash, other.CaHash)) return false;
+      if (!object.Equals(ContractAddress, other.ContractAddress)) return false;
+      if (MethodName != other.MethodName) return false;
+      if (ReferralCode != other.ReferralCode) return false;
+      if (ProjectCode != other.ProjectCode) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -20903,7 +21798,11 @@ namespace Portkey.Contracts.CA {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      hash ^= caContractAddresses_.GetHashCode();
+      if (caHash_ != null) hash ^= CaHash.GetHashCode();
+      if (contractAddress_ != null) hash ^= ContractAddress.GetHashCode();
+      if (MethodName.Length != 0) hash ^= MethodName.GetHashCode();
+      if (ReferralCode.Length != 0) hash ^= ReferralCode.GetHashCode();
+      if (ProjectCode.Length != 0) hash ^= ProjectCode.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -20922,7 +21821,26 @@ namespace Portkey.Contracts.CA {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      caContractAddresses_.WriteTo(output, _repeated_caContractAddresses_codec);
+      if (caHash_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(CaHash);
+      }
+      if (contractAddress_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(ContractAddress);
+      }
+      if (MethodName.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(MethodName);
+      }
+      if (ReferralCode.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(ReferralCode);
+      }
+      if (ProjectCode.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(ProjectCode);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -20933,7 +21851,26 @@ namespace Portkey.Contracts.CA {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      caContractAddresses_.WriteTo(ref output, _repeated_caContractAddresses_codec);
+      if (caHash_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(CaHash);
+      }
+      if (contractAddress_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(ContractAddress);
+      }
+      if (MethodName.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(MethodName);
+      }
+      if (ReferralCode.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(ReferralCode);
+      }
+      if (ProjectCode.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(ProjectCode);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -20944,7 +21881,21 @@ namespace Portkey.Contracts.CA {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      size += caContractAddresses_.CalculateSize(_repeated_caContractAddresses_codec);
+      if (caHash_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(CaHash);
+      }
+      if (contractAddress_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(ContractAddress);
+      }
+      if (MethodName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MethodName);
+      }
+      if (ReferralCode.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ReferralCode);
+      }
+      if (ProjectCode.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ProjectCode);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -20953,11 +21904,31 @@ namespace Portkey.Contracts.CA {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(SetCAContractAddressesInput other) {
+    public void MergeFrom(Invited other) {
       if (other == null) {
         return;
       }
-      caContractAddresses_.Add(other.caContractAddresses_);
+      if (other.caHash_ != null) {
+        if (caHash_ == null) {
+          CaHash = new global::AElf.Types.Hash();
+        }
+        CaHash.MergeFrom(other.CaHash);
+      }
+      if (other.contractAddress_ != null) {
+        if (contractAddress_ == null) {
+          ContractAddress = new global::AElf.Types.Address();
+        }
+        ContractAddress.MergeFrom(other.ContractAddress);
+      }
+      if (other.MethodName.Length != 0) {
+        MethodName = other.MethodName;
+      }
+      if (other.ReferralCode.Length != 0) {
+        ReferralCode = other.ReferralCode;
+      }
+      if (other.ProjectCode.Length != 0) {
+        ProjectCode = other.ProjectCode;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -20974,7 +21945,29 @@ namespace Portkey.Contracts.CA {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            caContractAddresses_.AddEntriesFrom(input, _repeated_caContractAddresses_codec);
+            if (caHash_ == null) {
+              CaHash = new global::AElf.Types.Hash();
+            }
+            input.ReadMessage(CaHash);
+            break;
+          }
+          case 18: {
+            if (contractAddress_ == null) {
+              ContractAddress = new global::AElf.Types.Address();
+            }
+            input.ReadMessage(ContractAddress);
+            break;
+          }
+          case 26: {
+            MethodName = input.ReadString();
+            break;
+          }
+          case 34: {
+            ReferralCode = input.ReadString();
+            break;
+          }
+          case 42: {
+            ProjectCode = input.ReadString();
             break;
           }
         }
@@ -20993,242 +21986,29 @@ namespace Portkey.Contracts.CA {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            caContractAddresses_.AddEntriesFrom(ref input, _repeated_caContractAddresses_codec);
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  public sealed partial class CAContractAddress : pb::IMessage<CAContractAddress>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<CAContractAddress> _parser = new pb::MessageParser<CAContractAddress>(() => new CAContractAddress());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<CAContractAddress> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Portkey.Contracts.CA.CaContractReflection.Descriptor.MessageTypes[82]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CAContractAddress() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CAContractAddress(CAContractAddress other) : this() {
-      address_ = other.address_ != null ? other.address_.Clone() : null;
-      chainId_ = other.chainId_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CAContractAddress Clone() {
-      return new CAContractAddress(this);
-    }
-
-    /// <summary>Field number for the "address" field.</summary>
-    public const int AddressFieldNumber = 1;
-    private global::AElf.Types.Address address_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::AElf.Types.Address Address {
-      get { return address_; }
-      set {
-        address_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "chain_id" field.</summary>
-    public const int ChainIdFieldNumber = 2;
-    private int chainId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int ChainId {
-      get { return chainId_; }
-      set {
-        chainId_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as CAContractAddress);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(CAContractAddress other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (!object.Equals(Address, other.Address)) return false;
-      if (ChainId != other.ChainId) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (address_ != null) hash ^= Address.GetHashCode();
-      if (ChainId != 0) hash ^= ChainId.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (address_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(Address);
-      }
-      if (ChainId != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(ChainId);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (address_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(Address);
-      }
-      if (ChainId != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(ChainId);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (address_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Address);
-      }
-      if (ChainId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ChainId);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(CAContractAddress other) {
-      if (other == null) {
-        return;
-      }
-      if (other.address_ != null) {
-        if (address_ == null) {
-          Address = new global::AElf.Types.Address();
-        }
-        Address.MergeFrom(other.Address);
-      }
-      if (other.ChainId != 0) {
-        ChainId = other.ChainId;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            if (address_ == null) {
-              Address = new global::AElf.Types.Address();
+            if (caHash_ == null) {
+              CaHash = new global::AElf.Types.Hash();
             }
-            input.ReadMessage(Address);
+            input.ReadMessage(CaHash);
             break;
           }
-          case 16: {
-            ChainId = input.ReadInt32();
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            if (address_ == null) {
-              Address = new global::AElf.Types.Address();
+          case 18: {
+            if (contractAddress_ == null) {
+              ContractAddress = new global::AElf.Types.Address();
             }
-            input.ReadMessage(Address);
+            input.ReadMessage(ContractAddress);
             break;
           }
-          case 16: {
-            ChainId = input.ReadInt32();
+          case 26: {
+            MethodName = input.ReadString();
+            break;
+          }
+          case 34: {
+            ReferralCode = input.ReadString();
+            break;
+          }
+          case 42: {
+            ProjectCode = input.ReadString();
             break;
           }
         }
