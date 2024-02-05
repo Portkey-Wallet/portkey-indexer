@@ -10,7 +10,7 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class CAHolderAccelerateCreationProcessor : CAHolderTransactionProcessorBase<NonCreateChainCAHolderCreated>
+public class CAHolderAccelerateCreationProcessor : CAHolderTransactionProcessorBase<PreCrossChainSyncHolderInfoCreated>
 {
     public CAHolderAccelerateCreationProcessor(ILogger<CAHolderAccelerateCreationProcessor> logger,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
@@ -35,7 +35,7 @@ public class CAHolderAccelerateCreationProcessor : CAHolderTransactionProcessorB
         return ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress;
     }
 
-    protected override async Task HandleEventAsync(NonCreateChainCAHolderCreated eventValue, LogEventContext context)
+    protected override async Task HandleEventAsync(PreCrossChainSyncHolderInfoCreated eventValue, LogEventContext context)
     {
         if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
 

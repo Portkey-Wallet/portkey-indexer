@@ -68,7 +68,7 @@ public sealed class CAHolderAccelerateCreationProcessorTest : PortkeyIndexerCATe
         var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
 
         //step2: create logEventInfo
-        var nonCreateChainCAHolderCreated = new NonCreateChainCAHolderCreated
+        var preCrossChainSyncHolderInfoCreated = new PreCrossChainSyncHolderInfoCreated
         {
             CaHash = HashHelper.ComputeFrom("test@google.com"),
             CaAddress = Address.FromPublicKey("AAA".HexToByteArray()),
@@ -78,7 +78,7 @@ public sealed class CAHolderAccelerateCreationProcessorTest : PortkeyIndexerCATe
             CreateChainId = ChainHelper.ConvertBase58ToChainId("tDVV")
         };
 
-        var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(nonCreateChainCAHolderCreated.ToLogEvent());
+        var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(preCrossChainSyncHolderInfoCreated.ToLogEvent());
         logEventInfo.BlockHeight = blockHeight;
         logEventInfo.ChainId = chainId;
         logEventInfo.BlockHash = blockHash;
@@ -118,15 +118,15 @@ public sealed class CAHolderAccelerateCreationProcessorTest : PortkeyIndexerCATe
 
         //step5: check result
         var caHolderIndexData = await _caHolderIndexRepository.GetAsync(
-            $"{chainId}-{nonCreateChainCAHolderCreated.CaAddress.ToBase58()}");
+            $"{chainId}-{preCrossChainSyncHolderInfoCreated.CaAddress.ToBase58()}");
         caHolderIndexData.BlockHeight.ShouldBe(blockHeight);
         caHolderIndexData.ManagerInfos.FirstOrDefault().Address
-            .ShouldBe(nonCreateChainCAHolderCreated.Manager.ToBase58());
+            .ShouldBe(preCrossChainSyncHolderInfoCreated.Manager.ToBase58());
         var caHolderManagerIndexData = await _caHolderManagerIndexRepository.GetAsync(
-            $"{chainId}-{nonCreateChainCAHolderCreated.Manager.ToBase58()}");
+            $"{chainId}-{preCrossChainSyncHolderInfoCreated.Manager.ToBase58()}");
         caHolderManagerIndexData.BlockHeight.ShouldBe(blockHeight);
         caHolderManagerIndexData.CAAddresses.FirstOrDefault()
-            .ShouldBe(nonCreateChainCAHolderCreated.CaAddress.ToBase58());
+            .ShouldBe(preCrossChainSyncHolderInfoCreated.CaAddress.ToBase58());
     }
 
     [Fact]

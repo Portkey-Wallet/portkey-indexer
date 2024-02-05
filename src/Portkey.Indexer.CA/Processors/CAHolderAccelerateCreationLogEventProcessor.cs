@@ -12,7 +12,7 @@ using Guardian = Portkey.Indexer.CA.Entities.Guardian;
 namespace Portkey.Indexer.CA.Processors;
 
 public class
-    CAHolderAccelerateCreationLogEventProcessor : AElfLogEventProcessorBase<NonCreateChainCAHolderCreated, LogEventInfo>
+    CAHolderAccelerateCreationLogEventProcessor : AElfLogEventProcessorBase<PreCrossChainSyncHolderInfoCreated, LogEventInfo>
 {
     private readonly IObjectMapper _objectMapper;
     private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _repository;
@@ -39,7 +39,7 @@ public class
         return _contractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress;
     }
 
-    protected override async Task HandleEventAsync(NonCreateChainCAHolderCreated eventValue, LogEventContext context)
+    protected override async Task HandleEventAsync(PreCrossChainSyncHolderInfoCreated eventValue, LogEventContext context)
     {
         //check manager is already exist in caHolderManagerIndex
         var managerIndexId = IdGenerateHelper.GetId(context.ChainId, eventValue.Manager.ToBase58());
