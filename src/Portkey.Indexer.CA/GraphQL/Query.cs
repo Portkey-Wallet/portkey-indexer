@@ -1037,4 +1037,27 @@ public class Query
         return objectMapper.Map<List<InviteIndex>, List<ReferralInfoDto>>(
             result.Item2);
     }
+    
+    
+    [Name("autoReceiveTransaction")]
+    public static async Task<CAHolderTransactionPageResultDto> GetAutoReceiveTransactionAsync(
+        [FromServices] IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> repository,
+        [FromServices] IObjectMapper objectMapper, GetAutoReceiveTransactionDto dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>();
+        mustQuery.Add(q =>
+            q.Terms(i => i.Field(f => f.TransferInfo.TransferTransactionId).Terms(dto.TransferTransactionIds)));
+        QueryContainer Filter(QueryContainerDescriptor<CAHolderTransactionIndex> f) => f.Bool(b => b.Must(mustQuery));
+
+        var result = await repository.GetListAsync(Filter, sortExp: k => k.Timestamp,
+            sortType: SortOrder.Descending, skip: dto.SkipCount, limit: dto.MaxResultCount);
+        var dataList = objectMapper.Map<List<CAHolderTransactionIndex>, List<CAHolderTransactionDto>>(result.Item2);
+
+        var pageResult = new CAHolderTransactionPageResultDto
+        {
+            TotalRecordCount = result.Item1,
+            Data = dataList
+        };
+        return pageResult;
+    }
 }
