@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Nethereum.Hex.HexConvertors.Extensions;
+using Portkey.Indexer.CA.Provider;
+using Portkey.Indexer.CA.Tests.Provider;
 using Portkey.Indexer.Orleans.TestBase;
 using Volo.Abp;
 using Volo.Abp.Autofac;
@@ -51,6 +53,7 @@ public class PortkeyIndexerCATestModule : AbpModule
         context.Services.AddSingleton<IDAppDataProvider, DAppDataProvider>();
         context.Services.AddSingleton(typeof(IDAppDataIndexProvider<>), typeof(DAppDataIndexProvider<>));
         context.Services.AddSingleton<IAElfClientProvider, AElfClientProvider>();
+        context.Services.AddSingleton<IAElfDataProvider, MockAElfDataProvider>();
 
         context.Services.Configure<ClientOptions>(o => { o.DAppDataCacheCount = 5; });
 

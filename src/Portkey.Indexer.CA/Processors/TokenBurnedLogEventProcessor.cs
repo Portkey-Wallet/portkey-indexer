@@ -5,6 +5,7 @@ using AElfIndexer.Grains.State.Client;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Portkey.Indexer.CA.Entities;
+using Portkey.Indexer.CA.Provider;
 using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
@@ -22,9 +23,11 @@ public class TokenBurnedLogEventProcessor:  CAHolderTokenBalanceProcessorBase<Bu
             caHolderTokenBalanceIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderNFTCollectionBalanceIndex, LogEventInfo> caHolderNFTCollectionBalanceIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, LogEventInfo> caHolderNFTBalanceIndexRepository,
+        IAElfDataProvider aElfDataProvider,
         IObjectMapper objectMapper) : base(logger, contractInfoOptions,
         caHolderIndexRepository, tokenInfoIndexRepository,nftCollectionInfoRepository,nftInfoRepository, caHolderSearchTokenNFTRepository,
-        caHolderTokenBalanceIndexRepository,caHolderNFTCollectionBalanceIndexRepository, caHolderNFTBalanceIndexRepository,objectMapper)
+        caHolderTokenBalanceIndexRepository,caHolderNFTCollectionBalanceIndexRepository, caHolderNFTBalanceIndexRepository, aElfDataProvider, 
+        objectMapper)
     {
     }
 

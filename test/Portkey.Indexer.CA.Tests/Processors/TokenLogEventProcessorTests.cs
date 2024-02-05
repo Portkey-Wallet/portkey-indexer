@@ -2132,4 +2132,139 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
     //     };
     //     var result = await Query.SyncState(clusterClient,aelfIndexerClientInfoProvider, _objectMapper, param);
     // }
+    
+    [Fact]
+    public async Task HandleNFTCollectionTransferredFromChainAsync_Test()
+    {
+        var (holderA, _) = await CreateHolder();
+        var (holderB, _) = await CreateHolder(email: holderBEmail, caaddressB, creatorB, managerB, chainIdSide);
+        const string symbol = "READ-0";
+        const long amount = 1;
+        var tokenTransferredLogEventProcessor = GetRequiredService<TokenTransferredLogEventProcessor>();
+        var tokenTransferredProcessor = GetRequiredService<TokenTransferredProcessor>();
+
+        var blockStateSet = new BlockStateSet<LogEventInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash,
+        };
+        var blockStateSetTransfer = new BlockStateSet<TransactionInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash
+        };
+        var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
+        var blockStateSetKeyTransfer = await InitializeBlockStateSetAsync(blockStateSetTransfer, chainId);
+
+        var transferred = new Transferred()
+        {
+            To = holderB.CaAddress,
+            From = holderA.CaAddress,
+            Symbol = symbol,
+            Amount = amount,
+        };
+
+        var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(transferred.ToLogEvent());
+        logEventInfo.BlockHeight = blockHeight;
+        logEventInfo.ChainId = chainId;
+        logEventInfo.BlockHash = blockHash;
+        logEventInfo.TransactionId = transactionId;
+        var logEventContext = new LogEventContext
+        {
+            To = "CAAddress",
+            ChainId = chainId,
+            BlockHeight = blockHeight,
+            BlockHash = blockHash,
+            PreviousBlockHash = previousBlockHash,
+            TransactionId = transactionId,
+            MethodName = transferMethodName,
+            BlockTime = DateTime.UtcNow,
+            ExtraProperties = extraProperties
+        };
+        await tokenTransferredProcessor.HandleEventAsync(logEventInfo, logEventContext);
+        await tokenTransferredLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
+        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransfer);
+        await Task.Delay(2000);
+
+        //step5: check result
+        var nftCollectionInfoIndex = await _nftCollectionInfoIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(chainId, symbol), chainId);
+        nftCollectionInfoIndex.Symbol.ShouldBe(symbol);
+        nftCollectionInfoIndex.Supply.ShouldBe(1);
+    }
+    
+    [Fact]
+    public async Task HandleNFTItemTransferredFromChainAsync_Test()
+    {
+        var (holderA, _) = await CreateHolder();
+        var (holderB, _) = await CreateHolder(email: holderBEmail, caaddressB, creatorB, managerB, chainIdSide);
+        const string symbol = "READ-1";
+        const long amount = 1;
+        var tokenTransferredLogEventProcessor = GetRequiredService<TokenTransferredLogEventProcessor>();
+        var tokenTransferredProcessor = GetRequiredService<TokenTransferredProcessor>();
+
+        var blockStateSet = new BlockStateSet<LogEventInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash,
+        };
+        var blockStateSetTransfer = new BlockStateSet<TransactionInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash
+        };
+        var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
+        var blockStateSetKeyTransfer = await InitializeBlockStateSetAsync(blockStateSetTransfer, chainId);
+
+        var transferred = new Transferred()
+        {
+            To = holderB.CaAddress,
+            From = holderA.CaAddress,
+            Symbol = symbol,
+            Amount = amount,
+        };
+
+        var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(transferred.ToLogEvent());
+        logEventInfo.BlockHeight = blockHeight;
+        logEventInfo.ChainId = chainId;
+        logEventInfo.BlockHash = blockHash;
+        logEventInfo.TransactionId = transactionId;
+        var logEventContext = new LogEventContext
+        {
+            To = "CAAddress",
+            ChainId = chainId,
+            BlockHeight = blockHeight,
+            BlockHash = blockHash,
+            PreviousBlockHash = previousBlockHash,
+            TransactionId = transactionId,
+            MethodName = transferMethodName,
+            BlockTime = DateTime.UtcNow,
+            ExtraProperties = extraProperties
+        };
+        await tokenTransferredProcessor.HandleEventAsync(logEventInfo, logEventContext);
+        await tokenTransferredLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
+        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransfer);
+        await Task.Delay(2000);
+
+        //step5: check result
+        var nftCollectionSymbol = "READ-0";
+        var nftCollectionInfoIndex = await _nftCollectionInfoIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(chainId, nftCollectionSymbol), chainId);
+        nftCollectionInfoIndex.Symbol.ShouldBe(nftCollectionSymbol);
+        nftCollectionInfoIndex.Supply.ShouldBe(1);
+        
+        var nftInfoIndex = await _nftInfoIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(chainId, symbol), chainId);
+        nftInfoIndex.Symbol.ShouldBe(symbol);
+        nftInfoIndex.Supply.ShouldBe(1);
+        nftInfoIndex.CollectionName.ShouldBe(nftCollectionSymbol);
+        nftInfoIndex.CollectionSymbol.ShouldBe(nftCollectionSymbol);
+    }
 }

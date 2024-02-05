@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Portkey.Indexer.CA.GraphQL;
 using Portkey.Indexer.CA.Handlers;
 using Portkey.Indexer.CA.Processors;
+using Portkey.Indexer.CA.Provider;
 using Volo.Abp.Modularity;
 
 namespace Portkey.Indexer.CA;
@@ -67,6 +68,7 @@ public class PortkeyIndexerCAModule:AElfIndexerClientPluginBaseModule<PortkeyInd
         serviceCollection
             .AddSingleton<IAElfLogEventProcessor<LogEventInfo>, CAHolderAccelerateCreationLogEventProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, CAHolderAccelerateCreationProcessor>();
+        serviceCollection.AddSingleton<IAElfDataProvider, AElfDataProvider>();
 
         Configure<ContractInfoOptions>(configuration.GetSection("ContractInfo"));
         Configure<InitialInfoOptions>(configuration.GetSection("InitialInfo"));

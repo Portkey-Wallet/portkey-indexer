@@ -5,7 +5,7 @@ using AElfIndexer.Grains.State.Client;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Portkey.Indexer.CA.Entities;
-using Portkey.Indexer.CA.GraphQL;
+using Portkey.Indexer.CA.Provider;
 using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
@@ -20,6 +20,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
     protected IAElfIndexerClientEntityRepository<NFTCollectionInfoIndex, LogEventInfo> NftCollectionInfoRepository;
     protected IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> NftInfoRepository;
     private IAElfIndexerClientEntityRepository<CAHolderSearchTokenNFTIndex, LogEventInfo> CAHolderSearchTokenNFTRepository;
+    protected IAElfDataProvider AElfDataProvider;
     protected readonly IObjectMapper ObjectMapper;
     protected readonly ContractInfoOptions ContractInfoOptions;
 
@@ -34,6 +35,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
             caHolderTokenBalanceIndexRepository, 
         IAElfIndexerClientEntityRepository<CAHolderNFTCollectionBalanceIndex, LogEventInfo> caHolderNFTCollectionBalanceRepository,
         IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, LogEventInfo> caHolderNFTBalanceIndexRepository,
+        IAElfDataProvider aElfDataProvider,
         IObjectMapper objectMapper) : base(logger)
     {
         CAHolderIndexRepository = caHolderIndexRepository;
@@ -46,6 +48,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
         NftInfoRepository = nftInfoRepository;
         CAHolderSearchTokenNFTRepository = caHolderSearchTokenNFTRepository;
         ContractInfoOptions = contractInfoOptions.Value;
+        AElfDataProvider = aElfDataProvider;
     }
     
     protected async Task ModifyBalanceAsync(string address, string symbol, long amount, LogEventContext context)
@@ -76,9 +79,23 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
 
         if (tokenType == TokenType.NFTCollection)
         {
+            var nftCollectionInfoId = IdGenerateHelper.GetId(context.ChainId, symbol);
             var nftCollectionInfo =
-                await NftCollectionInfoRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId, symbol),
+                await NftCollectionInfoRepository.GetFromBlockStateSetAsync(nftCollectionInfoId,
                     context.ChainId);
+            if (nftCollectionInfo == null)
+            {
+                nftCollectionInfo = new NFTCollectionInfoIndex
+                {
+                    Id = nftCollectionInfoId,
+                    Symbol = symbol,
+                    Type = TokenType.NFTCollection,
+                    TokenContractAddress = GetContractAddress(context.ChainId)
+                };
+                ObjectMapper.Map(context, nftCollectionInfo);
+                await UpdateCollectionInfoFromChainAsync(nftCollectionInfo);
+            }
+
             var id = IdGenerateHelper.GetId(context.ChainId, address, symbol);
             var collectionBalance = await CAHolderNFTCollectionBalanceRepository.GetFromBlockStateSetAsync(id, context.ChainId);
             if (collectionBalance == null)
@@ -101,9 +118,43 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
 
         if (tokenType == TokenType.NFTItem)
         {
+            var nftCollectionSymbol = TokenHelper.GetNFTCollectionSymbol(symbol);
+            var nftInfoId = IdGenerateHelper.GetId(context.ChainId, symbol);
             var nftInfo =
-                await NftInfoRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId, symbol),
+                await NftInfoRepository.GetFromBlockStateSetAsync(nftInfoId,
                     context.ChainId);
+            if (nftInfo == null)
+            {
+                var nftCollectionInfoId = IdGenerateHelper.GetId(context.ChainId, nftCollectionSymbol);
+                var nftCollectionInfo =
+                    await NftCollectionInfoRepository.GetFromBlockStateSetAsync(nftCollectionInfoId,
+                        context.ChainId);
+                if (nftCollectionInfo == null)
+                {
+                    nftCollectionInfo = new NFTCollectionInfoIndex
+                    {
+                        Id = nftCollectionInfoId,
+                        Symbol = nftCollectionSymbol,
+                        Type = TokenType.NFTCollection,
+                        TokenContractAddress = GetContractAddress(context.ChainId)
+                    };
+                    ObjectMapper.Map(context, nftCollectionInfo);
+                    await UpdateCollectionInfoFromChainAsync(nftCollectionInfo);
+                }
+                
+                nftInfo = new NFTInfoIndex()
+                {
+                    Id = nftInfoId,
+                    Symbol = symbol,
+                    Type = TokenType.NFTItem,
+                    TokenContractAddress = GetContractAddress(context.ChainId),
+                    CollectionName = nftCollectionInfo.TokenName,
+                    CollectionSymbol = nftCollectionInfo.Symbol
+                };
+                ObjectMapper.Map(context, nftInfo);
+                await UpdateNftInfoFromChainAsync(nftInfo);
+            }
+
             var id = IdGenerateHelper.GetId(context.ChainId, address, symbol);
             var nftBalance = await CAHolderNFTBalanceIndexRepository.GetFromBlockStateSetAsync(id, context.ChainId);
             if (nftBalance == null)
@@ -121,7 +172,6 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
             await CAHolderNFTBalanceIndexRepository.AddOrUpdateAsync(nftBalance);
             
             var nftItemId = TokenHelper.GetNFTItemId(symbol);
-            var nftCollectionSymbol = TokenHelper.GetNFTCollectionSymbol(symbol);
             var collectionBalanceIndexId = IdGenerateHelper.GetId(context.ChainId, address, nftCollectionSymbol);
             var collectionBalance = await CAHolderNFTCollectionBalanceRepository.GetFromBlockStateSetAsync(collectionBalanceIndexId,context.ChainId);
             if (collectionBalance == null)
@@ -163,6 +213,58 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
 
         //Update Search index Balance
         await ModifySearchBalanceAsync(address, symbol, amount, context);
+    }
+
+    private async Task UpdateCollectionInfoFromChainAsync(NFTCollectionInfoIndex collectionInfoIndex)
+    {
+        var collectionInfo = await AElfDataProvider.GetTokenInfoAsync(collectionInfoIndex.ChainId, collectionInfoIndex.Symbol);
+        if (collectionInfo.Symbol == collectionInfoIndex.Symbol)
+        {
+                        
+            ObjectMapper.Map(collectionInfo, collectionInfoIndex);
+            if (collectionInfo.ExternalInfo is { Count: > 0 })
+            {
+                collectionInfoIndex.ExternalInfoDictionary = collectionInfo.ExternalInfo
+                    .Where(t => !t.Key.IsNullOrWhiteSpace())
+                    .ToDictionary(item => item.Key, item => item.Value);
+                if (collectionInfo.ExternalInfo.ContainsKey("__nft_image_url"))
+                {
+                    collectionInfoIndex.ImageUrl = collectionInfo.ExternalInfo["__nft_image_url"];
+                }
+                else if (collectionInfo.ExternalInfo.ContainsKey("inscription_image"))
+                {
+                    collectionInfoIndex.ImageUrl = collectionInfo.ExternalInfo["inscription_image"];
+                }
+            }
+            collectionInfoIndex.ExternalInfoDictionary ??= new Dictionary<string, string>();
+        }
+
+        await NftCollectionInfoRepository.AddOrUpdateAsync(collectionInfoIndex);
+    }
+    
+    private async Task UpdateNftInfoFromChainAsync(NFTInfoIndex nftInfoIndex)
+    {
+        var nftInfo = await AElfDataProvider.GetTokenInfoAsync(nftInfoIndex.ChainId, nftInfoIndex.Symbol);
+        if (nftInfo.Symbol == nftInfoIndex.Symbol)
+        {
+            ObjectMapper.Map(nftInfo, nftInfoIndex);
+            if (nftInfo.ExternalInfo is { Count: > 0 })
+            {
+                nftInfoIndex.ExternalInfoDictionary = nftInfo.ExternalInfo
+                    .Where(t => !t.Key.IsNullOrWhiteSpace())
+                    .ToDictionary(item => item.Key, item => item.Value);
+                if (nftInfo.ExternalInfo.ContainsKey("__nft_image_url"))
+                {
+                    nftInfoIndex.ImageUrl = nftInfo.ExternalInfo["__nft_image_url"];
+                }
+                else if (nftInfo.ExternalInfo.ContainsKey("inscription_image"))
+                {
+                    nftInfoIndex.ImageUrl = nftInfo.ExternalInfo["inscription_image"];
+                }
+            }
+            nftInfoIndex.ExternalInfoDictionary ??= new Dictionary<string, string>();
+        }
+        await NftInfoRepository.AddOrUpdateAsync(nftInfoIndex);
     }
 
     private async Task ModifySearchBalanceAsync(string address, string symbol, long amount, LogEventContext context)

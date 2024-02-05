@@ -15,7 +15,9 @@ public class TestGraphQLAutoMapperProfile : Profile
     {
         CreateMap<TokenCreated, TokenInfoIndex>();
         CreateMap<TokenCreated, NFTCollectionInfoIndex>();
+        CreateMap<Provider.TokenInfoDto, NFTCollectionInfoIndex>();
         CreateMap<TokenCreated, NFTInfoIndex>();
+        CreateMap<Provider.TokenInfoDto, NFTInfoIndex>();
 
         CreateMap<TransactionInfo, CAHolderTransactionIndex>();
 
