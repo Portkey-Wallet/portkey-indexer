@@ -44,15 +44,10 @@ public sealed class CAHolderAccelerateCreationProcessorTest : PortkeyIndexerCATe
     public async Task HandleEventAsync_Test()
     {
         //step1: create blockStateSet
-        /*const string chainId = "AELF";
+        const string chainId = "AELF";
         const string blockHash = "7043b2f76fef1923357a0857085c038fda34b968de7215d4c64e02aa4a4f41ec";
         const string previousBlockHash = "36c94b6bf009dd11f5d7ca6aadf00d9cdb6806fef37a9d146f188d944a1fd57f";
         const string transactionId = "af8c23caebe62e34d3847799f121d973b514ef0d987905325552bb4da4e53753";
-        const long blockHeight = 100;*/
-        const string chainId = "AELF";
-        const string blockHash = "dac5cd67a2783d0a3d843426c2d45f1178f4d052235a907a0d796ae4659103b1";
-        const string previousBlockHash = "e38c4fb1cf6af05878657cb3f7b5fc8a5fcfb2eec19cd76b73abb831973fbf4e";
-        const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
         var blockStateSet = new BlockStateSet<LogEventInfo>
         {
@@ -73,7 +68,7 @@ public sealed class CAHolderAccelerateCreationProcessorTest : PortkeyIndexerCATe
         var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
 
         //step2: create logEventInfo
-        var nonCreateChainCAHolderCreated = new NonCreateChainCAHolderCreated
+        var preCrossChainSyncHolderInfoCreated = new PreCrossChainSyncHolderInfoCreated
         {
             CaHash = HashHelper.ComputeFrom("test@google.com"),
             CaAddress = Address.FromPublicKey("AAA".HexToByteArray()),
@@ -83,7 +78,7 @@ public sealed class CAHolderAccelerateCreationProcessorTest : PortkeyIndexerCATe
             CreateChainId = ChainHelper.ConvertBase58ToChainId("tDVV")
         };
 
-        var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(nonCreateChainCAHolderCreated.ToLogEvent());
+        var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(preCrossChainSyncHolderInfoCreated.ToLogEvent());
         logEventInfo.BlockHeight = blockHeight;
         logEventInfo.ChainId = chainId;
         logEventInfo.BlockHash = blockHash;
@@ -123,15 +118,15 @@ public sealed class CAHolderAccelerateCreationProcessorTest : PortkeyIndexerCATe
 
         //step5: check result
         var caHolderIndexData = await _caHolderIndexRepository.GetAsync(
-            $"{chainId}-{nonCreateChainCAHolderCreated.CaAddress.ToBase58()}");
+            $"{chainId}-{preCrossChainSyncHolderInfoCreated.CaAddress.ToBase58()}");
         caHolderIndexData.BlockHeight.ShouldBe(blockHeight);
         caHolderIndexData.ManagerInfos.FirstOrDefault().Address
-            .ShouldBe(nonCreateChainCAHolderCreated.Manager.ToBase58());
+            .ShouldBe(preCrossChainSyncHolderInfoCreated.Manager.ToBase58());
         var caHolderManagerIndexData = await _caHolderManagerIndexRepository.GetAsync(
-            $"{chainId}-{nonCreateChainCAHolderCreated.Manager.ToBase58()}");
+            $"{chainId}-{preCrossChainSyncHolderInfoCreated.Manager.ToBase58()}");
         caHolderManagerIndexData.BlockHeight.ShouldBe(blockHeight);
         caHolderManagerIndexData.CAAddresses.FirstOrDefault()
-            .ShouldBe(nonCreateChainCAHolderCreated.CaAddress.ToBase58());
+            .ShouldBe(preCrossChainSyncHolderInfoCreated.CaAddress.ToBase58());
     }
 
     [Fact]
