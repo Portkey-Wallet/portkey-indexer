@@ -16,21 +16,18 @@ public interface IAElfDataProvider
 public class AElfDataProvider : IAElfDataProvider
 {
     private const string PrivateKey = "09da44778f8db2e602fb484334f37df19e221c84c4582ce5b7770ccfbc3ddbef";
-    private readonly IAElfClientProvider _aElfClientProvider;
+    private readonly IAElfClientProvider _aelfClientProvider;
     private readonly ContractInfoOptions _contractInfoOptions;
-    private readonly IObjectMapper _objectMapper;
 
-    public AElfDataProvider(IAElfClientProvider aElfClientProvider, IOptionsSnapshot<ContractInfoOptions> contractInfoOptions, 
-        IObjectMapper objectMapper)
+    public AElfDataProvider(IAElfClientProvider aElfClientProvider, IOptionsSnapshot<ContractInfoOptions> contractInfoOptions)
     {
-        _aElfClientProvider = aElfClientProvider;
+        _aelfClientProvider = aElfClientProvider;
         _contractInfoOptions = contractInfoOptions.Value;
-        _objectMapper = objectMapper;
     }
 
     public async Task<TokenInfoDto> GetTokenInfoAsync(string chainId, string symbol)
     {
-        var client = _aElfClientProvider.GetClient(chainId);
+        var client = _aelfClientProvider.GetClient(chainId);
         var tokenContractAddress = _contractInfoOptions.ContractInfos.First(t => t.ChainId == chainId).TokenContractAddress;
         var transactionGetToken =
             await client.GenerateTransactionAsync(client.GetAddressFromPrivateKey(PrivateKey), tokenContractAddress,

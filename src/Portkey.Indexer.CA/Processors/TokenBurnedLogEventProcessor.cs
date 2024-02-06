@@ -23,10 +23,10 @@ public class TokenBurnedLogEventProcessor:  CAHolderTokenBalanceProcessorBase<Bu
             caHolderTokenBalanceIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderNFTCollectionBalanceIndex, LogEventInfo> caHolderNFTCollectionBalanceIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, LogEventInfo> caHolderNFTBalanceIndexRepository,
-        IAElfDataProvider aElfDataProvider,
+        IAElfDataProvider aelfDataProvider,
         IObjectMapper objectMapper) : base(logger, contractInfoOptions,
         caHolderIndexRepository, tokenInfoIndexRepository,nftCollectionInfoRepository,nftInfoRepository, caHolderSearchTokenNFTRepository,
-        caHolderTokenBalanceIndexRepository,caHolderNFTCollectionBalanceIndexRepository, caHolderNFTBalanceIndexRepository, aElfDataProvider, 
+        caHolderTokenBalanceIndexRepository,caHolderNFTCollectionBalanceIndexRepository, caHolderNFTBalanceIndexRepository, aelfDataProvider, 
         objectMapper)
     {
     }
