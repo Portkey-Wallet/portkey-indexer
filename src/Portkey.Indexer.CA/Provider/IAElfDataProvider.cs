@@ -46,10 +46,20 @@ public class AElfDataProvider : IAElfDataProvider
         });
         var tokenInfo = AElf.Contracts.MultiToken.TokenInfo.Parser.ParseFrom(
             ByteArrayHelper.HexStringToByteArray(transactionGetTokenResult));
-        var tokenInfoDto = new TokenInfoDto();
-        _objectMapper.Map(tokenInfo, tokenInfoDto);
-        tokenInfoDto.Issuer = tokenInfo.Issuer.ToBase58();
-        tokenInfoDto.ExternalInfo = tokenInfo.ExternalInfo.Value;
+        var tokenInfoDto = new TokenInfoDto
+        {
+            // not support mapping
+            Symbol = tokenInfo.Symbol,
+            TokenName = tokenInfo.TokenName,
+            Supply = tokenInfo.Supply,
+            TotalSupply = tokenInfo.TotalSupply,
+            Decimals = tokenInfo.Decimals,
+            Issued = tokenInfo.Issued,
+            IsBurnable = tokenInfo.IsBurnable,
+            IssueChainId = tokenInfo.IssueChainId,
+            Issuer = tokenInfo.Issuer.ToBase58(),
+            ExternalInfo = tokenInfo.ExternalInfo.Value
+        };
         return tokenInfoDto;
     }
 }
