@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Portkey.Contracts.CA;
 using Portkey.Indexer.CA.Entities;
+using Portkey.Indexer.CA.Provider;
 using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
@@ -30,6 +31,8 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
     protected readonly IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo>
         CAHolderTransactionAddressIndexRepository;
 
+    private readonly IAElfDataProvider _aelfDataProvider;
+
     protected readonly ContractInfoOptions ContractInfoOptions;
     protected readonly CAHolderTransactionInfoOptions CAHolderTransactionInfoOptions;
     protected readonly IObjectMapper ObjectMapper;
@@ -47,7 +50,7 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
             caHolderTransactionAddressIndexRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions,
-        IObjectMapper objectMapper) : base(logger)
+        IObjectMapper objectMapper, IAElfDataProvider aelfDataProvider = null) : base(logger)
     {
         CAHolderIndexRepository = caHolderIndexRepository;
         CAHolderManagerIndexRepository = caHolderManagerIndexRepository;
@@ -58,6 +61,7 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
         CAHolderTransactionInfoOptions = caHolderTransactionInfoOptions.Value;
         ObjectMapper = objectMapper;
         CAHolderTransactionAddressIndexRepository = caHolderTransactionAddressIndexRepository;
+        _aelfDataProvider = aelfDataProvider;
     }
 
     protected bool IsValidTransaction(string chainId, string to, string methodName, string parameter)
@@ -181,6 +185,90 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
         }
 
         return 0;
+    }
+
+    protected async Task<NFTInfoIndex> GetNftInfoIndexFromStateOrChainAsync(string symbol, LogEventContext context)
+    {
+        if (TokenHelper.GetTokenType(symbol) != TokenType.NFTItem)
+        {
+            return null;
+        }
+        var nftInfoIndex = await NFTInfoIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId, symbol),context.ChainId);
+        if (nftInfoIndex != null || _aelfDataProvider == null)
+        {
+            return nftInfoIndex;
+        }
+
+        var nftInfoId = IdGenerateHelper.GetId(context.ChainId, symbol);
+        nftInfoIndex = new NFTInfoIndex()
+        {
+            Id = nftInfoId,
+            Symbol = symbol,
+            Type = TokenType.NFTItem,
+            TokenContractAddress = GetContractAddress(context.ChainId)
+        };
+        ObjectMapper.Map(context, nftInfoIndex);
+        var nftInfo = await _aelfDataProvider.GetTokenInfoAsync(nftInfoIndex.ChainId, nftInfoIndex.Symbol);
+        if (nftInfo.Symbol == nftInfoIndex.Symbol)
+        {
+            ObjectMapper.Map(nftInfo, nftInfoIndex);
+            if (nftInfo.ExternalInfo is {Count: > 0})
+            {
+                nftInfoIndex.ExternalInfoDictionary = nftInfo.ExternalInfo
+                    .Where(t => !t.Key.IsNullOrWhiteSpace())
+                    .ToDictionary(item => item.Key, item => item.Value);
+                if (nftInfo.ExternalInfo.ContainsKey("__nft_image_url"))
+                {
+                    nftInfoIndex.ImageUrl = nftInfo.ExternalInfo["__nft_image_url"];
+                }
+                else if (nftInfo.ExternalInfo.ContainsKey("inscription_image"))
+                {
+                    nftInfoIndex.ImageUrl = nftInfo.ExternalInfo["inscription_image"];
+                }
+            }
+
+            nftInfoIndex.ExternalInfoDictionary ??= new Dictionary<string, string>();
+        }
+
+        await NFTInfoIndexRepository.AddOrUpdateAsync(nftInfoIndex);
+        return nftInfoIndex;
+    }
+    
+    protected async Task<TokenInfoIndex> GetTokenInfoIndexFromStateOrChainAsync(string symbol, LogEventContext context)
+    {
+        if (TokenHelper.GetTokenType(symbol) != TokenType.Token)
+        {
+            return null;
+        }
+        var tokenInfoIndex = await TokenInfoIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId, symbol),
+            context.ChainId);
+        if (tokenInfoIndex != null || _aelfDataProvider == null)
+        {
+            return tokenInfoIndex;
+        }
+
+        tokenInfoIndex = new TokenInfoIndex
+        {
+            Id = IdGenerateHelper.GetId(context.ChainId, symbol),
+            TokenContractAddress = GetContractAddress(context.ChainId),
+            Type = TokenType.Token,
+            Symbol = symbol
+        };
+        ObjectMapper.Map(context, tokenInfoIndex);
+        var tokenInfo = await _aelfDataProvider.GetTokenInfoAsync(tokenInfoIndex.ChainId, tokenInfoIndex.Symbol);
+        if (tokenInfo.Symbol == tokenInfoIndex.Symbol)
+        {
+            ObjectMapper.Map(tokenInfo, tokenInfoIndex);
+            if (tokenInfo.ExternalInfo is { Count: > 0 })
+            {
+                tokenInfoIndex.ExternalInfoDictionary = tokenInfo.ExternalInfo
+                    .Where(t => !t.Key.IsNullOrWhiteSpace())
+                    .ToDictionary(item => item.Key, item => item.Value);
+            }
+            tokenInfoIndex.ExternalInfoDictionary ??= new Dictionary<string, string>();
+        }
+        await TokenInfoIndexRepository.AddOrUpdateAsync(tokenInfoIndex);
+        return tokenInfoIndex;
     }
 
     public static string ToFullAddress(string address, string chainId)
