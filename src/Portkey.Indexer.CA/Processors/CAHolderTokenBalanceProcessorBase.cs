@@ -243,8 +243,8 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
                     .ToDictionary(item => item.Key, item => item.Value);
             }
             tokenInfoIndex.ExternalInfoDictionary ??= new Dictionary<string, string>();
+            await TokenInfoIndexRepository.AddOrUpdateAsync(tokenInfoIndex);
         }
-        await TokenInfoIndexRepository.AddOrUpdateAsync(tokenInfoIndex);
     }
 
     private async Task UpdateCollectionInfoFromChainAsync(NFTCollectionInfoIndex collectionInfoIndex)
@@ -269,9 +269,8 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
                 }
             }
             collectionInfoIndex.ExternalInfoDictionary ??= new Dictionary<string, string>();
+            await NftCollectionInfoRepository.AddOrUpdateAsync(collectionInfoIndex);
         }
-
-        await NftCollectionInfoRepository.AddOrUpdateAsync(collectionInfoIndex);
     }
 
     private async Task UpdateNftInfoFromChainAsync(NFTInfoIndex nftInfoIndex)
@@ -295,8 +294,8 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
                 }
             }
             nftInfoIndex.ExternalInfoDictionary ??= new Dictionary<string, string>();
+            await NftInfoRepository.AddOrUpdateAsync(nftInfoIndex);
         }
-        await NftInfoRepository.AddOrUpdateAsync(nftInfoIndex);
     }
 
     private async Task ModifySearchBalanceAsync(string address, string symbol, long amount, LogEventContext context)
