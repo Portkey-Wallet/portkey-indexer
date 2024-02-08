@@ -56,9 +56,21 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
         TokenType tokenType = TokenHelper.GetTokenType(symbol);
         if (tokenType == TokenType.Token)
         {
-            var tokenInfo =
-                await TokenInfoIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId, symbol),
-                    context.ChainId);
+            var tokenInfoIndex = await TokenInfoIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId, symbol),
+                context.ChainId);
+            if (tokenInfoIndex == null)
+            {
+                tokenInfoIndex = new TokenInfoIndex
+                {
+                    Id = IdGenerateHelper.GetId(context.ChainId, symbol),
+                    TokenContractAddress = GetContractAddress(context.ChainId),
+                    Type = TokenType.Token,
+                    Symbol = symbol
+                };
+                ObjectMapper.Map(context, tokenInfoIndex);
+                await UpdateTokenInfoFromChainAsync(tokenInfoIndex);
+            }
+            
             var id = IdGenerateHelper.GetId(context.ChainId, address, symbol);
             var tokenBalance = await CAHolderTokenBalanceIndexRepository.GetFromBlockStateSetAsync(id, context.ChainId);
             if (tokenBalance == null)
@@ -66,7 +78,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
                 tokenBalance = new CAHolderTokenBalanceIndex
                 {
                     Id = id,
-                    TokenInfo = tokenInfo,
+                    TokenInfo = tokenInfoIndex,
                     CAAddress = address
                 };
             }
@@ -217,6 +229,23 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
         //Update Search index Balance
         await ModifySearchBalanceAsync(address, symbol, amount, context);
     }
+    
+    private async Task UpdateTokenInfoFromChainAsync(TokenInfoIndex tokenInfoIndex)
+    {
+        var tokenInfoAsync = await AElfDataProvider.GetTokenInfoAsync(tokenInfoIndex.ChainId, tokenInfoIndex.Symbol);
+        if (tokenInfoAsync.Symbol == tokenInfoIndex.Symbol)
+        {
+            ObjectMapper.Map(tokenInfoAsync, tokenInfoIndex);
+            if (tokenInfoAsync.ExternalInfo is { Count: > 0 })
+            {
+                tokenInfoIndex.ExternalInfoDictionary = tokenInfoAsync.ExternalInfo
+                    .Where(t => !t.Key.IsNullOrWhiteSpace())
+                    .ToDictionary(item => item.Key, item => item.Value);
+            }
+            tokenInfoIndex.ExternalInfoDictionary ??= new Dictionary<string, string>();
+            await TokenInfoIndexRepository.AddOrUpdateAsync(tokenInfoIndex);
+        }
+    }
 
     private async Task UpdateCollectionInfoFromChainAsync(NFTCollectionInfoIndex collectionInfoIndex)
     {
@@ -240,11 +269,10 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
                 }
             }
             collectionInfoIndex.ExternalInfoDictionary ??= new Dictionary<string, string>();
+            await NftCollectionInfoRepository.AddOrUpdateAsync(collectionInfoIndex);
         }
-
-        await NftCollectionInfoRepository.AddOrUpdateAsync(collectionInfoIndex);
     }
-    
+
     private async Task UpdateNftInfoFromChainAsync(NFTInfoIndex nftInfoIndex)
     {
         var nftInfo = await AElfDataProvider.GetTokenInfoAsync(nftInfoIndex.ChainId, nftInfoIndex.Symbol);
@@ -266,8 +294,8 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
                 }
             }
             nftInfoIndex.ExternalInfoDictionary ??= new Dictionary<string, string>();
+            await NftInfoRepository.AddOrUpdateAsync(nftInfoIndex);
         }
-        await NftInfoRepository.AddOrUpdateAsync(nftInfoIndex);
     }
 
     private async Task ModifySearchBalanceAsync(string address, string symbol, long amount, LogEventContext context)

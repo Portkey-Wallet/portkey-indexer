@@ -7,6 +7,7 @@ using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Portkey.Indexer.CA.Entities;
+using Portkey.Indexer.CA.Provider;
 using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
@@ -23,9 +24,10 @@ public class TokenCrossChainTransferredProcessor : CAHolderTransactionProcessorB
         IObjectMapper objectMapper,
         IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
             caHolderTransactionIndexRepository,
-        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions) :
+        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions,
+        IAElfDataProvider aelfDataProvider) :
         base(logger, caHolderIndexRepository,caHolderManagerIndexRepository, caHolderTransactionIndexRepository, tokenInfoIndexRepository,nftInfoIndexRepository,
-            caHolderTransactionAddressIndexRepository,contractInfoOptions, caHolderTransactionInfoOptions, objectMapper)
+            caHolderTransactionAddressIndexRepository,contractInfoOptions, caHolderTransactionInfoOptions, objectMapper, aelfDataProvider)
     {
     }
 
@@ -45,10 +47,8 @@ public class TokenCrossChainTransferredProcessor : CAHolderTransactionProcessorB
         
         if (from_manager != null)
         {
-            var tokenInfoIndex =
-                await TokenInfoIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol),context.ChainId);
-            var nftInfoIndex =
-                await NFTInfoIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId, eventValue.Symbol),context.ChainId);
+            var tokenInfoIndex = await GetTokenInfoIndexFromStateOrChainAsync(eventValue.Symbol, context);
+            var nftInfoIndex = await GetNftInfoIndexFromStateOrChainAsync(eventValue.Symbol, context);
             string fromManagerCAAddress = from_manager.CAAddresses.FirstOrDefault();
             await CAHolderTransactionIndexRepository.AddOrUpdateAsync(GetCaHolderTransactionIndex(eventValue, tokenInfoIndex,nftInfoIndex,
                 fromManagerCAAddress,context));
