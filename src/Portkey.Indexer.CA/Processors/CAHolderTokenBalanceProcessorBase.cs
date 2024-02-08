@@ -83,6 +83,11 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
                 };
             }
 
+            if (tokenBalance.TokenInfo == null)
+            {
+                tokenBalance.TokenInfo = tokenInfoIndex;
+            }
+
             tokenBalance.Balance += amount;
             ObjectMapper.Map(context, tokenBalance);
             
