@@ -228,7 +228,6 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
             }
 
             nftInfoIndex.ExternalInfoDictionary ??= new Dictionary<string, string>();
-            await NFTInfoIndexRepository.AddOrUpdateAsync(nftInfoIndex);
         }
         return nftInfoIndex;
     }
@@ -265,7 +264,6 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
                     .ToDictionary(item => item.Key, item => item.Value);
             }
             tokenInfoIndex.ExternalInfoDictionary ??= new Dictionary<string, string>();
-            await TokenInfoIndexRepository.AddOrUpdateAsync(tokenInfoIndex);
         }
         return tokenInfoIndex;
     }
