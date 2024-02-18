@@ -162,6 +162,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
             {
                 nftInfo.CollectionName = nftCollectionInfo.TokenName;
                 nftInfo.CollectionSymbol = nftCollectionInfo.Symbol;
+                ObjectMapper.Map(context, nftInfo);
                 await NftInfoRepository.AddOrUpdateAsync(nftInfo);
             }
 
