@@ -26,4 +26,5 @@ public class GetCAHolderTransactionDto : PagedResultRequestDto
     
     public long? StartTime { get; set; }
     public long? EndTime { get; set; }
+    public bool ExcludeOtherCrossChain { get; set; }
 }
