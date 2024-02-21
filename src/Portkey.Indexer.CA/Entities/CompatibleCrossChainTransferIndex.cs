@@ -4,7 +4,7 @@ using Nest;
 
 namespace Portkey.Indexer.CA.Entities;
 
-public class OtherCrossChainTransferIndex : AElfIndexerClientEntity<string>, IIndexBuild
+public class CompatibleCrossChainTransferIndex : AElfIndexerClientEntity<string>, IIndexBuild
 {
     [Keyword] public override string Id { get; set; }
     [Keyword] public string TransactionId { get; set; }

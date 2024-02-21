@@ -57,7 +57,7 @@ public class Query
         [FromServices] IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> repository,
         [FromServices]
         IAElfIndexerClientEntityRepository<TransactionFeeChangedIndex, LogEventInfo> transactionFeeRepository,
-        [FromServices] IAElfIndexerClientEntityRepository<OtherCrossChainTransferIndex, TransactionInfo>
+        [FromServices] IAElfIndexerClientEntityRepository<CompatibleCrossChainTransferIndex, TransactionInfo>
             otherCrossChainTransferRepository,
         [FromServices] IObjectMapper objectMapper, GetCAHolderTransactionDto dto)
     {
@@ -146,9 +146,9 @@ public class Query
             sortType: SortOrder.Descending, skip: dto.SkipCount, limit: dto.MaxResultCount);
         var dataList = objectMapper.Map<List<CAHolderTransactionIndex>, List<CAHolderTransactionDto>>(result.Item2);
 
-        if (dto.ExcludeOtherCrossChain)
+        if (dto.ExcludeCompatibleCrossChain)
         {
-            await ExcludeOtherCrossChainAsync(dataList, otherCrossChainTransferRepository);
+            await ExcludeCompatibleCrossChainAsync(dataList, otherCrossChainTransferRepository);
         }
 
         foreach (var transaction in dataList)
@@ -173,11 +173,11 @@ public class Query
         return pageResult;
     }
 
-    private static async Task ExcludeOtherCrossChainAsync(List<CAHolderTransactionDto> dataList,
-        IAElfIndexerClientEntityRepository<OtherCrossChainTransferIndex, TransactionInfo>
+    private static async Task ExcludeCompatibleCrossChainAsync(List<CAHolderTransactionDto> dataList,
+        IAElfIndexerClientEntityRepository<CompatibleCrossChainTransferIndex, TransactionInfo>
             repository)
     {
-        var mustQuery = new List<Func<QueryContainerDescriptor<OtherCrossChainTransferIndex>, QueryContainer>>();
+        var mustQuery = new List<Func<QueryContainerDescriptor<CompatibleCrossChainTransferIndex>, QueryContainer>>();
         var transactionIds = dataList.Where(t =>
                 t.MethodName == CommonConstant.CrossChainTransfer && t.TransferInfo.FromCAAddress.IsNullOrEmpty())
             .Select(t => t.Id).ToList();
@@ -186,7 +186,7 @@ public class Query
 
         mustQuery.Add(q => q.Terms(i => i.Field(f => f.Id).Terms(transactionIds)));
 
-        QueryContainer Filter(QueryContainerDescriptor<OtherCrossChainTransferIndex> f) =>
+        QueryContainer Filter(QueryContainerDescriptor<CompatibleCrossChainTransferIndex> f) =>
             f.Bool(b => b.Must(mustQuery));
 
         var result = await repository.GetListAsync(Filter);

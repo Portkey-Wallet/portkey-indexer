@@ -46,8 +46,8 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
     private readonly IAElfIndexerClientEntityRepository<TransactionFeeChangedIndex, LogEventInfo>
         transactionFeeRepository;
 
-    private readonly IAElfIndexerClientEntityRepository<OtherCrossChainTransferIndex, TransactionInfo>
-        otherCrossChainTransferRepository;
+    private readonly IAElfIndexerClientEntityRepository<CompatibleCrossChainTransferIndex, TransactionInfo>
+        compatibleCrossChainTransferRepository;
 
     private readonly IObjectMapper _objectMapper;
 
@@ -1877,7 +1877,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         await HandleTokenCrossChainTransactionAsync_Test();
 
         var result = await Query.CAHolderTransaction(_caHolderTransactionIndexRepository, transactionFeeRepository,
-            otherCrossChainTransferRepository, _objectMapper,
+            compatibleCrossChainTransferRepository, _objectMapper,
             new GetCAHolderTransactionDto
             {
                 SkipCount = 0,
@@ -1918,7 +1918,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         await HandleTokenCrossChainTransactionAsync_Test();
 
         var result = await Query.CAHolderTransaction(_caHolderTransactionIndexRepository, transactionFeeRepository,
-            otherCrossChainTransferRepository, _objectMapper,
+            compatibleCrossChainTransferRepository, _objectMapper,
             new GetCAHolderTransactionDto
             {
                 SkipCount = 0,
@@ -1941,7 +1941,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
                     "Transfer",
                     "CrossChainTransfer"
                 },
-                ExcludeOtherCrossChain = true
+                ExcludeCompatibleCrossChain = true
             });
 
         result.TotalRecordCount.ShouldBe(1);
