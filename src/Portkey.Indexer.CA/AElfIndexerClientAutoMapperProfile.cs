@@ -54,7 +54,7 @@ public class TestGraphQLAutoMapperProfile : Profile
 
         CreateMap<NFTProtocolCreated, NFTCollectionInfoIndex>();
         CreateMap<NFTProtocolInfo, NFTCollectionInfoIndex>();
-        CreateMap<NFTCollectionInfoIndex, NFTProtocolInfoDto>();
+        CreateMap<NFTInfoIndex, NftItemInfosResponseDto>();
         CreateMap<NFTCollectionInfoIndex, NFTProtocol>();
         CreateMap<NFTCollectionInfoIndex, NFTCollectionDto>();
         CreateMap<NFTMinted, NFTInfoIndex>();
