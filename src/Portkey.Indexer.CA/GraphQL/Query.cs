@@ -38,9 +38,9 @@ public class Query
     }
 
     [Name("nftItemInfos")]
-    public static async Task<List<NftItemInfosResponseDto>> GetNftItemInfosAsync(
+    public static async Task<List<NftItemInfosResponseDto>> NftItemInfos(
         [FromServices] IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> repository,
-        [FromServices] IObjectMapper objectMapper, GetNftInfoDto dto)
+        [FromServices] IObjectMapper objectMapper, GetNftItemInfosDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<NFTInfoIndex>, QueryContainer>>();
         

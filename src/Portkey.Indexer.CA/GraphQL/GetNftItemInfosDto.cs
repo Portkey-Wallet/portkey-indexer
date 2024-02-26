@@ -2,7 +2,7 @@ using Volo.Abp.Application.Dtos;
 
 namespace Portkey.Indexer.CA.GraphQL;
 
-public class GetNftInfoDto : PagedResultRequestDto
+public class GetNftItemInfosDto : PagedResultRequestDto
 {
     public List<GetNftItemInfo> GetNftItemInfos { get; set; }
 }
