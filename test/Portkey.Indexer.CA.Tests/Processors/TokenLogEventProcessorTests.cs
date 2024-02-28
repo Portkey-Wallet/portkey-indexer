@@ -47,7 +47,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         transactionFeeRepository;
 
     private readonly IAElfIndexerClientEntityRepository<CompatibleCrossChainTransferIndex, TransactionInfo>
-        compatibleCrossChainTransferRepository;
+        _compatibleCrossChainTransferRepository;
 
     private readonly IObjectMapper _objectMapper;
 
@@ -55,6 +55,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
     const string caaddressB = "AAAA";
     const string creatorB = "BBBB";
     const string managerB = "CCCC";
+    const string managerC = "DDDD";
     const string chainId = "AELF";
     const string chainIdSide = "tDVV";
     const string blockHash = "dac5cd67a2783d0a3d843426c2d45f1178f4d052235a907a0d796ae4659103b1";
@@ -98,6 +99,8 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
             GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>>();
         transactionFeeRepository =
             GetRequiredService<IAElfIndexerClientEntityRepository<TransactionFeeChangedIndex, LogEventInfo>>();
+        _compatibleCrossChainTransferRepository = 
+            GetRequiredService<IAElfIndexerClientEntityRepository<CompatibleCrossChainTransferIndex, TransactionInfo>>();
         _objectMapper = GetRequiredService<IObjectMapper>();
     }
 
@@ -1005,6 +1008,71 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
                                                                 holderB.CaAddress.ToString()
                                                                     .Trim(new char[] { '"' }) + "-" + symbol);
     }
+    
+    [Fact]
+    public async Task HandleTokenCrossChainTransactionCompatibleAsync_Test()
+    {
+        var (holderB, _) = await CreateHolder(email: holderBEmail, caaddressB, creatorB, managerB);
+        const string symbol = "READ";
+        const long amount = 1;
+        await HandleTokenIssueLogEventAsync_Test();
+        var tokenCrossChainTransferredProcessor = GetRequiredService<TokenCrossChainTransferredProcessor>();
+        tokenCrossChainTransferredProcessor.GetContractAddress(chainId);
+        var blockStateSet = new BlockStateSet<LogEventInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash,
+        };
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash,
+        };
+        var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
+        var crossChainTransferred = new CrossChainTransferred()
+        {
+            From = Address.FromPublicKey(managerC.HexToByteArray()),
+            To = holderB.CaAddress,
+            ToChainId = 1866392,
+            Symbol = symbol,
+            Amount = amount
+        };
+
+        var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(crossChainTransferred.ToLogEvent());
+        logEventInfo.BlockHeight = blockHeight;
+        logEventInfo.ChainId = chainId;
+        logEventInfo.BlockHash = blockHash;
+        logEventInfo.TransactionId = transactionId;
+        var logEventContext = new LogEventContext
+        {
+            To = contractAddress,
+            ChainId = chainId,
+            BlockHeight = blockHeight,
+            BlockHash = blockHash,
+            BlockTime = DateTime.Now.ToUniversalTime(),
+            PreviousBlockHash = previousBlockHash,
+            TransactionId = transactionId,
+            MethodName = crossChainTransferMethodName,
+            ExtraProperties = new Dictionary<string, string>()
+            {
+                // { "TransactionFee", "0" }
+            }
+        };
+
+        //step3: handle event and write result to blockStateSet
+        await tokenCrossChainTransferredProcessor.HandleEventAsync(logEventInfo, logEventContext);
+        await Task.Delay(2000);
+        //step4: save blockStateSet into es
+        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
+        await Task.Delay(2000);
+
+    }
 
     [Fact]
     public async Task HandleNFTCollectionCrossChainTransactionAsync_Test()
@@ -1876,8 +1944,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
     {
         await HandleTokenCrossChainTransactionAsync_Test();
 
-        var result = await Query.CAHolderTransaction(_caHolderTransactionIndexRepository, transactionFeeRepository,
-            compatibleCrossChainTransferRepository, _objectMapper,
+        var result = await Query.CAHolderTransaction(_caHolderTransactionIndexRepository, transactionFeeRepository, _objectMapper,
             new GetCAHolderTransactionDto
             {
                 SkipCount = 0,
@@ -1917,8 +1984,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
     {
         await HandleTokenCrossChainTransactionAsync_Test();
 
-        var result = await Query.CAHolderTransaction(_caHolderTransactionIndexRepository, transactionFeeRepository,
-            compatibleCrossChainTransferRepository, _objectMapper,
+        var result = await Query.CAHolderTransaction(_caHolderTransactionIndexRepository, transactionFeeRepository, _objectMapper,
             new GetCAHolderTransactionDto
             {
                 SkipCount = 0,
@@ -1940,8 +2006,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
                     "Transferred",
                     "Transfer",
                     "CrossChainTransfer"
-                },
-                ExcludeCompatibleCrossChain = true
+                }
             });
 
         result.TotalRecordCount.ShouldBe(1);
@@ -2043,7 +2108,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
     {
         await HandleTokenTransferredAsync_Test();
 
-        var result = await Query.CAHolderTransactionInfo(_caHolderTransactionIndexRepository, _objectMapper,
+        var result = await Query.CAHolderTransactionInfo(_caHolderTransactionIndexRepository, _compatibleCrossChainTransferRepository, _objectMapper,
             new GetCAHolderTransactionInfoDto
             {
                 SkipCount = 0,
@@ -2068,6 +2133,27 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
             .ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
         result.Data.FirstOrDefault().ChainId.ShouldBe("AELF");
         result.Data.FirstOrDefault().TransferInfo.Amount.ShouldBe(1);
+
+        await HandleTokenCrossChainTransactionCompatibleAsync_Test();
+        result = await Query.CAHolderTransactionInfo(_caHolderTransactionIndexRepository, _compatibleCrossChainTransferRepository, _objectMapper,
+            new GetCAHolderTransactionInfoDto
+            {
+                SkipCount = 0,
+                MaxResultCount = 10,
+                ChainId = chainId,
+                // CAAddresses = new List<string>
+                // {
+                //     Address.FromPublicKey("AAAA".HexToByteArray()).ToBase58()
+                // },
+                Symbol = "READ",
+                MethodNames = new List<string>
+                {
+                    "Transferred",
+                    "Transfer",
+                    "CrossChainTransfer"
+                }
+            });
+        result.TotalRecordCount.ShouldBe(1);
     }
 
     [Fact]
