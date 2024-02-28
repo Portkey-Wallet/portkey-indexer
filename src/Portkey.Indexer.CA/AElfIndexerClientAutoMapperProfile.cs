@@ -34,6 +34,7 @@ public class TestGraphQLAutoMapperProfile : Profile
         CreateMap<LogEventContext, CAHolderNFTBalanceIndex>();
         CreateMap<LogEventContext, CAHolderTokenBalanceIndex>();
 
+        CreateMap<LogEventContext, CompatibleCrossChainTransferIndex>();
         CreateMap<LogEventContext, CAHolderTransactionAddressIndex>();
         CreateMap<LogEventContext, CAHolderManagerChangeRecordIndex>();
         CreateMap<LogEventContext, CAHolderSearchTokenNFTIndex>();
