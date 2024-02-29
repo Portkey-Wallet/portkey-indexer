@@ -2348,4 +2348,25 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         transferTransactionIndex.TransferInfo.FromAddress.ShouldBe(holderA.CaAddress.ToBase58());
         transferTransactionIndex.TransferInfo.ToAddress.ShouldBe(holderB.CaAddress.ToBase58());
     }
+    
+    [Fact]
+    public async Task QueryGetNftItemInfoTests()
+    {
+        await HandleNFTItemCreatedEventAsync_Test();
+
+        string symbol = "READ-1";
+        var result = await Query.GetNftItemInfosAsync(_nftInfoIndexRepository,
+            _objectMapper, new GetNftItemInfosDto()
+            {
+                GetNftItemInfos = new List<GetNftItemInfo>()
+                {
+                    new GetNftItemInfo()
+                    {
+                        Symbol = symbol
+                    }
+                }
+            });
+        result.Count.ShouldBe(1);
+        result.First().Symbol.ShouldBe(symbol);
+    }
 }
