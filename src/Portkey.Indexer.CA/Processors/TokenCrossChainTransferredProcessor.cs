@@ -14,51 +14,75 @@ namespace Portkey.Indexer.CA.Processors;
 
 public class TokenCrossChainTransferredProcessor : CAHolderTransactionProcessorBase<CrossChainTransferred>
 {
+    private readonly IAElfIndexerClientEntityRepository<CompatibleCrossChainTransferIndex, TransactionInfo>
+        _compatibleCrossChainTransferIndexRepository;
+
     public TokenCrossChainTransferredProcessor(ILogger<TokenCrossChainTransferredProcessor> logger,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
         IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> nftInfoIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex,TransactionInfo> caHolderTransactionAddressIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo>
+            caHolderTransactionAddressIndexRepository,
         IObjectMapper objectMapper,
         IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
             caHolderTransactionIndexRepository,
         IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions,
-        IAElfDataProvider aelfDataProvider) :
-        base(logger, caHolderIndexRepository,caHolderManagerIndexRepository, caHolderTransactionIndexRepository, tokenInfoIndexRepository,nftInfoIndexRepository,
-            caHolderTransactionAddressIndexRepository,contractInfoOptions, caHolderTransactionInfoOptions, objectMapper, aelfDataProvider)
+        IAElfDataProvider aelfDataProvider,
+        IAElfIndexerClientEntityRepository<CompatibleCrossChainTransferIndex, TransactionInfo>
+            compatibleCrossChainTransferIndexRepository) :
+        base(logger, caHolderIndexRepository, caHolderManagerIndexRepository, caHolderTransactionIndexRepository,
+            tokenInfoIndexRepository, nftInfoIndexRepository,
+            caHolderTransactionAddressIndexRepository, contractInfoOptions, caHolderTransactionInfoOptions,
+            objectMapper, aelfDataProvider)
     {
+        _compatibleCrossChainTransferIndexRepository = compatibleCrossChainTransferIndexRepository;
     }
 
     public override string GetContractAddress(string chainId)
     {
-        return ContractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).TokenContractAddress;
+        return ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).TokenContractAddress;
     }
 
     protected override async Task HandleEventAsync(CrossChainTransferred eventValue, LogEventContext context)
     {
         if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
 
-        // var from = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
-        //     eventValue.From.ToBase58()),context.ChainId);
-        var from_manager = await CAHolderManagerIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
-        eventValue.From.ToBase58()),context.ChainId);
-        
-        if (from_manager != null)
+        var toCaHolder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
+            eventValue.To.ToBase58()), context.ChainId);
+        var fromManager = await CAHolderManagerIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(
+            context.ChainId,
+            eventValue.From.ToBase58()), context.ChainId);
+
+        if (fromManager == null && toCaHolder == null)
         {
-            var tokenInfoIndex = await GetTokenInfoIndexFromStateOrChainAsync(eventValue.Symbol, context);
-            var nftInfoIndex = await GetNftInfoIndexFromStateOrChainAsync(eventValue.Symbol, context);
-            string fromManagerCAAddress = from_manager.CAAddresses.FirstOrDefault();
-            await CAHolderTransactionIndexRepository.AddOrUpdateAsync(GetCaHolderTransactionIndex(eventValue, tokenInfoIndex,nftInfoIndex,
-                fromManagerCAAddress,context));
-            await AddCAHolderTransactionAddressAsync(from_manager.CAAddresses.FirstOrDefault(), eventValue.To.ToBase58(),
+            return;
+        }
+
+        var tokenInfoIndex = await GetTokenInfoIndexFromStateOrChainAsync(eventValue.Symbol, context);
+        var nftInfoIndex = await GetNftInfoIndexFromStateOrChainAsync(eventValue.Symbol, context);
+
+        var fromManagerCaAddress = string.Empty;
+        if (fromManager != null)
+        {
+            fromManagerCaAddress = fromManager.CAAddresses.FirstOrDefault();
+            await AddCAHolderTransactionAddressAsync(fromManager.CAAddresses.FirstOrDefault(), eventValue.To.ToBase58(),
                 ChainHelper.ConvertChainIdToBase58(eventValue.ToChainId), context);
         }
+        else
+        {
+            await AddCompatibleCrossChainTransferAsync(context);
+        }
+
+        await CAHolderTransactionIndexRepository.AddOrUpdateAsync(GetCaHolderTransactionIndex(eventValue,
+            tokenInfoIndex, nftInfoIndex,
+            fromManagerCaAddress, context));
     }
-    
-    private CAHolderTransactionIndex GetCaHolderTransactionIndex(CrossChainTransferred transferred, TokenInfoIndex tokenInfoIndex, 
-        NFTInfoIndex nftInfoIndex,string fromManagerCAAddress,  LogEventContext context)
+
+    private CAHolderTransactionIndex GetCaHolderTransactionIndex(CrossChainTransferred transferred,
+        TokenInfoIndex tokenInfoIndex,
+        NFTInfoIndex nftInfoIndex, string fromManagerCAAddress, LogEventContext context)
     {
         var index = new CAHolderTransactionIndex
         {
@@ -86,5 +110,20 @@ public class TokenCrossChainTransferredProcessor : CAHolderTransactionProcessorB
         ObjectMapper.Map(context, index);
         index.MethodName = GetMethodName(context.MethodName, context.Params);
         return index;
+    }
+
+    private async Task AddCompatibleCrossChainTransferAsync(LogEventContext context)
+    {
+        var index = new CompatibleCrossChainTransferIndex
+        {
+            Id = IdGenerateHelper.GetId(context.BlockHash, context.TransactionId),
+            Timestamp = context.BlockTime.ToTimestamp().Seconds,
+            FromAddress = context.From,
+            ToAddress = context.To
+        };
+
+        ObjectMapper.Map(context, index);
+
+        await _compatibleCrossChainTransferIndexRepository.AddOrUpdateAsync(index);
     }
 }
