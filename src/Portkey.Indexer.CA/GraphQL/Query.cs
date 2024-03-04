@@ -1009,7 +1009,7 @@ public class Query
         {
             mustQuery.Add(q => q.Terms(i => i.Field(f => f.CaHash).Terms(dto.CaHashes)));
         }
-        
+
         if (!dto.ReferralCodes.IsNullOrEmpty())
         {
             mustQuery.Add(q => q.Terms(i => i.Field(f => f.ReferralCode).Terms(dto.ReferralCodes)));
@@ -1037,8 +1037,8 @@ public class Query
         return objectMapper.Map<List<InviteIndex>, List<ReferralInfoDto>>(
             result.Item2);
     }
-    
-    
+
+
     [Name("autoReceiveTransaction")]
     public static async Task<CAHolderTransactionPageResultDto> GetAutoReceiveTransactionAsync(
         [FromServices] IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> repository,
@@ -1059,5 +1059,36 @@ public class Query
             Data = dataList
         };
         return pageResult;
+    }
+
+    [Name("nftItemInfos")]
+    public static async Task<List<NFTItemInfoDto>> GetNftItemInfosAsync(
+        [FromServices] IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> repository,
+        [FromServices] IObjectMapper objectMapper, GetNftItemInfosDto dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<NFTInfoIndex>, QueryContainer>>();
+
+        if (!dto.GetNftItemInfos.IsNullOrEmpty())
+        {
+            var shouldQuery = new List<Func<QueryContainerDescriptor<NFTInfoIndex>, QueryContainer>>();
+            foreach (var info in dto.GetNftItemInfos)
+            {
+                var nftItemInfo =
+                    new List<Func<QueryContainerDescriptor<NFTInfoIndex>, QueryContainer>>
+                    {
+                        q => q.Term(i => i.Field(f => f.ChainId).Value(info.ChainId)),
+                        q => q.Term(i => i.Field(f => f.Symbol).Value(info.Symbol))
+                    };
+                shouldQuery.Add(q => q.Bool(b => b.Must(nftItemInfo)));
+            }
+
+            mustQuery.Add(q => q.Bool(b => b.Should(shouldQuery)));
+        }
+
+        QueryContainer Filter(QueryContainerDescriptor<NFTInfoIndex> f) => f.Bool(b => b.Must(mustQuery));
+
+        var result = await repository.GetListAsync(Filter, sortExp: k => k.Symbol,
+            sortType: SortOrder.Ascending, skip: dto.SkipCount, limit: dto.MaxResultCount);
+        return objectMapper.Map<List<NFTInfoIndex>, List<NFTItemInfoDto>>(result.Item2);
     }
 }
