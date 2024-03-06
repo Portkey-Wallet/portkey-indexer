@@ -4,6 +4,7 @@ using AElfIndexer.Client.Handlers;
 using AElfIndexer.Grains.State.Client;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Portkey.Indexer.CA.Entities;
 using Portkey.Indexer.CA.Provider;
 using Volo.Abp.ObjectMapping;
@@ -298,6 +299,48 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
                 {
                     nftInfoIndex.ImageUrl = nftInfo.ExternalInfo["inscription_image"];
                 }
+                if (nftInfo.ExternalInfo.TryGetValue("traits", out var traits))
+                {
+                    nftInfoIndex.Straits = traits;
+                }
+
+                if (nftInfo.ExternalInfo.TryGetValue("inscription_deploy", out var inscriptionDeploy))
+                {
+                    var inscriptionDeployMap =
+                        JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionDeploy);
+                    if (inscriptionDeployMap.TryGetValue("tick", out var tick))
+                    {
+                        nftInfoIndex.Tick = tick;
+                    }
+
+                    if (inscriptionDeployMap.TryGetValue("lim", out var lim))
+                    {
+                        nftInfoIndex.LimitPerMint = int.Parse(lim);
+                    }
+                }
+
+                if (nftInfo.ExternalInfo.TryGetValue("inscription_adopt", out var inscriptionAdopt))
+                {
+                    var inscriptionDeployMap =
+                        JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionAdopt);
+                    if (inscriptionDeployMap.TryGetValue("gen", out var gen))
+                    {
+                        nftInfoIndex.Generation = gen;
+                    }
+                }
+
+
+                if (nftInfo.ExternalInfo.TryGetValue("__seed_owned_symbol", out var seedOwnedSymbol))
+                {
+                    nftInfoIndex.SeedOwnedSymbol = seedOwnedSymbol;
+                }
+
+                if (nftInfo.ExternalInfo.TryGetValue("__seed_exp_time", out var seedExpTime))
+                {
+                    nftInfoIndex.Expires = seedExpTime;
+                }
+                
+                
             }
             nftInfoIndex.ExternalInfoDictionary ??= new Dictionary<string, string>();
             await NftInfoRepository.AddOrUpdateAsync(nftInfoIndex);
