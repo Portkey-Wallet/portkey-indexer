@@ -128,6 +128,20 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
                 {
                     nftCollectionInfoIndex.ImageUrl = eventValue.ExternalInfo.Value["inscription_image"];
                 }
+                if (eventValue.ExternalInfo.Value.TryGetValue("inscription_deploy", out var inscriptionDeploy))
+                {
+                    var inscriptionDeployMap =
+                        JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionDeploy);
+                    if (inscriptionDeployMap.TryGetValue("tick", out var tick))
+                    {
+                        nftCollectionInfoIndex.InscriptionName = tick;
+                    }
+
+                    if (inscriptionDeployMap.TryGetValue("lim", out var lim))
+                    {
+                        nftCollectionInfoIndex.LimitPerMint = int.Parse(lim);
+                    }
+                }
             }
 
             _objectMapper.Map(context, nftCollectionInfoIndex);
@@ -165,21 +179,6 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
                     nftInfoIndex.ImageUrl = inscriptionImage;
                 }
 
-                if (eventValue.ExternalInfo.Value.TryGetValue("inscription_deploy", out var inscriptionDeploy))
-                {
-                    var inscriptionDeployMap =
-                        JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionDeploy);
-                    if (inscriptionDeployMap.TryGetValue("tick", out var tick))
-                    {
-                        nftInfoIndex.InscriptionName = tick;
-                    }
-
-                    if (inscriptionDeployMap.TryGetValue("lim", out var lim))
-                    {
-                        nftInfoIndex.LimitPerMint = int.Parse(lim);
-                    }
-                }
-
                 if (eventValue.ExternalInfo.Value.TryGetValue("__seed_owned_symbol", out var seedOwnedSymbol))
                 {
                     nftInfoIndex.SeedOwnedSymbol = seedOwnedSymbol;
@@ -199,6 +198,8 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
             {
                 nftInfoIndex.CollectionSymbol = nftCollectionInfoIndex.Symbol;
                 nftInfoIndex.CollectionName = nftCollectionInfoIndex.TokenName;
+                nftInfoIndex.InscriptionName = nftCollectionInfoIndex.InscriptionName;
+                nftInfoIndex.LimitPerMint = nftCollectionInfoIndex.LimitPerMint;
             }
 
             _objectMapper.Map(context, nftInfoIndex);
