@@ -120,14 +120,15 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
                     .ToDictionary(item => item.Key, item => item.Value);
 
                 nftCollectionInfoIndex.Issuer = eventValue.Issuer.ToBase58();
-                if (eventValue.ExternalInfo.Value.TryGetValue("__nft_image_url", out var ImageUrl))
+                if (eventValue.ExternalInfo.Value.TryGetValue("__nft_image_url", out var imageUrl))
                 {
-                    nftCollectionInfoIndex.ImageUrl = ImageUrl;
+                    nftCollectionInfoIndex.ImageUrl = imageUrl;
                 }
                 else if (eventValue.ExternalInfo.Value.TryGetValue("inscription_image", out var inscriptionImage))
                 {
                     nftCollectionInfoIndex.ImageUrl = inscriptionImage;
                 }
+
                 if (eventValue.ExternalInfo.Value.TryGetValue("inscription_deploy", out var inscriptionDeploy))
                 {
                     var inscriptionDeployMap =
@@ -136,23 +137,12 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
                     {
                         nftCollectionInfoIndex.InscriptionName = tick;
                     }
-                    
+
                     if (inscriptionDeployMap.TryGetValue("lim", out var lim))
                     {
                         nftCollectionInfoIndex.LimitPerMint = int.Parse(lim);
                     }
                 }
-                
-                if (eventValue.ExternalInfo.Value.TryGetValue("inscription_adopt", out var inscriptionAdopt))
-                {
-                    var inscriptionDeployMap =
-                        JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionAdopt);
-                    if (inscriptionDeployMap.TryGetValue("gen", out var gen))
-                    {
-                        nftCollectionInfoIndex.Generation = gen;
-                    }
-                }
-
             }
 
             _objectMapper.Map(context, nftCollectionInfoIndex);
@@ -190,9 +180,9 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
                     nftInfoIndex.ImageUrl = inscriptionImage;
                 }
 
-                if (eventValue.ExternalInfo.Value.TryGetValue("traits", out var traits))
+                if (eventValue.ExternalInfo.Value.TryGetValue("__nft_attributes", out var attributes))
                 {
-                    nftInfoIndex.Straits = traits;
+                    nftInfoIndex.Straits = attributes;
                 }
 
                 if (eventValue.ExternalInfo.Value.TryGetValue("__seed_owned_symbol", out var seedOwnedSymbol))
@@ -203,6 +193,16 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
                 if (eventValue.ExternalInfo.Value.TryGetValue("__seed_exp_time", out var seedExpTime))
                 {
                     nftInfoIndex.Expires = seedExpTime;
+                }
+
+                if (eventValue.ExternalInfo.Value.TryGetValue("inscription_adopt", out var inscriptionAdopt))
+                {
+                    var inscriptionDeployMap =
+                        JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionAdopt);
+                    if (inscriptionDeployMap.TryGetValue("gen", out var gen))
+                    {
+                        nftInfoIndex.Generation = gen;
+                    }
                 }
             }
 

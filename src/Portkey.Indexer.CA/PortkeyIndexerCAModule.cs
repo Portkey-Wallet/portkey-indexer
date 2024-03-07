@@ -73,6 +73,7 @@ public class PortkeyIndexerCAModule:AElfIndexerClientPluginBaseModule<PortkeyInd
         Configure<ContractInfoOptions>(configuration.GetSection("ContractInfo"));
         Configure<InitialInfoOptions>(configuration.GetSection("InitialInfo"));
         Configure<CAHolderTransactionInfoOptions>(configuration.GetSection("CAHolderTransactionInfo"));
+        Configure<CAHolderTransactionInfoOptions>(configuration.GetSection("InscriptionList"));
     }
 
     protected override string ClientId => "Portkey_DID";
