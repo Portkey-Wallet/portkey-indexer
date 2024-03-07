@@ -15,7 +15,7 @@ public class NFTInfoIndex : TokenInfoBase, IIndexBuild
     
     public int LimitPerMint { get; set; }
     
-    [Keyword] public string Tick { get; set; }
+    [Keyword] public string InscriptionName { get; set; }
     
     [Keyword] public string Generation { get; set; }
     

@@ -299,9 +299,9 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
                 {
                     nftInfoIndex.ImageUrl = nftInfo.ExternalInfo["inscription_image"];
                 }
-                if (nftInfo.ExternalInfo.TryGetValue("traits", out var traits))
+                if (nftInfo.ExternalInfo.TryGetValue("__nft_attributes", out var nftAttributes))
                 {
-                    nftInfoIndex.Straits = traits;
+                    nftInfoIndex.Straits = nftAttributes;
                 }
 
                 if (nftInfo.ExternalInfo.TryGetValue("inscription_deploy", out var inscriptionDeploy))
@@ -310,7 +310,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
                         JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionDeploy);
                     if (inscriptionDeployMap.TryGetValue("tick", out var tick))
                     {
-                        nftInfoIndex.Tick = tick;
+                        nftInfoIndex.InscriptionName = tick;
                     }
 
                     if (inscriptionDeployMap.TryGetValue("lim", out var lim))
