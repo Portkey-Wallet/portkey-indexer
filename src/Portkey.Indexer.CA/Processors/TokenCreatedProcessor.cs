@@ -129,7 +129,7 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
                     nftCollectionInfoIndex.ImageUrl = inscriptionImage;
                 }
 
-                if (eventValue.ExternalInfo.Value.TryGetValue("inscription_deploy", out var inscriptionDeploy))
+                if (eventValue.ExternalInfo.Value.TryGetValue("__inscription_deploy", out var inscriptionDeploy))
                 {
                     var inscriptionDeployMap =
                         JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionDeploy);
@@ -195,7 +195,7 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
                     nftInfoIndex.Expires = seedExpTime;
                 }
 
-                if (eventValue.ExternalInfo.Value.TryGetValue("inscription_adopt", out var inscriptionAdopt))
+                if (eventValue.ExternalInfo.Value.TryGetValue("__inscription_adopt", out var inscriptionAdopt))
                 {
                     var inscriptionDeployMap =
                         JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionAdopt);

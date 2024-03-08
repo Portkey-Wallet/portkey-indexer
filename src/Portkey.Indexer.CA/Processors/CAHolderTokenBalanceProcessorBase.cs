@@ -168,7 +168,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
                 ObjectMapper.Map(context, nftInfo);
                 await NftInfoRepository.AddOrUpdateAsync(nftInfo);
             }
-            if (_inscriptionListOptions.InscriptionList.Contains(nftInfo.CollectionSymbol) && nftInfo.InscriptionName.IsNullOrWhiteSpace())
+            if (_inscriptionListOptions.Inscriptions.Contains(nftInfo.CollectionSymbol) && nftInfo.InscriptionName.IsNullOrWhiteSpace())
             {
                 // var collectionInfo = await AElfDataProvider.GetTokenInfoAsync(context.ChainId, nftInfo.CollectionSymbol);
                 // var collectionId = IdGenerateHelper.GetId(context.ChainId, address, nftInfo.CollectionSymbol);
@@ -304,16 +304,16 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
                 collectionInfoIndex.ExternalInfoDictionary = collectionInfo.ExternalInfo
                     .Where(t => !t.Key.IsNullOrWhiteSpace())
                     .ToDictionary(item => item.Key, item => item.Value);
-                if (collectionInfo.ExternalInfo.TryGetValue("__nft_image_url", out var ImageUrl))
+                if (collectionInfo.ExternalInfo.TryGetValue("__nft_image_url", out var imageUrl))
                 {
-                    collectionInfoIndex.ImageUrl = ImageUrl;
+                    collectionInfoIndex.ImageUrl = imageUrl;
                 }
                 else if (collectionInfo.ExternalInfo.TryGetValue("inscription_image", out var inscriptionImage))
                 {
                     collectionInfoIndex.ImageUrl = inscriptionImage;
                 }
                 
-                if (collectionInfo.ExternalInfo.TryGetValue("inscription_deploy", out var inscriptionDeploy))
+                if (collectionInfo.ExternalInfo.TryGetValue("__inscription_deploy", out var inscriptionDeploy))
                 {
                     var inscriptionDeployMap =
                         JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionDeploy);
@@ -358,7 +358,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
                 {
                     nftInfoIndex.Straits = nftAttributes;
                 }
-                if (nftInfo.ExternalInfo.TryGetValue("inscription_adopt", out var inscriptionAdopt))
+                if (nftInfo.ExternalInfo.TryGetValue("__inscription_adopt", out var inscriptionAdopt))
                 {
                     var inscriptionDeployMap =
                         JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionAdopt);
