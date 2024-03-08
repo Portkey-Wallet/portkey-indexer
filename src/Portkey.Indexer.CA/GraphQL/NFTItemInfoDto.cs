@@ -27,6 +27,7 @@ public class NFTItemInfoDto
     public string CollectionName { get; set; }
     
     public string InscriptionName { get; set; }
+    
     public int LimitPerMint { get; set; }
     
     public string SeedOwnedSymbol { get; set; }
@@ -34,5 +35,9 @@ public class NFTItemInfoDto
     public string Expires { get; set; }
     
     public string Traits { get; set; }
+    
+    public string Generation { get; set; }
+    
+    
     
 }

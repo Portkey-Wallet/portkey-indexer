@@ -143,6 +143,20 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
                         nftCollectionInfoIndex.LimitPerMint = int.Parse(lim);
                     }
                 }
+                if (eventValue.ExternalInfo.Value.TryGetValue("inscription_deploy", out var inscriptionDeployInfo))
+                {
+                    var inscriptionDeployMap =
+                        JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionDeployInfo);
+                    if (inscriptionDeployMap.TryGetValue("tick", out var tick))
+                    {
+                        nftCollectionInfoIndex.InscriptionName = tick;
+                    }
+
+                    if (inscriptionDeployMap.TryGetValue("lim", out var lim))
+                    {
+                        nftCollectionInfoIndex.LimitPerMint = int.Parse(lim);
+                    }
+                }
             }
 
             _objectMapper.Map(context, nftCollectionInfoIndex);

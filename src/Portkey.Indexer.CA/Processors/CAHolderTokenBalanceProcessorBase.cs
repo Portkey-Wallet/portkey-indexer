@@ -327,6 +327,20 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
                         collectionInfoIndex.LimitPerMint = int.Parse(lim);
                     }
                 }
+                if (collectionInfo.ExternalInfo.TryGetValue("inscription_deploy", out var inscriptionDeployInfo))
+                {
+                    var inscriptionDeployMap =
+                        JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionDeployInfo);
+                    if (inscriptionDeployMap.TryGetValue("tick", out var tick))
+                    {
+                        collectionInfoIndex.InscriptionName = tick;
+                    }
+
+                    if (inscriptionDeployMap.TryGetValue("lim", out var lim))
+                    {
+                        collectionInfoIndex.LimitPerMint = int.Parse(lim);
+                    }
+                }
 
                
             }
