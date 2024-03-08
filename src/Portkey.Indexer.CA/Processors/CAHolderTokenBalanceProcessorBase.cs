@@ -168,32 +168,41 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
                 ObjectMapper.Map(context, nftInfo);
                 await NftInfoRepository.AddOrUpdateAsync(nftInfo);
             }
-            if (_inscriptionListOptions.InscriptionList.Contains(nftInfo.CollectionSymbol) && nftCollectionInfo.InscriptionName.IsNullOrWhiteSpace())
+            if (_inscriptionListOptions.InscriptionList.Contains(nftInfo.CollectionSymbol) && nftInfo.InscriptionName.IsNullOrWhiteSpace())
             {
-                var collectionInfo = await AElfDataProvider.GetTokenInfoAsync(context.ChainId, nftInfo.CollectionSymbol);
-                var collectionId = IdGenerateHelper.GetId(context.ChainId, address, nftInfo.CollectionSymbol);
-                var collectionDetail = await CAHolderNFTCollectionBalanceRepository.GetFromBlockStateSetAsync(collectionId, context.ChainId);
-                if (collectionInfo.ExternalInfo.TryGetValue("inscription_deploy", out var inscriptionDeploy))
-                {
-                    var inscriptionDeployMap =
-                        JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionDeploy);
-                    if (inscriptionDeployMap.TryGetValue("tick", out var tick))
-                    {
-                        nftInfo.InscriptionName = tick;
-                        collectionDetail.NftCollectionInfo.InscriptionName = tick;
-                    }
+                // var collectionInfo = await AElfDataProvider.GetTokenInfoAsync(context.ChainId, nftInfo.CollectionSymbol);
+                // var collectionId = IdGenerateHelper.GetId(context.ChainId, address, nftInfo.CollectionSymbol);
+                // var collectionDetail = await NftCollectionInfoRepository.GetFromBlockStateSetAsync(collectionId, context.ChainId);
+                // if (collectionInfo.ExternalInfo.TryGetValue("inscription_deploy", out var inscriptionDeploy))
+                // {
+                //     var inscriptionDeployMap =
+                //         JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionDeploy);
+                //     if (inscriptionDeployMap.TryGetValue("tick", out var tick))
+                //     {
+                //         nftInfo.InscriptionName = tick;
+                //         collectionDetail.InscriptionName = tick;
+                //     }
+                //
+                //     if (inscriptionDeployMap.TryGetValue("lim", out var lim))
+                //     {
+                //         nftInfo.LimitPerMint = int.Parse(lim);
+                //         collectionDetail.LimitPerMint = int.Parse(lim);
+                //     }
+                // }
+                // ObjectMapper.Map(context, nftInfo);
+                // await NftInfoRepository.AddOrUpdateAsync(nftInfo);
+                
 
-                    if (inscriptionDeployMap.TryGetValue("lim", out var lim))
-                    {
-                        nftInfo.LimitPerMint = int.Parse(lim);
-                        collectionDetail.NftCollectionInfo.LimitPerMint = int.Parse(lim);
-                    }
+                if (nftCollectionInfo.InscriptionName.IsNullOrWhiteSpace())
+                {
+                    ObjectMapper.Map(context, nftCollectionInfo);
+                    await UpdateCollectionInfoFromChainAsync(nftCollectionInfo);
                 }
+
+                nftInfo.InscriptionName = nftCollectionInfo.InscriptionName;
+                nftInfo.LimitPerMint = nftCollectionInfo.LimitPerMint;
                 ObjectMapper.Map(context, nftInfo);
                 await NftInfoRepository.AddOrUpdateAsync(nftInfo);
-                ObjectMapper.Map(context, collectionDetail);
-                await CAHolderNFTCollectionBalanceRepository.AddOrUpdateAsync(collectionDetail);
-
             }
 
             var id = IdGenerateHelper.GetId(context.ChainId, address, symbol);
@@ -295,13 +304,13 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
                 collectionInfoIndex.ExternalInfoDictionary = collectionInfo.ExternalInfo
                     .Where(t => !t.Key.IsNullOrWhiteSpace())
                     .ToDictionary(item => item.Key, item => item.Value);
-                if (collectionInfo.ExternalInfo.ContainsKey("__nft_image_url"))
+                if (collectionInfo.ExternalInfo.TryGetValue("__nft_image_url", out var ImageUrl))
                 {
-                    collectionInfoIndex.ImageUrl = collectionInfo.ExternalInfo["__nft_image_url"];
+                    collectionInfoIndex.ImageUrl = ImageUrl;
                 }
-                else if (collectionInfo.ExternalInfo.ContainsKey("inscription_image"))
+                else if (collectionInfo.ExternalInfo.TryGetValue("inscription_image", out var inscriptionImage))
                 {
-                    collectionInfoIndex.ImageUrl = collectionInfo.ExternalInfo["inscription_image"];
+                    collectionInfoIndex.ImageUrl = inscriptionImage;
                 }
                 
                 if (collectionInfo.ExternalInfo.TryGetValue("inscription_deploy", out var inscriptionDeploy))
