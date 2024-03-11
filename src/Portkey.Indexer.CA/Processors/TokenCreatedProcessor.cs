@@ -130,6 +130,10 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
                 {
                     nftCollectionInfoIndex.ImageUrl = inscriptionImage;
                 }
+                else if(eventValue.ExternalInfo.Value.TryGetValue("__inscription_image", out var inscriptionImageUrl))
+                {
+                    nftCollectionInfoIndex.ImageUrl = inscriptionImageUrl;
+                }
 
                 if (eventValue.ExternalInfo.Value.TryGetValue("__inscription_deploy", out var inscriptionDeploy))
                 {
@@ -196,6 +200,11 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
                 {
                     nftInfoIndex.ImageUrl = inscriptionImage;
                 }
+                else if(eventValue.ExternalInfo.Value.TryGetValue("__inscription_image", out var inscriptionImageUrl))
+                {
+                    nftInfoIndex.ImageUrl = inscriptionImageUrl;
+                }
+               
 
                 if (eventValue.ExternalInfo.Value.TryGetValue("__nft_attributes", out var attributes))
                 {
