@@ -30,6 +30,8 @@ public class NFTItemInfoDto
     
     public string LimitPerMint { get; set; }
     
+    public string Lim { get; set; }
+    
     public string SeedOwnedSymbol { get; set; }
 
     public string Expires { get; set; }

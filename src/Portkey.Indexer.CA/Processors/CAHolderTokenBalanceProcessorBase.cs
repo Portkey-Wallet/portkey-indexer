@@ -202,7 +202,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
                 }
 
                 nftInfo.InscriptionName = nftCollectionInfo.InscriptionName;
-                nftInfo.LimitPerMint = nftCollectionInfo.LimitPerMint;
+                nftInfo.Lim = nftCollectionInfo.Lim;
                 ObjectMapper.Map(context, nftInfo);
                 await NftInfoRepository.AddOrUpdateAsync(nftInfo);
             }
@@ -301,7 +301,6 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
         {
                         
             ObjectMapper.Map(collectionInfo, collectionInfoIndex);
-            Log.Logger.Debug("collection.exterinfo is: {0}",collectionInfo.ExternalInfo.ToString());
             if (collectionInfo.ExternalInfo is { Count: > 0 })
             {
                 collectionInfoIndex.ExternalInfoDictionary = collectionInfo.ExternalInfo
@@ -327,7 +326,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
 
                     if (inscriptionDeployMap.TryGetValue("lim", out var lim))
                     {
-                        collectionInfoIndex.LimitPerMint = lim;
+                        collectionInfoIndex.Lim = lim;
                     }
                 }
                 if (collectionInfo.ExternalInfo.TryGetValue("inscription_deploy", out var inscriptionDeployInfo))
@@ -341,7 +340,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
 
                     if (inscriptionDeployMap.TryGetValue("lim", out var lim))
                     {
-                        collectionInfoIndex.LimitPerMint = lim;
+                        collectionInfoIndex.Lim = lim;
                     }
                 }
 

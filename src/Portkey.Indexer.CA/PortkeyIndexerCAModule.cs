@@ -76,8 +76,8 @@ public class PortkeyIndexerCAModule:AElfIndexerClientPluginBaseModule<PortkeyInd
         Configure<InscriptionListOptions>(configuration.GetSection("InscriptionList"));
     }
 
-    protected override string ClientId => "AElfIndexer_DApp_V2";
-    protected override string Version => "4dd700578c1b42e7a0c24c318997888e";
+    protected override string ClientId => "";
+    protected override string Version => "";
 
     
 }

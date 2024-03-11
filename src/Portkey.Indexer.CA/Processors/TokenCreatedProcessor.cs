@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Portkey.Indexer.CA.Entities;
+using Serilog;
 using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
@@ -115,6 +116,7 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
 
             if (eventValue.ExternalInfo is { Value.Count: > 0 })
             {
+                Log.Logger.Debug("Collection ExternalInfo is : {0}", eventValue.ExternalInfo.Value);
                 nftCollectionInfoIndex.ExternalInfoDictionary = eventValue.ExternalInfo.Value
                     .Where(t => !t.Key.IsNullOrWhiteSpace())
                     .ToDictionary(item => item.Key, item => item.Value);
@@ -140,7 +142,7 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
 
                     if (inscriptionDeployMap.TryGetValue("lim", out var lim))
                     {
-                        nftCollectionInfoIndex.LimitPerMint = lim;
+                        nftCollectionInfoIndex.Lim = lim;
                     }
                 }
                 if (eventValue.ExternalInfo.Value.TryGetValue("inscription_deploy", out var inscriptionDeployInfo))
@@ -154,7 +156,7 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
 
                     if (inscriptionDeployMap.TryGetValue("lim", out var lim))
                     {
-                        nftCollectionInfoIndex.LimitPerMint = lim;
+                        nftCollectionInfoIndex.Lim = lim;
                     }
                 }
             }
@@ -180,6 +182,7 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
 
             if (eventValue.ExternalInfo is { Value.Count: > 0 })
             {
+                Log.Debug("Create Token Extra Info: {0}", eventValue.ExternalInfo.Value);
                 nftInfoIndex.ExternalInfoDictionary = eventValue.ExternalInfo.Value
                     .Where(t => !t.Key.IsNullOrWhiteSpace())
                     .ToDictionary(item => item.Key, item => item.Value);
@@ -213,6 +216,7 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
                 {
                     var inscriptionDeployMap =
                         JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionAdopt);
+                    Log.Debug("Current Inscription Adopt: {0}", inscriptionDeployMap);
                     if (inscriptionDeployMap.TryGetValue("gen", out var gen))
                     {
                         nftInfoIndex.Generation = gen;
@@ -232,7 +236,7 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
             {
                 nftInfoIndex.CollectionSymbol = nftCollectionInfoIndex.Symbol;
                 nftInfoIndex.CollectionName = nftCollectionInfoIndex.TokenName;
-                nftInfoIndex.LimitPerMint = nftCollectionInfoIndex.LimitPerMint;
+                nftInfoIndex.Lim = nftCollectionInfoIndex.Lim;
             }
 
             _objectMapper.Map(context, nftInfoIndex);
