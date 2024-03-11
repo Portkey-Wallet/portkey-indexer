@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Portkey.Indexer.CA.Entities;
 using Portkey.Indexer.CA.Provider;
+using Serilog;
 using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
@@ -170,6 +171,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
             }
             if (_inscriptionListOptions.Inscriptions.Contains(nftInfo.CollectionSymbol) && nftInfo.InscriptionName.IsNullOrWhiteSpace())
             {
+                Log.Logger.Debug("nftInfo.CollectionSymbol: {0},nftInfo.InscriptionName:{1}", nftInfo.CollectionSymbol,nftInfo.InscriptionName);
                 // var collectionInfo = await AElfDataProvider.GetTokenInfoAsync(context.ChainId, nftInfo.CollectionSymbol);
                 // var collectionId = IdGenerateHelper.GetId(context.ChainId, address, nftInfo.CollectionSymbol);
                 // var collectionDetail = await NftCollectionInfoRepository.GetFromBlockStateSetAsync(collectionId, context.ChainId);
@@ -299,6 +301,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
         {
                         
             ObjectMapper.Map(collectionInfo, collectionInfoIndex);
+            Log.Logger.Debug("collection.exterinfo is: {0}",collectionInfo.ExternalInfo.ToString());
             if (collectionInfo.ExternalInfo is { Count: > 0 })
             {
                 collectionInfoIndex.ExternalInfoDictionary = collectionInfo.ExternalInfo
@@ -324,7 +327,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
 
                     if (inscriptionDeployMap.TryGetValue("lim", out var lim))
                     {
-                        collectionInfoIndex.LimitPerMint = int.Parse(lim);
+                        collectionInfoIndex.LimitPerMint = lim;
                     }
                 }
                 if (collectionInfo.ExternalInfo.TryGetValue("inscription_deploy", out var inscriptionDeployInfo))
@@ -338,7 +341,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
 
                     if (inscriptionDeployMap.TryGetValue("lim", out var lim))
                     {
-                        collectionInfoIndex.LimitPerMint = int.Parse(lim);
+                        collectionInfoIndex.LimitPerMint = lim;
                     }
                 }
 
@@ -370,7 +373,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
                 }
                 if (nftInfo.ExternalInfo.TryGetValue("__nft_attributes", out var nftAttributes))
                 {
-                    nftInfoIndex.Straits = nftAttributes;
+                    nftInfoIndex.Traits = nftAttributes;
                 }
                 if (nftInfo.ExternalInfo.TryGetValue("__inscription_adopt", out var inscriptionAdopt))
                 {

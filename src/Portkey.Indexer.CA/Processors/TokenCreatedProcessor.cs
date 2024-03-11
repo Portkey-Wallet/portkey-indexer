@@ -140,7 +140,7 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
 
                     if (inscriptionDeployMap.TryGetValue("lim", out var lim))
                     {
-                        nftCollectionInfoIndex.LimitPerMint = int.Parse(lim);
+                        nftCollectionInfoIndex.LimitPerMint = lim;
                     }
                 }
                 if (eventValue.ExternalInfo.Value.TryGetValue("inscription_deploy", out var inscriptionDeployInfo))
@@ -154,7 +154,7 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
 
                     if (inscriptionDeployMap.TryGetValue("lim", out var lim))
                     {
-                        nftCollectionInfoIndex.LimitPerMint = int.Parse(lim);
+                        nftCollectionInfoIndex.LimitPerMint = lim;
                     }
                 }
             }
@@ -196,7 +196,7 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
 
                 if (eventValue.ExternalInfo.Value.TryGetValue("__nft_attributes", out var attributes))
                 {
-                    nftInfoIndex.Straits = attributes;
+                    nftInfoIndex.Traits = attributes;
                 }
 
                 if (eventValue.ExternalInfo.Value.TryGetValue("__seed_owned_symbol", out var seedOwnedSymbol))
@@ -217,6 +217,10 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
                     {
                         nftInfoIndex.Generation = gen;
                     }
+                    if (inscriptionDeployMap.TryGetValue("tick", out var tick))
+                    {
+                        nftInfoIndex.InscriptionName = tick;
+                    }
                 }
             }
 
@@ -228,7 +232,6 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
             {
                 nftInfoIndex.CollectionSymbol = nftCollectionInfoIndex.Symbol;
                 nftInfoIndex.CollectionName = nftCollectionInfoIndex.TokenName;
-                nftInfoIndex.InscriptionName = nftCollectionInfoIndex.InscriptionName;
                 nftInfoIndex.LimitPerMint = nftCollectionInfoIndex.LimitPerMint;
             }
 

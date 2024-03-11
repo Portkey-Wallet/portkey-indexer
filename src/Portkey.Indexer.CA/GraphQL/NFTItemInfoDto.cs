@@ -28,7 +28,7 @@ public class NFTItemInfoDto
     
     public string InscriptionName { get; set; }
     
-    public int LimitPerMint { get; set; }
+    public string LimitPerMint { get; set; }
     
     public string SeedOwnedSymbol { get; set; }
 
