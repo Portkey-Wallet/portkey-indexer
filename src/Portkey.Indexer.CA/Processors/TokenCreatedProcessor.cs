@@ -116,7 +116,6 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
 
             if (eventValue.ExternalInfo is { Value.Count: > 0 })
             {
-                Log.Logger.Debug("Collection ExternalInfo is : {0}", eventValue.ExternalInfo.Value);
                 nftCollectionInfoIndex.ExternalInfoDictionary = eventValue.ExternalInfo.Value
                     .Where(t => !t.Key.IsNullOrWhiteSpace())
                     .ToDictionary(item => item.Key, item => item.Value);
@@ -186,7 +185,6 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
 
             if (eventValue.ExternalInfo is { Value.Count: > 0 })
             {
-                Log.Debug("Create Token Extra Info: {0}", eventValue.ExternalInfo.Value);
                 nftInfoIndex.ExternalInfoDictionary = eventValue.ExternalInfo.Value
                     .Where(t => !t.Key.IsNullOrWhiteSpace())
                     .ToDictionary(item => item.Key, item => item.Value);
@@ -225,7 +223,7 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
                 {
                     var inscriptionDeployMap =
                         JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionAdopt);
-                    Log.Debug("Current Inscription Adopt: {0}", inscriptionDeployMap);
+                    Log.Logger.Debug("Current Inscription Adopt: {inscriptionDeploy}", inscriptionDeployMap);
                     if (inscriptionDeployMap.TryGetValue("gen", out var gen))
                     {
                         nftInfoIndex.Generation = gen;
