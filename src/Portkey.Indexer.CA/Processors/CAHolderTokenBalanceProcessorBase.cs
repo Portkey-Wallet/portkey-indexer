@@ -4,7 +4,6 @@ using AElfIndexer.Client.Handlers;
 using AElfIndexer.Grains.State.Client;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using Portkey.Indexer.CA.Entities;
 using Portkey.Indexer.CA.Provider;
 using Serilog;
@@ -188,28 +187,6 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
             {
                 Log.Logger.Debug("nftInfo.CollectionSymbol: {0},nftInfo.InscriptionName:{1}", nftInfo.CollectionSymbol,
                     nftInfo.InscriptionName);
-                // var collectionInfo = await AElfDataProvider.GetTokenInfoAsync(context.ChainId, nftInfo.CollectionSymbol);
-                // var collectionId = IdGenerateHelper.GetId(context.ChainId, address, nftInfo.CollectionSymbol);
-                // var collectionDetail = await NftCollectionInfoRepository.GetFromBlockStateSetAsync(collectionId, context.ChainId);
-                // if (collectionInfo.ExternalInfo.TryGetValue("inscription_deploy", out var inscriptionDeploy))
-                // {
-                //     var inscriptionDeployMap =
-                //         JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionDeploy);
-                //     if (inscriptionDeployMap.TryGetValue("tick", out var tick))
-                //     {
-                //         nftInfo.InscriptionName = tick;
-                //         collectionDetail.InscriptionName = tick;
-                //     }
-                //
-                //     if (inscriptionDeployMap.TryGetValue("lim", out var lim))
-                //     {
-                //         nftInfo.LimitPerMint = int.Parse(lim);
-                //         collectionDetail.LimitPerMint = int.Parse(lim);
-                //     }
-                // }
-                // ObjectMapper.Map(context, nftInfo);
-                // await NftInfoRepository.AddOrUpdateAsync(nftInfo);
-
 
                 if (nftCollectionInfo.InscriptionName.IsNullOrWhiteSpace())
                 {
@@ -355,15 +332,6 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
 
     private async Task ModifySearchBalanceAsync(string address, string symbol, long amount, LogEventContext context)
     {
-        // //if symbol has been existed in NFT protocol, then do nothing
-        // var nftProtocolInfoIndex =
-        //     await _nftProtocolInfoRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId, symbol),
-        //         context.ChainId);
-        // if (nftProtocolInfoIndex != null)
-        // {
-        //     return;
-        // }
-
         TokenType tokenType = TokenHelper.GetTokenType(symbol);
         if (tokenType == TokenType.NFTCollection)
         {
