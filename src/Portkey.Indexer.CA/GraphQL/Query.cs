@@ -1102,7 +1102,9 @@ public class Query
                     new List<Func<QueryContainerDescriptor<NFTInfoIndex>, QueryContainer>>
                     {
                         q => q.Term(i => i.Field(f => f.ChainId).Value(info.ChainId)),
-                        q => q.Term(i => i.Field(f => f.Symbol).Value(info.Symbol))
+                        q => q.Term(i => i.Field(f => f.Symbol).Value(info.Symbol)),
+                        q => q.Term(i => i.Field(f => f.CollectionSymbol).Value(info.CollectionSymbol))
+                        
                     };
                 shouldQuery.Add(q => q.Bool(b => b.Must(nftItemInfo)));
             }
