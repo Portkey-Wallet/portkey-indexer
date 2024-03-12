@@ -27,24 +27,24 @@ public class NftExternalInfoHelper
             nftExternalInfo.ImageUrl = inscriptionImageUrl;
         }
 
-        var externalInfoMap = new Dictionary<string, string>();
+        var inscriptionDeployMap = new Dictionary<string, string>();
         var inscriptionDeploy404Exists = externalInfo.TryGetValue("__inscription_deploy", out var inscriptionDeploy);
         var inscriptionDeployExists = externalInfo.TryGetValue("inscription_deploy", out var inscriptionDeployInfo);
         if (inscriptionDeploy404Exists)
         {
-            externalInfoMap = JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionDeploy);
+            inscriptionDeployMap = JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionDeploy);
         }
         else if (inscriptionDeployExists)
         {
-            externalInfoMap = JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionDeployInfo);
+            inscriptionDeployMap = JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionDeployInfo);
         }
 
-        if (externalInfoMap.TryGetValue("tick", out var inscriptionName))
+        if (inscriptionDeployMap.TryGetValue("tick", out var inscriptionName))
         {
             nftExternalInfo.InscriptionName = inscriptionName;
         }
 
-        if (externalInfoMap.TryGetValue("lim", out var lim))
+        if (inscriptionDeployMap.TryGetValue("lim", out var lim))
         {
             nftExternalInfo.Lim = lim;
         }
