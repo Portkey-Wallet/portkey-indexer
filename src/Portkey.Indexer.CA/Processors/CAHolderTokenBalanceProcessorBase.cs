@@ -327,52 +327,6 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
             {
                 var externalDictionary = collectionInfo.ExternalInfo;
                 var externalInfo = NftExternalInfoHelper.BuildNftExternalInfo(externalDictionary);
-
-                // collectionInfoIndex.ExternalInfoDictionary = collectionInfo.ExternalInfo
-                //     .Where(t => !t.Key.IsNullOrWhiteSpace())
-                //     .ToDictionary(item => item.Key, item => item.Value);
-                // if (collectionInfo.ExternalInfo.TryGetValue("__nft_image_url", out var imageUrl))
-                // {
-                //     collectionInfoIndex.ImageUrl = imageUrl;
-                // }
-                // else if (collectionInfo.ExternalInfo.TryGetValue("inscription_image", out var inscriptionImage))
-                // {
-                //     collectionInfoIndex.ImageUrl = inscriptionImage;
-                // }
-                // else if (collectionInfo.ExternalInfo.TryGetValue("__inscription_image", out var inscriptionImageUrl))
-                // {
-                //     collectionInfoIndex.ImageUrl = inscriptionImageUrl;
-                // }
-                //
-                // if (collectionInfo.ExternalInfo.TryGetValue("__inscription_deploy", out var inscriptionDeploy))
-                // {
-                //     var inscriptionDeployMap =
-                //         JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionDeploy);
-                //     if (inscriptionDeployMap.TryGetValue("tick", out var tick))
-                //     {
-                //         collectionInfoIndex.InscriptionName = tick;
-                //     }
-                //
-                //     if (inscriptionDeployMap.TryGetValue("lim", out var lim))
-                //     {
-                //         collectionInfoIndex.Lim = lim;
-                //     }
-                // }
-                //
-                // if (collectionInfo.ExternalInfo.TryGetValue("inscription_deploy", out var inscriptionDeployInfo))
-                // {
-                //     var inscriptionDeployMap =
-                //         JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionDeployInfo);
-                //     if (inscriptionDeployMap.TryGetValue("tick", out var tick))
-                //     {
-                //         collectionInfoIndex.InscriptionName = tick;
-                //     }
-                //
-                //     if (inscriptionDeployMap.TryGetValue("lim", out var lim))
-                //     {
-                //         collectionInfoIndex.Lim = lim;
-                //     }
-                // }
                 ObjectMapper.Map(externalInfo, collectionInfoIndex);
             }
 
@@ -391,52 +345,6 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
             {
                 var externalDictionary = nftInfo.ExternalInfo;
                 var externalInfo = NftExternalInfoHelper.BuildNftExternalInfo(externalDictionary);
-                //
-                // nftInfoIndex.ExternalInfoDictionary = nftInfo.ExternalInfo
-                //     .Where(t => !t.Key.IsNullOrWhiteSpace())
-                //     .ToDictionary(item => item.Key, item => item.Value);
-                // if (nftInfo.ExternalInfo.TryGetValue("__nft_image_url", out var imageUrl))
-                // {
-                //     nftInfoIndex.ImageUrl = imageUrl;
-                // }
-                // else if (nftInfo.ExternalInfo.TryGetValue("inscription_image", out var inscriptionImage))
-                // {
-                //     nftInfoIndex.ImageUrl = inscriptionImage;
-                // }
-                // else if (nftInfo.ExternalInfo.TryGetValue("__inscription_image", out var inscriptionImageUrl))
-                // {
-                //     nftInfoIndex.ImageUrl = inscriptionImageUrl;
-                // }
-                //
-                // if (nftInfo.ExternalInfo.TryGetValue("__nft_attributes", out var nftAttributes))
-                // {
-                //     nftInfoIndex.Traits = nftAttributes;
-                // }
-                //
-                // if (nftInfo.ExternalInfo.TryGetValue("__inscription_adopt", out var inscriptionAdopt))
-                // {
-                //     var inscriptionDeployMap =
-                //         JsonConvert.DeserializeObject<Dictionary<string, string>>(inscriptionAdopt);
-                //     if (inscriptionDeployMap.TryGetValue("gen", out var gen))
-                //     {
-                //         nftInfoIndex.Generation = gen;
-                //     }
-                //
-                //     if (inscriptionDeployMap.TryGetValue("tick", out var tick))
-                //     {
-                //         nftInfoIndex.InscriptionName = tick;
-                //     }
-                // }
-                //
-                // if (nftInfo.ExternalInfo.TryGetValue("__seed_owned_symbol", out var seedOwnedSymbol))
-                // {
-                //     nftInfoIndex.SeedOwnedSymbol = seedOwnedSymbol;
-                // }
-                //
-                // if (nftInfo.ExternalInfo.TryGetValue("__seed_exp_time", out var seedExpTime))
-                // {
-                //     nftInfoIndex.Expires = seedExpTime;
-                // }
                 ObjectMapper.Map(externalInfo, nftInfoIndex);
             }
 
