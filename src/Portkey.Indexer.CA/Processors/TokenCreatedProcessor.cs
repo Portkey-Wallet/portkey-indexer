@@ -246,6 +246,10 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
                 nftInfoIndex.CollectionSymbol = nftCollectionInfoIndex.Symbol;
                 nftInfoIndex.CollectionName = nftCollectionInfoIndex.TokenName;
                 nftInfoIndex.Lim = nftCollectionInfoIndex.Lim;
+                if (!nftCollectionInfoIndex.InscriptionName.IsNullOrWhiteSpace())
+                {
+                    nftInfoIndex.InscriptionName = nftCollectionInfoIndex.InscriptionName;
+                }
             }
 
             _objectMapper.Map(context, nftInfoIndex);
