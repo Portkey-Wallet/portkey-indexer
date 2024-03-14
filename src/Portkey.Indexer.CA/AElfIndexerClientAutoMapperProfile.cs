@@ -109,6 +109,8 @@ public class TestGraphQLAutoMapperProfile : Profile
         CreateMap<GuardianChangeRecordIndex, GuardianChangeRecordDto>();
         CreateMap<LogEventContext, InviteIndex>();
         CreateMap<InviteIndex, ReferralInfoDto>();
+        CreateMap<NftExternalInfo, NFTCollectionInfoIndex>();
+        CreateMap<NftExternalInfo, NFTInfoIndex>();
     }
 }
 

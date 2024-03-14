@@ -4,7 +4,6 @@ using AElfIndexer.Client.Handlers;
 using AElfIndexer.Grains.State.Client;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using Portkey.Indexer.CA.Entities;
 using Volo.Abp.ObjectMapping;
 
@@ -70,34 +69,6 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
             await _tokenInfoIndexRepository.AddOrUpdateAsync(tokenInfoIndex);
         }
 
-        // tokenInfoIndex.TokenExternalInfo = new TokenExternalInfo();
-        // if (eventValue.ExternalInfo.Value.ContainsKey("__nft_image_url"))
-        // {
-        //     tokenInfoIndex.TokenExternalInfo.ImageUrl = eventValue.ExternalInfo.Value["__nft_image_url"];
-        // }
-        // if (eventValue.ExternalInfo.Value.ContainsKey("__nft_last_item_id"))
-        // {
-        //     long.TryParse(eventValue.ExternalInfo.Value["__nft_last_item_id"], out long lastItemId);
-        //     tokenInfoIndex.TokenExternalInfo.LastItemId = lastItemId;
-        // }
-        // if (eventValue.ExternalInfo.Value.ContainsKey("__nft_base_uri"))
-        // {
-        //     tokenInfoIndex.TokenExternalInfo.BaseUrl = eventValue.ExternalInfo.Value["__nft_base_uri"];
-        // }
-        // if (eventValue.ExternalInfo.Value.ContainsKey("__nft_type"))
-        // {
-        //     tokenInfoIndex.TokenExternalInfo.Type = eventValue.ExternalInfo.Value["__nft_type"];
-        // }
-        // if (eventValue.ExternalInfo.Value.ContainsKey("__nft_is_item_id_reuse"))
-        // {
-        //     bool.TryParse(eventValue.ExternalInfo.Value["__nft_is_item_id_reuse"], out bool isItemIdReuse);
-        //     tokenInfoIndex.TokenExternalInfo.IsItemIdReuse = isItemIdReuse;
-        // }
-        // if (eventValue.ExternalInfo.Value.ContainsKey("__nft_is_burned"))
-        // {
-        //     bool.TryParse(eventValue.ExternalInfo.Value["__nft_is_burned"], out bool isBurned);
-        //     tokenInfoIndex.TokenExternalInfo.IsBurned = isBurned;
-        // }
 
         if (tokenType == TokenType.NFTCollection)
         {
@@ -112,22 +83,12 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
             };
             _objectMapper.Map(eventValue, nftCollectionInfoIndex);
             nftCollectionInfoIndex.Type = TokenHelper.GetTokenType(eventValue.Symbol);
-
+            nftCollectionInfoIndex.Issuer = eventValue.Issuer.ToBase58();
             if (eventValue.ExternalInfo is { Value.Count: > 0 })
             {
-                nftCollectionInfoIndex.ExternalInfoDictionary = eventValue.ExternalInfo.Value
-                    .Where(t => !t.Key.IsNullOrWhiteSpace())
-                    .ToDictionary(item => item.Key, item => item.Value);
-
-                nftCollectionInfoIndex.Issuer = eventValue.Issuer.ToBase58();
-                if (eventValue.ExternalInfo.Value.ContainsKey("__nft_image_url"))
-                {
-                    nftCollectionInfoIndex.ImageUrl = eventValue.ExternalInfo.Value["__nft_image_url"];
-                }
-                else if (eventValue.ExternalInfo.Value.ContainsKey("inscription_image"))
-                {
-                    nftCollectionInfoIndex.ImageUrl = eventValue.ExternalInfo.Value["inscription_image"];
-                }
+                var externalInfo = eventValue.ExternalInfo.Value;
+                var buildNftExternalInfo = NftExternalInfoHelper.BuildNftExternalInfo(externalInfo);
+                _objectMapper.Map(buildNftExternalInfo, nftCollectionInfoIndex);
             }
 
             _objectMapper.Map(context, nftCollectionInfoIndex);
@@ -148,22 +109,14 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
             };
             _objectMapper.Map(eventValue, nftInfoIndex);
             nftInfoIndex.Type = TokenHelper.GetTokenType(eventValue.Symbol);
-
+            nftInfoIndex.Issuer = eventValue.Issuer.ToBase58();
+            
             if (eventValue.ExternalInfo is { Value.Count: > 0 })
             {
-                nftInfoIndex.ExternalInfoDictionary = eventValue.ExternalInfo.Value
-                    .Where(t => !t.Key.IsNullOrWhiteSpace())
-                    .ToDictionary(item => item.Key, item => item.Value);
-
-                nftInfoIndex.Issuer = eventValue.Issuer.ToBase58();
-                if (eventValue.ExternalInfo.Value.ContainsKey("__nft_image_url"))
-                {
-                    nftInfoIndex.ImageUrl = eventValue.ExternalInfo.Value["__nft_image_url"];
-                }
-                else if (eventValue.ExternalInfo.Value.ContainsKey("inscription_image"))
-                {
-                    nftInfoIndex.ImageUrl = eventValue.ExternalInfo.Value["inscription_image"];
-                }
+                var externalInfo = eventValue.ExternalInfo.Value;
+                var nftExternalInfo = NftExternalInfoHelper.BuildNftExternalInfo(externalInfo);
+             
+                _objectMapper.Map(nftExternalInfo, nftInfoIndex);
             }
 
             var nftCollectionSymbol = TokenHelper.GetNFTCollectionSymbol(eventValue.Symbol);
@@ -174,6 +127,11 @@ public class TokenCreatedProcessor : AElfLogEventProcessorBase<TokenCreated, Log
             {
                 nftInfoIndex.CollectionSymbol = nftCollectionInfoIndex.Symbol;
                 nftInfoIndex.CollectionName = nftCollectionInfoIndex.TokenName;
+                nftInfoIndex.Lim = nftCollectionInfoIndex.Lim;
+                if (!nftCollectionInfoIndex.InscriptionName.IsNullOrWhiteSpace())
+                {
+                    nftInfoIndex.InscriptionName = nftCollectionInfoIndex.InscriptionName;
+                }
             }
 
             _objectMapper.Map(context, nftInfoIndex);

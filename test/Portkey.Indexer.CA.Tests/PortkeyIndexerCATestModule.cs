@@ -318,6 +318,15 @@ public class PortkeyIndexerCATestModule : AbpModule
                 }
             };
         });
+        
+        context.Services.Configure<InscriptionListOptions>(options =>
+        {
+            options.Inscriptions = new List<string>
+            {
+                "READ-0",
+                "WRITE-0"
+            };
+        });
 
         var applicationBuilder = new ApplicationBuilder(context.Services.BuildServiceProvider());
         context.Services.AddObjectAccessor<IApplicationBuilder>(applicationBuilder);

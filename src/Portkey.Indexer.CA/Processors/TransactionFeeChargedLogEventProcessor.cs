@@ -32,11 +32,11 @@ public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProces
             caHolderNFTCollectionBalanceIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, LogEventInfo> caHolderNFTBalanceIndexRepository,
         IAElfDataProvider aelfDataProvider,
-        IObjectMapper objectMapper) : base(logger, contractInfoOptions,
+        IObjectMapper objectMapper,IOptionsSnapshot<InscriptionListOptions> inscriptionListOptions) : base(logger, contractInfoOptions,
         caHolderIndexRepository, tokenInfoIndexRepository, nftCollectionInfoRepository, nftInfoRepository,
         caHolderSearchTokenNFTRepository,
         caHolderTokenBalanceIndexRepository, caHolderNFTCollectionBalanceIndexRepository,
-        caHolderNFTBalanceIndexRepository, aelfDataProvider, objectMapper)
+        caHolderNFTBalanceIndexRepository, aelfDataProvider, objectMapper,inscriptionListOptions)
     {
         _transactionFeeChangedIndexRepository = transactionFeeChangedIndexRepository;
         _objectMapper = objectMapper;

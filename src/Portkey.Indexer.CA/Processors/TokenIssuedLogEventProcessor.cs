@@ -24,10 +24,11 @@ public class TokenIssuedLogEventProcessor : CAHolderTokenBalanceProcessorBase<Is
         IAElfIndexerClientEntityRepository<CAHolderNFTCollectionBalanceIndex, LogEventInfo> caHolderNFTCollectionBalanceIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, LogEventInfo> caHolderNFTBalanceIndexRepository,
         IAElfDataProvider aelfDataProvider,
-        IObjectMapper objectMapper) : base(logger, contractInfoOptions,
+        IObjectMapper objectMapper,
+        IOptionsSnapshot<InscriptionListOptions> inscriptionListOptions) : base(logger, contractInfoOptions,
         caHolderIndexRepository, tokenInfoIndexRepository,nftCollectionInfoRepository,nftInfoRepository, caHolderSearchTokenNFTRepository,
         caHolderTokenBalanceIndexRepository,caHolderNFTCollectionBalanceIndexRepository, caHolderNFTBalanceIndexRepository, 
-        aelfDataProvider, objectMapper)
+        aelfDataProvider, objectMapper, inscriptionListOptions)
     {
     }
 

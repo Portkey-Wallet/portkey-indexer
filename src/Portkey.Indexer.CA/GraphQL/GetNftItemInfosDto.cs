@@ -11,4 +11,6 @@ public class GetNftItemInfo
 {
     public string Symbol { get; set; }
     public string ChainId { get; set; }
+    
+    public string CollectionSymbol { get; set; }
 }

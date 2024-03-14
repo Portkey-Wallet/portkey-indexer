@@ -4,10 +4,8 @@ using AElf.CSharp.Core.Extension;
 using AElf.Types;
 using AElfIndexer.Client;
 using AElfIndexer.Client.Handlers;
-using AElfIndexer.Client.Providers;
 using AElfIndexer.Grains.State.Client;
 using Nethereum.Hex.HexConvertors.Extensions;
-using Orleans;
 using Portkey.Contracts.CA;
 using Portkey.Indexer.CA.Entities;
 using Portkey.Indexer.CA.GraphQL;
@@ -236,6 +234,12 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         };
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
 
+        var ex = new ExternalInfo();
+        ex.Value.Add("__inscription_adopt", "{\"p\":\"aelf\",\"op\":\"adopt\",\"tick\":\"NAGAS\",\"amt\":\"1\",\"gen\":\"1\"}");
+        ex.Value.Add("__nft_attributes","[{\"traitType\":\"color\",\"value\":\"red\"},{\"traitType\":\"color\",\"value\":\"green\"}]");
+        
+        
+        
         var tokenCreated = new TokenCreated()
         {
             Symbol = symbol,
@@ -245,7 +249,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
             Issuer = Address.FromPublicKey("AAA".HexToByteArray()),
             IsBurnable = isBurnable,
             IssueChainId = issueChainId,
-            ExternalInfo = new ExternalInfo()
+            ExternalInfo = ex
         };
 
         var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(tokenCreated.ToLogEvent());
@@ -421,6 +425,9 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         };
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
 
+        var ex = new ExternalInfo();
+        ex.Value.Add("__inscription_adopt", "{\"p\":\"aelf\",\"op\":\"adopt\",\"tick\":\"NAGAS\",\"amt\":\"1\",\"gen\":\"1\"}");
+        ex.Value.Add("__nft_attributes","[{\"traitType\":\"color\",\"value\":\"red\"},{\"traitType\":\"color\",\"value\":\"green\"}]");
         var tokenCreated = new TokenCreated()
         {
             Symbol = symbol,
@@ -430,7 +437,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
             Issuer = Address.FromPublicKey("AAA".HexToByteArray()),
             IsBurnable = isBurnable,
             IssueChainId = issueChainId,
-            ExternalInfo = new ExternalInfo()
+            ExternalInfo = ex
         };
 
         var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(tokenCreated.ToLogEvent());

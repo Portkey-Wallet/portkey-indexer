@@ -217,13 +217,17 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
                 nftInfoIndex.ExternalInfoDictionary = nftInfo.ExternalInfo
                     .Where(t => !t.Key.IsNullOrWhiteSpace())
                     .ToDictionary(item => item.Key, item => item.Value);
-                if (nftInfo.ExternalInfo.ContainsKey("__nft_image_url"))
+                if (nftInfo.ExternalInfo.TryGetValue("__nft_image_url", out var image))
                 {
-                    nftInfoIndex.ImageUrl = nftInfo.ExternalInfo["__nft_image_url"];
+                    nftInfoIndex.ImageUrl = image;
                 }
-                else if (nftInfo.ExternalInfo.ContainsKey("inscription_image"))
+                else if (nftInfo.ExternalInfo.TryGetValue("inscription_image", out var inscriptionImage))
                 {
-                    nftInfoIndex.ImageUrl = nftInfo.ExternalInfo["inscription_image"];
+                    nftInfoIndex.ImageUrl = inscriptionImage;
+                }
+                else if(nftInfo.ExternalInfo.TryGetValue("__inscription_image", out var inscriptionImageUrl))
+                {
+                    nftInfoIndex.ImageUrl = inscriptionImageUrl;
                 }
             }
 
