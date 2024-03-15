@@ -22,7 +22,7 @@ public class NftExternalInfoHelper
         {
             nftExternalInfo.ImageUrl = inscriptionImage;
         }
-        else if (externalInfo.TryGetValue("__inscription_image", out var inscriptionImageUrl))
+        else if (externalInfo.TryGetValue("__nft_image_uri", out var inscriptionImageUrl))
         {
             nftExternalInfo.ImageUrl = inscriptionImageUrl;
         }
