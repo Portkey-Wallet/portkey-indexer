@@ -38,5 +38,5 @@ public class NFTInfoBase: AElfIndexerClientEntity<string>
     
     [Keyword] public string TokenHash { get; set; }
     
-    [Keyword] public string ImageUrl { get; set; }
+    [Text(Index = false)] public string ImageUrl { get; set; }
 }
