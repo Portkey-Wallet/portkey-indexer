@@ -11,7 +11,7 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventProcessorBase<TEvent, LogEventInfo>
+public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : CAHolderTransactionProcessorBase<TEvent>
     where TEvent : IEvent<TEvent>, new()
 {
     protected IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> CAHolderIndexRepository;
@@ -36,7 +36,7 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
     protected readonly IObjectMapper ObjectMapper;
     protected readonly ContractInfoOptions ContractInfoOptions;
     protected readonly InscriptionListOptions _inscriptionListOptions;
-
+    
     public CAHolderTokenBalanceProcessorBase(ILogger<CAHolderTokenBalanceProcessorBase<TEvent>> logger,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
@@ -50,7 +50,16 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : AElfLogEventPr
             caHolderNFTCollectionBalanceRepository,
         IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, LogEventInfo> caHolderNFTBalanceIndexRepository,
         IAElfDataProvider aelfDataProvider,
-        IObjectMapper objectMapper, IOptionsSnapshot<InscriptionListOptions> inscriptionListOptions) : base(logger)
+        IObjectMapper objectMapper,
+        IOptionsSnapshot<InscriptionListOptions> inscriptionListOptions,
+        // transactionIndex needs
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository = null,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> caHolderTransactionIndexRepository = null,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo> caHolderTransactionAddressIndexRepository = null,
+        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions = null) : base(logger, 
+        caHolderIndexRepository, caHolderManagerIndexRepository, caHolderTransactionIndexRepository,
+        tokenInfoIndexRepository, nftInfoRepository, caHolderTransactionAddressIndexRepository,
+        contractInfoOptions, caHolderTransactionInfoOptions, objectMapper, aelfDataProvider)
     {
         CAHolderIndexRepository = caHolderIndexRepository;
         CAHolderTokenBalanceIndexRepository = caHolderTokenBalanceIndexRepository;

@@ -39,6 +39,10 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
     private const string FullAddressPrefix = "ELF";
     private const char FullAddressSeparator = '_';
 
+    protected CAHolderTransactionProcessorBase(ILogger<CAHolderTransactionProcessorBase<TEvent>> logger) : base(logger)
+    {
+    }
+
     protected CAHolderTransactionProcessorBase(ILogger<CAHolderTransactionProcessorBase<TEvent>> logger,
         IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
@@ -58,7 +62,7 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
         NFTInfoIndexRepository = nftInfoIndexRepository;
         TokenInfoIndexRepository = tokenInfoIndexRepository;
         ContractInfoOptions = contractInfoOptions.Value;
-        CAHolderTransactionInfoOptions = caHolderTransactionInfoOptions.Value;
+        CAHolderTransactionInfoOptions = caHolderTransactionInfoOptions?.Value;
         ObjectMapper = objectMapper;
         CAHolderTransactionAddressIndexRepository = caHolderTransactionAddressIndexRepository;
         _aelfDataProvider = aelfDataProvider;
@@ -275,5 +279,9 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
     public static string ToFullAddress(string address, string chainId)
     {
         return string.Join(FullAddressSeparator, FullAddressPrefix, address, chainId);
+    }
+
+    protected virtual async Task HandlerTransactionIndexAsync(TEvent eventInfo, LogEventContext context)
+    {
     }
 }

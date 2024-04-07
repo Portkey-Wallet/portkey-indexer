@@ -755,8 +755,6 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         await HandleTokenIssueLogEventAsync_Test();
         var tokenTransferredLogEventProcessor = GetRequiredService<TokenTransferredLogEventProcessor>();
         tokenTransferredLogEventProcessor.GetContractAddress(chainId);
-        var tokenTransferredProcessor = GetRequiredService<TokenTransferredProcessor>();
-        tokenTransferredProcessor.GetContractAddress(chainId);
 
         var blockStateSet = new BlockStateSet<LogEventInfo>
         {
@@ -800,7 +798,6 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
             BlockTime = DateTime.UtcNow,
             ExtraProperties = extraProperties
         };
-        await tokenTransferredProcessor.HandleEventAsync(logEventInfo, logEventContext);
         await tokenTransferredLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransfer);
@@ -823,7 +820,6 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         const long amount = 1;
         await HandleNFTCollectionIssueLogEventAsync_Test();
         var tokenTransferredLogEventProcessor = GetRequiredService<TokenTransferredLogEventProcessor>();
-        var tokenTransferredProcessor = GetRequiredService<TokenTransferredProcessor>();
 
         var blockStateSet = new BlockStateSet<LogEventInfo>
         {
@@ -867,7 +863,6 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
             BlockTime = DateTime.UtcNow,
             ExtraProperties = extraProperties
         };
-        await tokenTransferredProcessor.HandleEventAsync(logEventInfo, logEventContext);
         await tokenTransferredLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransfer);
@@ -891,7 +886,6 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         await HandleNFTCollectionIssueLogEventAsync_Test();
         await HandleNFTItemIssueLogEventAsync_Test();
         var tokenTransferredLogEventProcessor = GetRequiredService<TokenTransferredLogEventProcessor>();
-        var tokenTransferredProcessor = GetRequiredService<TokenTransferredProcessor>();
 
         var blockStateSet = new BlockStateSet<LogEventInfo>
         {
@@ -935,7 +929,6 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
             BlockTime = DateTime.UtcNow,
             ExtraProperties = extraProperties
         };
-        await tokenTransferredProcessor.HandleEventAsync(logEventInfo, logEventContext);
         await tokenTransferredLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransfer);
@@ -1349,7 +1342,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         const string symbol = "READ";
         const long amount = 1;
         await HandleTokenCrossChainTransactionAsync_Test();
-        var tokenCrossChainReceivedProcessor = GetRequiredService<TokenCrossChainReceivedProcessor>();
+        var tokenCrossChainReceivedProcessor = GetRequiredService<TokenCrossChainReceivedLogEventProcessor>();
         tokenCrossChainReceivedProcessor.GetContractAddress(chainId);
         var blockStateSet = new BlockStateSet<TransactionInfo>
         {
@@ -1407,7 +1400,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         const string symbol = "READ-0";
         const long amount = 1;
         await HandleNFTCollectionCrossChainTransactionAsync_Test();
-        var tokenCrossChainReceivedProcessor = GetRequiredService<TokenCrossChainReceivedProcessor>();
+        var tokenCrossChainReceivedProcessor = GetRequiredService<TokenCrossChainReceivedLogEventProcessor>();
         var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
@@ -1461,7 +1454,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         const string symbol = "READ-1";
         const long amount = 1;
         await HandleNFTItemCrossChainTransactionAsync_Test();
-        var tokenCrossChainReceivedProcessor = GetRequiredService<TokenCrossChainReceivedProcessor>();
+        var tokenCrossChainReceivedProcessor = GetRequiredService<TokenCrossChainReceivedLogEventProcessor>();
         var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
@@ -1663,7 +1656,6 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         var tokenCreatedProcessor = GetRequiredService<TokenCreatedProcessor>();
         var tokenIssuedLogEventProcessor = GetRequiredService<TokenIssuedLogEventProcessor>();
         var tokenCrossChainTransferredProcessor = GetRequiredService<TokenCrossChainTransferredProcessor>();
-        var tokenCrossChainReceivedProcessor = GetRequiredService<TokenCrossChainReceivedProcessor>();
         var tokenCrossChainReceivedLogEventProcessor = GetRequiredService<TokenCrossChainReceivedLogEventProcessor>();
         var tokenBurnedLogEventProcessor = GetRequiredService<TokenBurnedLogEventProcessor>();
 
@@ -1804,7 +1796,6 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
             PreviousBlockHash = previousBlockHash,
             TransactionId = transactionId
         };
-        await tokenCrossChainReceivedProcessor.HandleEventAsync(logEventInfo, logEventContext);
         await tokenCrossChainReceivedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
 
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKeyCross);
@@ -2238,7 +2229,6 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         const string symbol = "READ-0";
         const long amount = 1;
         var tokenTransferredLogEventProcessor = GetRequiredService<TokenTransferredLogEventProcessor>();
-        var tokenTransferredProcessor = GetRequiredService<TokenTransferredProcessor>();
 
         var blockStateSet = new BlockStateSet<LogEventInfo>
         {
@@ -2282,7 +2272,6 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
             BlockTime = DateTime.UtcNow,
             ExtraProperties = extraProperties
         };
-        await tokenTransferredProcessor.HandleEventAsync(logEventInfo, logEventContext);
         await tokenTransferredLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransfer);
@@ -2304,7 +2293,6 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         const string symbol = "READ-1";
         const long amount = 1;
         var tokenTransferredLogEventProcessor = GetRequiredService<TokenTransferredLogEventProcessor>();
-        var tokenTransferredProcessor = GetRequiredService<TokenTransferredProcessor>();
 
         var blockStateSet = new BlockStateSet<LogEventInfo>
         {
@@ -2348,7 +2336,6 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
             BlockTime = DateTime.UtcNow,
             ExtraProperties = extraProperties
         };
-        await tokenTransferredProcessor.HandleEventAsync(logEventInfo, logEventContext);
         await tokenTransferredLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransfer);
@@ -2386,8 +2373,6 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         const long amount = 1;
         var tokenTransferredLogEventProcessor = GetRequiredService<TokenTransferredLogEventProcessor>();
         tokenTransferredLogEventProcessor.GetContractAddress(chainId);
-        var tokenTransferredProcessor = GetRequiredService<TokenTransferredProcessor>();
-        tokenTransferredProcessor.GetContractAddress(chainId);
 
         var blockStateSet = new BlockStateSet<LogEventInfo>
         {
@@ -2431,7 +2416,6 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
             BlockTime = DateTime.UtcNow,
             ExtraProperties = extraProperties
         };
-        await tokenTransferredProcessor.HandleEventAsync(logEventInfo, logEventContext);
         await tokenTransferredLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransfer);
