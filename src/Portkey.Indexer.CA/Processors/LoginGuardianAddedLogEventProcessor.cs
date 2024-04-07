@@ -59,7 +59,7 @@ public class LoginGuardianAddedLogEventProcessor : LoginGuardianProcessorBase<Lo
         ObjectMapper.Map(context, loginGuardianIndex);
         await Repository.AddOrUpdateAsync(loginGuardianIndex);
         await AddChangeRecordAsync(loginGuardianIndex.CAAddress, loginGuardianIndex.CAHash,
-            loginGuardianIndex.Manager, loginGuardianIndex.LoginGuardian, nameof(LoginGuardianAdded), context);
+            loginGuardianIndex.Manager, loginGuardianIndex.LoginGuardian, nameof(LoginGuardianAdded), context,eventValue.IsCreateHolder);
 
         //check ca address if already exist in caHolderIndex
         var id = IdGenerateHelper.GetId(context.ChainId, eventValue.CaAddress.ToBase58());
