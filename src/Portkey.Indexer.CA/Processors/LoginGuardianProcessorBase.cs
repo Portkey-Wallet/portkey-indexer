@@ -30,7 +30,7 @@ public abstract class LoginGuardianProcessorBase<TEvent> : AElfLogEventProcessor
         ContractInfoOptions = contractInfoOptions.Value;
     }
 
-    protected async Task AddChangeRecordAsync(string caAddress, string caHash, string manager, Guardian loginGuardian, string changeType, LogEventContext context, bool isCreateHolder)
+    protected async Task AddChangeRecordAsync(string caAddress, string caHash, string manager, Guardian loginGuardian, string changeType, LogEventContext context, bool isCreateHolder = false)
     {
         var changeRecordId = IdGenerateHelper.GetId(context.ChainId, caAddress,
             loginGuardian.IdentifierHash,changeType,context.TransactionId);

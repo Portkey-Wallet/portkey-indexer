@@ -32,6 +32,6 @@ public class LoginGuardianUnboundLogEventProcessor : LoginGuardianProcessorBase<
             eventValue.Manager.ToBase58(), new Entities.Guardian
             {
                 IdentifierHash = eventValue.LoginGuardianIdentifierHash.ToHex()
-            }, nameof(LoginGuardianUnbound), context, false);
+            }, nameof(LoginGuardianUnbound), context);
     }
 }
