@@ -38,7 +38,7 @@ public class LoginGuardianRemovedLogEventProcessor : LoginGuardianProcessorBase<
         ObjectMapper.Map(context, loginGuardianIndex);
         await Repository.DeleteAsync(loginGuardianIndex);
         await AddChangeRecordAsync(loginGuardianIndex.CAAddress, loginGuardianIndex.CAHash,
-            loginGuardianIndex.Manager, loginGuardianIndex.LoginGuardian, nameof(LoginGuardianRemoved), context,false);
+            loginGuardianIndex.Manager, loginGuardianIndex.LoginGuardian, nameof(LoginGuardianRemoved), context, false);
 
         //check ca address if already exist in caHolderIndex
         var id = IdGenerateHelper.GetId(context.ChainId, eventValue.CaAddress.ToBase58());
