@@ -8,4 +8,6 @@ public class LoginGuardianChangeRecordDto : LoginGuardianDtoBase
 
     public long BlockHeight { get; set; }
     public string BlockHash { get; set; }
+    public bool IsCreateHolder { get; set; }
+
 }
