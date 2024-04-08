@@ -14,22 +14,22 @@ namespace Portkey.Indexer.CA.Processors;
 public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : CAHolderTransactionProcessorBase<TEvent>
     where TEvent : IEvent<TEvent>, new()
 {
-    protected IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> CAHolderIndexRepository;
+    protected IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> CAHolderIndexRepository;
 
-    protected IAElfIndexerClientEntityRepository<CAHolderTokenBalanceIndex, LogEventInfo>
+    protected IAElfIndexerClientEntityRepository<CAHolderTokenBalanceIndex, TransactionInfo>
         CAHolderTokenBalanceIndexRepository;
 
-    protected IAElfIndexerClientEntityRepository<CAHolderNFTCollectionBalanceIndex, LogEventInfo>
+    protected IAElfIndexerClientEntityRepository<CAHolderNFTCollectionBalanceIndex, TransactionInfo>
         CAHolderNFTCollectionBalanceRepository;
 
-    protected IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, LogEventInfo>
+    protected IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, TransactionInfo>
         CAHolderNFTBalanceIndexRepository;
 
-    protected IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> TokenInfoIndexRepository;
-    protected IAElfIndexerClientEntityRepository<NFTCollectionInfoIndex, LogEventInfo> NftCollectionInfoRepository;
-    protected IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> NftInfoRepository;
+    protected IAElfIndexerClientEntityRepository<TokenInfoIndex, TransactionInfo> TokenInfoIndexRepository;
+    protected IAElfIndexerClientEntityRepository<NFTCollectionInfoIndex, TransactionInfo> NftCollectionInfoRepository;
+    protected IAElfIndexerClientEntityRepository<NFTInfoIndex, TransactionInfo> NftInfoRepository;
 
-    private IAElfIndexerClientEntityRepository<CAHolderSearchTokenNFTIndex, LogEventInfo>
+    private IAElfIndexerClientEntityRepository<CAHolderSearchTokenNFTIndex, TransactionInfo>
         CAHolderSearchTokenNFTRepository;
 
     protected IAElfDataProvider AElfDataProvider;
@@ -39,21 +39,21 @@ public abstract class CAHolderTokenBalanceProcessorBase<TEvent> : CAHolderTransa
     
     public CAHolderTokenBalanceProcessorBase(ILogger<CAHolderTokenBalanceProcessorBase<TEvent>> logger,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
-        IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
-        IAElfIndexerClientEntityRepository<NFTCollectionInfoIndex, LogEventInfo> nftCollectionInfoRepository,
-        IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> nftInfoRepository,
-        IAElfIndexerClientEntityRepository<CAHolderSearchTokenNFTIndex, LogEventInfo> caHolderSearchTokenNFTRepository,
-        IAElfIndexerClientEntityRepository<CAHolderTokenBalanceIndex, LogEventInfo>
+        IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> caHolderIndexRepository,
+        IAElfIndexerClientEntityRepository<TokenInfoIndex, TransactionInfo> tokenInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<NFTCollectionInfoIndex, TransactionInfo> nftCollectionInfoRepository,
+        IAElfIndexerClientEntityRepository<NFTInfoIndex, TransactionInfo> nftInfoRepository,
+        IAElfIndexerClientEntityRepository<CAHolderSearchTokenNFTIndex, TransactionInfo> caHolderSearchTokenNFTRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTokenBalanceIndex, TransactionInfo>
             caHolderTokenBalanceIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderNFTCollectionBalanceIndex, LogEventInfo>
+        IAElfIndexerClientEntityRepository<CAHolderNFTCollectionBalanceIndex, TransactionInfo>
             caHolderNFTCollectionBalanceRepository,
-        IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, LogEventInfo> caHolderNFTBalanceIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, TransactionInfo> caHolderNFTBalanceIndexRepository,
         IAElfDataProvider aelfDataProvider,
         IObjectMapper objectMapper,
         IOptionsSnapshot<InscriptionListOptions> inscriptionListOptions,
         // transactionIndex needs
-        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository = null,
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo> caHolderManagerIndexRepository = null,
         IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> caHolderTransactionIndexRepository = null,
         IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo> caHolderTransactionAddressIndexRepository = null,
         IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions = null) : base(logger, 

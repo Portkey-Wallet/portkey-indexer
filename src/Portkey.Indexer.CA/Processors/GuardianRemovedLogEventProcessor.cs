@@ -13,11 +13,15 @@ namespace Portkey.Indexer.CA.Processors;
 public class GuardianRemovedLogEventProcessor : GuardianProcessorBase<GuardianRemoved>
 {
     public GuardianRemovedLogEventProcessor(ILogger<GuardianRemovedLogEventProcessor> logger,
-        IObjectMapper objectMapper, IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
+        IObjectMapper objectMapper, IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> repository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
-        IAElfIndexerClientEntityRepository<GuardianChangeRecordIndex, LogEventInfo> changeRecordRepository) : base(
+        IAElfIndexerClientEntityRepository<GuardianChangeRecordIndex, TransactionInfo> changeRecordRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> caHolderTransactionIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo> caHolderTransactionAddressIndexRepository,
+        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions) : base(
         logger, objectMapper, repository,
-        contractInfoOptions, changeRecordRepository)
+        contractInfoOptions, changeRecordRepository, caHolderTransactionIndexRepository,
+        caHolderTransactionAddressIndexRepository, caHolderTransactionInfoOptions)
     {
     }
 
@@ -28,6 +32,7 @@ public class GuardianRemovedLogEventProcessor : GuardianProcessorBase<GuardianRe
 
     protected override async Task HandleEventAsync(GuardianRemoved eventValue, LogEventContext context)
     {
+        await HandlerTransactionIndexAsync(eventValue, context);
         //check ca address if already exist in caHolderIndex
         var id = IdGenerateHelper.GetId(context.ChainId, eventValue.CaAddress.ToBase58());
         var caHolderIndex = await Repository.GetFromBlockStateSetAsync(id, context.ChainId);
@@ -48,5 +53,10 @@ public class GuardianRemovedLogEventProcessor : GuardianProcessorBase<GuardianRe
 
         await AddChangeRecordAsync(eventValue.CaAddress.ToBase58(), eventValue.CaHash.ToHex(), nameof(GuardianRemoved),
             ObjectMapper.Map<Guardian, Entities.Guardian>(eventValue.GuardianRemoved_), context);
+    }
+    
+    protected override async Task HandlerTransactionIndexAsync(GuardianRemoved eventValue, LogEventContext context)
+    {
+        await ProcessCAHolderTransactionAsync(context, eventValue.CaAddress.ToBase58());;
     }
 }

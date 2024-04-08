@@ -14,7 +14,7 @@ namespace Portkey.Indexer.CA.GraphQL;
 public class Query
 {
     public static async Task<List<TokenInfoDto>> TokenInfo(
-        [FromServices] IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> repository,
+        [FromServices] IAElfIndexerClientEntityRepository<TokenInfoIndex, TransactionInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetTokenInfoDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<TokenInfoIndex>, QueryContainer>>();
@@ -38,7 +38,7 @@ public class Query
     }
 
     // [Name("nftProtocolInfo")]
-    // public static async Task<List<NFTProtocolInfoDto>> NFTProtocolInfo([FromServices] IAElfIndexerClientEntityRepository<NFTProtocolInfoIndex,LogEventInfo> repository, [FromServices] IObjectMapper objectMapper, GetNFTProtocolInfoDto dto)
+    // public static async Task<List<NFTProtocolInfoDto>> NFTProtocolInfo([FromServices] IAElfIndexerClientEntityRepository<NFTProtocolInfoIndex,TransactionInfo> repository, [FromServices] IObjectMapper objectMapper, GetNFTProtocolInfoDto dto)
     // {
     //     var mustQuery = new List<Func<QueryContainerDescriptor<NFTProtocolInfoIndex>, QueryContainer>>();
     //
@@ -56,7 +56,7 @@ public class Query
     public static async Task<CAHolderTransactionPageResultDto> CAHolderTransaction(
         [FromServices] IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> repository,
         [FromServices]
-        IAElfIndexerClientEntityRepository<TransactionFeeChangedIndex, LogEventInfo> transactionFeeRepository,
+        IAElfIndexerClientEntityRepository<TransactionFeeChangedIndex, TransactionInfo> transactionFeeRepository,
         [FromServices] IObjectMapper objectMapper, GetCAHolderTransactionDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>();
@@ -384,7 +384,7 @@ public class Query
 
     [Name("caHolderManagerInfo")]
     public static async Task<List<CAHolderManagerDto>> CAHolderManagerInfo(
-        [FromServices] IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
+        [FromServices] IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetCAHolderManagerInfoDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderIndex>, QueryContainer>>();
@@ -417,8 +417,8 @@ public class Query
 
     [Name("caHolderInfo")]
     public static async Task<List<CAHolderInfoDto>> CAHolderInfo(
-        [FromServices] IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
-        [FromServices] IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo> repositoryLoginGuardian,
+        [FromServices] IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> repository,
+        [FromServices] IAElfIndexerClientEntityRepository<LoginGuardianIndex, TransactionInfo> repositoryLoginGuardian,
         [FromServices] IObjectMapper objectMapper, GetCAHolderInfoDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderIndex>, QueryContainer>>();
@@ -478,7 +478,7 @@ public class Query
     }
 
     private static async Task AddOriginChainIdIfNullAsync(List<CAHolderIndex> holders,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository)
+        IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> repository)
     {
         foreach (var holder in holders.Where(holder => holder.OriginChainId.IsNullOrWhiteSpace()))
         {
@@ -487,7 +487,7 @@ public class Query
     }
 
     private static async Task<string> GetOriginChainIdAsync(string caHash,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository)
+        IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> repository)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderIndex>, QueryContainer>>();
         mustQuery.Add(q => q.Term(i => i.Field(f => f.CAHash).Value(caHash)));
@@ -499,7 +499,7 @@ public class Query
     }
 
     public static async Task<List<LoginGuardianDto>> LoginGuardianInfo(
-        [FromServices] IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo> repository,
+        [FromServices] IAElfIndexerClientEntityRepository<LoginGuardianIndex, TransactionInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetLoginGuardianInfoDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<LoginGuardianIndex>, QueryContainer>>();
@@ -518,7 +518,7 @@ public class Query
 
     [Name("caHolderNFTCollectionBalanceInfo")]
     public static async Task<CAHolderNFTCollectionBalancePageResultDto> CAHolderNFTCollecitonBalanceInfo(
-        [FromServices] IAElfIndexerClientEntityRepository<CAHolderNFTCollectionBalanceIndex, LogEventInfo> repository,
+        [FromServices] IAElfIndexerClientEntityRepository<CAHolderNFTCollectionBalanceIndex, TransactionInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetCAHolderNFTCollectionInfoDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderNFTCollectionBalanceIndex>, QueryContainer>>();
@@ -569,7 +569,7 @@ public class Query
 
     [Name("caHolderNFTBalanceInfo")]
     public static async Task<CAHolderNFTBalancePageResultDto> CAHolderNFTBalanceInfo(
-        [FromServices] IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, LogEventInfo> repository,
+        [FromServices] IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, TransactionInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetCAHolderNFTInfoDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderNFTBalanceIndex>, QueryContainer>>();
@@ -617,7 +617,7 @@ public class Query
 
     [Name("caHolderTokenBalanceInfo")]
     public static async Task<CAHolderTokenBalancePageResultDto> CAHolderTokenBalanceInfo(
-        [FromServices] IAElfIndexerClientEntityRepository<CAHolderTokenBalanceIndex, LogEventInfo> repository,
+        [FromServices] IAElfIndexerClientEntityRepository<CAHolderTokenBalanceIndex, TransactionInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetCAHolderTokenBalanceDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderTokenBalanceIndex>, QueryContainer>>();
@@ -668,8 +668,8 @@ public class Query
 
     [Name("caHolderBingoInfo")]
     public static async Task<BingoResultDto> CAHolderBingoInfo(
-        [FromServices] IAElfIndexerClientEntityRepository<BingoGameIndex, LogEventInfo> repository,
-        [FromServices] IAElfIndexerClientEntityRepository<BingoGameStaticsIndex, LogEventInfo> staticsrepository,
+        [FromServices] IAElfIndexerClientEntityRepository<BingoGameIndex, TransactionInfo> repository,
+        [FromServices] IAElfIndexerClientEntityRepository<BingoGameStaticsIndex, TransactionInfo> staticsrepository,
         [FromServices] IObjectMapper objectMapper, GetBingoDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<BingoGameIndex>, QueryContainer>>();
@@ -744,7 +744,7 @@ public class Query
 
     [Name("caHolderTransactionAddressInfo")]
     public static async Task<CAHolderTransactionAddressPageResultDto> CAHolderTransactionAddressInfo(
-        [FromServices] IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, LogEventInfo> repository,
+        [FromServices] IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetCAHolderTransactionAddressDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderTransactionAddressIndex>, QueryContainer>>();
@@ -786,7 +786,7 @@ public class Query
     }
 
     public static async Task<List<LoginGuardianChangeRecordDto>> LoginGuardianChangeRecordInfo(
-        [FromServices] IAElfIndexerClientEntityRepository<LoginGuardianChangeRecordIndex, LogEventInfo> repository,
+        [FromServices] IAElfIndexerClientEntityRepository<LoginGuardianChangeRecordIndex, TransactionInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetLoginGuardianChangeRecordDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<LoginGuardianChangeRecordIndex>, QueryContainer>>();
@@ -812,7 +812,7 @@ public class Query
 
     [Name("caHolderManagerChangeRecordInfo")]
     public static async Task<List<CAHolderManagerChangeRecordDto>> CAHolderManagerChangeRecordInfo(
-        [FromServices] IAElfIndexerClientEntityRepository<CAHolderManagerChangeRecordIndex, LogEventInfo> repository,
+        [FromServices] IAElfIndexerClientEntityRepository<CAHolderManagerChangeRecordIndex, TransactionInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetCAHolderManagerChangeRecordDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderManagerChangeRecordIndex>, QueryContainer>>();
@@ -833,7 +833,7 @@ public class Query
 
     [Name("caHolderSearchTokenNFT")]
     public static async Task<CAHolderSearchTokenNFTPageResultDto> CAHolderSearchTokenNFT(
-        [FromServices] IAElfIndexerClientEntityRepository<CAHolderSearchTokenNFTIndex, LogEventInfo> repository,
+        [FromServices] IAElfIndexerClientEntityRepository<CAHolderSearchTokenNFTIndex, TransactionInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetCAHolderSearchTokenNFTDto dto)
     {
         string wildCardSearchWord = "";
@@ -950,7 +950,7 @@ public class Query
 
     [Name("transferSecurityThresholdList")]
     public static async Task<TransferSecurityThresholdPageResultDto> TransferSecurityThresholdListAsync(
-        [FromServices] IAElfIndexerClientEntityRepository<TransferSecurityThresholdIndex, LogEventInfo> repository,
+        [FromServices] IAElfIndexerClientEntityRepository<TransferSecurityThresholdIndex, TransactionInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetTransferSecurityThresholdChangedDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<TransferSecurityThresholdIndex>, QueryContainer>>();
@@ -985,7 +985,7 @@ public class Query
 
     [Name("guardianAddedCAHolderInfo")]
     public static async Task<GuardianAddedCAHolderInfoResultDto> GuardianAddedCAHolderInfoAsync(
-        [FromServices] IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
+        [FromServices] IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetGuardianAddedCAHolderInfo dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderIndex>, QueryContainer>>();
@@ -1004,7 +1004,7 @@ public class Query
 
     [Name("guardianChangeRecordInfo")]
     public static async Task<List<GuardianChangeRecordDto>> GuardianAddedCAHolderInfoAsync(
-        [FromServices] IAElfIndexerClientEntityRepository<GuardianChangeRecordIndex, LogEventInfo> repository,
+        [FromServices] IAElfIndexerClientEntityRepository<GuardianChangeRecordIndex, TransactionInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetGuardianChangeRecordDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<GuardianChangeRecordIndex>, QueryContainer>>();
@@ -1025,7 +1025,7 @@ public class Query
 
     [Name("referralInfo")]
     public static async Task<List<ReferralInfoDto>> GetReferralInfoAsync(
-        [FromServices] IAElfIndexerClientEntityRepository<InviteIndex, LogEventInfo> repository,
+        [FromServices] IAElfIndexerClientEntityRepository<InviteIndex, TransactionInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetReferralInfoDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<InviteIndex>, QueryContainer>>();
@@ -1088,7 +1088,7 @@ public class Query
 
     [Name("nftItemInfos")]
     public static async Task<List<NFTItemInfoDto>> GetNftItemInfosAsync(
-        [FromServices] IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> repository,
+        [FromServices] IAElfIndexerClientEntityRepository<NFTInfoIndex, TransactionInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetNftItemInfosDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<NFTInfoIndex>, QueryContainer>>();

@@ -13,11 +13,15 @@ namespace Portkey.Indexer.CA.Processors;
 public class LoginGuardianAddedLogEventProcessor : LoginGuardianProcessorBase<LoginGuardianAdded>
 {
     public LoginGuardianAddedLogEventProcessor(ILogger<LoginGuardianAddedLogEventProcessor> logger,
-        IObjectMapper objectMapper, IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo> repository,
-        IAElfIndexerClientEntityRepository<LoginGuardianChangeRecordIndex, LogEventInfo> changeRecordRepository,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderRepository,
-        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base(logger, objectMapper, repository,
-        changeRecordRepository, caHolderRepository, contractInfoOptions)
+        IObjectMapper objectMapper, IAElfIndexerClientEntityRepository<LoginGuardianIndex, TransactionInfo> repository,
+        IAElfIndexerClientEntityRepository<LoginGuardianChangeRecordIndex, TransactionInfo> changeRecordRepository,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> caHolderRepository,
+        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> caHolderTransactionIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo> caHolderTransactionAddressIndexRepository,
+        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions ) : base(logger, objectMapper, repository,
+        changeRecordRepository, caHolderRepository, contractInfoOptions, caHolderTransactionIndexRepository,
+        caHolderTransactionAddressIndexRepository, caHolderTransactionInfoOptions)
     {
     }
 
@@ -28,6 +32,8 @@ public class LoginGuardianAddedLogEventProcessor : LoginGuardianProcessorBase<Lo
 
     protected override async Task HandleEventAsync(LoginGuardianAdded eventValue, LogEventContext context)
     {
+        await HandlerTransactionIndexAsync(eventValue, context);
+        
         var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.CaAddress.ToBase58(),
             eventValue.LoginGuardian.IdentifierHash.ToHex(), eventValue.LoginGuardian.VerifierId.ToHex());
         var loginGuardianIndex = await Repository.GetFromBlockStateSetAsync(indexId, context.ChainId);
@@ -87,5 +93,10 @@ public class LoginGuardianAddedLogEventProcessor : LoginGuardianProcessorBase<Lo
 
         ObjectMapper.Map(context, caHolderIndex);
         await CaHolderRepository.AddOrUpdateAsync(caHolderIndex);
+    }
+    
+    protected override async Task HandlerTransactionIndexAsync(LoginGuardianAdded eventValue, LogEventContext context)
+    {
+        await ProcessCAHolderTransactionAsync(context, eventValue.CaAddress.ToBase58());;
     }
 }

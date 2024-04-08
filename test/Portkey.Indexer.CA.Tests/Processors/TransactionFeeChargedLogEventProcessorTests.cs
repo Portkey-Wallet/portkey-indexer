@@ -29,7 +29,7 @@ public class TransactionFeeChargedLogEventProcessorTests : PortkeyIndexerCATestB
         var transactionFeeChargedLogEventProcessor = GetRequiredService<TransactionFeeChargedLogEventProcessor>();
         
         
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -70,7 +70,7 @@ public class TransactionFeeChargedLogEventProcessorTests : PortkeyIndexerCATestB
         transactionFeeChargedLogEventProcessor.GetContractAddress("AELF");
         await transactionFeeChargedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(2000);
     }
     
@@ -85,7 +85,7 @@ public class TransactionFeeChargedLogEventProcessorTests : PortkeyIndexerCATestB
         var caHolderCreatedProcessor = GetRequiredService<CAHolderCreatedLogEventProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -130,7 +130,7 @@ public class TransactionFeeChargedLogEventProcessorTests : PortkeyIndexerCATestB
         await caHolderCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(2000);
     }
 }

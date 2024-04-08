@@ -9,20 +9,28 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public abstract class CAHolderManagerProcessorBase<TEvent> : AElfLogEventProcessorBase<TEvent,LogEventInfo> where TEvent : IEvent<TEvent>, new()
+public abstract class CAHolderManagerProcessorBase<TEvent> : CAHolderTransactionProcessorBase<TEvent> where TEvent : IEvent<TEvent>, new()
 {
     protected readonly IObjectMapper ObjectMapper;
-    protected readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> Repository;
-    protected readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> CAHolderManagerIndexRepository;
-    private readonly IAElfIndexerClientEntityRepository<CAHolderManagerChangeRecordIndex, LogEventInfo> ChangeRecordRepository;
+    protected readonly IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> Repository;
+    protected readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo> CAHolderManagerIndexRepository;
+    private readonly IAElfIndexerClientEntityRepository<CAHolderManagerChangeRecordIndex, TransactionInfo> ChangeRecordRepository;
     protected readonly ContractInfoOptions ContractInfoOptions;
     
     protected CAHolderManagerProcessorBase(ILogger<CAHolderManagerProcessorBase<TEvent>> logger, IObjectMapper objectMapper,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
-        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderManagerChangeRecordIndex, LogEventInfo> changeRecordRepository) :
-        base(logger)
+        IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> repository,
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo> caHolderManagerIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderManagerChangeRecordIndex, TransactionInfo> changeRecordRepository,
+        // transactionIndex needs
+        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> caHolderTransactionIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo> caHolderTransactionAddressIndexRepository,
+        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions
+        ) :
+        base(logger, 
+            repository, caHolderManagerIndexRepository, caHolderTransactionIndexRepository,
+            null, null, caHolderTransactionAddressIndexRepository,
+            contractInfoOptions, caHolderTransactionInfoOptions, objectMapper)
     {
         ObjectMapper = objectMapper;
         Repository = repository;

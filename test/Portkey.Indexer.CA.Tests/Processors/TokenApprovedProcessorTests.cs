@@ -89,7 +89,7 @@ public class TokenApprovedProcessorTests : PortkeyIndexerCATestBase
         var caHolderCreatedProcessor = GetRequiredService<CAHolderCreatedLogEventProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -134,7 +134,7 @@ public class TokenApprovedProcessorTests : PortkeyIndexerCATestBase
         await caHolderCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(2000);
     }
 }

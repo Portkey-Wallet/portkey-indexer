@@ -11,6 +11,7 @@ using Guardian = Portkey.Indexer.CA.Entities.Guardian;
 
 namespace Portkey.Indexer.CA.Processors;
 
+[Obsolete]
 public class
     CAHolderAccelerateCreationLogEventProcessor : AElfLogEventProcessorBase<PreCrossChainSyncHolderInfoCreated, LogEventInfo>
 {

@@ -14,23 +14,23 @@ using ManagerInfo = Portkey.Indexer.CA.Entities.ManagerInfo;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class CAHolderSyncedProcessor : AElfLogEventProcessorBase<CAHolderSynced, LogEventInfo>
+public class CAHolderSyncedProcessor : AElfLogEventProcessorBase<CAHolderSynced, TransactionInfo>
 {
     private readonly IObjectMapper _objectMapper;
-    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _caHolderIndexRepository;
+    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> _caHolderIndexRepository;
 
-    private readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo>
+    private readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo>
         _caHolderManagerIndexRepository;
 
-    private readonly IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo>
+    private readonly IAElfIndexerClientEntityRepository<LoginGuardianIndex, TransactionInfo>
         _loginGuardianRepository;
 
     private readonly ContractInfoOptions _contractInfoOptions;
 
     public CAHolderSyncedProcessor(ILogger<CAHolderSyncedProcessor> logger, IObjectMapper objectMapper,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
-        IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo> loginGuardianRepository,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> caHolderIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo> caHolderManagerIndexRepository,
+        IAElfIndexerClientEntityRepository<LoginGuardianIndex, TransactionInfo> loginGuardianRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base(logger)
     {
         _objectMapper = objectMapper;

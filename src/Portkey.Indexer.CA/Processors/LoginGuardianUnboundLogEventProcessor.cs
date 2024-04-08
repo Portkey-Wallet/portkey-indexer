@@ -12,12 +12,15 @@ namespace Portkey.Indexer.CA.Processors;
 public class LoginGuardianUnboundLogEventProcessor : LoginGuardianProcessorBase<LoginGuardianUnbound>
 {
     public LoginGuardianUnboundLogEventProcessor(ILogger<LoginGuardianUnboundLogEventProcessor> logger,
-        IObjectMapper objectMapper,
-        IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo> repository,
-        IAElfIndexerClientEntityRepository<LoginGuardianChangeRecordIndex, LogEventInfo> changeRecordRepository,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderRepository,
-        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base(logger, objectMapper, repository,
-        changeRecordRepository, caHolderRepository, contractInfoOptions)
+        IObjectMapper objectMapper, IAElfIndexerClientEntityRepository<LoginGuardianIndex, TransactionInfo> repository,
+        IAElfIndexerClientEntityRepository<LoginGuardianChangeRecordIndex, TransactionInfo> changeRecordRepository,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> caHolderRepository,
+        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> caHolderTransactionIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo> caHolderTransactionAddressIndexRepository,
+        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions ) : base(logger, objectMapper, repository,
+        changeRecordRepository, caHolderRepository, contractInfoOptions, caHolderTransactionIndexRepository,
+        caHolderTransactionAddressIndexRepository, caHolderTransactionInfoOptions)
     {
     }
 
@@ -28,10 +31,17 @@ public class LoginGuardianUnboundLogEventProcessor : LoginGuardianProcessorBase<
 
     protected override async Task HandleEventAsync(LoginGuardianUnbound eventValue, LogEventContext context)
     {
+        await HandlerTransactionIndexAsync(eventValue, context);
+        
         await AddChangeRecordAsync(eventValue.CaAddress.ToBase58(), eventValue.CaHash.ToHex(),
             eventValue.Manager.ToBase58(), new Entities.Guardian
             {
                 IdentifierHash = eventValue.LoginGuardianIdentifierHash.ToHex()
             }, nameof(LoginGuardianUnbound), context);
+    }
+    
+    protected override async Task HandlerTransactionIndexAsync(LoginGuardianUnbound eventValue, LogEventContext context)
+    {
+        await ProcessCAHolderTransactionAsync(context, eventValue.CaAddress.ToBase58());;
     }
 }

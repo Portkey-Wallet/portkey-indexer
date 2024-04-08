@@ -9,6 +9,7 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
+[Obsolete]
 public class ManagerSocialRecoveredLogEventProcessor: AElfLogEventProcessorBase<ManagerInfoSocialRecovered,LogEventInfo>
 {
     private readonly IObjectMapper _objectMapper;

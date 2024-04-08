@@ -15,11 +15,11 @@ namespace Portkey.Indexer.CA.Tests.Processors;
 
 public class ContractDeployedProcessorTests:PortkeyIndexerCATestBase
 {
-    private readonly IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> _tokenInfoIndexRepository;
+    private readonly IAElfIndexerClientEntityRepository<TokenInfoIndex, TransactionInfo> _tokenInfoIndexRepository;
     
     public ContractDeployedProcessorTests()
     {
-        _tokenInfoIndexRepository = GetRequiredService<IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo>>();
+        _tokenInfoIndexRepository = GetRequiredService<IAElfIndexerClientEntityRepository<TokenInfoIndex, TransactionInfo>>();
     }
 
     [Fact]
@@ -32,7 +32,7 @@ public class ContractDeployedProcessorTests:PortkeyIndexerCATestBase
         const long blockHeight = 120;
         
         //step1: create blockStateSet
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -66,7 +66,7 @@ public class ContractDeployedProcessorTests:PortkeyIndexerCATestBase
         contractDeployedProcessor.GetContractAddress(chainId);
         
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(2000);
         
         //step5: check result

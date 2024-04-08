@@ -13,11 +13,14 @@ public class ManagerUpdatedLogEventProcessor : CAHolderManagerProcessorBase<Mana
 {
     public ManagerUpdatedLogEventProcessor(ILogger<ManagerUpdatedLogEventProcessor> logger,
         IObjectMapper objectMapper, IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
-        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderManagerChangeRecordIndex, LogEventInfo> changeRecordRepository) :
-        base(logger, objectMapper, contractInfoOptions, repository, caHolderManagerIndexRepository,
-            changeRecordRepository)
+        IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> repository,
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo> caHolderManagerIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderManagerChangeRecordIndex, TransactionInfo> changeRecordRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> caHolderTransactionIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo> caHolderTransactionAddressIndexRepository,
+        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions) :
+        base(logger, objectMapper, contractInfoOptions, repository,caHolderManagerIndexRepository, changeRecordRepository,
+            caHolderTransactionIndexRepository, caHolderTransactionAddressIndexRepository, caHolderTransactionInfoOptions)
     {
     }
 
@@ -28,6 +31,7 @@ public class ManagerUpdatedLogEventProcessor : CAHolderManagerProcessorBase<Mana
 
     protected override async Task HandleEventAsync(ManagerInfoUpdated eventValue, LogEventContext context)
     {
+        await HandlerTransactionIndexAsync(eventValue, context);
         //check ca address if already exist in caHolderIndex
         var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.CaAddress.ToBase58());
         var caHolderIndex = await Repository.GetFromBlockStateSetAsync(indexId, context.ChainId);
@@ -43,5 +47,10 @@ public class ManagerUpdatedLogEventProcessor : CAHolderManagerProcessorBase<Mana
         await Repository.AddOrUpdateAsync(caHolderIndex);
         await AddChangeRecordAsync(eventValue.CaAddress.ToBase58(), eventValue.CaHash.ToHex(),
             eventValue.Manager.ToBase58(), nameof(ManagerInfoUpdated), context);
+    }
+    
+    protected override async Task HandlerTransactionIndexAsync(ManagerInfoUpdated eventValue, LogEventContext context)
+    {
+        await ProcessCAHolderTransactionAsync(context, eventValue.CaAddress.ToBase58());
     }
 }

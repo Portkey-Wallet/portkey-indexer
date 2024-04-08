@@ -1,6 +1,7 @@
 using AElfIndexer.Client;
 using AElfIndexer.Client.Handlers;
 using AElfIndexer.Grains.State.Client;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Portkey.Contracts.CA;
@@ -10,35 +11,40 @@ using Guardian = Portkey.Indexer.CA.Entities.Guardian;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class CAHolderCreatedLogEventProcessor: AElfLogEventProcessorBase<CAHolderCreated,LogEventInfo>
+public class CAHolderCreatedLogEventProcessor: CAHolderTransactionProcessorBase<CAHolderCreated>
 {
-    private readonly IObjectMapper _objectMapper;
-    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _repository;
-    private readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> _caHolderManagerIndexRepository;
-    private readonly ContractInfoOptions _contractInfoOptions;
     
-    public CAHolderCreatedLogEventProcessor(ILogger<CAHolderCreatedLogEventProcessor> logger, IObjectMapper objectMapper,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
-        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
-        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base(logger)
+    public CAHolderCreatedLogEventProcessor(
+        ILogger<CAHolderCreatedLogEventProcessor> logger,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> caHolderIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo> caHolderManagerIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
+            caHolderTransactionIndexRepository,
+        IAElfIndexerClientEntityRepository<TokenInfoIndex, TransactionInfo> tokenInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<NFTInfoIndex, TransactionInfo> nftInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo>
+            caHolderTransactionAddressIndexRepository,
+        IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
+        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions, IObjectMapper objectMapper) :
+        base(logger, caHolderIndexRepository, caHolderManagerIndexRepository, caHolderTransactionIndexRepository,
+            tokenInfoIndexRepository,
+            nftInfoIndexRepository, caHolderTransactionAddressIndexRepository, contractInfoOptions,
+            caHolderTransactionInfoOptions, objectMapper)
     {
-        _objectMapper = objectMapper;
-        _repository = repository;
-        _caHolderManagerIndexRepository = caHolderManagerIndexRepository;
-        _contractInfoOptions = contractInfoOptions.Value;
     }
     
     public override string GetContractAddress(string chainId)
     {
-        return _contractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).CAContractAddress;
+        return ContractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).CAContractAddress;
     }
 
     protected override async Task HandleEventAsync(CAHolderCreated eventValue, LogEventContext context)
     {
+        await HandlerTransactionIndexAsync(eventValue, context);
         //check manager is already exist in caHolderManagerIndex
         var managerIndexId = IdGenerateHelper.GetId(context.ChainId, eventValue.Manager.ToBase58());
         var caHolderManagerIndex =
-            await _caHolderManagerIndexRepository.GetFromBlockStateSetAsync(managerIndexId, context.ChainId);
+            await CAHolderManagerIndexRepository.GetFromBlockStateSetAsync(managerIndexId, context.ChainId);
         if (caHolderManagerIndex == null)
         {
             caHolderManagerIndex = new CAHolderManagerIndex
@@ -58,13 +64,13 @@ public class CAHolderCreatedLogEventProcessor: AElfLogEventProcessorBase<CAHolde
                 caHolderManagerIndex.CAAddresses.Add(eventValue.CaAddress.ToBase58());
             }
         }
-        _objectMapper.Map<LogEventContext, CAHolderManagerIndex>(context, caHolderManagerIndex);
-        await _caHolderManagerIndexRepository.AddOrUpdateAsync(caHolderManagerIndex);
+        ObjectMapper.Map(context, caHolderManagerIndex);
+        await CAHolderManagerIndexRepository.AddOrUpdateAsync(caHolderManagerIndex);
         
         
         //check ca address if already exist in caHolderIndex
         var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.CaAddress.ToBase58());
-        var caHolderIndex = await _repository.GetFromBlockStateSetAsync(indexId, context.ChainId);
+        var caHolderIndex = await CAHolderIndexRepository.GetFromBlockStateSetAsync(indexId, context.ChainId);
         if (caHolderIndex != null)
         {
             return;
@@ -89,7 +95,24 @@ public class CAHolderCreatedLogEventProcessor: AElfLogEventProcessorBase<CAHolde
             Guardians = new List<Guardian>(),
             OriginChainId = context.ChainId
         };
-        _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
-        await _repository.AddOrUpdateAsync(caHolderIndex);
+        ObjectMapper.Map(context, caHolderIndex);
+        await CAHolderIndexRepository.AddOrUpdateAsync(caHolderIndex);
+    }
+
+    protected override async Task HandlerTransactionIndexAsync(CAHolderCreated eventValue, LogEventContext context)
+    {
+        if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
+        
+        var index = new CAHolderTransactionIndex
+        {
+            Id = IdGenerateHelper.GetId(context.BlockHash, context.TransactionId),
+            Timestamp = context.BlockTime.ToTimestamp().Seconds,
+            FromAddress = eventValue.CaAddress.ToBase58(),
+            TransactionFee = GetTransactionFee(context.ExtraProperties)
+        };
+        
+        ObjectMapper.Map(context, index);
+        index.MethodName = GetMethodName(context.MethodName, context.Params);
+        await CAHolderTransactionIndexRepository.AddOrUpdateAsync(index);
     }
 }

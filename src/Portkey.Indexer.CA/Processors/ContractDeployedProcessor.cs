@@ -10,11 +10,11 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class ContractDeployedProcessor : AElfLogEventProcessorBase<ContractDeployed, LogEventInfo>
+public class ContractDeployedProcessor : AElfLogEventProcessorBase<ContractDeployed, TransactionInfo>
 {
-    private readonly IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> _tokenInfoIndexRepository;
+    private readonly IAElfIndexerClientEntityRepository<TokenInfoIndex, TransactionInfo> _tokenInfoIndexRepository;
 
-    private readonly IAElfIndexerClientEntityRepository<NFTCollectionInfoIndex, LogEventInfo>
+    private readonly IAElfIndexerClientEntityRepository<NFTCollectionInfoIndex, TransactionInfo>
         _nftProtocolInfoIndexRepository;
 
     private readonly InitialInfoOptions _initialInfoOptions;
@@ -23,8 +23,8 @@ public class ContractDeployedProcessor : AElfLogEventProcessorBase<ContractDeplo
     private readonly ILogger<ContractDeployedProcessor> _contractDeployedLogger;
 
     public ContractDeployedProcessor(ILogger<ContractDeployedProcessor> logger,
-        IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
-        IAElfIndexerClientEntityRepository<NFTCollectionInfoIndex, LogEventInfo> nftProtocolInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<TokenInfoIndex, TransactionInfo> tokenInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<NFTCollectionInfoIndex, TransactionInfo> nftProtocolInfoIndexRepository,
         IOptionsSnapshot<InitialInfoOptions> initialInfoOptions, IObjectMapper objectMapper,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) :
         base(logger)
