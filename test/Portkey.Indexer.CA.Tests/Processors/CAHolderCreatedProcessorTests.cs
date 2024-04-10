@@ -96,7 +96,7 @@ public sealed class CAHolderCreatedProcessorTests:PortkeyIndexerCATestBase
         };
         
         //step3: handle event and write result to blockStateSet
-        var caHolderCreatedLogEventProcessor = GetRequiredService<CAHolderCreatedLogEventProcessor>();
+        var caHolderCreatedLogEventProcessor = GetRequiredService<CAHolderCreatedProcessor>();
         await caHolderCreatedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         caHolderCreatedLogEventProcessor.GetContractAddress(chainId);
 

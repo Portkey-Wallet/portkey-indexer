@@ -11,9 +11,9 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class TokenTransferredLogEventProcessor:  CAHolderTokenBalanceProcessorBase<Transferred>
+public class TokenTransferredProcessor:  CAHolderTokenBalanceProcessorBase<Transferred>
 {
-    public TokenTransferredLogEventProcessor(ILogger<TokenTransferredLogEventProcessor> logger,
+    public TokenTransferredProcessor(ILogger<TokenTransferredProcessor> logger,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> caHolderIndexRepository,
         IAElfIndexerClientEntityRepository<TokenInfoIndex, TransactionInfo> tokenInfoIndexRepository,

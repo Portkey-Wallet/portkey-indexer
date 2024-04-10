@@ -119,7 +119,7 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
         const long defaultBalanceThreshold = 1000;
 
         var transferSecurityThresholdChangedProcessor =
-            GetRequiredService<TransferSecurityThresholdChangedLogEventProcessor>();
+            GetRequiredService<TransferSecurityThresholdChangedProcessor>();
         transferSecurityThresholdChangedProcessor.GetContractAddress(chainId);
         var blockStateSet = new BlockStateSet<TransactionInfo>
         {

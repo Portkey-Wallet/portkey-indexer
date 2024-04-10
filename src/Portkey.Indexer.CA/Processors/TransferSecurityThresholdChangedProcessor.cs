@@ -9,16 +9,16 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class TransferSecurityThresholdChangedLogEventProcessor : AElfLogEventProcessorBase<
+public class TransferSecurityThresholdChangedProcessor : AElfLogEventProcessorBase<
     TransferSecurityThresholdChanged, TransactionInfo>
 {
     private readonly IAElfIndexerClientEntityRepository<TransferSecurityThresholdIndex, TransactionInfo> _repository;
     private readonly ContractInfoOptions _contractInfoOptions;
     private readonly IObjectMapper _objectMapper;
-    private readonly ILogger<TransferSecurityThresholdChangedLogEventProcessor> _processorLogger;
+    private readonly ILogger<TransferSecurityThresholdChangedProcessor> _processorLogger;
 
-    public TransferSecurityThresholdChangedLogEventProcessor(
-        ILogger<TransferSecurityThresholdChangedLogEventProcessor> logger,
+    public TransferSecurityThresholdChangedProcessor(
+        ILogger<TransferSecurityThresholdChangedProcessor> logger,
         IObjectMapper objectMapper, IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IAElfIndexerClientEntityRepository<TransferSecurityThresholdIndex, TransactionInfo> repository) : base(logger)
     {

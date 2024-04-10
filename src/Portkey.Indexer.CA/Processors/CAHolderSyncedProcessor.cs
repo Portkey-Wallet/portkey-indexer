@@ -120,7 +120,6 @@ public class CAHolderSyncedProcessor : AElfLogEventProcessorBase<CAHolderSynced,
             Creator = eventValue.Creator.ToBase58(),
             ManagerInfos = managerList
         };
-
         caHolderIndex.OriginChainId = eventValue.CreateChainId == 0
             ? await GetOriginChainIdAsync(eventValue.CaHash.ToHex())
             : ChainHelper.ConvertChainIdToBase58(eventValue.CreateChainId);
@@ -200,8 +199,8 @@ public class CAHolderSyncedProcessor : AElfLogEventProcessorBase<CAHolderSynced,
                     if (caHolderManagerIndex.CAAddresses.Contains(eventValue.CaAddress.ToBase58()))
                     {
                         caHolderManagerIndex.CAAddresses.Remove(eventValue.CaAddress.ToBase58());
-                        _objectMapper.Map<LogEventContext, CAHolderManagerIndex>(context, caHolderManagerIndex);
                     }
+                    _objectMapper.Map<LogEventContext, CAHolderManagerIndex>(context, caHolderManagerIndex);
 
                     if (caHolderManagerIndex.CAAddresses.Count == 0)
                     {

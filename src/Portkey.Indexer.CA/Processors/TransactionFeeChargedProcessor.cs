@@ -10,14 +10,14 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class TransactionFeeChargedLogEventProcessor : CAHolderTokenBalanceProcessorBase<TransactionFeeCharged>
+public class TransactionFeeChargedProcessor : CAHolderTokenBalanceProcessorBase<TransactionFeeCharged>
 {
     private readonly IAElfIndexerClientEntityRepository<TransactionFeeChangedIndex, TransactionInfo>
         _transactionFeeChangedIndexRepository;
 
     private readonly IObjectMapper _objectMapper;
 
-    public TransactionFeeChargedLogEventProcessor(ILogger<TransactionFeeChargedLogEventProcessor> logger,
+    public TransactionFeeChargedProcessor(ILogger<TransactionFeeChargedProcessor> logger,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
         IAElfIndexerClientEntityRepository<TransactionFeeChangedIndex, TransactionInfo>
             transactionFeeChangedIndexRepository,

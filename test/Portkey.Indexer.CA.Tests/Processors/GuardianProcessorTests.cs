@@ -106,7 +106,7 @@ public class GuardianProcessorTests : PortkeyIndexerCATestBase
         };
 
         //step3: handle event and write result to blockStateSet
-        var guardianAddedLogEventProcessor = GetRequiredService<GuardianAddedLogEventProcessor>();
+        var guardianAddedLogEventProcessor = GetRequiredService<GuardianAddedProcessor>();
 
         await guardianAddedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         guardianAddedLogEventProcessor.GetContractAddress(chainId);
@@ -194,7 +194,7 @@ public class GuardianProcessorTests : PortkeyIndexerCATestBase
         };
 
         //step3: handle event and write result to blockStateSet
-        var guardianRemovedLogEventProcessor = GetRequiredService<GuardianRemovedLogEventProcessor>();
+        var guardianRemovedLogEventProcessor = GetRequiredService<GuardianRemovedProcessor>();
 
         await guardianRemovedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         guardianRemovedLogEventProcessor.GetContractAddress(chainId);
@@ -282,7 +282,7 @@ public class GuardianProcessorTests : PortkeyIndexerCATestBase
         };
 
         //step3: handle event and write result to blockStateSet
-        var guardianUpdatedLogEventProcessor = GetRequiredService<GuardianUpdatedLogEventProcessor>();
+        var guardianUpdatedLogEventProcessor = GetRequiredService<GuardianUpdatedProcessor>();
 
         await guardianUpdatedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         guardianUpdatedLogEventProcessor.GetContractAddress(chainId);
@@ -311,7 +311,7 @@ public class GuardianProcessorTests : PortkeyIndexerCATestBase
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
 
-        var caHolderCreatedProcessor = GetRequiredService<CAHolderCreatedLogEventProcessor>();
+        var caHolderCreatedProcessor = GetRequiredService<CAHolderCreatedProcessor>();
 
         //step1: create blockStateSet
         var blockStateSet = new BlockStateSet<TransactionInfo>
