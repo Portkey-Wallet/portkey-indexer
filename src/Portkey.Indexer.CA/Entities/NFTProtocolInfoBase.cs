@@ -29,5 +29,5 @@ public class NFTProtocolInfoBase : AElfIndexerClientEntity<string>
     
     public bool IsBurnable { get; set; }
   
-    [Keyword] public string ImageUrl { get; set; }
+    [Text(Index = false)] public string ImageUrl { get; set; }
 }

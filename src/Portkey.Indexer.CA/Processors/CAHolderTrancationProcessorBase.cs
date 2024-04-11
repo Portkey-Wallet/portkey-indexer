@@ -217,6 +217,8 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
                 nftInfoIndex.ExternalInfoDictionary = nftInfo.ExternalInfo
                     .Where(t => !t.Key.IsNullOrWhiteSpace())
                     .ToDictionary(item => item.Key, item => item.Value);
+               
+                
                 if (nftInfo.ExternalInfo.TryGetValue("__nft_image_url", out var image))
                 {
                     nftInfoIndex.ImageUrl = image;
@@ -224,6 +226,10 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
                 else if (nftInfo.ExternalInfo.TryGetValue("inscription_image", out var inscriptionImage))
                 {
                     nftInfoIndex.ImageUrl = inscriptionImage;
+                }
+                else if (nftInfo.ExternalInfo.TryGetValue("__inscription_image", out var imageUrl))
+                {
+                    nftInfoIndex.ImageUrl = imageUrl;
                 }
                 else if(nftInfo.ExternalInfo.TryGetValue("__nft_image_uri", out var inscriptionImageUrl))
                 {
