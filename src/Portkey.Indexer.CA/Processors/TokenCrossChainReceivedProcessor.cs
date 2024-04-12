@@ -27,11 +27,16 @@ public class TokenCrossChainReceivedProcessor:  CAHolderTokenBalanceProcessorBas
         IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, TransactionInfo> caHolderNFTBalanceIndexRepository,
         IAElfDataProvider aelfDataProvider,
         IObjectMapper objectMapper,
-        IOptionsSnapshot<InscriptionListOptions> inscriptionListOptions
+        IOptionsSnapshot<InscriptionListOptions> inscriptionListOptions,
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo> caHolderManagerIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> caHolderTransactionIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo> caHolderTransactionAddressIndexRepository,
+        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions
         ) : base(logger, contractInfoOptions,
         caHolderIndexRepository, tokenInfoIndexRepository,nftCollectionInfoRepository,nftInfoRepository, caHolderSearchTokenNFTRepository,
         caHolderTokenBalanceIndexRepository,caHolderNFTCollectionBalanceIndexRepository, caHolderNFTBalanceIndexRepository, aelfDataProvider,
-        objectMapper,inscriptionListOptions)
+        objectMapper,inscriptionListOptions, caHolderManagerIndexRepository, caHolderTransactionIndexRepository,
+        caHolderTransactionAddressIndexRepository, caHolderTransactionInfoOptions)
     {
     }
 

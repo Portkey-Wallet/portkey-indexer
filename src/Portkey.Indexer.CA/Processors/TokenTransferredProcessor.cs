@@ -29,7 +29,7 @@ public class TokenTransferredProcessor:  CAHolderTokenBalanceProcessorBase<Trans
         IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo> caHolderManagerIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> caHolderTransactionIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo> caHolderTransactionAddressIndexRepository,
-        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions = null) : base(logger, contractInfoOptions,
+        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions) : base(logger, contractInfoOptions,
         caHolderIndexRepository, tokenInfoIndexRepository,nftCollectionInfoRepository,nftInfoRepository, caHolderSearchTokenNFTRepository,
         caHolderTokenBalanceIndexRepository,caHolderNFTCollectionBalanceIndexRepository, caHolderNFTBalanceIndexRepository, aelfDataProvider,
         objectMapper,inscriptionListOptions,
