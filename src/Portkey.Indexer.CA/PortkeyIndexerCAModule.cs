@@ -34,6 +34,7 @@ public class PortkeyIndexerCAModule:AElfIndexerClientPluginBaseModule<PortkeyInd
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, ManagerUpdatedProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, TokenBurnedProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, TokenCrossChainReceivedProcessor>();
+        serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, TokenCrossChainTransferredProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, TokenIssuedProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, TokenTransferredProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, TransactionFeeChargedProcessor>();
