@@ -48,6 +48,7 @@ public sealed class CAHolderAccelerateCreationProcessorTest : PortkeyIndexerCATe
         const string blockHash = "7043b2f76fef1923357a0857085c038fda34b968de7215d4c64e02aa4a4f41ec";
         const string previousBlockHash = "36c94b6bf009dd11f5d7ca6aadf00d9cdb6806fef37a9d146f188d944a1fd57f";
         const string transactionId = "af8c23caebe62e34d3847799f121d973b514ef0d987905325552bb4da4e53753";
+        const string transactionId1 = "af8c23caebe62e34d3847799f121d973b514ef0d987905325552bb4da4e53751";
         const long blockHeight = 100;
         var blockStateSet = new BlockStateSet<TransactionInfo>
         {
@@ -123,6 +124,24 @@ public sealed class CAHolderAccelerateCreationProcessorTest : PortkeyIndexerCATe
         caHolderManagerIndexData.BlockHeight.ShouldBe(blockHeight);
         caHolderManagerIndexData.CAAddresses.FirstOrDefault()
             .ShouldBe(preCrossChainSyncHolderInfoCreated.CaAddress.ToBase58());
+        
+        //check another CaAddress
+        preCrossChainSyncHolderInfoCreated.CaAddress = Address.FromPublicKey("AAAA".HexToByteArray());
+
+        logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(preCrossChainSyncHolderInfoCreated.ToLogEvent());
+        logEventInfo.BlockHeight = blockHeight;
+        logEventInfo.ChainId = chainId;
+        logEventInfo.BlockHash = blockHash;
+        logEventInfo.TransactionId = transactionId1;
+        await caHolderAccelerateCreationProcessor.HandleEventAsync(logEventInfo, logEventContext);
+        caHolderAccelerateCreationProcessor.GetContractAddress(chainId);
+
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
+        await Task.Delay(2000);
+        caHolderManagerIndexData = await _caHolderManagerIndexRepository.GetAsync(
+            $"{chainId}-{preCrossChainSyncHolderInfoCreated.Manager.ToBase58()}");
+        caHolderManagerIndexData.CAAddresses.ShouldContain(preCrossChainSyncHolderInfoCreated.CaAddress.ToBase58());
     }
 
     [Fact]

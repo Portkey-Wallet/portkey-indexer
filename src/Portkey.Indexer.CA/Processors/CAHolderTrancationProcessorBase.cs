@@ -278,11 +278,6 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
         return tokenInfoIndex;
     }
 
-    public static string ToFullAddress(string address, string chainId)
-    {
-        return string.Join(FullAddressSeparator, FullAddressPrefix, address, chainId);
-    }
-
     protected virtual async Task HandlerTransactionIndexAsync(TEvent eventValue, LogEventContext context)
     {
     }
