@@ -235,6 +235,8 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
 
         var ex = new ExternalInfo();
+        ex.Value.Add("__nft_image_uri", "__nft_image_uri");
+        ex.Value.Add("__nft_image_uri", "__inscription_image");
         ex.Value.Add("__inscription_adopt", "{\"p\":\"aelf\",\"op\":\"adopt\",\"tick\":\"NAGAS\",\"amt\":\"1\",\"gen\":\"1\"}");
         ex.Value.Add("__nft_attributes","[{\"traitType\":\"color\",\"value\":\"red\"},{\"traitType\":\"color\",\"value\":\"green\"}]");
         
@@ -280,6 +282,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         tokenInfoIndexData.Decimals.ShouldBe(decimals);
         tokenInfoIndexData.IsBurnable.ShouldBe(isBurnable);
         tokenInfoIndexData.IssueChainId.ShouldBe(issueChainId);
+        tokenInfoIndexData.ImageUrl.ShouldBe("__nft_image_uri");
     }
 
     [Fact]
