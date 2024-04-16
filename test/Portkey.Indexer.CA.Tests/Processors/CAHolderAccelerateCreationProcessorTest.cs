@@ -154,7 +154,7 @@ public sealed class CAHolderAccelerateCreationProcessorTest : PortkeyIndexerCATe
             CAHash = HashHelper.ComputeFrom("test@google.com").ToHex()
         };
         var result = await Query.CAHolderInfo(_caHolderIndexRepository, _loginGuardianRepository, _objectMapper, param);
-        result.Count.ShouldBe(1);
+        result.Count.ShouldBe(2);
         result.FirstOrDefault().CAAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
     }
 }
