@@ -5,7 +5,7 @@ namespace Portkey.Indexer.CA.Entities;
 
 public class NFTInfoIndex : TokenInfoBase, IIndexBuild
 {
-    [Keyword] public string ImageUrl { get; set; }
+    [Text(Index = false)] public string ImageUrl { get; set; }
     
     [Keyword] public string CollectionSymbol { get; set; }
     

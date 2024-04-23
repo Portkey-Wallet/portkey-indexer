@@ -1,7 +1,6 @@
 using AElfIndexer.Client;
 using AElfIndexer.Client.Handlers;
 using AElfIndexer.Grains.State.Client;
-using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Portkey.Contracts.CA;
@@ -10,32 +9,39 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class LoginGuardianUnboundProcessor : CAHolderTransactionProcessorBase<LoginGuardianUnbound>
+public class LoginGuardianUnboundProcessor : LoginGuardianProcessorBase<LoginGuardianUnbound>
 {
     public LoginGuardianUnboundProcessor(ILogger<LoginGuardianUnboundProcessor> logger,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
-            caHolderTransactionIndexRepository,
-        IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
-        IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> nftInfoIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo>
-            caHolderTransactionAddressIndexRepository,
+        IObjectMapper objectMapper, IAElfIndexerClientEntityRepository<LoginGuardianIndex, TransactionInfo> repository,
+        IAElfIndexerClientEntityRepository<LoginGuardianChangeRecordIndex, TransactionInfo> changeRecordRepository,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> caHolderRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
-        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions, IObjectMapper objectMapper) :
-        base(logger, caHolderIndexRepository,caHolderManagerIndexRepository, caHolderTransactionIndexRepository, tokenInfoIndexRepository,
-            nftInfoIndexRepository, caHolderTransactionAddressIndexRepository, contractInfoOptions,
-            caHolderTransactionInfoOptions, objectMapper)
+        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> caHolderTransactionIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo> caHolderTransactionAddressIndexRepository,
+        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions ) : base(logger, objectMapper, repository,
+        changeRecordRepository, caHolderRepository, contractInfoOptions, caHolderTransactionIndexRepository,
+        caHolderTransactionAddressIndexRepository, caHolderTransactionInfoOptions)
     {
     }
 
     public override string GetContractAddress(string chainId)
     {
-        return ContractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).CAContractAddress;
+        return ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress;
     }
 
     protected override async Task HandleEventAsync(LoginGuardianUnbound eventValue, LogEventContext context)
     {
-        await ProcessCAHolderTransactionAsync(context, eventValue.CaAddress.ToBase58());
+        await HandlerTransactionIndexAsync(eventValue, context);
+        
+        await AddChangeRecordAsync(eventValue.CaAddress.ToBase58(), eventValue.CaHash.ToHex(),
+            eventValue.Manager.ToBase58(), new Entities.Guardian
+            {
+                IdentifierHash = eventValue.LoginGuardianIdentifierHash.ToHex()
+            }, nameof(LoginGuardianUnbound), context);
+    }
+    
+    protected override async Task HandlerTransactionIndexAsync(LoginGuardianUnbound eventValue, LogEventContext context)
+    {
+        await ProcessCAHolderTransactionAsync(context, eventValue.CaAddress.ToBase58());;
     }
 }

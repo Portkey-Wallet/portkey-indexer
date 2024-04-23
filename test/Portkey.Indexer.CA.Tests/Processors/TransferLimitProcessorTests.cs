@@ -23,7 +23,7 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
     private readonly IAElfIndexerClientEntityRepository<TransferLimitIndex, TransactionInfo>
         _transferLimitIndexRepository;
 
-    private readonly IAElfIndexerClientEntityRepository<TransferSecurityThresholdIndex, LogEventInfo>
+    private readonly IAElfIndexerClientEntityRepository<TransferSecurityThresholdIndex, TransactionInfo>
         _transferSecurityThresholdIndexRepository;
 
     private readonly IObjectMapper _objectMapper;
@@ -34,7 +34,7 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
         _transferLimitIndexRepository =
             GetRequiredService<IAElfIndexerClientEntityRepository<TransferLimitIndex, TransactionInfo>>();
         _transferSecurityThresholdIndexRepository =
-            GetRequiredService<IAElfIndexerClientEntityRepository<TransferSecurityThresholdIndex, LogEventInfo>>();
+            GetRequiredService<IAElfIndexerClientEntityRepository<TransferSecurityThresholdIndex, TransactionInfo>>();
     }
 
 
@@ -52,7 +52,7 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
 
         var tokenCreatedProcessor = GetRequiredService<TransferLimitChangedProcessor>();
         tokenCreatedProcessor.GetContractAddress(chainId);
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -93,7 +93,7 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
 
         await tokenCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
 
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
 
         await Task.Delay(2000);
@@ -119,9 +119,9 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
         const long defaultBalanceThreshold = 1000;
 
         var transferSecurityThresholdChangedProcessor =
-            GetRequiredService<TransferSecurityThresholdChangedLogEventProcessor>();
+            GetRequiredService<TransferSecurityThresholdChangedProcessor>();
         transferSecurityThresholdChangedProcessor.GetContractAddress(chainId);
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -152,7 +152,7 @@ public class TransferLimitProcessorTests : PortkeyIndexerCATestBase
 
         await transferSecurityThresholdChangedProcessor.HandleEventAsync(logEventInfo, logEventContext);
 
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(2000);
 
         var tokenInfoIndexData =

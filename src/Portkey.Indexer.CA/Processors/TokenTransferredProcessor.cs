@@ -11,23 +11,32 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class TokenTransferredProcessor : CAHolderTransactionProcessorBase<Transferred>
+public class TokenTransferredProcessor:  CAHolderTokenBalanceProcessorBase<Transferred>
 {
     public TokenTransferredProcessor(ILogger<TokenTransferredProcessor> logger,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
-        IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
-        IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> nftInfoIndexRepository,
-        IObjectMapper objectMapper,
-        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
-            caHolderTransactionIndexRepository,
-        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> caHolderIndexRepository,
+        IAElfIndexerClientEntityRepository<TokenInfoIndex, TransactionInfo> tokenInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<NFTCollectionInfoIndex, TransactionInfo> nftCollectionInfoRepository,
+        IAElfIndexerClientEntityRepository<NFTInfoIndex, TransactionInfo> nftInfoRepository,
+        IAElfIndexerClientEntityRepository<CAHolderSearchTokenNFTIndex, TransactionInfo> caHolderSearchTokenNFTRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTokenBalanceIndex, TransactionInfo>
+            caHolderTokenBalanceIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderNFTCollectionBalanceIndex, TransactionInfo> caHolderNFTCollectionBalanceIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, TransactionInfo> caHolderNFTBalanceIndexRepository,
+        IAElfDataProvider aelfDataProvider,
+        IObjectMapper objectMapper,IOptionsSnapshot<InscriptionListOptions> inscriptionListOptions,
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo> caHolderManagerIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> caHolderTransactionIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo> caHolderTransactionAddressIndexRepository,
-        IAElfDataProvider aelfDataProvider) :
-        base(logger, caHolderIndexRepository,caHolderManagerIndexRepository, caHolderTransactionIndexRepository, tokenInfoIndexRepository,
-            nftInfoIndexRepository,caHolderTransactionAddressIndexRepository,
-            contractInfoOptions, caHolderTransactionInfoOptions, objectMapper, aelfDataProvider)
+        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions) : base(logger, contractInfoOptions,
+        caHolderIndexRepository, tokenInfoIndexRepository,nftCollectionInfoRepository,nftInfoRepository, caHolderSearchTokenNFTRepository,
+        caHolderTokenBalanceIndexRepository,caHolderNFTCollectionBalanceIndexRepository, caHolderNFTBalanceIndexRepository, aelfDataProvider,
+        objectMapper,inscriptionListOptions,
+        caHolderManagerIndexRepository,
+        caHolderTransactionIndexRepository,
+        caHolderTransactionAddressIndexRepository,
+        caHolderTransactionInfoOptions)
     {
     }
 
@@ -37,6 +46,21 @@ public class TokenTransferredProcessor : CAHolderTransactionProcessorBase<Transf
     }
 
     protected override async Task HandleEventAsync(Transferred eventValue, LogEventContext context)
+    {
+        await HandlerTransactionIndexAsync(eventValue, context);
+        var from = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
+            eventValue.From.ToBase58()),context.ChainId);
+        if (from != null)
+        {
+            await ModifyBalanceAsync(from.CAAddress, eventValue.Symbol, -eventValue.Amount, context);
+        }
+        var to = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
+            eventValue.To.ToBase58()),context.ChainId);
+        if (to == null) return;
+        await ModifyBalanceAsync(to.CAAddress, eventValue.Symbol, eventValue.Amount, context);
+    }
+
+    protected override async Task HandlerTransactionIndexAsync(Transferred eventValue, LogEventContext context)
     {
         if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
 

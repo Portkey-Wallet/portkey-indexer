@@ -10,14 +10,14 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class InviteLogEventProcessor : AElfLogEventProcessorBase<Invited, LogEventInfo>
+public class InvitedProcessor : AElfLogEventProcessorBase<Invited, TransactionInfo>
 {
     private readonly IObjectMapper _objectMapper;
-    private readonly IAElfIndexerClientEntityRepository<InviteIndex, LogEventInfo> _repository;
+    private readonly IAElfIndexerClientEntityRepository<InviteIndex, TransactionInfo> _repository;
     private readonly ContractInfoOptions _contractInfoOptions;
 
-    public InviteLogEventProcessor(ILogger<InviteLogEventProcessor> logger, IObjectMapper objectMapper,
-        IAElfIndexerClientEntityRepository<InviteIndex, LogEventInfo> repository,
+    public InvitedProcessor(ILogger<InvitedProcessor> logger, IObjectMapper objectMapper,
+        IAElfIndexerClientEntityRepository<InviteIndex, TransactionInfo> repository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions) : base(logger)
     {
         _objectMapper = objectMapper;

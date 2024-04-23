@@ -40,10 +40,10 @@ public class VirtualTransactionCreatedProcessorTests : PortkeyIndexerCATestBase
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
 
-        var caHolderCreatedProcessor = GetRequiredService<CAHolderCreatedLogEventProcessor>();
+        var caHolderCreatedProcessor = GetRequiredService<CAHolderCreatedProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -90,7 +90,7 @@ public class VirtualTransactionCreatedProcessorTests : PortkeyIndexerCATestBase
         await caHolderCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(2000);
     }
 
@@ -151,7 +151,7 @@ public class VirtualTransactionCreatedProcessorTests : PortkeyIndexerCATestBase
         await virtualTransactionCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(2000);
 
         var caHolder = await _caHolderIndexRepository.GetAsync(IdGenerateHelper.GetId(
@@ -221,7 +221,7 @@ public class VirtualTransactionCreatedProcessorTests : PortkeyIndexerCATestBase
         await virtualTransactionCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
         await virtualTransactionCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(2000);
 
         var caHolder = await _caHolderIndexRepository.GetAsync(IdGenerateHelper.GetId(
@@ -293,7 +293,7 @@ public class VirtualTransactionCreatedProcessorTests : PortkeyIndexerCATestBase
         await virtualTransactionCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(2000);
 
         var caHolder = await _caHolderIndexRepository.GetAsync(IdGenerateHelper.GetId(
@@ -356,7 +356,7 @@ public class VirtualTransactionCreatedProcessorTests : PortkeyIndexerCATestBase
         await virtualTransactionCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
 
         //step4: save blockStateSet into es
-        // await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        // await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(2000);
 
         var count = await _caTransactionIndexRepository.CountAsync(c => c.Term(i => i.Field(f => f.Id)

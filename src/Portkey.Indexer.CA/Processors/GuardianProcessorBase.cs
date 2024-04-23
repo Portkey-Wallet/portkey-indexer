@@ -9,19 +9,24 @@ using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public abstract class GuardianProcessorBase<TEvent> : AElfLogEventProcessorBase<TEvent, LogEventInfo>
+public abstract class GuardianProcessorBase<TEvent> : CAHolderTransactionProcessorBase<TEvent>
     where TEvent : IEvent<TEvent>, new()
 {
-    protected readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> Repository;
+    protected readonly IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> Repository;
     protected readonly ContractInfoOptions ContractInfoOptions;
     protected readonly IObjectMapper ObjectMapper;
-    private IAElfIndexerClientEntityRepository<GuardianChangeRecordIndex, LogEventInfo> ChangeRecordRepository;
+    private IAElfIndexerClientEntityRepository<GuardianChangeRecordIndex, TransactionInfo> ChangeRecordRepository;
 
     protected GuardianProcessorBase(ILogger<GuardianProcessorBase<TEvent>> logger,
-        IObjectMapper objectMapper, IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> repository,
+        IObjectMapper objectMapper, IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> repository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
-        IAElfIndexerClientEntityRepository<GuardianChangeRecordIndex, LogEventInfo> changeRecordRepository) :
-        base(logger)
+        IAElfIndexerClientEntityRepository<GuardianChangeRecordIndex, TransactionInfo> changeRecordRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> caHolderTransactionIndexRepository = null,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo> caHolderTransactionAddressIndexRepository = null,
+        IOptionsSnapshot<CAHolderTransactionInfoOptions> caHolderTransactionInfoOptions = null) : base(logger, 
+        repository, null, caHolderTransactionIndexRepository,
+        null, null, caHolderTransactionAddressIndexRepository,
+        contractInfoOptions, caHolderTransactionInfoOptions, objectMapper)
     {
         ObjectMapper = objectMapper;
         Repository = repository;

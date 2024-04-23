@@ -18,12 +18,12 @@ namespace Portkey.Indexer.CA.Tests.Processors;
 
 public class GuardianProcessorTests : PortkeyIndexerCATestBase
 {
-    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _caHolderIndexRepository;
+    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> _caHolderIndexRepository;
 
-    private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, LogEventInfo>
+    private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
         _caHolderTransactionRepository;
 
-    private readonly IAElfIndexerClientEntityRepository<GuardianChangeRecordIndex, LogEventInfo>
+    private readonly IAElfIndexerClientEntityRepository<GuardianChangeRecordIndex, TransactionInfo>
         _changeRecordRepository;
 
     private readonly IObjectMapper _objectMapper;
@@ -31,13 +31,13 @@ public class GuardianProcessorTests : PortkeyIndexerCATestBase
     public GuardianProcessorTests()
     {
         _caHolderIndexRepository =
-            GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo>>();
+            GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo>>();
         _caHolderTransactionRepository =
-            GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, LogEventInfo>>();
+            GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>>();
 
         _objectMapper = GetRequiredService<IObjectMapper>();
         _changeRecordRepository =
-            GetRequiredService<IAElfIndexerClientEntityRepository<GuardianChangeRecordIndex, LogEventInfo>>();
+            GetRequiredService<IAElfIndexerClientEntityRepository<GuardianChangeRecordIndex, TransactionInfo>>();
     }
 
     [Fact]
@@ -51,7 +51,7 @@ public class GuardianProcessorTests : PortkeyIndexerCATestBase
         const string previousBlockHash = "9a6ef475e4c4b6f15c37559033bcfdbed34ca666c67b2ae6be22751a3ae171de";
         const string transactionId = "c09b8c142dd5e07acbc1028e5f59adca5b5be93a0680eb3609b773044a852c43";
         const long blockHeight = 200;
-        var blockStateSetAdded = new BlockStateSet<LogEventInfo>
+        var blockStateSetAdded = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -106,17 +106,13 @@ public class GuardianProcessorTests : PortkeyIndexerCATestBase
         };
 
         //step3: handle event and write result to blockStateSet
-        var guardianAddedLogEventProcessor = GetRequiredService<GuardianAddedLogEventProcessor>();
-        var guardianAddedProcessor = GetRequiredService<GuardianAddedProcessor>();
+        var guardianAddedLogEventProcessor = GetRequiredService<GuardianAddedProcessor>();
 
         await guardianAddedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        await guardianAddedProcessor.HandleEventAsync(logEventInfo, logEventContext);
-
         guardianAddedLogEventProcessor.GetContractAddress(chainId);
-        guardianAddedProcessor.GetContractAddress(chainId);
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
@@ -143,7 +139,7 @@ public class GuardianProcessorTests : PortkeyIndexerCATestBase
         const string previousBlockHash = "4e6c59d7a24c48b1355f7a80cb2ccb9276f75877b1e6f22c2c3406f4b907bec8";
         const string transactionId = "7a55da4d8f33975645e3a55ec1edcd79be5832deb87d63b55838e67d231719ee";
         const long blockHeight = 210;
-        var blockStateSetAdded = new BlockStateSet<LogEventInfo>
+        var blockStateSetAdded = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -198,17 +194,13 @@ public class GuardianProcessorTests : PortkeyIndexerCATestBase
         };
 
         //step3: handle event and write result to blockStateSet
-        var guardianRemovedLogEventProcessor = GetRequiredService<GuardianRemovedLogEventProcessor>();
-        var guardianRemovedProcessor = GetRequiredService<GuardianRemovedProcessor>();
+        var guardianRemovedLogEventProcessor = GetRequiredService<GuardianRemovedProcessor>();
 
         await guardianRemovedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        await guardianRemovedProcessor.HandleEventAsync(logEventInfo, logEventContext);
-
         guardianRemovedLogEventProcessor.GetContractAddress(chainId);
-        guardianRemovedProcessor.GetContractAddress(chainId);
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
@@ -230,7 +222,7 @@ public class GuardianProcessorTests : PortkeyIndexerCATestBase
         const string previousBlockHash = "fd67a41d951c98b5364a0bd21de95b1ea11b56d834bd9f570b1a927223be394f";
         const string transactionId = "af3032220296a6c3464fbae4df56aa92fedd4a3f58b06e3ec858401820787749";
         const long blockHeight = 220;
-        var blockStateSetAdded = new BlockStateSet<LogEventInfo>
+        var blockStateSetAdded = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -290,17 +282,13 @@ public class GuardianProcessorTests : PortkeyIndexerCATestBase
         };
 
         //step3: handle event and write result to blockStateSet
-        var guardianUpdatedLogEventProcessor = GetRequiredService<GuardianUpdatedLogEventProcessor>();
-        var guardianUpdatedProcessor = GetRequiredService<GuardianUpdatedProcessor>();
+        var guardianUpdatedLogEventProcessor = GetRequiredService<GuardianUpdatedProcessor>();
 
         await guardianUpdatedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        await guardianUpdatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
-
         guardianUpdatedLogEventProcessor.GetContractAddress(chainId);
-        guardianUpdatedProcessor.GetContractAddress(chainId);
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
@@ -323,10 +311,10 @@ public class GuardianProcessorTests : PortkeyIndexerCATestBase
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
 
-        var caHolderCreatedProcessor = GetRequiredService<CAHolderCreatedLogEventProcessor>();
+        var caHolderCreatedProcessor = GetRequiredService<CAHolderCreatedProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -371,7 +359,7 @@ public class GuardianProcessorTests : PortkeyIndexerCATestBase
         await caHolderCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(2000);
     }
 

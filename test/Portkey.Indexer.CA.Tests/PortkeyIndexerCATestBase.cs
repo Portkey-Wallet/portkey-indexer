@@ -10,7 +10,7 @@ namespace Portkey.Indexer.CA.Tests;
 public abstract class PortkeyIndexerCATestBase: PortkeyIndexerOrleansTestBase<PortkeyIndexerCATestModule>
 {
     private readonly IAElfIndexerClientInfoProvider _indexerClientInfoProvider;
-    private readonly IBlockStateSetProvider<LogEventInfo> _blockStateSetLogEventInfoProvider;
+    private readonly IBlockStateSetProvider<TransactionInfo> _blockStateSetLogEventInfoProvider;
     private readonly IBlockStateSetProvider<TransactionInfo> _blockStateSetTransactionInfoProvider;
     private readonly IDAppDataProvider _dAppDataProvider;
     private readonly IDAppDataIndexManagerProvider _dAppDataIndexManagerProvider;
@@ -18,23 +18,23 @@ public abstract class PortkeyIndexerCATestBase: PortkeyIndexerOrleansTestBase<Po
     public PortkeyIndexerCATestBase()
     {
         _indexerClientInfoProvider = GetRequiredService<IAElfIndexerClientInfoProvider>();
-        _blockStateSetLogEventInfoProvider = GetRequiredService<IBlockStateSetProvider<LogEventInfo>>();
+        _blockStateSetLogEventInfoProvider = GetRequiredService<IBlockStateSetProvider<TransactionInfo>>();
         _blockStateSetTransactionInfoProvider = GetRequiredService<IBlockStateSetProvider<TransactionInfo>>();
         _dAppDataProvider = GetRequiredService<IDAppDataProvider>();
         _dAppDataIndexManagerProvider = GetRequiredService<IDAppDataIndexManagerProvider>();
     }
 
-    protected async Task<string> InitializeBlockStateSetAsync(BlockStateSet<LogEventInfo> blockStateSet,string chainId)
-    {
-        var key = GrainIdHelper.GenerateGrainId("BlockStateSets", _indexerClientInfoProvider.GetClientId(), chainId,
-            _indexerClientInfoProvider.GetVersion());
-        
-        await _blockStateSetLogEventInfoProvider.SetBlockStateSetAsync(key,blockStateSet);
-        await _blockStateSetLogEventInfoProvider.SetCurrentBlockStateSetAsync(key, blockStateSet);
-        await _blockStateSetLogEventInfoProvider.SetLongestChainBlockStateSetAsync(key,blockStateSet.BlockHash);
-        
-        return key;
-    }
+    // protected async Task<string> InitializeBlockStateSetAsync(BlockStateSet<TransactionInfo> blockStateSet,string chainId)
+    // {
+    //     var key = GrainIdHelper.GenerateGrainId("BlockStateSets", _indexerClientInfoProvider.GetClientId(), chainId,
+    //         _indexerClientInfoProvider.GetVersion());
+    //     
+    //     await _blockStateSetLogEventInfoProvider.SetBlockStateSetAsync(key,blockStateSet);
+    //     await _blockStateSetLogEventInfoProvider.SetCurrentBlockStateSetAsync(key, blockStateSet);
+    //     await _blockStateSetLogEventInfoProvider.SetLongestChainBlockStateSetAsync(key,blockStateSet.BlockHash);
+    //     
+    //     return key;
+    // }
     
     protected async Task<string> InitializeBlockStateSetAsync(BlockStateSet<TransactionInfo> blockStateSet,string chainId)
     {

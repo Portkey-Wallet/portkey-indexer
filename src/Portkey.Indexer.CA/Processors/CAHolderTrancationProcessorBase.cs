@@ -17,16 +17,16 @@ namespace Portkey.Indexer.CA.Processors;
 public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventProcessorBase<TEvent, TransactionInfo>
     where TEvent : IEvent<TEvent>, new()
 {
-    protected readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> CAHolderIndexRepository;
+    protected readonly IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> CAHolderIndexRepository;
 
-    protected readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo>
+    protected readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo>
         CAHolderManagerIndexRepository;
 
     protected readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
         CAHolderTransactionIndexRepository;
 
-    protected readonly IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> TokenInfoIndexRepository;
-    protected readonly IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> NFTInfoIndexRepository;
+    protected readonly IAElfIndexerClientEntityRepository<TokenInfoIndex, TransactionInfo> TokenInfoIndexRepository;
+    protected readonly IAElfIndexerClientEntityRepository<NFTInfoIndex, TransactionInfo> NFTInfoIndexRepository;
 
     protected readonly IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo>
         CAHolderTransactionAddressIndexRepository;
@@ -40,12 +40,12 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
     private const char FullAddressSeparator = '_';
 
     protected CAHolderTransactionProcessorBase(ILogger<CAHolderTransactionProcessorBase<TEvent>> logger,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> caHolderIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo> caHolderManagerIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
             caHolderTransactionIndexRepository,
-        IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
-        IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> nftInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<TokenInfoIndex, TransactionInfo> tokenInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<NFTInfoIndex, TransactionInfo> nftInfoIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo>
             caHolderTransactionAddressIndexRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
@@ -58,7 +58,7 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
         NFTInfoIndexRepository = nftInfoIndexRepository;
         TokenInfoIndexRepository = tokenInfoIndexRepository;
         ContractInfoOptions = contractInfoOptions.Value;
-        CAHolderTransactionInfoOptions = caHolderTransactionInfoOptions.Value;
+        CAHolderTransactionInfoOptions = caHolderTransactionInfoOptions?.Value;
         ObjectMapper = objectMapper;
         CAHolderTransactionAddressIndexRepository = caHolderTransactionAddressIndexRepository;
         _aelfDataProvider = aelfDataProvider;
@@ -217,6 +217,8 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
                 nftInfoIndex.ExternalInfoDictionary = nftInfo.ExternalInfo
                     .Where(t => !t.Key.IsNullOrWhiteSpace())
                     .ToDictionary(item => item.Key, item => item.Value);
+               
+                
                 if (nftInfo.ExternalInfo.TryGetValue("__nft_image_url", out var image))
                 {
                     nftInfoIndex.ImageUrl = image;
@@ -228,6 +230,10 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
                 else if(nftInfo.ExternalInfo.TryGetValue("__nft_image_uri", out var inscriptionImageUrl))
                 {
                     nftInfoIndex.ImageUrl = inscriptionImageUrl;
+                }
+                else if (nftInfo.ExternalInfo.TryGetValue("__inscription_image", out var imageUrl))
+                {
+                    nftInfoIndex.ImageUrl = imageUrl;
                 }
             }
 
@@ -272,8 +278,7 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
         return tokenInfoIndex;
     }
 
-    public static string ToFullAddress(string address, string chainId)
+    protected virtual async Task HandlerTransactionIndexAsync(TEvent eventValue, LogEventContext context)
     {
-        return string.Join(FullAddressSeparator, FullAddressPrefix, address, chainId);
     }
 }

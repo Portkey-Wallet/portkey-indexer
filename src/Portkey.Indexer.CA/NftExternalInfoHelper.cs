@@ -18,13 +18,17 @@ public class NftExternalInfoHelper
         {
             nftExternalInfo.ImageUrl = imageUrl;
         }
-        else if (externalInfo.TryGetValue("inscription_image", out var inscriptionImage))
-        {
-            nftExternalInfo.ImageUrl = inscriptionImage;
-        }
-        else if (externalInfo.TryGetValue("__nft_image_uri", out var inscriptionImageUrl))
+        else if (externalInfo.TryGetValue("inscription_image", out var inscriptionImageUrl))
         {
             nftExternalInfo.ImageUrl = inscriptionImageUrl;
+        }
+        else if (externalInfo.TryGetValue("__nft_image_uri", out var inscriptionImageUri))
+        {
+            nftExternalInfo.ImageUrl = inscriptionImageUri;
+        }
+        else if (externalInfo.TryGetValue("__inscription_image", out var inscriptionImage))
+        {
+            nftExternalInfo.ImageUrl = inscriptionImage;
         }
 
         var inscriptionDeployMap = new Dictionary<string, string>();
