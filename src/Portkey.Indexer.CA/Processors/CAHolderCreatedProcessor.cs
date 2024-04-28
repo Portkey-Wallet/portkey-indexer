@@ -7,18 +7,21 @@ using Microsoft.Extensions.Options;
 using Portkey.Contracts.CA;
 using Portkey.Indexer.CA.Entities;
 using Volo.Abp.ObjectMapping;
+using Guardian = Portkey.Indexer.CA.Entities.Guardian;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class CAHolderCreatedProcessor : CAHolderTransactionProcessorBase<CAHolderCreated>
+public class CAHolderCreatedProcessor: CAHolderTransactionProcessorBase<CAHolderCreated>
 {
-    public CAHolderCreatedProcessor(ILogger<CAHolderCreatedProcessor> logger,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> caHolderManagerIndexRepository,
+    
+    public CAHolderCreatedProcessor(
+        ILogger<CAHolderCreatedProcessor> logger,
+        IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> caHolderIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo> caHolderManagerIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
             caHolderTransactionIndexRepository,
-        IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
-        IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> nftInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<TokenInfoIndex, TransactionInfo> tokenInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<NFTInfoIndex, TransactionInfo> nftInfoIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo>
             caHolderTransactionAddressIndexRepository,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
@@ -29,13 +32,74 @@ public class CAHolderCreatedProcessor : CAHolderTransactionProcessorBase<CAHolde
             caHolderTransactionInfoOptions, objectMapper)
     {
     }
-
+    
     public override string GetContractAddress(string chainId)
     {
-        return ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress;
+        return ContractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).CAContractAddress;
     }
 
     protected override async Task HandleEventAsync(CAHolderCreated eventValue, LogEventContext context)
+    {
+        await HandlerTransactionIndexAsync(eventValue, context);
+        //check manager is already exist in caHolderManagerIndex
+        var managerIndexId = IdGenerateHelper.GetId(context.ChainId, eventValue.Manager.ToBase58());
+        var caHolderManagerIndex =
+            await CAHolderManagerIndexRepository.GetFromBlockStateSetAsync(managerIndexId, context.ChainId);
+        if (caHolderManagerIndex == null)
+        {
+            caHolderManagerIndex = new CAHolderManagerIndex
+            {
+                Id = managerIndexId,
+                Manager = eventValue.Manager.ToBase58(),
+                CAAddresses = new List<string>()
+                {
+                    eventValue.CaAddress.ToBase58()
+                }
+            };
+        }
+        else
+        {
+            if (!caHolderManagerIndex.CAAddresses.Contains(eventValue.CaAddress.ToBase58()))
+            {
+                caHolderManagerIndex.CAAddresses.Add(eventValue.CaAddress.ToBase58());
+            }
+        }
+        ObjectMapper.Map(context, caHolderManagerIndex);
+        await CAHolderManagerIndexRepository.AddOrUpdateAsync(caHolderManagerIndex);
+        
+        
+        //check ca address if already exist in caHolderIndex
+        var indexId = IdGenerateHelper.GetId(context.ChainId, eventValue.CaAddress.ToBase58());
+        var caHolderIndex = await CAHolderIndexRepository.GetFromBlockStateSetAsync(indexId, context.ChainId);
+        if (caHolderIndex != null)
+        {
+            return;
+        }
+        
+        // _objectMapper.Map<LogEventContext, CAHolderIndex>(context, caHolderIndex);
+
+        caHolderIndex = new CAHolderIndex
+        {
+            Id = indexId,
+            CAHash = eventValue.CaHash.ToHex(),
+            CAAddress = eventValue.CaAddress.ToBase58(),
+            Creator = eventValue.Creator.ToBase58(),
+            ManagerInfos = new List<Entities.ManagerInfo>
+            {
+                new ()
+                {
+                    Address = eventValue.Manager.ToBase58(),
+                    ExtraData = eventValue.ExtraData
+                }
+            },
+            Guardians = new List<Guardian>(),
+            OriginChainId = context.ChainId
+        };
+        ObjectMapper.Map(context, caHolderIndex);
+        await CAHolderIndexRepository.AddOrUpdateAsync(caHolderIndex);
+    }
+
+    protected override async Task HandlerTransactionIndexAsync(CAHolderCreated eventValue, LogEventContext context)
     {
         if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
         

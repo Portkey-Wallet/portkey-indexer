@@ -23,16 +23,16 @@ namespace Portkey.Indexer.CA.Tests.Processors;
 [Collection(ClusterCollection.Name)]
 public sealed class CAHolderCreatedProcessorTests:PortkeyIndexerCATestBase
 {
-    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _caHolderIndexRepository;
-    private readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> _caHolderManagerIndexRepository;
-    private readonly IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo> _loginGuardianRepository;
+    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> _caHolderIndexRepository;
+    private readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo> _caHolderManagerIndexRepository;
+    private readonly IAElfIndexerClientEntityRepository<LoginGuardianIndex, TransactionInfo> _loginGuardianRepository;
     private readonly IObjectMapper _objectMapper;
 
     public CAHolderCreatedProcessorTests()
     {
-        _caHolderIndexRepository = GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo>>();
-        _caHolderManagerIndexRepository = GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo>>();
-        _loginGuardianRepository = GetRequiredService<IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo>>();
+        _caHolderIndexRepository = GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo>>();
+        _caHolderManagerIndexRepository = GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo>>();
+        _loginGuardianRepository = GetRequiredService<IAElfIndexerClientEntityRepository<LoginGuardianIndex, TransactionInfo>>();
         _objectMapper = GetRequiredService<IObjectMapper>();
     }
 
@@ -45,7 +45,7 @@ public sealed class CAHolderCreatedProcessorTests:PortkeyIndexerCATestBase
         const string previousBlockHash = "e38c4fb1cf6af05878657cb3f7b5fc8a5fcfb2eec19cd76b73abb831973fbf4e";
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -96,16 +96,12 @@ public sealed class CAHolderCreatedProcessorTests:PortkeyIndexerCATestBase
         };
         
         //step3: handle event and write result to blockStateSet
-        var caHolderCreatedLogEventProcessor = GetRequiredService<CAHolderCreatedLogEventProcessor>();
+        var caHolderCreatedLogEventProcessor = GetRequiredService<CAHolderCreatedProcessor>();
         await caHolderCreatedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         caHolderCreatedLogEventProcessor.GetContractAddress(chainId);
-        
-        var caHolderCreatedProcessor = GetRequiredService<CAHolderCreatedProcessor>();
-        await caHolderCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        caHolderCreatedProcessor.GetContractAddress(chainId);
-        
+
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
         

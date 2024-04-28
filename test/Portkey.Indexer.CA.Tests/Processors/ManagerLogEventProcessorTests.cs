@@ -20,29 +20,39 @@ namespace Portkey.Indexer.CA.Tests.Processors;
 [Collection(ClusterCollection.Name)]
 public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
 {
-    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _caHolderIndexRepository;
+    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> _caHolderIndexRepository;
 
-    private readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo>
+    private readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo>
         _caHolderManagerIndexRepository;
 
-    private readonly IAElfIndexerClientEntityRepository<CAHolderManagerChangeRecordIndex, LogEventInfo>
+    private readonly IAElfIndexerClientEntityRepository<CAHolderManagerChangeRecordIndex, TransactionInfo>
         _caHolderManagerChangeRecordIndexRepository;
 
-    private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, LogEventInfo>
+    private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo>
         _caHolderTransactionAddressIndexRepository;
 
+    private readonly IAElfIndexerClientEntityRepository<ManagerApprovedIndex, TransactionInfo>
+        _managerApprovedIndexRepository;
+
     private readonly IObjectMapper _objectMapper;
+    private static Dictionary<string, string> extraProperties = new Dictionary<string, string>
+    {
+        { "TransactionFee", "{\"ELF\":\"30000000\"}" },
+        { "ResourceFee", "{\"ELF\":\"30000000\"}" }
+    };
 
     public ManagerLogEventProcessorTests()
     {
         _caHolderIndexRepository =
-            GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo>>();
+            GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo>>();
         _caHolderManagerIndexRepository =
-            GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo>>();
+            GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo>>();
         _caHolderManagerChangeRecordIndexRepository =
-            GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderManagerChangeRecordIndex, LogEventInfo>>();
+            GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderManagerChangeRecordIndex, TransactionInfo>>();
         _caHolderTransactionAddressIndexRepository =
-            GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, LogEventInfo>>();
+            GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderTransactionAddressIndex, TransactionInfo>>();
+        _managerApprovedIndexRepository =
+            GetRequiredService<IAElfIndexerClientEntityRepository<ManagerApprovedIndex, TransactionInfo>>();
         _objectMapper = GetRequiredService<IObjectMapper>();
     }
 
@@ -56,11 +66,10 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         const string previousBlockHash = "e38c4fb1cf6af05878657cb3f7b5fc8a5fcfb2eec19cd76b73abb831973fbf4e";
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
-        var managerAddedLogEventProcessor = GetRequiredService<ManagerAddedLogEventProcessor>();
-        var managerAddedProcessor = GetRequiredService<ManagerAddedProcessor>();
+        var managerAddedLogEventProcessor = GetRequiredService<ManagerAddedProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -113,11 +122,9 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         //step3: handle event and write result to blockStateSet
         await managerAddedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         managerAddedLogEventProcessor.GetContractAddress("AELF");
-        await managerAddedProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        managerAddedProcessor.GetContractAddress("AELF");
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
@@ -142,11 +149,10 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         const string previousBlockHash = "e38c4fb1cf6af05878657cb3f7b5fc8a5fcfb2eec19cd76b73abb831973fbf4e";
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
-        var managerAddedLogEventProcessor = GetRequiredService<ManagerAddedLogEventProcessor>();
-        var managerAddedProcessor = GetRequiredService<ManagerAddedProcessor>();
+        var managerAddedLogEventProcessor = GetRequiredService<ManagerAddedProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -198,12 +204,10 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         //step3: handle event and write result to blockStateSet
         await managerAddedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         managerAddedLogEventProcessor.GetContractAddress("AELF");
-        await managerAddedProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        managerAddedProcessor.GetContractAddress("AELF");
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKeyTransaction);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
         //step5: check result
@@ -225,11 +229,10 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         const string previousBlockHash = "e38c4fb1cf6af05878657cb3f7b5fc8a5fcfb2eec19cd76b73abb831973fbf4e";
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
-        var managerAddedLogEventProcessor = GetRequiredService<ManagerAddedLogEventProcessor>();
-        var managerAddedProcessor = GetRequiredService<ManagerAddedProcessor>();
+        var managerAddedLogEventProcessor = GetRequiredService<ManagerAddedProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -281,12 +284,10 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         //step3: handle event and write result to blockStateSet
         await managerAddedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         managerAddedLogEventProcessor.GetContractAddress("AELF");
-        await managerAddedProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        managerAddedProcessor.GetContractAddress("AELF");
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKeyTransaction);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
         //step5: check result
@@ -306,11 +307,10 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         const string previousBlockHash = "e38c4fb1cf6af05878657cb3f7b5fc8a5fcfb2eec19cd76b73abb831973fbf4e";
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
-        var managerRemovedLogEventProcessor = GetRequiredService<ManagerRemovedLogEventProcessor>();
-        var managerRemovedProcessor = GetRequiredService<ManagerRemovedProcessor>();
+        var managerRemovedLogEventProcessor = GetRequiredService<ManagerRemovedProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -362,11 +362,9 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         //step3: handle event and write result to blockStateSet
         await managerRemovedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         managerRemovedLogEventProcessor.GetContractAddress("AELF");
-        await managerRemovedProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        managerRemovedProcessor.GetContractAddress("AELF");
-
+        
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
@@ -388,11 +386,10 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         const string previousBlockHash = "e38c4fb1cf6af05878657cb3f7b5fc8a5fcfb2eec19cd76b73abb831973fbf4e";
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
-        var managerRemovedLogEventProcessor = GetRequiredService<ManagerRemovedLogEventProcessor>();
-        var managerRemovedProcessor = GetRequiredService<ManagerRemovedProcessor>();
+        var managerRemovedLogEventProcessor = GetRequiredService<ManagerRemovedProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -444,11 +441,9 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         //step3: handle event and write result to blockStateSet
         await managerRemovedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         managerRemovedLogEventProcessor.GetContractAddress("AELF");
-        await managerRemovedProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        managerRemovedProcessor.GetContractAddress("AELF");
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
@@ -468,11 +463,10 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         const string previousBlockHash = "e38c4fb1cf6af05878657cb3f7b5fc8a5fcfb2eec19cd76b73abb831973fbf4e";
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
-        var managerSocialRecoveredLogEventProcessor = GetRequiredService<ManagerSocialRecoveredLogEventProcessor>();
         var managerSocialRecoveredProcessor = GetRequiredService<ManagerSocialRecoveredProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -522,13 +516,11 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         };
 
         //step3: handle event and write result to blockStateSet
-        await managerSocialRecoveredLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        managerSocialRecoveredLogEventProcessor.GetContractAddress("AELF");
         await managerSocialRecoveredProcessor.HandleEventAsync(logEventInfo, logEventContext);
         managerSocialRecoveredProcessor.GetContractAddress("AELF");
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
@@ -554,10 +546,10 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         const string previousBlockHash = "e38c4fb1cf6af05878657cb3f7b5fc8a5fcfb2eec19cd76b73abb831973fbf4e";
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
-        var managerSocialRecoveredLogEventProcessor = GetRequiredService<ManagerSocialRecoveredLogEventProcessor>();
+        var managerSocialRecoveredLogEventProcessor = GetRequiredService<ManagerSocialRecoveredProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -602,7 +594,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         managerSocialRecoveredLogEventProcessor.GetContractAddress("AELF");
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(2000);
 
         //step5: check result
@@ -625,11 +617,10 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         const string previousBlockHash = "e38c4fb1cf6af05878657cb3f7b5fc8a5fcfb2eec19cd76b73abb831973fbf4e";
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
-        var managerSocialRecoveredLogEventProcessor = GetRequiredService<ManagerSocialRecoveredLogEventProcessor>();
         var managerSocialRecoveredProcessor = GetRequiredService<ManagerSocialRecoveredProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -643,7 +634,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash,
         };
-        
+
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
         var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
 
@@ -679,14 +670,11 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         };
 
         //step3: handle event and write result to blockStateSet
-        await managerSocialRecoveredLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        managerSocialRecoveredLogEventProcessor.GetContractAddress("AELF");
-
         await managerSocialRecoveredProcessor.HandleEventAsync(logEventInfo, logEventContext);
         managerSocialRecoveredProcessor.GetContractAddress("AELF");
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
@@ -708,11 +696,10 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         const string previousBlockHash = "e38c4fb1cf6af05878657cb3f7b5fc8a5fcfb2eec19cd76b73abb831973fbf4e";
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
-        var managerUpdatedLogEventProcessor = GetRequiredService<ManagerUpdatedLogEventProcessor>();
-        var managerUpdatedProcessor = GetRequiredService<ManagerUpdatedProcessor>();
+        var managerUpdatedLogEventProcessor = GetRequiredService<ManagerUpdatedProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -764,11 +751,9 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         //step3: handle event and write result to blockStateSet
         await managerUpdatedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         managerUpdatedLogEventProcessor.GetContractAddress("AELF");
-        await managerUpdatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        managerUpdatedProcessor.GetContractAddress("AELF");
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
@@ -792,11 +777,10 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         const string previousBlockHash = "e38c4fb1cf6af05878657cb3f7b5fc8a5fcfb2eec19cd76b73abb831973fbf4e";
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
-        var managerUpdatedLogEventProcessor = GetRequiredService<ManagerUpdatedLogEventProcessor>();
-        var managerUpdatedProcessor = GetRequiredService<ManagerUpdatedProcessor>();
+        var managerUpdatedLogEventProcessor = GetRequiredService<ManagerUpdatedProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -810,7 +794,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
             Confirmed = true,
             PreviousBlockHash = previousBlockHash,
         };
-        
+
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
         var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
 
@@ -848,12 +832,9 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         //step3: handle event and write result to blockStateSet
         await managerUpdatedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         managerUpdatedLogEventProcessor.GetContractAddress("AELF");
-
-        await managerUpdatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        managerUpdatedProcessor.GetContractAddress("AELF");
-
+        
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
@@ -861,6 +842,92 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         var caHolderManagerIndexData =
             await _caHolderManagerIndexRepository.GetAsync(chainId + "-" + managerInfoUpdated.Manager.ToBase58());
         caHolderManagerIndexData.ShouldBeNull();
+    }
+
+    [Fact]
+    public async Task ManagerApprovedTests()
+    {
+        const string chainId = "AELF";
+        const string blockHash = "dac5cd67a2783d0a3d843426c2d45f1178f4d052235a907a0d796ae4659103b1";
+        const string previousBlockHash = "e38c4fb1cf6af05878657cb3f7b5fc8a5fcfb2eec19cd76b73abb831973fbf4e";
+        const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
+        const long blockHeight = 100;
+        Hash owner = HashHelper.ComputeFrom("test@google.com");
+        Address spenderAddr = Address.FromPublicKey("AAA".HexToByteArray());
+        var managerApprovedLogEventProcessor = GetRequiredService<ManagerApprovedProcessor>();
+    
+        //step1: create blockStateSet
+        var blockStateSet = new BlockStateSet<TransactionInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash,
+        };
+    
+        var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
+        {
+            BlockHash = blockHash,
+            BlockHeight = blockHeight,
+            Confirmed = true,
+            PreviousBlockHash = previousBlockHash,
+        };
+        var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
+        var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
+        //step2: create logEventInfo
+        var managerInfoUpdated = new ManagerApproved()
+        {
+            CaHash = owner,
+            Spender = spenderAddr,
+            Symbol = "ELF",
+            Amount = 10000,
+            External = new External()
+            {
+                Value =
+                {
+                    new Dictionary<string, string>()
+                    {
+                        {
+                            "testKey", "testValue"
+                        }
+                    }
+                }
+            }
+        };
+        var logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(managerInfoUpdated.ToLogEvent());
+        logEventInfo.BlockHeight = blockHeight;
+        logEventInfo.ChainId = chainId;
+        logEventInfo.BlockHash = blockHash;
+        logEventInfo.TransactionId = transactionId;
+        var logEventContext = new LogEventContext
+        {
+            To = "CAAddress",
+            ChainId = chainId,
+            BlockHeight = blockHeight,
+            BlockHash = blockHash,
+            PreviousBlockHash = previousBlockHash,
+            TransactionId = transactionId,
+            MethodName = "ManagerApprove",
+            BlockTime = DateTime.UtcNow,
+            ExtraProperties = extraProperties
+        };
+    
+        //step3: handle event and write result to blockStateSet
+        await managerApprovedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
+        managerApprovedLogEventProcessor.GetContractAddress("AELF");
+    
+        //step4: save blockStateSet into es
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
+        await Task.Delay(2000);
+    
+        //step5: check result
+        var managerApprovedIndexData = await _managerApprovedIndexRepository.GetAsync(chainId + "-" + transactionId);
+        managerApprovedIndexData.ChainId.ShouldBe(chainId);
+        managerApprovedIndexData.CaHash.ShouldBe(owner.ToHex());
+        managerApprovedIndexData.Spender.ShouldBe(spenderAddr.ToBase58());
+        managerApprovedIndexData.Symbol.ShouldBe("ELF");
+        managerApprovedIndexData.Amount.ShouldBe(10000);
     }
 
     [Fact]
@@ -920,7 +987,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
                 ChainId = "AELF",
                 CAAddressInfos = new List<CAAddressInfo>
                 {
-                    new ()
+                    new()
                     {
                         CAAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(),
                         ChainId = "AELF"
@@ -933,6 +1000,25 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         result.Data.Count.ShouldBe(0);
     }
 
+    [Fact]
+    public async Task QueryCAHolderManagerApprovedTests()
+    {
+        await ManagerApprovedTests();
+    
+        var result = await Query.CAHolderManagerApprovedAsync(_managerApprovedIndexRepository,
+            _objectMapper, new GetCAHolderManagerApprovedDto()
+            {
+                ChainId = "AELF",
+                CAHash = HashHelper.ComputeFrom("test@google.com").ToHex(),
+                Spender = Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(),
+                Symbol = "ELF",
+                SkipCount = 0,
+                MaxResultCount = 10
+            });
+        result.TotalRecordCount.ShouldBe(1);
+        result.Data.Count.ShouldBe(1);
+    }
+
     private async Task CreateHolder()
     {
         const string chainId = "AELF";
@@ -941,10 +1027,10 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
 
-        var caHolderCreatedProcessor = GetRequiredService<CAHolderCreatedLogEventProcessor>();
+        var caHolderCreatedProcessor = GetRequiredService<CAHolderCreatedProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -989,7 +1075,7 @@ public sealed class ManagerLogEventProcessorTests : PortkeyIndexerCATestBase
         await caHolderCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(2000);
     }
 }

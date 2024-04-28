@@ -25,4 +25,19 @@ public class NFTItemInfoDto
     public string CollectionSymbol { get; set; }
     
     public string CollectionName { get; set; }
+    
+    public string InscriptionName { get; set; }
+    
+    public string Lim { get; set; }
+    
+    public string SeedOwnedSymbol { get; set; }
+
+    public string Expires { get; set; }
+    
+    public string Traits { get; set; }
+    
+    public string Generation { get; set; }
+    
+    
+    
 }

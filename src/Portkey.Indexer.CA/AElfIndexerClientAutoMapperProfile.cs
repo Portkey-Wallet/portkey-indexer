@@ -1,6 +1,7 @@
 using AElf.Contracts.MultiToken;
 using AElf.Contracts.NFT;
 using AElfIndexer.Client.Handlers;
+using AElfIndexer.Grains.State.Client;
 using AutoMapper;
 using Portkey.Indexer.CA.Entities;
 using Portkey.Indexer.CA.GraphQL;
@@ -14,7 +15,12 @@ public class TestGraphQLAutoMapperProfile : Profile
     {
         CreateMap<TokenCreated, TokenInfoIndex>();
         CreateMap<TokenCreated, NFTCollectionInfoIndex>();
+        CreateMap<Provider.TokenInfoDto, NFTCollectionInfoIndex>();
         CreateMap<TokenCreated, NFTInfoIndex>();
+        CreateMap<Provider.TokenInfoDto, NFTInfoIndex>();
+        CreateMap<Provider.TokenInfoDto, TokenInfoIndex>();
+
+        CreateMap<TransactionInfo, CAHolderTransactionIndex>();
 
         CreateMap<LogEventContext, TokenInfoIndex>();
         CreateMap<LogEventContext, NFTCollectionInfoIndex>();
@@ -28,10 +34,18 @@ public class TestGraphQLAutoMapperProfile : Profile
         CreateMap<LogEventContext, CAHolderNFTBalanceIndex>();
         CreateMap<LogEventContext, CAHolderTokenBalanceIndex>();
 
+        CreateMap<LogEventContext, CompatibleCrossChainTransferIndex>();
         CreateMap<LogEventContext, CAHolderTransactionAddressIndex>();
         CreateMap<LogEventContext, CAHolderManagerChangeRecordIndex>();
         CreateMap<LogEventContext, CAHolderSearchTokenNFTIndex>();
         CreateMap<LogEventContext, CAHolderManagerIndex>();
+        CreateMap<LogEventContext, TransactionFeeChangedIndex>();
+        CreateMap<TransactionFeeCharged, TransactionFeeChangedIndex>();
+        CreateMap<LogEventContext, GuardianChangeRecordIndex>();
+        CreateMap<LogEventContext, TransferLimitIndex>();
+        CreateMap<LogEventContext, TransferSecurityThresholdIndex>();
+        CreateMap<LogEventContext, TransactionFeeChangedIndex>();
+        CreateMap<TransactionFeeCharged, TransactionFeeChangedIndex>();
 
         CreateMap<TokenInfo, TokenInfoIndex>();
         CreateMap<TokenInfoIndex, TokenInfoDto>();
@@ -87,6 +101,16 @@ public class TestGraphQLAutoMapperProfile : Profile
         // CreateMap<NFTInfoIndex, NFTSearchInfo>();
         // CreateMap<TokenSearchInfo, TokenSearchInfoDto>();
         // CreateMap<NFTSearchInfo, NFTSearchInfoDto>();
+        CreateMap<TransferLimitIndex, CAHolderTransferlimitDto>();
+        CreateMap<TransferSecurityThresholdIndex, TransferSecurityThresholdDto>();
+        CreateMap<LogEventContext, TransferLimitIndex>();
+        CreateMap<ManagerApprovedIndex, CAHolderManagerApprovedDto>();
+        CreateMap<LogEventContext, ManagerApprovedIndex>();
+        CreateMap<GuardianChangeRecordIndex, GuardianChangeRecordDto>();
+        CreateMap<LogEventContext, InviteIndex>();
+        CreateMap<InviteIndex, ReferralInfoDto>();
+        CreateMap<NftExternalInfo, NFTCollectionInfoIndex>();
+        CreateMap<NftExternalInfo, NFTInfoIndex>();
     }
 }
 

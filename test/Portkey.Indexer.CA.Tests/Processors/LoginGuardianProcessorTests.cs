@@ -21,10 +21,10 @@ namespace Portkey.Indexer.CA.Tests.Processors;
 [Collection(ClusterCollection.Name)]
 public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
 {
-    private readonly IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo>
+    private readonly IAElfIndexerClientEntityRepository<LoginGuardianIndex, TransactionInfo>
         _loginGuardianIndexerRepostory;
 
-    private readonly IAElfIndexerClientEntityRepository<LoginGuardianChangeRecordIndex, LogEventInfo>
+    private readonly IAElfIndexerClientEntityRepository<LoginGuardianChangeRecordIndex, TransactionInfo>
         _loginGuardianChangeRecordIndexerClientEntityRepository;
 
     private readonly IObjectMapper _objectMapper;
@@ -32,9 +32,9 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
     public LoginGuardianProcessorTests()
     {
         _loginGuardianIndexerRepostory =
-            GetRequiredService<IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo>>();
+            GetRequiredService<IAElfIndexerClientEntityRepository<LoginGuardianIndex, TransactionInfo>>();
         _loginGuardianChangeRecordIndexerClientEntityRepository =
-            GetRequiredService<IAElfIndexerClientEntityRepository<LoginGuardianChangeRecordIndex, LogEventInfo>>();
+            GetRequiredService<IAElfIndexerClientEntityRepository<LoginGuardianChangeRecordIndex, TransactionInfo>>();
         _objectMapper = GetRequiredService<IObjectMapper>();
     }
 
@@ -49,11 +49,10 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
 
-        var loginGuardianAddedLogEventProcessor = GetRequiredService<LoginGuardianAddedLogEventProcessor>();
-        var loginGuardianAddedProcessor = GetRequiredService<LoginGuardianAddedProcessor>();
+        var loginGuardianAddedLogEventProcessor = GetRequiredService<LoginGuardianAddedProcessor>();
         
         //step1: create blockStateSet
-        var blockStateSetAdded = new BlockStateSet<LogEventInfo>
+        var blockStateSetAdded = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -112,13 +111,11 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
 
         //step3: handle event and write result to blockStateSet
         await loginGuardianAddedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        await loginGuardianAddedProcessor.HandleEventAsync(logEventInfo, logEventContext);
         
         loginGuardianAddedLogEventProcessor.GetContractAddress("AELF");
-        loginGuardianAddedProcessor.GetContractAddress("AELF");
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
@@ -159,10 +156,10 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
 
-        var loginGuardianAddedProcessor = GetRequiredService<LoginGuardianAddedLogEventProcessor>();
+        var loginGuardianAddedProcessor = GetRequiredService<LoginGuardianAddedProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSetAdded = new BlockStateSet<LogEventInfo>
+        var blockStateSetAdded = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -215,7 +212,7 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         loginGuardianAddedProcessor.GetContractAddress("AELF");
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(2000);
 
         //step5: check result
@@ -253,11 +250,10 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
 
-        var loginGuardianAddedLogEventProcessor = GetRequiredService<LoginGuardianAddedLogEventProcessor>();
-        var loginGuardianAddedProcessor = GetRequiredService<LoginGuardianAddedProcessor>();
+        var loginGuardianAddedLogEventProcessor = GetRequiredService<LoginGuardianAddedProcessor>();
         
         //step1: create blockStateSet
-        var blockStateSetAdded = new BlockStateSet<LogEventInfo>
+        var blockStateSetAdded = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -316,13 +312,11 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
 
         //step3: handle event and write result to blockStateSet
         await loginGuardianAddedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        await loginGuardianAddedProcessor.HandleEventAsync(logEventInfo, logEventContext);
         
         loginGuardianAddedLogEventProcessor.GetContractAddress("AELF");
-        loginGuardianAddedProcessor.GetContractAddress("AELF");
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
@@ -363,10 +357,10 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
 
-        var loginGuardianAddedProcessor = GetRequiredService<LoginGuardianAddedLogEventProcessor>();
+        var loginGuardianAddedProcessor = GetRequiredService<LoginGuardianAddedProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSetAdded = new BlockStateSet<LogEventInfo>
+        var blockStateSetAdded = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -419,7 +413,7 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         loginGuardianAddedProcessor.GetContractAddress("AELF");
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(2000);
 
         //step5: check result
@@ -459,11 +453,10 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
 
-        var loginGuardianRemovedLogEventProcessor = GetRequiredService<LoginGuardianRemovedLogEventProcessor>();
-        var loginGuardianRemovedProcessor = GetRequiredService<LoginGuardianRemovedProcessor>();
+        var loginGuardianRemovedLogEventProcessor = GetRequiredService<LoginGuardianRemovedProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSetAdded = new BlockStateSet<LogEventInfo>
+        var blockStateSetAdded = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -521,13 +514,11 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
 
         //step3: handle event and write result to blockStateSet
         await loginGuardianRemovedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        await loginGuardianRemovedProcessor.HandleEventAsync(logEventInfo, logEventContext);
         
         loginGuardianRemovedLogEventProcessor.GetContractAddress("AELF");
-        loginGuardianRemovedProcessor.GetContractAddress("AELF");
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
@@ -549,10 +540,10 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
 
-        var loginGuardianRemovedProcessor = GetRequiredService<LoginGuardianRemovedLogEventProcessor>();
+        var loginGuardianRemovedProcessor = GetRequiredService<LoginGuardianRemovedProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSetAdded = new BlockStateSet<LogEventInfo>
+        var blockStateSetAdded = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -605,7 +596,7 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         loginGuardianRemovedProcessor.GetContractAddress("AELF");
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(2000);
 
         //step5: check result
@@ -624,11 +615,10 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
 
-        var loginGuardianRemovedLogEventProcessor = GetRequiredService<LoginGuardianRemovedLogEventProcessor>();
-        var loginGuardianRemovedProcessor = GetRequiredService<LoginGuardianRemovedProcessor>();
+        var loginGuardianRemovedLogEventProcessor = GetRequiredService<LoginGuardianRemovedProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSetAdded = new BlockStateSet<LogEventInfo>
+        var blockStateSetAdded = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -686,13 +676,11 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
 
         //step3: handle event and write result to blockStateSet
         await loginGuardianRemovedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        await loginGuardianRemovedProcessor.HandleEventAsync(logEventInfo, logEventContext);
         
         loginGuardianRemovedLogEventProcessor.GetContractAddress("AELF");
-        loginGuardianRemovedProcessor.GetContractAddress("AELF");
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
@@ -714,11 +702,10 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
 
-        var loginGuardianUnboundLogEventProcessor = GetRequiredService<LoginGuardianUnboundLogEventProcessor>();
-        var loginGuardianUnboundProcessor = GetRequiredService<LoginGuardianUnboundProcessor>();
+        var loginGuardianUnboundLogEventProcessor = GetRequiredService<LoginGuardianUnboundProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSetAdded = new BlockStateSet<LogEventInfo>
+        var blockStateSetAdded = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -770,13 +757,10 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         //step3: handle event and write result to blockStateSet
         await loginGuardianUnboundLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         loginGuardianUnboundLogEventProcessor.GetContractAddress("AELF");
-        
-        await loginGuardianUnboundProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        loginGuardianUnboundProcessor.GetContractAddress("AELF");
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKeyTransaction);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
         //step5: check result
@@ -806,11 +790,10 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
 
-        var loginGuardianUnboundLogEventProcessor = GetRequiredService<LoginGuardianUnboundLogEventProcessor>();
-        var loginGuardianUnboundProcessor = GetRequiredService<LoginGuardianUnboundProcessor>();
+        var loginGuardianUnboundLogEventProcessor = GetRequiredService<LoginGuardianUnboundProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSetAdded = new BlockStateSet<LogEventInfo>
+        var blockStateSetAdded = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -862,13 +845,10 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         //step3: handle event and write result to blockStateSet
         await loginGuardianUnboundLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
         loginGuardianUnboundLogEventProcessor.GetContractAddress("AELF");
-        
-        await loginGuardianUnboundProcessor.HandleEventAsync(logEventInfo, logEventContext);
-        loginGuardianUnboundProcessor.GetContractAddress("AELF");
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKeyTransaction);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
         //step5: check result
@@ -897,10 +877,10 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
 
-        var caHolderCreatedProcessor = GetRequiredService<CAHolderCreatedLogEventProcessor>();
+        var caHolderCreatedProcessor = GetRequiredService<CAHolderCreatedProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -945,7 +925,7 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         await caHolderCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(2000);
     }
 
@@ -997,7 +977,7 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         const string previousBlockHash = "e38c4fb1cf6af05878657cb3f7b5fc8a5fcfb2eec19cd76b73abb831973fbf4e";
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
-        var blockStateSetAdded = new BlockStateSet<LogEventInfo>
+        var blockStateSetAdded = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -1043,11 +1023,11 @@ public class LoginGuardianProcessorTests : PortkeyIndexerCATestBase
         };
 
         //step3: handle event and write result to blockStateSet
-        var guardianAddedProcessor = GetRequiredService<GuardianAddedLogEventProcessor>();
+        var guardianAddedProcessor = GetRequiredService<GuardianAddedProcessor>();
         await guardianAddedProcessor.HandleEventAsync(logEventInfo, logEventContext);
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(2000);
     }
 }

@@ -19,22 +19,22 @@ namespace Portkey.Indexer.CA.Tests.Processors;
 
 public class BingoedProcessorTests: PortkeyIndexerCATestBase
 {
-    private readonly IAElfIndexerClientEntityRepository<BingoGameIndex, LogEventInfo> _bingoGameIndexRepository;
-    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _caHolderIndexRepository;
-    private readonly IAElfIndexerClientEntityRepository<BingoGameStaticsIndex, LogEventInfo> _staticsrepository;
+    private readonly IAElfIndexerClientEntityRepository<BingoGameIndex, TransactionInfo> _bingoGameIndexRepository;
+    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> _caHolderIndexRepository;
+    private readonly IAElfIndexerClientEntityRepository<BingoGameStaticsIndex, TransactionInfo> _staticsrepository;
 
-    private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, LogEventInfo>
+    private readonly IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>
         _caHolderTransactionRepository;
-    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _repository;
+    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> _repository;
     private readonly IObjectMapper _objectMapper;
     public BingoedProcessorTests()
     {
-        _bingoGameIndexRepository = GetRequiredService<IAElfIndexerClientEntityRepository<BingoGameIndex, LogEventInfo>>();
+        _bingoGameIndexRepository = GetRequiredService<IAElfIndexerClientEntityRepository<BingoGameIndex, TransactionInfo>>();
         _caHolderTransactionRepository =
-            GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, LogEventInfo>>();
-        _repository = GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo>>();
-        _caHolderIndexRepository = GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo>>();
-        _staticsrepository = GetRequiredService<IAElfIndexerClientEntityRepository<BingoGameStaticsIndex, LogEventInfo>>();
+            GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo>>();
+        _repository = GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo>>();
+        _caHolderIndexRepository = GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo>>();
+        _staticsrepository = GetRequiredService<IAElfIndexerClientEntityRepository<BingoGameStaticsIndex, TransactionInfo>>();
         _objectMapper = GetRequiredService<IObjectMapper>();
     }
     [Fact]
@@ -47,13 +47,6 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
         const string previousBlockHash = "9a6ef475e4c4b6f15c37559033bcfdbed34ca666c67b2ae6be22751a3ae171de";
         const string transactionId = "c09b8c142dd5e07acbc1028e5f59adca5b5be93a0680eb3609b773044a852c43";
         const long blockHeight = 200;
-        var blockStateSetAdded = new BlockStateSet<LogEventInfo>
-        {
-            BlockHash = blockHash,
-            BlockHeight = blockHeight,
-            Confirmed = true,
-            PreviousBlockHash = previousBlockHash
-        };
         
         var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
         {
@@ -63,7 +56,6 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
             PreviousBlockHash = previousBlockHash
         };
 
-        var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSetAdded, chainId);
         var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
         //step2: create logEventInfo
         var bingoed = new Bingoed
@@ -110,7 +102,6 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
         bingoedLogEventProcessor.GetContractAddress(chainId);
         
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 
@@ -159,7 +150,7 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
     const string previousBlockHash = "9a6ef475e4c4b6f15c37559033bcfdbed34ca666c67b2ae6be22751a3ae171de";
     const string transactionId = "c09b8c142dd5e07acbc1028e5f59adca5b5be93a0680eb3609b773044a852c43";
     const long blockHeight = 200;
-    var blockStateSetAdded = new BlockStateSet<LogEventInfo>
+    var blockStateSetAdded = new BlockStateSet<TransactionInfo>
     {
         BlockHash = blockHash,
         BlockHeight = blockHeight,
@@ -221,7 +212,7 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
     bingoedLogEventProcessor.GetContractAddress(chainId);
     
     //step4: save blockStateSet into es
-    await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+    await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
     await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
     await Task.Delay(2000);
 
@@ -240,7 +231,7 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
     const string previousBlockHash = "9a6ef475e4c4b6f15c37559033bcfdbed34ca666c67b2ae6be22751a3ae171de";
     const string transactionId = "c09b8c142dd5e07acbc1028e5f59adca5b5be93a0680eb3609b773044a852c43";
     const long blockHeight = 200;
-    var blockStateSetAdded = new BlockStateSet<LogEventInfo>
+    var blockStateSetAdded = new BlockStateSet<TransactionInfo>
     {
         BlockHash = blockHash,
         BlockHeight = blockHeight,
@@ -303,7 +294,7 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
     bingoedLogEventProcessor.GetContractAddress(chainId);
     
     //step4: save blockStateSet into es
-    await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+    await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
     await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
     await Task.Delay(2000);
 
@@ -328,10 +319,10 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
         const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
         const long blockHeight = 100;
 
-        var caHolderCreatedProcessor = GetRequiredService<CAHolderCreatedLogEventProcessor>();
+        var caHolderCreatedProcessor = GetRequiredService<CAHolderCreatedProcessor>();
 
         //step1: create blockStateSet
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -376,7 +367,7 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
         await caHolderCreatedProcessor.HandleEventAsync(logEventInfo, logEventContext);
 
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(2000);
     }
     public async Task HandlePlayedLogEventAsync_Test(){
@@ -387,14 +378,7 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
         const string previousBlockHash = "9a6ef475e4c4b6f15c37559033bcfdbed34ca666c67b2ae6be22751a3ae171de";
         const string transactionId = "c09b8c142dd5e07acbc1028e5f59adca5b5be93a0680eb3609b773044a852c43";
         const long blockHeight = 200;
-        var blockStateSetAdded = new BlockStateSet<LogEventInfo>
-        {
-            BlockHash = blockHash,
-            BlockHeight = blockHeight,
-            Confirmed = true,
-            PreviousBlockHash = previousBlockHash
-        };
-        
+
         var blockStateSetTransaction = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
@@ -403,7 +387,6 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
             PreviousBlockHash = previousBlockHash
         };
 
-        var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSetAdded, chainId);
         var blockStateSetKeyTransaction = await InitializeBlockStateSetAsync(blockStateSetTransaction, chainId);
                 //step2: create logEventInfo
         var bingoed = new Played
@@ -444,7 +427,6 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
         bingoedLogEventProcessor.GetContractAddress(chainId);
         
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
         await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransaction);
         await Task.Delay(2000);
 

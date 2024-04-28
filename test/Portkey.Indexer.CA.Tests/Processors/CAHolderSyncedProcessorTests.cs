@@ -16,23 +16,23 @@ using ManagerInfo = Portkey.Contracts.CA.ManagerInfo;
 
 namespace Portkey.Indexer.CA.Tests.Processors;
 
-public class CAHolderSyncedProcessorTests:PortkeyIndexerCATestBase
+public class CAHolderSyncedProcessorTests : PortkeyIndexerCATestBase
 {
     private readonly IObjectMapper _objectMapper;
-    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> _caHolderIndexRepository;
-    private readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo> _caHolderManagerIndexRepository;
-    private readonly IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo>
+    private readonly IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> _caHolderIndexRepository;
+    private readonly IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo> _caHolderManagerIndexRepository;
+    private readonly IAElfIndexerClientEntityRepository<LoginGuardianIndex, TransactionInfo>
         _loginGuardianRepository;
 
     public CAHolderSyncedProcessorTests()
     {
         _objectMapper = GetRequiredService<IObjectMapper>();
         _caHolderIndexRepository =
-            GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo>>();
+            GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo>>();
         _caHolderManagerIndexRepository =
-            GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderManagerIndex, LogEventInfo>>();
+            GetRequiredService<IAElfIndexerClientEntityRepository<CAHolderManagerIndex, TransactionInfo>>();
         _loginGuardianRepository =
-            GetRequiredService<IAElfIndexerClientEntityRepository<LoginGuardianIndex, LogEventInfo>>();
+            GetRequiredService<IAElfIndexerClientEntityRepository<LoginGuardianIndex, TransactionInfo>>();
     }
 
     [Fact]
@@ -45,7 +45,7 @@ public class CAHolderSyncedProcessorTests:PortkeyIndexerCATestBase
         const long blockHeight = 111;
         
         //step1: create blockStateSet
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -125,7 +125,7 @@ public class CAHolderSyncedProcessorTests:PortkeyIndexerCATestBase
         caHolderSyncedProcessor.GetContractAddress(chainId);
         
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(3000);
         
         //step5: check result
@@ -159,7 +159,7 @@ public class CAHolderSyncedProcessorTests:PortkeyIndexerCATestBase
         const long blockHeight = 113;
         
         //step1: create blockStateSet
-        var blockStateSet = new BlockStateSet<LogEventInfo>
+        var blockStateSet = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash,
             BlockHeight = blockHeight,
@@ -198,11 +198,11 @@ public class CAHolderSyncedProcessorTests:PortkeyIndexerCATestBase
             },
             ManagerInfosRemoved = new ManagerInfoList()
             {
-                ManagerInfosRemoved =
+                ManagerInfos =
                 {
                     new List<ManagerInfo>()
                     {
-                        new ManagerInfo()
+                        new ManagerInfo
                         {
                             Address = Address.FromPublicKey("CCC".HexToByteArray()),
                             ExtraData = "ExtraData_add_manager1"
@@ -231,7 +231,7 @@ public class CAHolderSyncedProcessorTests:PortkeyIndexerCATestBase
         caHolderSyncedProcessor.GetContractAddress(chainId);
         
         //step4: save blockStateSet into es
-        await BlockStateSetSaveDataAsync<LogEventInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
         await Task.Delay(3000);
         
         //step5: check result

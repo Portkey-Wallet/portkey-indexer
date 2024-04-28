@@ -5,26 +5,30 @@ using AElfIndexer.Grains.State.Client;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Portkey.Indexer.CA.Entities;
+using Portkey.Indexer.CA.Provider;
 using Volo.Abp.ObjectMapping;
 
 namespace Portkey.Indexer.CA.Processors;
 
-public class TokenBurnedLogEventProcessor:  CAHolderTokenBalanceProcessorBase<Burned>
+public class TokenIssuedProcessor : CAHolderTokenBalanceProcessorBase<Issued>
 {
-    public TokenBurnedLogEventProcessor(ILogger<TokenBurnedLogEventProcessor> logger,
+    public TokenIssuedProcessor(ILogger<TokenIssuedProcessor> logger,
         IOptionsSnapshot<ContractInfoOptions> contractInfoOptions,
-        IAElfIndexerClientEntityRepository<CAHolderIndex, LogEventInfo> caHolderIndexRepository,
-        IAElfIndexerClientEntityRepository<TokenInfoIndex, LogEventInfo> tokenInfoIndexRepository,
-        IAElfIndexerClientEntityRepository<NFTCollectionInfoIndex, LogEventInfo> nftCollectionInfoRepository,
-        IAElfIndexerClientEntityRepository<NFTInfoIndex, LogEventInfo> nftInfoRepository,
-        IAElfIndexerClientEntityRepository<CAHolderSearchTokenNFTIndex, LogEventInfo> caHolderSearchTokenNFTRepository,
-        IAElfIndexerClientEntityRepository<CAHolderTokenBalanceIndex, LogEventInfo>
+        IAElfIndexerClientEntityRepository<CAHolderIndex, TransactionInfo> caHolderIndexRepository,
+        IAElfIndexerClientEntityRepository<TokenInfoIndex, TransactionInfo> tokenInfoIndexRepository,
+        IAElfIndexerClientEntityRepository<NFTCollectionInfoIndex, TransactionInfo> nftCollectionInfoRepository,
+        IAElfIndexerClientEntityRepository<NFTInfoIndex, TransactionInfo> nftInfoRepository,
+        IAElfIndexerClientEntityRepository<CAHolderSearchTokenNFTIndex, TransactionInfo> caHolderSearchTokenNFTRepository,
+        IAElfIndexerClientEntityRepository<CAHolderTokenBalanceIndex, TransactionInfo>
             caHolderTokenBalanceIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderNFTCollectionBalanceIndex, LogEventInfo> caHolderNFTCollectionBalanceIndexRepository,
-        IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, LogEventInfo> caHolderNFTBalanceIndexRepository,
-        IObjectMapper objectMapper) : base(logger, contractInfoOptions,
+        IAElfIndexerClientEntityRepository<CAHolderNFTCollectionBalanceIndex, TransactionInfo> caHolderNFTCollectionBalanceIndexRepository,
+        IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, TransactionInfo> caHolderNFTBalanceIndexRepository,
+        IAElfDataProvider aelfDataProvider,
+        IObjectMapper objectMapper,
+        IOptionsSnapshot<InscriptionListOptions> inscriptionListOptions) : base(logger, contractInfoOptions,
         caHolderIndexRepository, tokenInfoIndexRepository,nftCollectionInfoRepository,nftInfoRepository, caHolderSearchTokenNFTRepository,
-        caHolderTokenBalanceIndexRepository,caHolderNFTCollectionBalanceIndexRepository, caHolderNFTBalanceIndexRepository,objectMapper)
+        caHolderTokenBalanceIndexRepository,caHolderNFTCollectionBalanceIndexRepository, caHolderNFTBalanceIndexRepository, 
+        aelfDataProvider, objectMapper, inscriptionListOptions)
     {
     }
 
@@ -33,16 +37,16 @@ public class TokenBurnedLogEventProcessor:  CAHolderTokenBalanceProcessorBase<Bu
         return ContractInfoOptions.ContractInfos.First(c=>c.ChainId == chainId).TokenContractAddress;
     }
 
-    protected override async Task HandleEventAsync(Burned eventValue, LogEventContext context)
+    protected override async Task HandleEventAsync(Issued eventValue, LogEventContext context)
     {
         await UpdateTokenSupply(eventValue, context);
         var holder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
-            eventValue.Burner.ToBase58()),context.ChainId);
+            eventValue.To.ToBase58()),context.ChainId);
         if (holder == null) return;
-        await ModifyBalanceAsync(holder.CAAddress, eventValue.Symbol, -eventValue.Amount, context);
+        await ModifyBalanceAsync(holder.CAAddress, eventValue.Symbol, eventValue.Amount, context);
     }
-    
-    private async Task UpdateTokenSupply(Burned eventValue, LogEventContext context)
+
+    private async Task UpdateTokenSupply(Issued eventValue, LogEventContext context)
     {
         TokenType tokenType = TokenHelper.GetTokenType(eventValue.Symbol);
 
@@ -52,7 +56,7 @@ public class TokenBurnedLogEventProcessor:  CAHolderTokenBalanceProcessorBase<Bu
             var tokenInfoIndex = await TokenInfoIndexRepository.GetFromBlockStateSetAsync(id,context.ChainId);
             if (tokenInfoIndex != null)
             {
-                tokenInfoIndex.Supply -= eventValue.Amount;
+                tokenInfoIndex.Supply += eventValue.Amount;
                 ObjectMapper.Map(context, tokenInfoIndex);
                 await TokenInfoIndexRepository.AddOrUpdateAsync(tokenInfoIndex);
             }
@@ -64,7 +68,7 @@ public class TokenBurnedLogEventProcessor:  CAHolderTokenBalanceProcessorBase<Bu
             var nftCollectionInfoIndex = await NftCollectionInfoRepository.GetFromBlockStateSetAsync(id,context.ChainId);
             if (nftCollectionInfoIndex != null)
             {
-                nftCollectionInfoIndex.Supply -= eventValue.Amount;
+                nftCollectionInfoIndex.Supply += eventValue.Amount;
                 ObjectMapper.Map(context, nftCollectionInfoIndex);
                 await NftCollectionInfoRepository.AddOrUpdateAsync(nftCollectionInfoIndex);
             }
@@ -76,7 +80,7 @@ public class TokenBurnedLogEventProcessor:  CAHolderTokenBalanceProcessorBase<Bu
             var nftInfoIndex = await NftInfoRepository.GetFromBlockStateSetAsync(id,context.ChainId);
             if (nftInfoIndex != null)
             {
-                nftInfoIndex.Supply -= eventValue.Amount;
+                nftInfoIndex.Supply += eventValue.Amount;
                 ObjectMapper.Map(context, nftInfoIndex);
                 await NftInfoRepository.AddOrUpdateAsync(nftInfoIndex);
             }
