@@ -1125,6 +1125,11 @@ public class Query
         [FromServices] IObjectMapper objectMapper, GetCAHolderTokenApprovedDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderTokenApprovedIndex>, QueryContainer>>();
+        if (!dto.ChainId.IsNullOrWhiteSpace())
+        {
+            mustQuery.Add(q => q.Term(i => i.Field(f => f.ChainId).Value(dto.ChainId)));
+        }
+
         if (dto.CAAddresses != null)
         {
             var shouldQuery = new List<Func<QueryContainerDescriptor<CAHolderTokenApprovedIndex>, QueryContainer>>();
