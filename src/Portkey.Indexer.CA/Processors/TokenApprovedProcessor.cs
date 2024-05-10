@@ -46,7 +46,7 @@ public class TokenApprovedProcessor : CAHolderTransactionProcessorBase<Approved>
         var holder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
             eventValue.Owner.ToBase58()), context.ChainId);
         if (holder == null) return;
-        var batchApprovedIndexId = IdGenerateHelper.GetId(context.ChainId, eventValue.Owner.ToBase58());
+        var batchApprovedIndexId = IdGenerateHelper.GetId(context.ChainId, eventValue.Owner.ToBase58(), eventValue.Spender.ToBase58());
         var batchApprovedIndex =
             await _batchApprovedIndexRepository.GetFromBlockStateSetAsync(batchApprovedIndexId, context.ChainId);
         if (batchApprovedIndex == null)

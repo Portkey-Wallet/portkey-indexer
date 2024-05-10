@@ -96,7 +96,7 @@ public class TokenApprovedProcessorTests : PortkeyIndexerCATestBase
 
         // CAHolderTokenApproved
         var caHolderTokenApprovedIndex = await _caHolderTokenApprovedIndexRepository.GetAsync(IdGenerateHelper.GetId(
-            chainId, Address.FromPublicKey("AAA".HexToByteArray()).ToBase58()));
+            chainId, Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(), Address.FromPublicKey("DDD".HexToByteArray()).ToBase58()));
         caHolderTokenApprovedIndex.Spender.ShouldBe(Address.FromPublicKey("DDD".HexToByteArray()).ToBase58());
         caHolderTokenApprovedIndex.CAAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
         caHolderTokenApprovedIndex.BatchApprovedAmount.ShouldBe(0);
@@ -116,7 +116,7 @@ public class TokenApprovedProcessorTests : PortkeyIndexerCATestBase
         await Task.Delay(2000);
         
         caHolderTokenApprovedIndex = await _caHolderTokenApprovedIndexRepository.GetAsync(IdGenerateHelper.GetId(
-            chainId, Address.FromPublicKey("AAA".HexToByteArray()).ToBase58()));
+            chainId, Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(), Address.FromPublicKey("DDD".HexToByteArray()).ToBase58()));
         caHolderTokenApprovedIndex.Spender.ShouldBe(Address.FromPublicKey("DDD".HexToByteArray()).ToBase58());
         caHolderTokenApprovedIndex.CAAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
         caHolderTokenApprovedIndex.BatchApprovedAmount.ShouldBe(1000000000);
@@ -143,7 +143,7 @@ public class TokenApprovedProcessorTests : PortkeyIndexerCATestBase
         await Task.Delay(2000);
         
         caHolderTokenApprovedIndex = await _caHolderTokenApprovedIndexRepository.GetAsync(IdGenerateHelper.GetId(
-            chainId, Address.FromPublicKey("AAA".HexToByteArray()).ToBase58()));
+            chainId, Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(), Address.FromPublicKey("DDD".HexToByteArray()).ToBase58()));
         caHolderTokenApprovedIndex.Spender.ShouldBe(Address.FromPublicKey("DDD".HexToByteArray()).ToBase58());
         caHolderTokenApprovedIndex.CAAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
         caHolderTokenApprovedIndex.BatchApprovedAmount.ShouldBe(0);
