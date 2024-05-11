@@ -5,6 +5,7 @@ using AElfIndexer.Grains.State.Client;
 using AutoMapper;
 using Portkey.Indexer.CA.Entities;
 using Portkey.Indexer.CA.GraphQL;
+using Approved = AElf.Contracts.MultiToken.Approved;
 using TransactionFee = Portkey.Indexer.CA.GraphQL.TransactionFee;
 
 namespace Portkey.Indexer.CA;
@@ -87,8 +88,9 @@ public class TestGraphQLAutoMapperProfile : Profile
         CreateMap<BingoGameStaticsIndex, BingoStatics>();
         CreateMap<LogEventContext, BingoGameIndex>();
         CreateMap<LogEventContext, BingoGameStaticsIndex>();
-
-
+        CreateMap<LogEventContext, CAHolderTokenApprovedIndex>();
+        CreateMap<CAHolderTokenApprovedIndex, CAHolderTokenApprovedDto>();
+        
         CreateMap<CAHolderIndex, CAHolderInfoDto>().ForMember(d => d.GuardianList,
             opt => opt.MapFrom(e => e.Guardians.IsNullOrEmpty() ? null : new GuardianList { Guardians = e.Guardians }));
         CreateMap<Contracts.CA.Guardian, Guardian>()
