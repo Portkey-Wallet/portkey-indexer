@@ -48,6 +48,7 @@ public class PortkeyIndexerCAModule:AElfIndexerClientPluginBaseModule<PortkeyInd
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, TransferLimitChangedProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, ManagerApprovedProcessor>();
         serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, CAHolderAccelerateCreationProcessor>();
+        serviceCollection.AddSingleton<IAElfLogEventProcessor<TransactionInfo>, TokenUnApprovedProcessor>();
         serviceCollection.AddSingleton<IAElfDataProvider, AElfDataProvider>();
 
         Configure<ContractInfoOptions>(configuration.GetSection("ContractInfo"));

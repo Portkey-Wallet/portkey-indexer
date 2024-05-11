@@ -1118,4 +1118,36 @@ public class Query
             sortType: SortOrder.Ascending, skip: dto.SkipCount, limit: dto.MaxResultCount);
         return objectMapper.Map<List<NFTInfoIndex>, List<NFTItemInfoDto>>(result.Item2);
     }
+    
+    [Name("caHolderTokenApproved")]
+    public static async Task<CAHolderTokenApprovedPageResultDto> CAHolderTokenApprovedAsync(
+        [FromServices] IAElfIndexerClientEntityRepository<CAHolderTokenApprovedIndex, TransactionInfo> repository,
+        [FromServices] IObjectMapper objectMapper, GetCAHolderTokenApprovedDto dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderTokenApprovedIndex>, QueryContainer>>();
+        if (!dto.ChainId.IsNullOrWhiteSpace())
+        {
+            mustQuery.Add(q => q.Term(i => i.Field(f => f.ChainId).Value(dto.ChainId)));
+        }
+
+        if (dto.CAAddresses != null)
+        {
+            var shouldQuery = new List<Func<QueryContainerDescriptor<CAHolderTokenApprovedIndex>, QueryContainer>>();
+            foreach (var caAddress in dto.CAAddresses)
+            {
+                shouldQuery.Add(s =>
+                    s.Match(i => i.Field(f => f.CAAddress).Query(caAddress)));
+            }
+
+            mustQuery.Add(q => q.Bool(b => b.Should(shouldQuery)));
+        }
+        QueryContainer Filter(QueryContainerDescriptor<CAHolderTokenApprovedIndex> f) => f.Bool(b => b.Must(mustQuery));
+        var (_, res) = await repository.GetListAsync(Filter, skip: dto.SkipCount, limit: dto.MaxResultCount);
+        var result = new CAHolderTokenApprovedPageResultDto()
+        {
+            TotalRecordCount = res.Count,
+            Data = objectMapper.Map<List<CAHolderTokenApprovedIndex>, List<CAHolderTokenApprovedDto>>(res)
+        };
+        return result;
+    }
 }
