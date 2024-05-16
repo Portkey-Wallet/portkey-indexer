@@ -72,7 +72,7 @@ public class TokenTransferredProcessor:  CAHolderTokenBalanceProcessorBase<Trans
         {
             await AddCAHolderTransactionAddressAsync(from.CAAddress, eventValue.To.ToBase58(), context.ChainId,
                 context);
-            await CAHolderTransactionIndexRepository.AddOrUpdateAsync(GetCaHolderTransactionIndex(eventValue, tokenInfoIndex,nftInfoIndex,
+            await CAHolderTransactionIndexRepository.AddOrUpdateAsync(await GetCaHolderTransactionIndexAsync(eventValue, tokenInfoIndex,nftInfoIndex,
                 context));
         }
 
@@ -81,34 +81,52 @@ public class TokenTransferredProcessor:  CAHolderTokenBalanceProcessorBase<Trans
         if (to == null) return;
         await AddCAHolderTransactionAddressAsync(to.CAAddress, eventValue.From.ToBase58(), context.ChainId, context);
         if (from != null) return;
-        await CAHolderTransactionIndexRepository.AddOrUpdateAsync(GetCaHolderTransactionIndex(eventValue,
+        await CAHolderTransactionIndexRepository.AddOrUpdateAsync(await GetCaHolderTransactionIndexAsync(eventValue,
             tokenInfoIndex,nftInfoIndex, context));
     }
     
-    private CAHolderTransactionIndex GetCaHolderTransactionIndex(Transferred transferred, TokenInfoIndex tokenInfoIndex, 
+    private async Task<CAHolderTransactionIndex> GetCaHolderTransactionIndexAsync(Transferred transferred, TokenInfoIndex tokenInfoIndex, 
         NFTInfoIndex nftInfoIndex, LogEventContext context)
     {
         var id = IsMultiTransaction(context.ChainId, context.To, context.MethodName)
             ? IdGenerateHelper.GetId(context.BlockHash, context.TransactionId, transferred.To.ToBase58()) :
             IdGenerateHelper.GetId(context.BlockHash, context.TransactionId);
-        var index = new CAHolderTransactionIndex
+        var index = await CAHolderTransactionIndexRepository.GetFromBlockStateSetAsync(id, context.ChainId);
+        var transferInfo = new TransferInfo
         {
-            Id = id,
-            Timestamp = context.BlockTime.ToTimestamp().Seconds,
-            FromAddress = context.From,
-            TokenInfo = tokenInfoIndex,
-            NftInfo = nftInfoIndex,
-            TransactionFee = GetTransactionFee(context.ExtraProperties),
-            TransferInfo = new TransferInfo
-            {
-                Amount = transferred.Amount,
-                FromAddress = transferred.From.ToBase58(),
-                FromCAAddress = transferred.From.ToBase58(),
-                ToAddress = transferred.To.ToBase58(),
-                FromChainId = context.ChainId,
-                ToChainId = context.ChainId
-            }
+            Amount = transferred.Amount,
+            FromAddress = transferred.From.ToBase58(),
+            FromCAAddress = transferred.From.ToBase58(),
+            ToAddress = transferred.To.ToBase58(),
+            FromChainId = context.ChainId,
+            ToChainId = context.ChainId
         };
+        
+        if (index == null)
+        {
+            index = new CAHolderTransactionIndex
+            {
+                Id = id,
+                Timestamp = context.BlockTime.ToTimestamp().Seconds,
+                FromAddress = context.From,
+                TokenInfo = tokenInfoIndex,
+                NftInfo = nftInfoIndex,
+                TransactionFee = GetTransactionFee(context.ExtraProperties),
+                TransferInfo = transferInfo,
+                ToContractAddress = GetToContractAddress(context.ChainId, context.To, context.MethodName, context.Params),
+                TokenTransferInfos = new List<TokenTransferInfo>()
+            };
+        }
+
+        if (IsMultiTokenTransfer(context.ChainId, context.To, context.MethodName, context.Params))
+        {
+            index.TokenTransferInfos.Add(new TokenTransferInfo
+            {
+                TransferInfo = transferInfo,
+                TokenInfo = tokenInfoIndex,
+                NftInfo = nftInfoIndex
+            });
+        }
         ObjectMapper.Map(context, index);
         index.MethodName = GetMethodName(context.MethodName, context.Params);
         return index;

@@ -271,7 +271,28 @@ public class PortkeyIndexerCATestModule : AbpModule
                     ContractAddress = "CAAddress",
                     MethodName = "Registered",
                     EventNames = new List<string> { "Registered" }
-                }
+                },
+                new ()
+                {
+                    ChainId = "AELF",
+                    ContractAddress = "aLyxCJvWMQH6UEykTyeWAcYss9baPyXkrMQ37BHnUicxD2LL3",
+                    MethodName = "ManagerForwardCall",
+                    EventNames = new List<string>
+                    {
+                        "Transferred"
+                    }
+                },
+                new ()
+                {
+                    ChainId = "AELF",
+                    ContractAddress = Address.FromPublicKey("ABC".HexToByteArray()).ToBase58(),
+                    MethodName = "TransferToken",
+                    EventNames = new List<string>
+                    {
+                        "Transferred"
+                    },
+                    MultiTokenTransfer = true
+                },
             };
         });
         
@@ -296,6 +317,11 @@ public class PortkeyIndexerCATestModule : AbpModule
                 {
                     ChainId = "tDVV",
                     CAContractAddress = Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(),
+                },
+                new ()
+                {
+                    ChainId = "AELF",
+                    CAContractAddress = "CAAddress"
                 }
             };
         });

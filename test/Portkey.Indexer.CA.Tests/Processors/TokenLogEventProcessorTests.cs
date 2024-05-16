@@ -5,7 +5,10 @@ using AElf.Types;
 using AElfIndexer.Client;
 using AElfIndexer.Client.Handlers;
 using AElfIndexer.Grains.State.Client;
+using Google.Protobuf;
 using Nethereum.Hex.HexConvertors.Extensions;
+using Org.BouncyCastle.Asn1.X509;
+using Org.BouncyCastle.Utilities.Encoders;
 using Portkey.Contracts.CA;
 using Portkey.Indexer.CA.Entities;
 using Portkey.Indexer.CA.GraphQL;
@@ -57,9 +60,13 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
     const string chainId = "AELF";
     const string chainIdSide = "tDVV";
     const string blockHash = "dac5cd67a2783d0a3d843426c2d45f1178f4d052235a907a0d796ae4659103b1";
+    const string blockHash1 = "dac5cd67a2783d0a3d843426c2d45f1178f4d052235a907a0d796ae4659103b2";
     const string previousBlockHash = "e38c4fb1cf6af05878657cb3f7b5fc8a5fcfb2eec19cd76b73abb831973fbf4e";
+    const string previousBlockHash1 = "e38c4fb1cf6af05878657cb3f7b5fc8a5fcfb2eec19cd76b73abb831973fbf41";
     const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
+    const string transactionId1 = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da3";
     const long blockHeight = 100;
+    const long blockHeight1 = 200;
     const string crossChainTransferMethodName = "CrossChainTransfer";
     const string crossChainReceivedMethodName = "CrossChainReceiveToken";
     const string transferMethodName = "Transferred";
@@ -768,10 +775,10 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         };
         var blockStateSetTransfer = new BlockStateSet<TransactionInfo>
         {
-            BlockHash = blockHash,
-            BlockHeight = blockHeight,
+            BlockHash = blockHash1,
+            BlockHeight = blockHeight1,
             Confirmed = true,
-            PreviousBlockHash = previousBlockHash
+            PreviousBlockHash = previousBlockHash1
         };
         var blockStateSetKey = await InitializeBlockStateSetAsync(blockStateSet, chainId);
         var blockStateSetKeyTransfer = await InitializeBlockStateSetAsync(blockStateSetTransfer, chainId);
@@ -812,6 +819,60 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
             await _caHolderTokenBalanceIndexRepository.GetAsync(chainId + "-" +
                                                                 holderB.CaAddress.ToString()
                                                                     .Trim(new char[] { '"' }) + "-" + symbol);
+        transferred = new Transferred()
+        {
+            To = holderA.CaAddress,
+            From = holderB.CaAddress,
+            Symbol = symbol,
+            Amount = amount,
+        };
+        logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(transferred.ToLogEvent());
+        await tokenTransferredLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransfer);
+        await Task.Delay(2000);
+        
+        var transactionIndex = await _caHolderTransactionIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(blockHash, transactionId), chainId);
+        transactionIndex.ToContractAddress.ShouldBe("CAAddress");
+        transactionIndex.TokenTransferInfos.Count.ShouldBe(0);
+        
+        
+        // other transaction
+        var logEventInfo1 = LogEventHelper.ConvertAElfLogEventToLogEventInfo(transferred.ToLogEvent());
+        logEventInfo1.BlockHeight = blockHeight;
+        logEventInfo1.ChainId = chainId;
+        logEventInfo1.BlockHash = blockHash;
+        logEventInfo1.TransactionId = transactionId1;
+        var managerForwardCallInput = new ManagerForwardCallInput()
+        {
+            ContractAddress = Address.FromPublicKey("ABC".HexToByteArray()),
+            MethodName = "TransferToken"
+        };
+        var logEventContext1 = new LogEventContext
+        {
+            ChainId = chainId,
+            BlockHeight = blockHeight1,
+            BlockHash = blockHash1,
+            PreviousBlockHash = previousBlockHash1,
+            TransactionId = transactionId1,
+            Params = managerForwardCallInput.ToByteString().ToBase64(),
+            To = "aLyxCJvWMQH6UEykTyeWAcYss9baPyXkrMQ37BHnUicxD2LL3",
+            MethodName = "ManagerForwardCall",
+            ExtraProperties = new Dictionary<string, string>
+            {
+                { "TransactionFee", "{\"ELF\":\"30000000\"}" },
+                { "ResourceFee", "{\"ELF\":\"30000000\"}" }
+            },
+            BlockTime = DateTime.UtcNow
+        };
+        await tokenTransferredLogEventProcessor.HandleEventAsync(logEventInfo1, logEventContext1);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKeyTransfer);
+        await Task.Delay(2000);
+        
+        var transactionIndex1 = await _caHolderTransactionIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(blockHash1, transactionId1), chainId);
+        transactionIndex1.ToContractAddress.ShouldBe(Address.FromPublicKey("ABC".HexToByteArray()).ToBase58());
+        transactionIndex1.TokenTransferInfos.Count.ShouldBe(1);
     }
 
     [Fact]

@@ -25,10 +25,14 @@ public class CAHolderTransactionIndex : AElfIndexerClientEntity<string>, IIndexB
     public long Timestamp { get; set; }
 
     public TransferInfo TransferInfo { get; set; }
-    
+
+    public List<TokenTransferInfo> TokenTransferInfos { get; set; }
+
     [Keyword]
     public string FromAddress { get; set; }
     
+    [Keyword]
+    public string ToContractAddress { get; set; }
     public Dictionary<string,long> TransactionFee { get; set; }
 }
 

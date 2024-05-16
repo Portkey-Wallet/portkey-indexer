@@ -73,6 +73,16 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
             !IsValidManagerForwardCallTransaction(chainId, to, methodName, parameter)) return false;
         return true;
     }
+    
+    protected string GetToContractAddress(string chainId, string to, string methodName, string parameter)
+    {
+        if (to == ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress && methodName == "ManagerForwardCall")
+        {
+            var managerForwardCallInput = ManagerForwardCallInput.Parser.ParseFrom(ByteString.FromBase64(parameter));
+            return managerForwardCallInput.ContractAddress.ToBase58();
+        }
+        return to;
+    }
 
     protected bool IsMultiTransaction(string chainId, string to, string methodName)
     {
@@ -81,6 +91,17 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
             t.ContractAddress == to && t.MethodName == methodName &&
             t.EventNames.Contains(GetEventName()));
         return caHolderTransactionInfo?.MultiTransaction ?? false;
+    }
+    
+    protected bool IsMultiTokenTransfer(string chainId, string to, string methodName, string parameter)
+    {
+        if (methodName != "ManagerForwardCall") return false;
+        var managerForwardCallInput = ManagerForwardCallInput.Parser.ParseFrom(ByteString.FromBase64(parameter));
+        var caHolderTransactionInfo = CAHolderTransactionInfoOptions.CAHolderTransactionInfos.FirstOrDefault(t =>
+            t.ChainId == chainId &&
+            t.ContractAddress == managerForwardCallInput.ContractAddress.ToBase58() && t.MethodName == managerForwardCallInput.MethodName &&
+            t.EventNames.Contains(GetEventName()));
+        return caHolderTransactionInfo?.MultiTokenTransfer ?? false;
     }
 
     private bool IsValidManagerForwardCallTransaction(string chainId, string to, string methodName, string parameter)

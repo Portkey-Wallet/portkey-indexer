@@ -34,8 +34,12 @@ public class CAHolderTransactionDto
 
     public TransferInfo TransferInfo { get; set; }
     
-    public string FromAddress { get; set; }
+    public List<TokenTransferInfo> TokenTransferInfos { get; set; }
     
+    public string FromAddress { get; set; }
+
+    public string ToContractAddress { get; set; }
+
     public List<TransactionFee> TransactionFees { get; set; }
     public bool IsManagerConsumer { get; set; } = false;
 }
