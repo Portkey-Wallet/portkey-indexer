@@ -7,8 +7,6 @@ using AElfIndexer.Client.Handlers;
 using AElfIndexer.Grains.State.Client;
 using Google.Protobuf;
 using Nethereum.Hex.HexConvertors.Extensions;
-using Org.BouncyCastle.Asn1.X509;
-using Org.BouncyCastle.Utilities.Encoders;
 using Portkey.Contracts.CA;
 using Portkey.Indexer.CA.Entities;
 using Portkey.Indexer.CA.GraphQL;
@@ -66,7 +64,6 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
     const string transactionId = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da2";
     const string transactionId1 = "c1e625d135171c766999274a00a7003abed24cfe59a7215aabf1472ef20a2da3";
     const long blockHeight = 100;
-    const long blockHeight1 = 200;
     const string crossChainTransferMethodName = "CrossChainTransfer";
     const string crossChainReceivedMethodName = "CrossChainReceiveToken";
     const string transferMethodName = "Transferred";
@@ -776,7 +773,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         var blockStateSetTransfer = new BlockStateSet<TransactionInfo>
         {
             BlockHash = blockHash1,
-            BlockHeight = blockHeight1,
+            BlockHeight = blockHeight,
             Confirmed = true,
             PreviousBlockHash = previousBlockHash1
         };
@@ -851,7 +848,7 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         var logEventContext1 = new LogEventContext
         {
             ChainId = chainId,
-            BlockHeight = blockHeight1,
+            BlockHeight = blockHeight,
             BlockHash = blockHash1,
             PreviousBlockHash = previousBlockHash1,
             TransactionId = transactionId1,

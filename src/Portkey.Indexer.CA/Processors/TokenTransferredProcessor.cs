@@ -92,6 +92,14 @@ public class TokenTransferredProcessor:  CAHolderTokenBalanceProcessorBase<Trans
             ? IdGenerateHelper.GetId(context.BlockHash, context.TransactionId, transferred.To.ToBase58()) :
             IdGenerateHelper.GetId(context.BlockHash, context.TransactionId);
         var index = await CAHolderTransactionIndexRepository.GetFromBlockStateSetAsync(id, context.ChainId);
+        index ??= new CAHolderTransactionIndex
+        {
+            Id = id,
+            Timestamp = context.BlockTime.ToTimestamp().Seconds,
+            FromAddress = context.From,
+            TransactionFee = GetTransactionFee(context.ExtraProperties),
+            ToContractAddress = GetToContractAddress(context.ChainId, context.To, context.MethodName, context.Params)
+        };
         var transferInfo = new TransferInfo
         {
             Amount = transferred.Amount,
@@ -101,23 +109,6 @@ public class TokenTransferredProcessor:  CAHolderTokenBalanceProcessorBase<Trans
             FromChainId = context.ChainId,
             ToChainId = context.ChainId
         };
-        
-        if (index == null)
-        {
-            index = new CAHolderTransactionIndex
-            {
-                Id = id,
-                Timestamp = context.BlockTime.ToTimestamp().Seconds,
-                FromAddress = context.From,
-                TokenInfo = tokenInfoIndex,
-                NftInfo = nftInfoIndex,
-                TransactionFee = GetTransactionFee(context.ExtraProperties),
-                TransferInfo = transferInfo,
-                ToContractAddress = GetToContractAddress(context.ChainId, context.To, context.MethodName, context.Params),
-                TokenTransferInfos = new List<TokenTransferInfo>()
-            };
-        }
-
         if (IsMultiTokenTransfer(context.ChainId, context.To, context.MethodName, context.Params))
         {
             index.TokenTransferInfos.Add(new TokenTransferInfo
@@ -126,6 +117,12 @@ public class TokenTransferredProcessor:  CAHolderTokenBalanceProcessorBase<Trans
                 TokenInfo = tokenInfoIndex,
                 NftInfo = nftInfoIndex
             });
+        } 
+        else
+        {
+            index.TransferInfo = transferInfo;
+            index.TokenInfo = tokenInfoIndex;
+            index.NftInfo = nftInfoIndex;
         }
         ObjectMapper.Map(context, index);
         index.MethodName = GetMethodName(context.MethodName, context.Params);

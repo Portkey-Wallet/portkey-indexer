@@ -1,4 +1,3 @@
-using GraphQL;
 using Portkey.Indexer.CA.Entities;
 
 namespace Portkey.Indexer.CA.GraphQL;
@@ -34,7 +33,7 @@ public class CAHolderTransactionDto
 
     public TransferInfo TransferInfo { get; set; }
     
-    public List<TokenTransferInfo> TokenTransferInfos { get; set; }
+    public List<TokenTransferInfoDto> TokenTransferInfos { get; set; }
     
     public string FromAddress { get; set; }
 
@@ -42,6 +41,15 @@ public class CAHolderTransactionDto
 
     public List<TransactionFee> TransactionFees { get; set; }
     public bool IsManagerConsumer { get; set; } = false;
+}
+
+public class TokenTransferInfoDto
+{
+    public TokenInfoDto TokenInfo { get; set; }
+    
+    public NFTItemInfoDto NftInfo { get; set; }
+
+    public TransferInfo TransferInfo { get; set; }
 }
 
 public class TransactionFee

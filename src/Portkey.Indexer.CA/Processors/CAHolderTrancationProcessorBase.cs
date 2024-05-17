@@ -95,13 +95,17 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
     
     protected bool IsMultiTokenTransfer(string chainId, string to, string methodName, string parameter)
     {
-        if (methodName != "ManagerForwardCall") return false;
+        if (methodName != "ManagerForwardCall")
+        {
+            var caHolderTransactionInfo = CAHolderTransactionInfoOptions.CAHolderTransactionInfos.FirstOrDefault(t =>
+                t.ChainId == chainId &&
+                t.ContractAddress == to && t.MethodName == methodName &&
+                t.EventNames.Contains(GetEventName()));
+            return caHolderTransactionInfo?.MultiTokenTransfer ?? false;
+        }
         var managerForwardCallInput = ManagerForwardCallInput.Parser.ParseFrom(ByteString.FromBase64(parameter));
-        var caHolderTransactionInfo = CAHolderTransactionInfoOptions.CAHolderTransactionInfos.FirstOrDefault(t =>
-            t.ChainId == chainId &&
-            t.ContractAddress == managerForwardCallInput.ContractAddress.ToBase58() && t.MethodName == managerForwardCallInput.MethodName &&
-            t.EventNames.Contains(GetEventName()));
-        return caHolderTransactionInfo?.MultiTokenTransfer ?? false;
+        return IsMultiTokenTransfer(chainId, managerForwardCallInput.ContractAddress.ToBase58(), 
+            managerForwardCallInput.MethodName, managerForwardCallInput.Args.ToBase64());
     }
 
     private bool IsValidManagerForwardCallTransaction(string chainId, string to, string methodName, string parameter)

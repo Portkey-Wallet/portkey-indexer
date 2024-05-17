@@ -26,7 +26,7 @@ public class CAHolderTransactionIndex : AElfIndexerClientEntity<string>, IIndexB
 
     public TransferInfo TransferInfo { get; set; }
 
-    public List<TokenTransferInfo> TokenTransferInfos { get; set; }
+    public List<TokenTransferInfo> TokenTransferInfos { get; set; } = new();
 
     [Keyword]
     public string FromAddress { get; set; }
