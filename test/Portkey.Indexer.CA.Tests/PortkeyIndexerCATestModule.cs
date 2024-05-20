@@ -290,8 +290,7 @@ public class PortkeyIndexerCATestModule : AbpModule
                     EventNames = new List<string>
                     {
                         "Transferred"
-                    },
-                    MultiTokenTransfer = true
+                    }
                 },
             };
         });

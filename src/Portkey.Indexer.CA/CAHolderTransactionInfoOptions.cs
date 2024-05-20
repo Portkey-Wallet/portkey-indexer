@@ -15,5 +15,4 @@ public class CAHolderTransactionInfo
     
     public List<string> EventNames { get; set; }
     public bool MultiTransaction { get; set; }
-    public bool MultiTokenTransfer { get; set; }
 }
