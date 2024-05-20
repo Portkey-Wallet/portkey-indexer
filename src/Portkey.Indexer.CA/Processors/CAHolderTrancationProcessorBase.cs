@@ -92,21 +92,6 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
             t.EventNames.Contains(GetEventName()));
         return caHolderTransactionInfo?.MultiTransaction ?? false;
     }
-    
-    protected bool IsMultiTokenTransfer(string chainId, string to, string methodName, string parameter)
-    {
-        if (methodName != "ManagerForwardCall")
-        {
-            var caHolderTransactionInfo = CAHolderTransactionInfoOptions.CAHolderTransactionInfos.FirstOrDefault(t =>
-                t.ChainId == chainId &&
-                t.ContractAddress == to && t.MethodName == methodName &&
-                t.EventNames.Contains(GetEventName()));
-            return caHolderTransactionInfo?.MultiTokenTransfer ?? false;
-        }
-        var managerForwardCallInput = ManagerForwardCallInput.Parser.ParseFrom(ByteString.FromBase64(parameter));
-        return IsMultiTokenTransfer(chainId, managerForwardCallInput.ContractAddress.ToBase58(), 
-            managerForwardCallInput.MethodName, managerForwardCallInput.Args.ToBase64());
-    }
 
     private bool IsValidManagerForwardCallTransaction(string chainId, string to, string methodName, string parameter)
     {
