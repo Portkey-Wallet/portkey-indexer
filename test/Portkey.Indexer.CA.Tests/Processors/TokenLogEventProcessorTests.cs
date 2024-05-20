@@ -831,8 +831,11 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         
         var transactionIndex = await _caHolderTransactionIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(blockHash, transactionId), chainId);
         transactionIndex.ToContractAddress.ShouldBe("CAAddress");
-        transactionIndex.TokenTransferInfos.Count.ShouldBe(0);
-        
+        transactionIndex.TokenTransferInfos.Count.ShouldBe(2);
+        transactionIndex.TokenTransferInfos[0].TransferInfo.FromAddress.ShouldBe(holderA.CaAddress.ToBase58());
+        transactionIndex.TokenTransferInfos[0].TransferInfo.ToAddress.ShouldBe(holderB.CaAddress.ToBase58());
+        transactionIndex.TokenTransferInfos[1].TransferInfo.FromAddress.ShouldBe(holderB.CaAddress.ToBase58());
+        transactionIndex.TokenTransferInfos[1].TransferInfo.ToAddress.ShouldBe(holderA.CaAddress.ToBase58());
         
         // other transaction
         var logEventInfo1 = LogEventHelper.ConvertAElfLogEventToLogEventInfo(transferred.ToLogEvent());
@@ -869,7 +872,8 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         
         var transactionIndex1 = await _caHolderTransactionIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(blockHash1, transactionId1), chainId);
         transactionIndex1.ToContractAddress.ShouldBe(Address.FromPublicKey("ABC".HexToByteArray()).ToBase58());
-        transactionIndex1.TokenTransferInfos.Count.ShouldBe(1);
+        transactionIndex1.TokenTransferInfos.Count.ShouldBe(0);
+        transactionIndex1.TransferInfo.ShouldNotBeNull();
     }
 
     [Fact]
@@ -2182,14 +2186,15 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
                 {
                     "Transferred",
                     "Transfer",
-                    "CrossChainTransfer"
+                    "CrossChainTransfer",
+                    "TransferToken"
                 }
             });
         result.TotalRecordCount.ShouldBe(1);
         result.Data.Count.ShouldBe(1);
-        result.Data.FirstOrDefault().MethodName.ShouldBe("Transferred");
+        result.Data.FirstOrDefault().MethodName.ShouldBe("TransferToken");
         result.Data.FirstOrDefault().TransferInfo.FromCAAddress
-            .ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
+            .ShouldBe(Address.FromPublicKey("AAAA".HexToByteArray()).ToBase58());
         result.Data.FirstOrDefault().ChainId.ShouldBe("AELF");
         result.Data.FirstOrDefault().TransferInfo.Amount.ShouldBe(1);
 
@@ -2200,19 +2205,20 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
                 SkipCount = 0,
                 MaxResultCount = 10,
                 ChainId = chainId,
-                // CAAddresses = new List<string>
-                // {
-                //     Address.FromPublicKey("AAAA".HexToByteArray()).ToBase58()
-                // },
+                CAAddresses = new List<string>
+                {
+                    Address.FromPublicKey("AAAA".HexToByteArray()).ToBase58()
+                },
                 Symbol = "READ",
                 MethodNames = new List<string>
                 {
                     "Transferred",
                     "Transfer",
-                    "CrossChainTransfer"
+                    "CrossChainTransfer",
+                    "TransferToken"
                 }
             });
-        result.TotalRecordCount.ShouldBe(1);
+        result.TotalRecordCount.ShouldBe(2);
     }
 
     [Fact]

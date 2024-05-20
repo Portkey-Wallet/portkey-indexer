@@ -62,8 +62,6 @@ public class TokenTransferredProcessor:  CAHolderTokenBalanceProcessorBase<Trans
 
     protected override async Task HandlerTransactionIndexAsync(Transferred eventValue, LogEventContext context)
     {
-        if (!IsValidTransaction(context.ChainId, context.To, context.MethodName, context.Params)) return;
-
         var from = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
             eventValue.From.ToBase58()),context.ChainId);
         var tokenInfoIndex = await GetTokenInfoIndexFromStateOrChainAsync(eventValue.Symbol, context);
@@ -109,15 +107,24 @@ public class TokenTransferredProcessor:  CAHolderTokenBalanceProcessorBase<Trans
             FromChainId = context.ChainId,
             ToChainId = context.ChainId
         };
-        if (IsMultiTokenTransfer(context.ChainId, context.To, context.MethodName, context.Params))
+        if (index.TransferInfo != null)
         {
+            index.TokenTransferInfos.Add(new TokenTransferInfo
+            {
+                TransferInfo = index.TransferInfo,
+                TokenInfo = index.TokenInfo,
+                NftInfo = index.NftInfo
+            });
+            index.TransferInfo = null;
+            index.NftInfo = null;
+            index.TokenInfo = null;
             index.TokenTransferInfos.Add(new TokenTransferInfo
             {
                 TransferInfo = transferInfo,
                 TokenInfo = tokenInfoIndex,
                 NftInfo = nftInfoIndex
             });
-        } 
+        }
         else
         {
             index.TransferInfo = transferInfo;
