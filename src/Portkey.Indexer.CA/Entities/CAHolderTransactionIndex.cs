@@ -33,7 +33,8 @@ public class CAHolderTransactionIndex : AElfIndexerClientEntity<string>, IIndexB
     
     [Keyword]
     public string ToContractAddress { get; set; }
-    public Dictionary<string,long> TransactionFee { get; set; }
+
+    public Dictionary<string, long> TransactionFee { get; set; } = new();
 }
 
 // public class TokenInfo
