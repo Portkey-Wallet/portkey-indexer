@@ -628,14 +628,21 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
         logEventInfo.BlockHeight = blockHeight;
         logEventInfo.ChainId = chainId;
         logEventInfo.BlockHash = blockHash;
-        logEventInfo.TransactionId = transactionId;
+        logEventInfo.TransactionId = transactionId1;
         var logEventContext = new LogEventContext
         {
+            To = "CAAddress",
             ChainId = chainId,
             BlockHeight = blockHeight,
             BlockHash = blockHash,
             PreviousBlockHash = previousBlockHash,
-            TransactionId = transactionId
+            BlockTime = DateTime.UtcNow,
+            TransactionId = transactionId1,
+            ExtraProperties = new Dictionary<string, string>
+            {
+                { "TransactionFee", "{\"ELF\":\"30000000\"}" },
+                { "ResourceFee", "{\"ELF\":\"30000000\"}" }
+            },
         };
 
         await tokenIssuedLogEventProcessor.HandleEventAsync(logEventInfo, logEventContext);
@@ -647,6 +654,11 @@ public class TokenLogEventProcessorTests : PortkeyIndexerCATestBase
                                                                 caHolderCreated.CaAddress.ToString()
                                                                     .Trim(new char[] { '"' }) + "-" + symbol);
         tokenBalanceIndexData.BlockHeight.ShouldBe(blockHeight);
+
+        var transactionIndex = await _caHolderTransactionIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(blockHash, transactionId1), chainId);
+        transactionIndex.TransferInfo.ToAddress.ShouldBe(caHolderCreated.CaAddress.ToBase58());
+        transactionIndex.TransferInfo.Amount.ShouldBe(amount);
+        transactionIndex.TokenInfo.Symbol.ShouldBe(symbol);
     }
 
     [Fact]

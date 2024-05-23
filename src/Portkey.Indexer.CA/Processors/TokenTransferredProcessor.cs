@@ -98,15 +98,6 @@ public class TokenTransferredProcessor:  CAHolderTokenBalanceProcessorBase<Trans
             TransactionFee = GetTransactionFee(context.ExtraProperties),
             ToContractAddress = GetToContractAddress(context.ChainId, context.To, context.MethodName, context.Params)
         };
-        var transferInfo = new TransferInfo
-        {
-            Amount = transferred.Amount,
-            FromAddress = transferred.From.ToBase58(),
-            FromCAAddress = transferred.From.ToBase58(),
-            ToAddress = transferred.To.ToBase58(),
-            FromChainId = context.ChainId,
-            ToChainId = context.ChainId
-        };
         if (index.TransferInfo != null)
         {
             index.TokenTransferInfos.Add(new TokenTransferInfo
@@ -118,6 +109,19 @@ public class TokenTransferredProcessor:  CAHolderTokenBalanceProcessorBase<Trans
             index.TransferInfo = null;
             index.NftInfo = null;
             index.TokenInfo = null;
+        }
+
+        var transferInfo = new TransferInfo
+        {
+            Amount = transferred.Amount,
+            FromAddress = transferred.From.ToBase58(),
+            FromCAAddress = transferred.From.ToBase58(),
+            ToAddress = transferred.To.ToBase58(),
+            FromChainId = context.ChainId,
+            ToChainId = context.ChainId
+        };
+        if (index.TokenTransferInfos.Count > 0)
+        {
             index.TokenTransferInfos.Add(new TokenTransferInfo
             {
                 TransferInfo = transferInfo,
