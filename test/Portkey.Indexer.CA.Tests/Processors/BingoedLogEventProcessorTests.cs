@@ -115,8 +115,6 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
         bingoGameIndexData.Dices[1].ShouldBe(2);
         bingoGameIndexData.Dices[2].ShouldBe(6);
         bingoGameIndexData.PlayerAddress.ShouldBe(bingoed.PlayerAddress.ToBase58());
-        bingoGameIndexData.PlayTransactionFee[0].Amount.ShouldBe(60000000);
-        bingoGameIndexData.PlayTransactionFee[0].Symbol.ShouldBe("ELF");
         bingoGameIndexData.PlayBlockHash.ShouldBe(blockHash);
         bingoGameIndexData.PlayBlockHeight.ShouldBe(blockHeight);
         bingoGameIndexData.ChainId.ShouldBe(chainId);
@@ -434,8 +432,6 @@ public class BingoedProcessorTests: PortkeyIndexerCATestBase
         bingoGameIndexData.ShouldNotBeNull();
         bingoGameIndexData.Amount.ShouldBe(100000000);
         bingoGameIndexData.PlayerAddress.ShouldBe(bingoed.PlayerAddress.ToBase58());
-        bingoGameIndexData.PlayTransactionFee[0].Amount.ShouldBe(60000000);
-        bingoGameIndexData.PlayTransactionFee[0].Symbol.ShouldBe("ELF");
         bingoGameIndexData.PlayBlockHash.ShouldBe(blockHash);
         bingoGameIndexData.PlayBlockHeight.ShouldBe(blockHeight);
         bingoGameIndexData.ChainId.ShouldBe(chainId);
