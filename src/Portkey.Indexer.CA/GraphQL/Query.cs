@@ -133,6 +133,29 @@ public class Query
                         q => q.Term(i => i.Field(f => f.TransferInfo.ToChainId).Value(info.ChainId))
                     };
                 shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryTransferToAddressInfo)));
+                
+                
+                var mustQueryTransferFromAddressInfoList =
+                    new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
+                    {
+                        q => q.Terms(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromAddress)).Terms(info.CAAddress)),
+                        q => q.Terms(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromChainId)).Terms(info.ChainId))
+                    };
+                shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryTransferFromAddressInfoList)));
+                var mustQueryTransferFromCAAddressInfoList =
+                    new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
+                    {
+                        q => q.Terms(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromCAAddress)).Terms(info.CAAddress)),
+                        q => q.Terms(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromChainId)).Terms(info.ChainId))
+                    };
+                shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryTransferFromCAAddressInfoList)));
+                var mustQueryTransferToAddressInfoList =
+                    new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
+                    {
+                        q => q.Terms(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.ToAddress)).Terms(info.CAAddress)),
+                        q => q.Terms(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.ToChainId)).Terms(info.ChainId))
+                    };
+                shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryTransferToAddressInfoList)));
             }
 
             mustQuery.Add(q => q.Bool(b => b.Should(shouldQuery)));
@@ -362,7 +385,14 @@ public class Query
                     s.Match(i => i.Field(f => f.TransferInfo.FromAddress).Query(caAddress)));
                 shouldQuery.Add(s =>
                     s.Match(i => i.Field(f => f.TransferInfo.ToAddress).Query(caAddress)));
+                shouldQuery.Add(s =>
+                    s.Match(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromAddress)).Query(caAddress)));
+                shouldQuery.Add(s =>
+                    s.Match(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromCAAddress)).Query(caAddress)));
+                shouldQuery.Add(s =>
+                    s.Match(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.ToAddress)).Query(caAddress)));
             }
+
 
             mustQuery.Add(q => q.Bool(b => b.Should(shouldQuery)));
         }

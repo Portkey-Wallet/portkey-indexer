@@ -2,6 +2,7 @@ using AElf.Contracts.MultiToken;
 using AElfIndexer.Client;
 using AElfIndexer.Client.Handlers;
 using AElfIndexer.Grains.State.Client;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Portkey.Indexer.CA.Entities;
@@ -32,11 +33,13 @@ public class TransactionFeeChargedProcessor : CAHolderTokenBalanceProcessorBase<
             caHolderNFTCollectionBalanceIndexRepository,
         IAElfIndexerClientEntityRepository<CAHolderNFTBalanceIndex, TransactionInfo> caHolderNFTBalanceIndexRepository,
         IAElfDataProvider aelfDataProvider,
-        IObjectMapper objectMapper,IOptionsSnapshot<InscriptionListOptions> inscriptionListOptions) : base(logger, contractInfoOptions,
+        IObjectMapper objectMapper,IOptionsSnapshot<InscriptionListOptions> inscriptionListOptions,
+        IAElfIndexerClientEntityRepository<CAHolderTransactionIndex, TransactionInfo> caHolderTransactionIndexRepository) : base(logger, contractInfoOptions,
         caHolderIndexRepository, tokenInfoIndexRepository, nftCollectionInfoRepository, nftInfoRepository,
         caHolderSearchTokenNFTRepository,
         caHolderTokenBalanceIndexRepository, caHolderNFTCollectionBalanceIndexRepository,
-        caHolderNFTBalanceIndexRepository, aelfDataProvider, objectMapper,inscriptionListOptions)
+        caHolderNFTBalanceIndexRepository, aelfDataProvider, objectMapper,inscriptionListOptions,
+        null, caHolderTransactionIndexRepository)
     {
         _transactionFeeChangedIndexRepository = transactionFeeChangedIndexRepository;
         _objectMapper = objectMapper;
@@ -66,8 +69,34 @@ public class TransactionFeeChargedProcessor : CAHolderTokenBalanceProcessorBase<
         {
             transactionFeeChangedIndex.CAAddress = caHolderIndex.CAAddress;
             await ModifyBalanceAsync(caHolderIndex.CAAddress, eventValue.Symbol, -eventValue.Amount, context);
+            await HandlerTransactionIndexAsync(eventValue, context);
         }
 
         await _transactionFeeChangedIndexRepository.AddOrUpdateAsync(transactionFeeChangedIndex);
+    }
+
+    protected override async Task HandlerTransactionIndexAsync(TransactionFeeCharged eventValue, LogEventContext context)
+    {
+        var id = IdGenerateHelper.GetId(context.BlockHash, context.TransactionId);
+        var transIndex = await CAHolderTransactionIndexRepository.GetFromBlockStateSetAsync(id, context.ChainId);
+        transIndex ??= new CAHolderTransactionIndex
+        {
+            Id = id,
+            Timestamp = context.BlockTime.ToTimestamp().Seconds,
+            FromAddress = context.From,
+            ToContractAddress = GetToContractAddress(context.ChainId, context.To, context.MethodName, context.Params)
+        };
+        if (transIndex.TransactionFee.TryGetValue(eventValue.Symbol, out _))
+        {
+            transIndex.TransactionFee[eventValue.Symbol] += eventValue.Amount;
+        }
+        else
+        {
+            transIndex.TransactionFee[eventValue.Symbol] = eventValue.Amount;
+        }
+
+        ObjectMapper.Map(context, transIndex);
+        transIndex.MethodName = GetMethodName(context.MethodName, context.Params);
+        await CAHolderTransactionIndexRepository.AddOrUpdateAsync(transIndex);
     }
 }

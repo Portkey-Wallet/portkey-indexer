@@ -58,6 +58,7 @@ public class VirtualTransactionCreatedProcessor : CAHolderTransactionProcessorBa
             Id = id,
             Timestamp = context.BlockTime.ToTimestamp().Seconds,
             FromAddress = eventValue.From.ToBase58(),
+            ToContractAddress = GetToContractAddress(context.ChainId, context.To, context.MethodName, context.Params),
             TransactionFee = GetTransactionFee(context.ExtraProperties),
         };
         ObjectMapper.Map(context, transIndex);
