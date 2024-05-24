@@ -67,6 +67,8 @@ public class TokenIssuedProcessor : CAHolderTokenBalanceProcessorBase<Issued>
             transIndex.NftInfo = await GetNftInfoIndexFromStateOrChainAsync(eventValue.Symbol, context);
             transIndex.TransferInfo = new TransferInfo
             {
+                FromAddress = CommonConstant.EmptyAddress,
+                FromCAAddress = CommonConstant.EmptyAddress,
                 Amount = eventValue.Amount,
                 ToAddress = eventValue.To.ToBase58(),
                 FromChainId = context.ChainId,
