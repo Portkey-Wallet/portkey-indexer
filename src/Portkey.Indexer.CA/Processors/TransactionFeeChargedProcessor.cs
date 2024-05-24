@@ -69,10 +69,10 @@ public class TransactionFeeChargedProcessor : CAHolderTokenBalanceProcessorBase<
         {
             transactionFeeChangedIndex.CAAddress = caHolderIndex.CAAddress;
             await ModifyBalanceAsync(caHolderIndex.CAAddress, eventValue.Symbol, -eventValue.Amount, context);
+            await HandlerTransactionIndexAsync(eventValue, context);
         }
 
         await _transactionFeeChangedIndexRepository.AddOrUpdateAsync(transactionFeeChangedIndex);
-        await HandlerTransactionIndexAsync(eventValue, context);
     }
 
     protected override async Task HandlerTransactionIndexAsync(TransactionFeeCharged eventValue, LogEventContext context)
