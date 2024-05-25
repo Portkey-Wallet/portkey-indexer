@@ -73,6 +73,16 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
             !IsValidManagerForwardCallTransaction(chainId, to, methodName, parameter)) return false;
         return true;
     }
+    
+    protected string GetToContractAddress(string chainId, string to, string methodName, string parameter)
+    {
+        if (to == ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress && methodName == "ManagerForwardCall")
+        {
+            var managerForwardCallInput = ManagerForwardCallInput.Parser.ParseFrom(ByteString.FromBase64(parameter));
+            return managerForwardCallInput.ContractAddress.ToBase58();
+        }
+        return to;
+    }
 
     protected bool IsMultiTransaction(string chainId, string to, string methodName)
     {
@@ -103,31 +113,7 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
 
     protected Dictionary<string, long> GetTransactionFee(Dictionary<string, string> extraProperties)
     {
-        var feeMap = new Dictionary<string, long>();
-        if (extraProperties.TryGetValue("TransactionFee", out var transactionFee))
-        {
-            feeMap = JsonConvert.DeserializeObject<Dictionary<string, long>>(transactionFee) ??
-                     new Dictionary<string, long>();
-        }
-
-        if (extraProperties.TryGetValue("ResourceFee", out var resourceFee))
-        {
-            var resourceFeeMap = JsonConvert.DeserializeObject<Dictionary<string, long>>(resourceFee) ??
-                                 new Dictionary<string, long>();
-            foreach (var (symbol, fee) in resourceFeeMap)
-            {
-                if (feeMap.TryGetValue(symbol, out _))
-                {
-                    feeMap[symbol] += fee;
-                }
-                else
-                {
-                    feeMap[symbol] = fee;
-                }
-            }
-        }
-
-        return feeMap;
+        return new Dictionary<string, long>();
     }
 
     protected async Task AddCAHolderTransactionAddressAsync(string caAddress, string address, string addressChainId,

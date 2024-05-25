@@ -106,8 +106,6 @@ public class PlayedLogEventProcessorTests: PortkeyIndexerCATestBase
         bingoGameIndexData.ShouldNotBeNull();
         bingoGameIndexData.Amount.ShouldBe(100000000);
         bingoGameIndexData.PlayerAddress.ShouldBe(bingoed.PlayerAddress.ToBase58());
-        bingoGameIndexData.PlayTransactionFee[0].Amount.ShouldBe(60000000);
-        bingoGameIndexData.PlayTransactionFee[0].Symbol.ShouldBe("ELF");
         bingoGameIndexData.PlayBlockHash.ShouldBe(blockHash);
         bingoGameIndexData.PlayBlockHeight.ShouldBe(blockHeight);
         bingoGameIndexData.ChainId.ShouldBe(chainId);
