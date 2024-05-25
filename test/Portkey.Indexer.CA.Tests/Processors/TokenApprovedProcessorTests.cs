@@ -96,10 +96,10 @@ public class TokenApprovedProcessorTests : PortkeyIndexerCATestBase
 
         // CAHolderTokenApproved
         var caHolderTokenApprovedIndex = await _caHolderTokenApprovedIndexRepository.GetAsync(IdGenerateHelper.GetId(
-            chainId, Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(), Address.FromPublicKey("DDD".HexToByteArray()).ToBase58()));
+            chainId, Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(), Address.FromPublicKey("DDD".HexToByteArray()).ToBase58(), "ELF"));
         caHolderTokenApprovedIndex.Spender.ShouldBe(Address.FromPublicKey("DDD".HexToByteArray()).ToBase58());
         caHolderTokenApprovedIndex.CAAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
-        caHolderTokenApprovedIndex.BatchApprovedAmount.ShouldBe(0);
+        caHolderTokenApprovedIndex.BatchApprovedAmount.ShouldBe(1000000000);
 
         approved.Symbol = "*";
         logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(approved.ToLogEvent());
@@ -116,16 +116,14 @@ public class TokenApprovedProcessorTests : PortkeyIndexerCATestBase
         await Task.Delay(2000);
         
         caHolderTokenApprovedIndex = await _caHolderTokenApprovedIndexRepository.GetAsync(IdGenerateHelper.GetId(
-            chainId, Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(), Address.FromPublicKey("DDD".HexToByteArray()).ToBase58()));
-        caHolderTokenApprovedIndex.Spender.ShouldBe(Address.FromPublicKey("DDD".HexToByteArray()).ToBase58());
-        caHolderTokenApprovedIndex.CAAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
-        caHolderTokenApprovedIndex.BatchApprovedAmount.ShouldBe(1000000000);
+            chainId, Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(), Address.FromPublicKey("DDD".HexToByteArray()).ToBase58(), "*"));
+        caHolderTokenApprovedIndex.ShouldBeNull();
         
         // unapprove test
         var unapproved = new UnApproved
         {
             Amount = 1000000000,
-            Symbol = "*",
+            Symbol = "ELF",
             Owner = Address.FromPublicKey("AAA".HexToByteArray()),
             Spender = Address.FromPublicKey("DDD".HexToByteArray())
         };
@@ -143,7 +141,7 @@ public class TokenApprovedProcessorTests : PortkeyIndexerCATestBase
         await Task.Delay(2000);
         
         caHolderTokenApprovedIndex = await _caHolderTokenApprovedIndexRepository.GetAsync(IdGenerateHelper.GetId(
-            chainId, Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(), Address.FromPublicKey("DDD".HexToByteArray()).ToBase58()));
+            chainId, Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(), Address.FromPublicKey("DDD".HexToByteArray()).ToBase58(), "ELF"));
         caHolderTokenApprovedIndex.Spender.ShouldBe(Address.FromPublicKey("DDD".HexToByteArray()).ToBase58());
         caHolderTokenApprovedIndex.CAAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
         caHolderTokenApprovedIndex.BatchApprovedAmount.ShouldBe(0);
@@ -161,6 +159,7 @@ public class TokenApprovedProcessorTests : PortkeyIndexerCATestBase
         pageResultDto.Data[0].Spender.ShouldBe(Address.FromPublicKey("DDD".HexToByteArray()).ToBase58());
         pageResultDto.Data[0].CAAddress.ShouldBe(Address.FromPublicKey("AAA".HexToByteArray()).ToBase58());
         pageResultDto.Data[0].ChainId.ShouldBe("AELF");
+        pageResultDto.Data[0].Symbol.ShouldBe("ELF");
         pageResultDto.Data[0].BatchApprovedAmount.ShouldBe(0);
     }
 

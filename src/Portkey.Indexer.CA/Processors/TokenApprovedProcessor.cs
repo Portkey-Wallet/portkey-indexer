@@ -42,24 +42,27 @@ public class TokenApprovedProcessor : CAHolderTransactionProcessorBase<Approved>
     protected override async Task HandleEventAsync(Approved eventValue, LogEventContext context)
     {
         await HandlerTransactionIndexAsync(eventValue, context);
-        
+        if (eventValue.Symbol.Equals("*") || (eventValue.Symbol.Contains("-") && !eventValue.Symbol.Contains("-*")))
+        {
+            return;
+        }
+
         var holder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
             eventValue.Owner.ToBase58()), context.ChainId);
         if (holder == null) return;
-        var batchApprovedIndexId = IdGenerateHelper.GetId(context.ChainId, eventValue.Owner.ToBase58(), eventValue.Spender.ToBase58());
+        var batchApprovedIndexId = IdGenerateHelper.GetId(context.ChainId, eventValue.Owner.ToBase58(), eventValue.Spender.ToBase58(), eventValue.Symbol);
         var batchApprovedIndex =
             await _batchApprovedIndexRepository.GetFromBlockStateSetAsync(batchApprovedIndexId, context.ChainId);
-        if (batchApprovedIndex == null)
+
+        batchApprovedIndex ??= new CAHolderTokenApprovedIndex
         {
-            batchApprovedIndex = new CAHolderTokenApprovedIndex
-            {
-                Id = batchApprovedIndexId,
-                Spender = eventValue.Spender.ToBase58(),
-                CAAddress = eventValue.Owner.ToBase58(),
-            };
-        }
-        batchApprovedIndex.BatchApprovedAmount =
-            CommonConstant.BatchApprovedSymbol.Equals(eventValue.Symbol) ? eventValue.Amount : 0;
+            Id = batchApprovedIndexId,
+            Spender = eventValue.Spender.ToBase58(),
+            CAAddress = eventValue.Owner.ToBase58(),
+            Symbol = eventValue.Symbol
+        };
+
+        batchApprovedIndex.BatchApprovedAmount += eventValue.Amount;
         ObjectMapper.Map(context, batchApprovedIndex);
         await _batchApprovedIndexRepository.AddOrUpdateAsync(batchApprovedIndex);
     }
