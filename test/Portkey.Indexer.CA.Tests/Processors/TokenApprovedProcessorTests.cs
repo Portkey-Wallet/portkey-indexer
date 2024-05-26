@@ -119,6 +119,24 @@ public class TokenApprovedProcessorTests : PortkeyIndexerCATestBase
             chainId, Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(), Address.FromPublicKey("DDD".HexToByteArray()).ToBase58(), "*"));
         caHolderTokenApprovedIndex.ShouldBeNull();
         
+        approved.Symbol = "SGR-1";
+        logEventInfo = LogEventHelper.ConvertAElfLogEventToLogEventInfo(approved.ToLogEvent());
+        logEventInfo.BlockHeight = blockHeight;
+        logEventInfo.ChainId = chainId;
+        logEventInfo.BlockHash = blockHash;
+        logEventInfo.TransactionId = transactionId;
+        //step3: handle event and write result to blockStateSet
+        await tokenApprovedProcessor.HandleEventAsync(logEventInfo, logEventContext);
+        tokenApprovedProcessor.GetContractAddress("AELF");
+
+        //step4: save blockStateSet into es
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
+        await Task.Delay(2000);
+        
+        caHolderTokenApprovedIndex = await _caHolderTokenApprovedIndexRepository.GetAsync(IdGenerateHelper.GetId(
+            chainId, Address.FromPublicKey("AAA".HexToByteArray()).ToBase58(), Address.FromPublicKey("DDD".HexToByteArray()).ToBase58(), "*"));
+        caHolderTokenApprovedIndex.ShouldBeNull();
+        
         // unapprove test
         var unapproved = new UnApproved
         {
@@ -128,6 +146,20 @@ public class TokenApprovedProcessorTests : PortkeyIndexerCATestBase
             Spender = Address.FromPublicKey("DDD".HexToByteArray())
         };
         var logEventInfo1 = LogEventHelper.ConvertAElfLogEventToLogEventInfo(unapproved.ToLogEvent());
+        logEventInfo1.BlockHeight = blockHeight;
+        logEventInfo1.ChainId = chainId;
+        logEventInfo1.BlockHash = blockHash;
+        logEventInfo1.TransactionId = transactionId;
+        //step3: handle event and write result to blockStateSet
+        await tokenUnApprovedProcessor.HandleEventAsync(logEventInfo1, logEventContext);
+        tokenUnApprovedProcessor.GetContractAddress("AELF");
+
+        //step4: save blockStateSet into es
+        await BlockStateSetSaveDataAsync<TransactionInfo>(blockStateSetKey);
+        await Task.Delay(2000);
+
+        unapproved.Symbol = "SGR-1";
+        logEventInfo1 = LogEventHelper.ConvertAElfLogEventToLogEventInfo(unapproved.ToLogEvent());
         logEventInfo1.BlockHeight = blockHeight;
         logEventInfo1.ChainId = chainId;
         logEventInfo1.BlockHash = blockHash;
