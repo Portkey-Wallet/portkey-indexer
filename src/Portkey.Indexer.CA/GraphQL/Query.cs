@@ -138,22 +138,22 @@ public class Query
                 var mustQueryTransferFromAddressInfoList =
                     new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
                     {
-                        q => q.Terms(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromAddress)).Terms(info.CAAddress)),
-                        q => q.Terms(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromChainId)).Terms(info.ChainId))
+                        q => q.Match(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromAddress)).Query(info.CAAddress)),
+                        q => q.Match(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromChainId)).Query(info.ChainId))
                     };
                 shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryTransferFromAddressInfoList)));
                 var mustQueryTransferFromCAAddressInfoList =
                     new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
                     {
-                        q => q.Terms(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromCAAddress)).Terms(info.CAAddress)),
-                        q => q.Terms(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromChainId)).Terms(info.ChainId))
+                        q => q.Match(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromCAAddress)).Query(info.CAAddress)),
+                        q => q.Match(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromChainId)).Query(info.ChainId))
                     };
                 shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryTransferFromCAAddressInfoList)));
                 var mustQueryTransferToAddressInfoList =
                     new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
                     {
-                        q => q.Terms(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.ToAddress)).Terms(info.CAAddress)),
-                        q => q.Terms(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.ToChainId)).Terms(info.ChainId))
+                        q => q.Match(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.ToAddress)).Query(info.CAAddress)),
+                        q => q.Match(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.ToChainId)).Query(info.ChainId))
                     };
                 shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryTransferToAddressInfoList)));
             }
