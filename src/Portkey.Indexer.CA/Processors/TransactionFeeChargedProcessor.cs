@@ -83,7 +83,7 @@ public class TransactionFeeChargedProcessor : CAHolderTokenBalanceProcessorBase<
         {
             Id = id,
             Timestamp = context.BlockTime.ToTimestamp().Seconds,
-            FromAddress = context.From,
+            FromAddress = eventValue.ChargingAddress.ToBase58(),
             ToContractAddress = GetToContractAddress(context.ChainId, context.To, context.MethodName, context.Params)
         };
         if (transIndex.TransactionFee.TryGetValue(eventValue.Symbol, out _))
