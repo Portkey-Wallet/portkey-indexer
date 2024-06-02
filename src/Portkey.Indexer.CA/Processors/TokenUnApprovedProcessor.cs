@@ -42,16 +42,19 @@ public class TokenUnApprovedProcessor : CAHolderTransactionProcessorBase<UnAppro
 
     protected override async Task HandleEventAsync(UnApproved eventValue, LogEventContext context)
     {
-        if (!eventValue.Symbol.Equals(CommonConstant.BatchApprovedSymbol)) return;
+        if (eventValue.Symbol.Equals("*") || (eventValue.Symbol.Contains("-") && !eventValue.Symbol.Contains("-*")))
+        {
+            return;
+        }
         var holder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
             eventValue.Owner.ToBase58()), context.ChainId);
         if (holder == null) return;
-        var batchApprovedIndexId = IdGenerateHelper.GetId(context.ChainId, eventValue.Owner.ToBase58(), eventValue.Spender.ToBase58());
+        var batchApprovedIndexId = IdGenerateHelper.GetId(context.ChainId, eventValue.Owner.ToBase58(), eventValue.Spender.ToBase58(), eventValue.Symbol);
         var batchApprovedIndex =
             await _batchApprovedIndexRepository.GetFromBlockStateSetAsync(batchApprovedIndexId, context.ChainId);
         if (batchApprovedIndex == null)
             return;
-        batchApprovedIndex.BatchApprovedAmount = 0;
+        batchApprovedIndex.BatchApprovedAmount = Math.Max(0, batchApprovedIndex.BatchApprovedAmount - eventValue.Amount);
         ObjectMapper.Map(context, batchApprovedIndex);
         await _batchApprovedIndexRepository.AddOrUpdateAsync(batchApprovedIndex);
     }

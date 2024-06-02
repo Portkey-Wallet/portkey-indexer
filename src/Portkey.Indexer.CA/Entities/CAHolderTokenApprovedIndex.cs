@@ -10,5 +10,6 @@ public class CAHolderTokenApprovedIndex : AElfIndexerClientEntity<string>, IInde
 
     [Keyword] public string CAAddress { get; set; }
     [Keyword] public string Spender { get; set; }
+    [Keyword] public string Symbol { get; set; }
     public long BatchApprovedAmount { get; set; }
 }
