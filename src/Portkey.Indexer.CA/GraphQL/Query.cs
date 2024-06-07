@@ -82,7 +82,16 @@ public class Query
             mustQuery.Add(q => q.Range(i => i.Field(f => f.Timestamp).LessThanOrEquals(dto.EndTime)));
         }
 
-        mustQuery.Add(q => q.Term(i => i.Field(f => f.TokenInfo.Symbol).Value(dto.Symbol)));
+        if (!dto.Symbol.IsNullOrEmpty())
+        {
+            var symbolShouldQuery =
+                new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>();
+            
+            symbolShouldQuery.Add(q => q.Term(i => i.Field(f => f.TokenInfo.Symbol).Value(dto.Symbol)));
+            symbolShouldQuery.Add(q => q.Term(i => i.Field(f => f.NftInfo.Symbol).Value(dto.Symbol)));
+            mustQuery.Add(q => q.Bool(b => b.Should(symbolShouldQuery)));
+        }
+
         mustQuery.Add(q => q.Term(i => i.Field(f => f.BlockHash).Value(dto.BlockHash)));
         mustQuery.Add(q => q.Term(i => i.Field(f => f.TransactionId).Value(dto.TransactionId)));
         mustQuery.Add(q =>
