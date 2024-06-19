@@ -6,4 +6,5 @@ public class ReferralInfoDto
     public string MethodName { get; set; }
     public string ReferralCode { get; set; }
     public string ProjectCode { get; set; }
+    public long Timestamp { get; set; }
 }
