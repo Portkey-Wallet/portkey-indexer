@@ -67,12 +67,20 @@ public class TransferLimitChangedProcessor : CAHolderTransactionEventBase<Transf
             return;
         }
 
+        var id = IdGenerateHelper.GetId(context.BlockHash, context.TransactionId);
+        var transactionIndex = await _caHolderTransactionIndexRepository.GetFromBlockStateSetAsync(id, context.ChainId);
+        var transactionFee = GetTransactionFee(context.ExtraProperties);
+        if (transactionIndex != null)
+        {
+            transactionFee = transactionIndex.TransactionFee.IsNullOrEmpty() ? transactionFee : transactionIndex.TransactionFee;
+        }
+
         var transIndex = new CAHolderTransactionIndex
         {
             Id = IdGenerateHelper.GetId(context.BlockHash, context.TransactionId),
             Timestamp = context.BlockTime.ToTimestamp().Seconds,
             FromAddress = caAddress.ToBase58(),
-            TransactionFee = GetTransactionFee(context.ExtraProperties),
+            TransactionFee = transactionFee,
         };
         _objectMapper.Map(context, transIndex);
         transIndex.MethodName = context.MethodName;

@@ -73,14 +73,16 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
             !IsValidManagerForwardCallTransaction(chainId, to, methodName, parameter)) return false;
         return true;
     }
-    
+
     protected string GetToContractAddress(string chainId, string to, string methodName, string parameter)
     {
-        if (to == ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress && methodName == "ManagerForwardCall")
+        if (to == ContractInfoOptions.ContractInfos.First(c => c.ChainId == chainId).CAContractAddress &&
+            methodName == "ManagerForwardCall")
         {
             var managerForwardCallInput = ManagerForwardCallInput.Parser.ParseFrom(ByteString.FromBase64(parameter));
             return managerForwardCallInput.ContractAddress.ToBase58();
         }
+
         return to;
     }
 
@@ -147,12 +149,20 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
             caAddress), context.ChainId);
         if (holder == null) return null;
 
+        var id = IdGenerateHelper.GetId(context.BlockHash, context.TransactionId);
+        var transIndex = await CAHolderTransactionIndexRepository.GetFromBlockStateSetAsync(id, context.ChainId);
+        var transactionFee = GetTransactionFee(context.ExtraProperties);
+        if (transIndex != null)
+        {
+            transactionFee = transIndex.TransactionFee.IsNullOrEmpty() ? transactionFee : transIndex.TransactionFee;
+        }
+
         var index = new CAHolderTransactionIndex
         {
-            Id = IdGenerateHelper.GetId(context.BlockHash, context.TransactionId),
+            Id = id,
             Timestamp = context.BlockTime.ToTimestamp().Seconds,
             FromAddress = caAddress,
-            TransactionFee = GetTransactionFee(context.ExtraProperties)
+            TransactionFee = transactionFee
         };
         ObjectMapper.Map(context, index);
         index.MethodName = GetMethodName(context.MethodName, context.Params);
@@ -179,7 +189,10 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
         {
             return null;
         }
-        var nftInfoIndex = await NFTInfoIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId, symbol),context.ChainId);
+
+        var nftInfoIndex =
+            await NFTInfoIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId, symbol),
+                context.ChainId);
         if (nftInfoIndex != null || _aelfDataProvider == null)
         {
             return nftInfoIndex;
@@ -198,13 +211,13 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
         if (nftInfo.Symbol == nftInfoIndex.Symbol)
         {
             ObjectMapper.Map(nftInfo, nftInfoIndex);
-            if (nftInfo.ExternalInfo is {Count: > 0})
+            if (nftInfo.ExternalInfo is { Count: > 0 })
             {
                 nftInfoIndex.ExternalInfoDictionary = nftInfo.ExternalInfo
                     .Where(t => !t.Key.IsNullOrWhiteSpace())
                     .ToDictionary(item => item.Key, item => item.Value);
-               
-                
+
+
                 if (nftInfo.ExternalInfo.TryGetValue("__nft_image_url", out var image))
                 {
                     nftInfoIndex.ImageUrl = image;
@@ -213,7 +226,7 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
                 {
                     nftInfoIndex.ImageUrl = inscriptionImage;
                 }
-                else if(nftInfo.ExternalInfo.TryGetValue("__nft_image_uri", out var inscriptionImageUrl))
+                else if (nftInfo.ExternalInfo.TryGetValue("__nft_image_uri", out var inscriptionImageUrl))
                 {
                     nftInfoIndex.ImageUrl = inscriptionImageUrl;
                 }
@@ -225,16 +238,19 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
 
             nftInfoIndex.ExternalInfoDictionary ??= new Dictionary<string, string>();
         }
+
         return nftInfoIndex;
     }
-    
+
     protected async Task<TokenInfoIndex> GetTokenInfoIndexFromStateOrChainAsync(string symbol, LogEventContext context)
     {
         if (TokenHelper.GetTokenType(symbol) != TokenType.Token)
         {
             return null;
         }
-        var tokenInfoIndex = await TokenInfoIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId, symbol),
+
+        var tokenInfoIndex = await TokenInfoIndexRepository.GetFromBlockStateSetAsync(
+            IdGenerateHelper.GetId(context.ChainId, symbol),
             context.ChainId);
         if (tokenInfoIndex != null || _aelfDataProvider == null)
         {
@@ -259,8 +275,10 @@ public abstract class CAHolderTransactionProcessorBase<TEvent> : AElfLogEventPro
                     .Where(t => !t.Key.IsNullOrWhiteSpace())
                     .ToDictionary(item => item.Key, item => item.Value);
             }
+
             tokenInfoIndex.ExternalInfoDictionary ??= new Dictionary<string, string>();
         }
+
         return tokenInfoIndex;
     }
 
