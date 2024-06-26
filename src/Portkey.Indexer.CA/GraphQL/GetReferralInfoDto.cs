@@ -6,4 +6,8 @@ public class GetReferralInfoDto
     public List<string> MethodNames { get; set; }
     public List<string> ReferralCodes { get; set; }
     public string ProjectCode { get; set; }
+
+    public long StartTime { get; set; }
+
+    public long EndTime { get; set; }
 }
