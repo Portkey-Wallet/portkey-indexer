@@ -7,4 +7,5 @@ public class CAHolderManagerApprovedDto
     public string Spender { get; set; }
     public string Symbol { get; set; }
     public long Amount { get; set; }
+    public long BlockHeight { get; set; }
 }

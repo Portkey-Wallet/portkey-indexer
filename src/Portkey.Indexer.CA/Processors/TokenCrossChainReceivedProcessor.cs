@@ -50,8 +50,14 @@ public class TokenCrossChainReceivedProcessor:  CAHolderTokenBalanceProcessorBas
         await HandlerTransactionIndexAsync(eventValue, context);
         var holder = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
             eventValue.To.ToBase58()),context.ChainId);
-        if (holder == null) return;
-        await ModifyBalanceAsync(holder.CAAddress, eventValue.Symbol, eventValue.Amount, context);
+        if (holder != null)
+        {
+            await ModifyBalanceAsync(holder.CAAddress, eventValue.Symbol, eventValue.Amount, context);
+        }
+        else
+        {
+            await ModifyBalanceAsync(eventValue.To.ToBase58(), eventValue.Symbol, eventValue.Amount, context);
+        }
     }
     
     protected override async Task HandlerTransactionIndexAsync(CrossChainReceived eventValue, LogEventContext context)

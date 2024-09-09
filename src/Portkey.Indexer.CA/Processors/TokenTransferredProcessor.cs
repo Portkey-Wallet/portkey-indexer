@@ -54,10 +54,20 @@ public class TokenTransferredProcessor:  CAHolderTokenBalanceProcessorBase<Trans
         {
             await ModifyBalanceAsync(from.CAAddress, eventValue.Symbol, -eventValue.Amount, context);
         }
+        else
+        {
+            await ModifyBalanceAsync(eventValue.From.ToBase58(), eventValue.Symbol, -eventValue.Amount, context);
+        }
         var to = await CAHolderIndexRepository.GetFromBlockStateSetAsync(IdGenerateHelper.GetId(context.ChainId,
             eventValue.To.ToBase58()),context.ChainId);
-        if (to == null) return;
-        await ModifyBalanceAsync(to.CAAddress, eventValue.Symbol, eventValue.Amount, context);
+        if (to != null)
+        {
+            await ModifyBalanceAsync(to.CAAddress, eventValue.Symbol, eventValue.Amount, context);
+        }
+        else
+        {
+            await ModifyBalanceAsync(eventValue.To.ToBase58(), eventValue.Symbol, eventValue.Amount, context);
+        }
     }
 
     protected override async Task HandlerTransactionIndexAsync(Transferred eventValue, LogEventContext context)
