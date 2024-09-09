@@ -86,7 +86,7 @@ public class Query
         {
             var symbolShouldQuery =
                 new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>();
-            
+
             symbolShouldQuery.Add(q => q.Term(i => i.Field(f => f.TokenInfo.Symbol).Value(dto.Symbol)));
             symbolShouldQuery.Add(q => q.Term(i => i.Field(f => f.NftInfo.Symbol).Value(dto.Symbol)));
             mustQuery.Add(q => q.Bool(b => b.Should(symbolShouldQuery)));
@@ -142,27 +142,39 @@ public class Query
                         q => q.Term(i => i.Field(f => f.TransferInfo.ToChainId).Value(info.ChainId))
                     };
                 shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryTransferToAddressInfo)));
-                
-                
+
+
                 var mustQueryTransferFromAddressInfoList =
                     new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
                     {
-                        q => q.Match(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromAddress)).Query(info.CAAddress)),
-                        q => q.Match(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromChainId)).Query(info.ChainId))
+                        q => q.Match(i =>
+                            i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromAddress))
+                                .Query(info.CAAddress)),
+                        q => q.Match(i =>
+                            i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromChainId))
+                                .Query(info.ChainId))
                     };
                 shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryTransferFromAddressInfoList)));
                 var mustQueryTransferFromCAAddressInfoList =
                     new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
                     {
-                        q => q.Match(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromCAAddress)).Query(info.CAAddress)),
-                        q => q.Match(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromChainId)).Query(info.ChainId))
+                        q => q.Match(i =>
+                            i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromCAAddress))
+                                .Query(info.CAAddress)),
+                        q => q.Match(i =>
+                            i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromChainId))
+                                .Query(info.ChainId))
                     };
                 shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryTransferFromCAAddressInfoList)));
                 var mustQueryTransferToAddressInfoList =
                     new List<Func<QueryContainerDescriptor<CAHolderTransactionIndex>, QueryContainer>>
                     {
-                        q => q.Match(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.ToAddress)).Query(info.CAAddress)),
-                        q => q.Match(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.ToChainId)).Query(info.ChainId))
+                        q => q.Match(i =>
+                            i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.ToAddress))
+                                .Query(info.CAAddress)),
+                        q => q.Match(i =>
+                            i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.ToChainId))
+                                .Query(info.ChainId))
                     };
                 shouldQuery.Add(q => q.Bool(b => b.Must(mustQueryTransferToAddressInfoList)));
             }
@@ -395,11 +407,14 @@ public class Query
                 shouldQuery.Add(s =>
                     s.Match(i => i.Field(f => f.TransferInfo.ToAddress).Query(caAddress)));
                 shouldQuery.Add(s =>
-                    s.Match(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromAddress)).Query(caAddress)));
+                    s.Match(i =>
+                        i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromAddress)).Query(caAddress)));
                 shouldQuery.Add(s =>
-                    s.Match(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromCAAddress)).Query(caAddress)));
+                    s.Match(i =>
+                        i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.FromCAAddress)).Query(caAddress)));
                 shouldQuery.Add(s =>
-                    s.Match(i => i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.ToAddress)).Query(caAddress)));
+                    s.Match(i =>
+                        i.Field(f => f.TokenTransferInfos.Select(t => t.TransferInfo.ToAddress)).Query(caAddress)));
             }
 
 
@@ -557,7 +572,8 @@ public class Query
 
     [Name("caHolderNFTCollectionBalanceInfo")]
     public static async Task<CAHolderNFTCollectionBalancePageResultDto> CAHolderNFTCollecitonBalanceInfo(
-        [FromServices] IAElfIndexerClientEntityRepository<CAHolderNFTCollectionBalanceIndex, TransactionInfo> repository,
+        [FromServices]
+        IAElfIndexerClientEntityRepository<CAHolderNFTCollectionBalanceIndex, TransactionInfo> repository,
         [FromServices] IObjectMapper objectMapper, GetCAHolderNFTCollectionInfoDto dto)
     {
         var mustQuery = new List<Func<QueryContainerDescriptor<CAHolderNFTCollectionBalanceIndex>, QueryContainer>>();
@@ -977,6 +993,13 @@ public class Query
             mustQuery.Add(q => q.Term(i => i.Field(f => f.Spender).Value(dto.Spender)));
         if (!string.IsNullOrEmpty(dto.Symbol))
             mustQuery.Add(q => q.Term(i => i.Field(f => f.Symbol).Value(dto.Symbol)));
+        
+        if (dto.StartHeight.HasValue)
+            mustQuery.Add(q => q.Range(i => i.Field(f => f.BlockHeight).GreaterThanOrEquals(dto.StartHeight.Value)));
+        
+        if (dto.EndHeight.HasValue)
+            mustQuery.Add(q => q.Range(i => i.Field(f => f.BlockHeight).LessThanOrEquals(dto.EndHeight.Value)));
+
         QueryContainer Filter(QueryContainerDescriptor<ManagerApprovedIndex> f) => f.Bool(b => b.Must(mustQuery));
         var (_, res) = await repository.GetListAsync(Filter, skip: dto.SkipCount, limit: dto.MaxResultCount);
         var result = new CAHolderManagerApprovedPageResultDto
@@ -1088,7 +1111,7 @@ public class Query
         {
             mustQuery.Add(q => q.Range(i => i.Field(f => f.Timestamp).LessThanOrEquals(dto.EndTime)));
         }
-        
+
         mustQuery.Add(q => q.Term(i => i.Field(f => f.ProjectCode).Value(dto.ProjectCode)));
         if (!dto.MethodNames.IsNullOrEmpty())
         {
@@ -1153,7 +1176,6 @@ public class Query
                         q => q.Term(i => i.Field(f => f.ChainId).Value(info.ChainId)),
                         q => q.Term(i => i.Field(f => f.Symbol).Value(info.Symbol)),
                         q => q.Term(i => i.Field(f => f.CollectionSymbol).Value(info.CollectionSymbol))
-                        
                     };
                 shouldQuery.Add(q => q.Bool(b => b.Must(nftItemInfo)));
             }
@@ -1167,7 +1189,7 @@ public class Query
             sortType: SortOrder.Ascending, skip: dto.SkipCount, limit: dto.MaxResultCount);
         return objectMapper.Map<List<NFTInfoIndex>, List<NFTItemInfoDto>>(result.Item2);
     }
-    
+
     [Name("caHolderTokenApproved")]
     public static async Task<CAHolderTokenApprovedPageResultDto> CAHolderTokenApprovedAsync(
         [FromServices] IAElfIndexerClientEntityRepository<CAHolderTokenApprovedIndex, TransactionInfo> repository,
@@ -1190,6 +1212,7 @@ public class Query
 
             mustQuery.Add(q => q.Bool(b => b.Should(shouldQuery)));
         }
+
         QueryContainer Filter(QueryContainerDescriptor<CAHolderTokenApprovedIndex> f) => f.Bool(b => b.Must(mustQuery));
         var (_, res) = await repository.GetListAsync(Filter, skip: dto.SkipCount, limit: dto.MaxResultCount);
         var result = new CAHolderTokenApprovedPageResultDto()
