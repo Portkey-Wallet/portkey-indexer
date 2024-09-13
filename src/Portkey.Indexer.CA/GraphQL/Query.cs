@@ -993,10 +993,10 @@ public class Query
             mustQuery.Add(q => q.Term(i => i.Field(f => f.Spender).Value(dto.Spender)));
         if (!string.IsNullOrEmpty(dto.Symbol))
             mustQuery.Add(q => q.Term(i => i.Field(f => f.Symbol).Value(dto.Symbol)));
-        
+
         if (dto.StartHeight.HasValue)
             mustQuery.Add(q => q.Range(i => i.Field(f => f.BlockHeight).GreaterThanOrEquals(dto.StartHeight.Value)));
-        
+
         if (dto.EndHeight.HasValue)
             mustQuery.Add(q => q.Range(i => i.Field(f => f.BlockHeight).LessThanOrEquals(dto.EndHeight.Value)));
 
@@ -1083,6 +1083,46 @@ public class Query
             sortType: SortOrder.Ascending, skip: IndexerConstant.DefaultSkip, limit: IndexerConstant.DefaultLimit);
         return objectMapper.Map<List<GuardianChangeRecordIndex>, List<GuardianChangeRecordDto>>(
             result.Item2);
+    }
+
+    [Name("referralInfoPage")]
+    public static async Task<ReferralInfoResultDto> GetReferralInfoPageAsync(
+        [FromServices] IAElfIndexerClientEntityRepository<InviteIndex, TransactionInfo> repository,
+        [FromServices] IObjectMapper objectMapper, GetReferralInfoPageDto dto)
+    {
+        var mustQuery = new List<Func<QueryContainerDescriptor<InviteIndex>, QueryContainer>>();
+
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.ProjectCode).Value(dto.ProjectCode)));
+        mustQuery.Add(q => q.Term(i => i.Field(f => f.MethodName).Value(dto.MethodName)));
+        if (!dto.CaHashes.IsNullOrEmpty())
+        {
+            mustQuery.Add(q => q.Terms(i => i.Field(f => f.CaHash).Terms(dto.CaHashes)));
+        }
+
+        if (!dto.ReferralCodes.IsNullOrEmpty())
+        {
+            mustQuery.Add(q => q.Terms(i => i.Field(f => f.ReferralCode).Terms(dto.ReferralCodes)));
+        }
+
+        if (dto.StartTime > 0)
+        {
+            mustQuery.Add(q => q.Range(i => i.Field(f => f.Timestamp).GreaterThanOrEquals(dto.StartTime)));
+        }
+
+        if (dto.EndTime > 0)
+        {
+            mustQuery.Add(q => q.Range(i => i.Field(f => f.Timestamp).LessThanOrEquals(dto.EndTime)));
+        }
+
+        QueryContainer Filter(QueryContainerDescriptor<InviteIndex> f) => f.Bool(b => b.Must(mustQuery));
+        var result = await repository.GetListAsync(Filter, sortExp: k => k.Timestamp,
+            sortType: SortOrder.Ascending, skip: dto.SkipCount, limit: dto.MaxResultCount);
+
+        return new ReferralInfoResultDto
+        {
+            TotalRecordCount = result.Item1,
+            Data = objectMapper.Map<List<InviteIndex>, List<ReferralInfoDto>>(result.Item2)
+        };
     }
 
     [Name("referralInfo")]
