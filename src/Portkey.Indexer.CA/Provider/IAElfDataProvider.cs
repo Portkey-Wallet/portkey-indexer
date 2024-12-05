@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using AElf;
 using AElf.Client.Dto;
 using AElf.Contracts.MultiToken;
@@ -17,7 +18,7 @@ public interface IAElfDataProvider
 
 public class AElfDataProvider : IAElfDataProvider
 {
-    private const string PrivateKey = "09da44778f8db2e602fb484334f37df19e221c84c4582ce5b7770ccfbc3ddbef";
+    private readonly string _privateKey;
     private readonly IAElfClientProvider _aelfClientProvider;
     private readonly ContractInfoOptions _contractInfoOptions;
     private readonly ILogger<AElfDataProvider> _logger;
@@ -28,35 +29,36 @@ public class AElfDataProvider : IAElfDataProvider
         _aelfClientProvider = aElfClientProvider;
         _logger = logger;
         _contractInfoOptions = contractInfoOptions.Value;
+        _privateKey = GenerateKey();
     }
 
     public async Task<TokenInfoDto> GetTokenInfoAsync(string chainId, string symbol)
     {
         _logger.LogInformation("[GetTokenInfoAsync] chainId:{0}, symbol:{1}", chainId, symbol);
-        var client = _aelfClientProvider.GetClient(chainId); 
+        var client = _aelfClientProvider.GetClient(chainId);
         await client.IsConnectedAsync();
 
         var tokenContractAddress =
             _contractInfoOptions.ContractInfos.First(t => t.ChainId == chainId).TokenContractAddress;
 
         var transactionGetToken =
-            await client.GenerateTransactionAsync(client.GetAddressFromPrivateKey(PrivateKey), tokenContractAddress,
+            await client.GenerateTransactionAsync(client.GetAddressFromPrivateKey(_privateKey), tokenContractAddress,
                 "GetTokenInfo",
                 new GetTokenInfoInput
                 {
                     Symbol = symbol
                 });
-        var txWithSignGetToken = client.SignTransaction(PrivateKey, transactionGetToken);
+        var txWithSignGetToken = client.SignTransaction(_privateKey, transactionGetToken);
         var transactionGetTokenResult = await client.ExecuteTransactionAsync(new ExecuteTransactionDto
         {
             RawTransaction = txWithSignGetToken.ToByteArray().ToHex()
         });
-        
+
         var tokenInfo = AElf.Contracts.MultiToken.TokenInfo.Parser.ParseFrom(
             ByteArrayHelper.HexStringToByteArray(transactionGetTokenResult));
 
         if (tokenInfo == null) return null;
-        
+
         var tokenInfoDto = new TokenInfoDto
         {
             // not support mapping
@@ -75,7 +77,9 @@ public class AElfDataProvider : IAElfDataProvider
         {
             tokenInfoDto.ExternalInfo = tokenInfo.ExternalInfo.Value;
         }
-        
+
         return tokenInfoDto;
     }
+
+    private string GenerateKey() => Convert.ToBase64String(ECDsa.Create().ExportPkcs8PrivateKey());
 }
