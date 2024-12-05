@@ -2,6 +2,7 @@ using System.Security.Cryptography;
 using AElf;
 using AElf.Client.Dto;
 using AElf.Contracts.MultiToken;
+using AElf.Cryptography;
 using AElfIndexer.Client.Providers;
 using Google.Protobuf;
 using Microsoft.Extensions.Logging;
@@ -81,5 +82,5 @@ public class AElfDataProvider : IAElfDataProvider
         return tokenInfoDto;
     }
 
-    private string GenerateKey() => Convert.ToBase64String(ECDsa.Create().ExportPkcs8PrivateKey());
+    private string GenerateKey() => CryptoHelper.GenerateKeyPair().PrivateKey.ToHex();
 }
